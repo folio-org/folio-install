@@ -20,5 +20,7 @@ A collection of runbooks for FOLIO installation.
 
 See project [FOLIO](https://issues.folio.org/browse/FOLIO) at the [FOLIO issue tracker](http://dev.folio.org/community/guide-issues).
 
-### [Contributing guidelines](CONTRIBUTING.md)
+### Contributing guidelines
+
+See [CONTRIBUTING.md](CONTRIBUTING.md)
 
