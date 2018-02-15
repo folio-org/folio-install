@@ -24,3 +24,7 @@ See project [FOLIO](https://issues.folio.org/browse/FOLIO) at the [FOLIO issue t
 
 See [CONTRIBUTING.md](CONTRIBUTING.md)
 
+### See also
+
+* The [Okapi Guide and Reference](https://github.com/folio-org/okapi/blob/master/doc/guide.md).
+

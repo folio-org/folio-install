@@ -1,0 +1,9 @@
+{
+  "srvcId" : "mod-codex-mux",
+  "descriptor" : {
+    "dockerImage" : "folioci/mod-codex-mux:latest",
+    "dockerArgs" : {
+      "HostConfig" : { "PortBindings": { "8081/tcp": [{ "HostPort": "%p" }] } }
+    }
+  }
+}

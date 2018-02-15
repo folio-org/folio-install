@@ -1,0 +1,9 @@
+{
+  "srvcId" : "mod-inventory-storage",
+  "descriptor" : {
+    "dockerImage" : "folioci/mod-inventory-storage:latest",
+    "dockerArgs" : {
+      "HostConfig" : { "PortBindings": { "8081/tcp": [{ "HostPort": "%p" }] } }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "srvcId" : "mod-authtoken",
+  "descriptor" : {
+    "dockerImage" : "folioci/mod-authtoken:latest",
+    "dockerArgs" : {
+      "HostConfig" : { "PortBindings": { "8081/tcp": [{ "HostPort": "%p" }] } }
+    }
+  }
+}

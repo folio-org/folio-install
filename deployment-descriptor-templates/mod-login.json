@@ -1,0 +1,12 @@
+{
+  "srvcId" : "mod-login",
+  "descriptor" : {
+    "dockerImage" : "folioci/mod-login:latest",
+    "dockerArgs" : {
+      "HostConfig" : { "PortBindings": { "8081/tcp": [{ "HostPort": "%p" }] } }
+    },
+    "dockerCMD" : [
+      "verify.user=true"
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "srvcId" : "mod-codex-inventory",
+  "descriptor" : {
+    "dockerImage" : "folioci/mod-codex-inventory:latest",
+    "dockerArgs" : {
+      "HostConfig" : { "PortBindings": { "8081/tcp": [{ "HostPort": "%p" }] } }
+    }
+  }
+}

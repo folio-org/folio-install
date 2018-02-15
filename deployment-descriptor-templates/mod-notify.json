@@ -1,0 +1,9 @@
+{
+  "srvcId" : "mod-notify",
+  "descriptor" : {
+    "dockerImage" : "folioci/mod-notify:latest",
+    "dockerArgs" : {
+      "HostConfig" : { "PortBindings": { "8081/tcp": [{ "HostPort": "%p" }] } }
+    }
+  }
+}

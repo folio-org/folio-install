@@ -1,0 +1,9 @@
+{
+  "srvcId" : "mod-circulation-storage",
+  "descriptor" : {
+    "dockerImage" : "folioci/mod-circulation-storage:latest",
+    "dockerArgs" : {
+      "HostConfig" : { "PortBindings": { "8081/tcp": [{ "HostPort": "%p" }] } }
+    }
+  }
+}

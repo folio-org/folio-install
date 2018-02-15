@@ -1,0 +1,9 @@
+{
+  "srvcId" : "mod-users-bl",
+  "descriptor" : {
+    "dockerImage" : "folioci/mod-users-bl:latest",
+    "dockerArgs" : {
+      "HostConfig" : { "PortBindings": { "8081/tcp": [{ "HostPort": "%p" }] } }
+    }
+  }
+}

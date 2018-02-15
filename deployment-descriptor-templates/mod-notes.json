@@ -1,0 +1,9 @@
+{
+  "srvcId" : "mod-notes",
+  "descriptor" : {
+    "dockerImage" : "folioci/mod-notes:latest",
+    "dockerArgs" : {
+      "HostConfig" : { "PortBindings": { "8081/tcp": [{ "HostPort": "%p" }] } }
+    }
+  }
+}

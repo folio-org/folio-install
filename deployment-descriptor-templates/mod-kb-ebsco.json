@@ -1,0 +1,12 @@
+{
+  "srvcId" : "mod-kb-ebsco",
+  "descriptor" : {
+    "dockerImage" : "folioci/mod-kb-ebsco:latest",
+    "dockerArgs" : {
+      "HostConfig" : { "PortBindings": { "8081/tcp": [{ "HostPort": "%p" }] } }
+    },
+    "env" : [
+      { "name" : "EBSCO_RMAPI_BASE_URL", "value" : "https://sandbox.ebsco.io" }
+    ]
+  }
+}

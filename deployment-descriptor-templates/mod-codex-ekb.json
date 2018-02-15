@@ -1,0 +1,9 @@
+{
+  "srvcId" : "mod-codex-ekb",
+  "descriptor" : {
+    "dockerImage" : "folioci/mod-codex-ekb:latest",
+    "dockerArgs" : {
+      "HostConfig" : { "PortBindings": { "8081/tcp": [{ "HostPort": "%p" }] } }
+    }
+  }
+}

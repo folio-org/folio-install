@@ -1,0 +1,9 @@
+{
+  "srvcId" : "mod-permissions",
+  "descriptor" : {
+    "dockerImage" : "folioci/mod-permissions:latest",
+    "dockerArgs" : {
+      "HostConfig" : { "PortBindings": { "8081/tcp": [{ "HostPort": "%p" }] } }
+    }
+  }
+}

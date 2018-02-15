@@ -1,0 +1,9 @@
+{
+  "srvcId" : "mod-circulation",
+  "descriptor" : {
+    "dockerImage" : "folioci/mod-circulation:latest",
+    "dockerArgs" : {
+      "HostConfig" : { "PortBindings": { "9801/tcp": [{ "HostPort": "%p" }] } }
+    }
+  }
+}

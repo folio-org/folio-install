@@ -12,7 +12,7 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 * [Install and configure Okapi](#install-and-configure-okapi)
 * [Create FOLIO tenant](#create-folio-tenant)
 * [Build a Stripes platform](#build-a-stripes-platform)
-* [Deploy a compatible FOLIO backend](#deploy-a-compatible-FOLIO-backend)
+* [Deploy a compatible FOLIO backend, enable for tenant](#deploy-a-compatible-FOLIO-backend-enable-for-tenant)
 * [Enable modules for tenant](#enable-modules-for-tenant)
 * [Create a FOLIO “superuser”](#create-a-folio-superuser)
 * [Load permissions for “superuser”](#load-permissions-for-superuser)
@@ -28,9 +28,11 @@ cd folio-install
 ```
 vagrant init --minimal bento/ubuntu-16.04
 ```
-3. Update the Vagrantfile to add RAM and give access to another CPU
+3. Update the Vagrantfile to add RAM, give access to another CPU, and set up port forwarding
 
   * [Sample Vagrantfile](Vagrantfile)
+
+*Note: these steps can be automated by simply cloning this repository and `cd`ing into it*
 
 4. Bring up the Vagrant VM, log into it
 ```
@@ -39,15 +41,15 @@ vagrant ssh
 ```
 ## Install and configure required packages
 
-### Runtime requirements: Java 8, PostgreSQL 9.6, Docker
+### Runtime requirements: Java 8, nginx, PostgreSQL 9.6, Docker
 1. Update the apt cache
 ```
 sudo apt-get update
 ```
-2. Install Java 8 and make it the system default
+2. Install Java 8 and nginx, and make Java 8 the system default
 ```
-sudo apt-get install openjdk-8-jdk
-sudo update-java-alternatives --jre-headless --jre --set java-1.8.0-openjdk-amd64java-1.8.0-openjdk-amd64
+sudo apt-get install openjdk-8-jdk nginx
+sudo update-java-alternatives --jre-headless --jre --set java-1.8.0-openjdk-amd64
 ```
 3. Import the PostgreSQL signing key, add the PostgreSQL apt repository, install PostgreSQL
 ```
@@ -76,10 +78,10 @@ sudo cp /vagrant/docker-opts.conf /etc/systemd/system/docker.service.d
 sudo systemctl daemon-reload
 sudo systemctl restart docker
 ```
-### Build requirements: git, curl, NodeJS, npm, Yarn
+### Build requirements: git, curl, NodeJS, npm, Yarn, libperl-json
 1. Install build requirements from Ubuntu apt repositories
 ```
-sudo apt-get install git curl nodejs npm
+sudo apt-get install git curl nodejs npm libperl-json
 ```
 2. Install n and mocha from npm
 ```
@@ -140,14 +142,76 @@ sudo systemctl restart okapi
 curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @/vagrant/okapi-pull.json http://localhost:9130/_/proxy/pull/modules
 ```
 ## Create FOLIO tenant
-* [Sample tenant JSON](tenant.json) 
+  * [Sample tenant JSON](tenant.json) 
 ```
 curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @/vagrant/tenant.json http://localhost:9130/_/proxy/tenants
 ```
 
 ## Build a Stripes platform
-## Deploy a compatible FOLIO backend
-## Enable modules for tenant
+1. Move to NodeJS LTS
+```
+sudo n lts
+```
+2. Clone the `folio-testing-platform` repository, `cd` into it
+```
+git clone https://github.com/folio-org/folio-testing-platform
+cd folio-testing-platform
+```
+3. Install npm packages and build webpack
+* *Note: if you're not building on a local Vagrant box, you'll need to update the Okapi URL setting in `./stripes.config.js` first*
+```
+yarn install
+yarn build output --sourcemap
+cd ..
+```
+4. Configure webserver to serve Stripes webpack
+  * [Sample nginx configuration](nginx-stripes.conf) 
+```
+sudo cp /vagrant/nginx-stripes.conf /etc/nginx/sites-available/stripes
+sudo ln -s /etc/nginx/sites-available/stripes /etc/nginx/sites-enabled/stripes
+sudo rm /etc/nginx/sites-enabled/default
+sudo systemctl restart nginx
+```
+
+## Deploy a compatible FOLIO backend, enable for tenant
+1. Build a list of frontend modules to enable
+  * [Sample perl script](gen-module-list.pl) to generate JSON list from Stripes build
+```
+perl /vagrant/gen-module-list.pl folio-testing-platform/ModuleDescriptors > enable.json
+```
+* If you want to enable the Codex modules, you will need to add them manually to the list
+2. Post list of modules to Okapi, let Okapi resolve dependencies and send back a list of modules to deploy (and later enable)
+```
+curl -w '\n' -X POST -D - -H "Content-type: application/json" -d @enable.json -o full-install.json http://localhost:9130/_/proxy/tenants/diku/install?simulate=true
+```
+3. Post data source information to the Okapi environment for use by deployed modules
+```
+curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"db.host\",\"value\":\"10.0.2.15\"}" http://localhost:9130/_/env
+curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"db.port\",\"value\":\"5432\"}" http://localhost:9130/_/env
+curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"db.database\",\"value\":\"folio\"}" http://localhost:9130/_/env
+curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"db.username\",\"value\":\"folio\"}" http://localhost:9130/_/env
+curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"db.password\",\"value\":\"folio123\"}" http://localhost:9130/_/env
+```
+4. Create deployment descriptors with the versions of the modules returned from the Okapi install endpoint
+  <!-- create a perl script to do this, this is nuts -->
+  * Templates for modules are provided in the `deployment-descriptor-templates` directory of this repository.
+  * Save completed deployment descriptors in a `deployment-descriptors` directory
+5. Pull docker images required for the build
+  * [Sample perl script](docker-pull.pl) to pull images
+```
+sudo perl /vagrant/docker-pull.pl /home/vagrant/deployment-descriptors
+```
+6. Deploy modules
+```
+cd deployment-descriptors
+for i in *; do curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @${i} http://localhost:9130/_/deployment/modules; done
+cd ..
+```
+7. Enable modules for tenant
+```
+curl -w '\n' -X POST -D - -H "Content-type: application/json" -d @full-install.json http://localhost:9130/_/proxy/tenants/diku/install
+```
+
 ## Create a FOLIO “superuser”
 ## Load permissions for “superuser”
 ## Load module reference data
