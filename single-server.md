@@ -80,7 +80,7 @@ sudo systemctl restart docker
 ### Build requirements: git, curl, NodeJS, npm, Yarn, libjson-perl, libwww-perl
 1. Install build requirements from Ubuntu apt repositories
 ```
-sudo apt-get install git curl nodejs npm libjson-perl, libwww-perl
+sudo apt-get install git curl nodejs npm libjson-perl libwww-perl
 ```
 2. Install n and mocha from npm
 ```
