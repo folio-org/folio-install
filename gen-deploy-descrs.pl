@@ -1,9 +1,12 @@
 use strict;
 use warnings;
+use Getopt::Long;
 use JSON;
 
 $| = 1;
 
+my $node = '10.0.2.15'; # default to Vagrant host
+GetOptions( 'node=s' => \$node );
 my ($install_json,$template_dir) = @ARGV;
 my $deploy_dir = 'deployment-descriptors';
 
@@ -34,6 +37,7 @@ foreach my $i (@{$install}) {
         $deploy_descr = decode_json(<$template_fh>);
       }
       close($template_fh);
+      $$deploy_descr{nodeId} = $node;
       $$deploy_descr{srvcId} = $$i{id};
       $$deploy_descr{descriptor}{dockerImage} = "folioci/$module:$version";
       open(OUT,">:encoding(UTF-8)","$deploy_dir/$module.json")

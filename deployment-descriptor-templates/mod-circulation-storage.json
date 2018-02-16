@@ -1,5 +1,6 @@
 {
   "srvcId" : "mod-circulation-storage",
+  "nodeId" : "10.0.2.15",
   "descriptor" : {
     "dockerImage" : "folioci/mod-circulation-storage:latest",
     "dockerArgs" : {

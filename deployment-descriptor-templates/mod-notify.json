@@ -1,5 +1,6 @@
 {
   "srvcId" : "mod-notify",
+  "nodeId" : "10.0.2.15",
   "descriptor" : {
     "dockerImage" : "folioci/mod-notify:latest",
     "dockerArgs" : {

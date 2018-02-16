@@ -1,5 +1,6 @@
 {
   "srvcId" : "mod-users",
+  "nodeId" : "10.0.2.15",
   "descriptor" : {
     "dockerImage" : "folioci/mod-users:latest",
     "dockerArgs" : {

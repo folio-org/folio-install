@@ -1,5 +1,6 @@
 {
   "srvcId" : "mod-kb-ebsco",
+  "nodeId" : "10.0.2.15",
   "descriptor" : {
     "dockerImage" : "folioci/mod-kb-ebsco:latest",
     "dockerArgs" : {

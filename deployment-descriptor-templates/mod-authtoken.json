@@ -1,5 +1,6 @@
 {
   "srvcId" : "mod-authtoken",
+  "nodeId" : "10.0.2.15",
   "descriptor" : {
     "dockerImage" : "folioci/mod-authtoken:latest",
     "dockerArgs" : {

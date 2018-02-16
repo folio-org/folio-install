@@ -2,6 +2,7 @@ use strict;
 use warnings;
 use JSON;
 
+my @extra_modules = ('mod-codex-inventory','mod-codex-ekb');
 my $input_dir = $ARGV[0];
 die "Directory $input_dir not readable\n" unless (-r $input_dir && -d $input_dir);
 opendir(INPUTDIR,$input_dir) or die "Can't open input directory $input_dir: $!\n";
@@ -18,6 +19,9 @@ foreach my $i (@mod_descrs) {
     close(MODDESCR);
     push(@enable,({ id => $$mod_descr{id}, action => "enable" }));
   }
+}
+foreach my $i (@extra_modules) {
+  push(@enable,({ id => $i, action => 'enable' }));
 }
 print encode_json(\@enable) . "\n";
 
