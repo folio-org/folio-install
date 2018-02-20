@@ -240,7 +240,10 @@ psql -h 10.0.2.15 -U folio -1 -f /vagrant/diku_admin.sql folio
   * Modules enabled for tenant are listed at `/_/proxy/tenants/<tenantId>/modules`
   * Permissions for modules are defined in module descriptor at `/_/proxy/modules/<moduleId>`
   * Go through modules enabled for tenant, POST permissions to `/perms/users/<permissionsUserId>/permissions` endpoint
-  * *Coming soon*: a perl script to this effect
+  * [Sample perl script](load-permissions.pl) to load permissions
+```
+perl /vagrant/load-permissions.pl
+```
 
 ## Load module reference data
   * Reference data is required for mod-inventory-storage and mod-circulation-storage
