@@ -1,8 +1,3 @@
-<!--
-  TODO:
-  Write perl scripts for permissions, reference data
-  Add some information about sample data
--->
 # FOLIO deployment: single server
 Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ansible
 
@@ -21,6 +16,7 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 * [Create a FOLIO “superuser”](#create-a-folio-superuser)
 * [Load permissions for “superuser”](#load-permissions-for-superuser)
 * [Load module reference data](#load-module-reference-data)
+* [Notes on sample data](#notes-on-sample-data)
 
 ## Build a target Linux host
 1. Create an empty directory, cd into it
@@ -249,4 +245,18 @@ perl /vagrant/load-permissions.pl
   * Reference data is required for mod-inventory-storage and mod-circulation-storage
     * It is included in the GitHub repos for these modules, along with a shell script for loading
   * Reference data (address types, patron groups) can be created in the UI for mod-users
-  * *Coming soon*: a perl script that loads a set of reference data
+  * [Sample perl script](load-reference-data.pl) to load reference data from this repository
+```
+perl /vagrant/load-reference-data.pl /vagrant/reference-data
+```
+
+## Notes on sample data
+It can be convenient to have sample data to load into the system for testing. While that is generally outside the scope of this document, it is fairly straightforward to load sample data for inventory.
+
+mod-inventory provides an `/inventory/ingest/mods` endpoint for loading MODS records, which it will use to create instances, holdings, and items with default values. There are sample files in the `sample-data/mod-inventory` directory of this repository.
+```
+# get an Okapi token
+curl -w '\n' -D - -X POST -H "Content-type: application/json" -H "Accept: application/json" -H "X-Okapi-Tenant: diku" -d '{"username":"diku_admin","password":"admin"}' http://localhost:9130/authn/login
+# post the files in sample-data/mod-inventory
+for i in /vagrant/sample-data/mod-inventory/*.xml; do curl -w '\n' -D - -X POST -H "Content-type: multipart/form-data" -H "X-Okapi-Tenant: diku" -H "X-Okapi-Token: <okapi token>" -F upload=@${i} http://localhost:9130/inventory/ingest/mods; done
+```

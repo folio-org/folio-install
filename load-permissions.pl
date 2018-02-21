@@ -7,7 +7,6 @@ use warnings;
 use Getopt::Long;
 use LWP;
 use JSON;
-use Data::Dumper;
 
 $| = 1;
 # Command line
