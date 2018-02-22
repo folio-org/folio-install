@@ -48,7 +48,7 @@ sudo apt-get update
 ```
 2. Install Java 8 and nginx, and make Java 8 the system default
 ```
-sudo apt-get install openjdk-8-jdk nginx
+sudo apt-get -y install openjdk-8-jdk nginx
 sudo update-java-alternatives --jre-headless --jre --set java-1.8.0-openjdk-amd64
 ```
 3. Import the PostgreSQL signing key, add the PostgreSQL apt repository, install PostgreSQL
@@ -56,7 +56,7 @@ sudo update-java-alternatives --jre-headless --jre --set java-1.8.0-openjdk-amd6
 wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
 sudo add-apt-repository "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main"
 sudo apt-get update
-sudo apt-get install postgresql-9.6 postgresql-contrib-9.6 postgresql-client-9.6 libpq-dev
+sudo apt-get -y install postgresql-9.6 postgresql-contrib-9.6 postgresql-client-9.6 libpq-dev
 ```
 4. Configure PostgreSQL to listen on all interfaces and allow connections from all addresses (to allow Docker connections)
   * Edit file `/etc/postgresql/9.6/main/postgresql.conf`, add line `listen_addresses = '*'` in the "Connection Settings" section
@@ -68,7 +68,7 @@ sudo apt-get install postgresql-9.6 postgresql-contrib-9.6 postgresql-client-9.6
 wget --quiet -O - https://yum.dockerproject.org/gpg | sudo apt-key add -
 sudo add-apt-repository "deb https://apt.dockerproject.org/repo ubuntu-xenial main"
 sudo apt-get update
-sudo apt-get install docker-engine
+sudo apt-get -y install docker-engine
 ```
 7. Configure Docker engine to listen on network socket
   * [Sample docker-opts.conf file](docker-opts.conf)
@@ -81,7 +81,7 @@ sudo systemctl restart docker
 ### Build requirements: git, curl, NodeJS, npm, Yarn, libjson-perl, libwww-perl
 1. Install build requirements from Ubuntu apt repositories
 ```
-sudo apt-get install git curl nodejs npm libjson-perl libwww-perl
+sudo apt-get -y install git curl nodejs npm libjson-perl libwww-perl
 ```
 2. Install n and mocha from npm
 ```
@@ -93,7 +93,7 @@ sudo npm install mocha -g
 wget --quiet -O - https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 sudo add-apt-repository "deb https://dl.yarnpkg.com/debian/ stable main"
 sudo apt-get update
-sudo apt-get install yarn
+sudo apt-get -y install yarn
 ```
 ## Create databases and roles
 1. Log into the PostgreSQL server as superuser
@@ -118,7 +118,7 @@ CREATE DATABASE folio WITH OWNER folio;
 wget --quiet -O - https://repository.folio.org/packages/debian/folio-apt-archive-key.asc | sudo apt-key add -
 sudo add-apt-repository "deb https://repository.folio.org/packages/ubuntu xenial/"
 sudo apt-get update
-sudo apt-get install okapi
+sudo apt-get -y install okapi
 ```
 2. Configure Okapi to run as a single node server with persistent storage
   * Edit file `/etc/folio/okapi/okapi.conf` and make the following changes:
