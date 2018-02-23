@@ -227,10 +227,28 @@ curl -w '\n' -X POST -D - -H "Content-type: application/json" -d @full-install.j
 ## Create a FOLIO “superuser”
   * Because auth modules are enabled, need to bootstrap the superuser directly in the database
   * Need to create a record for the superuser in 3 storage modules: mod-users, mod-login, mod-permissions
-  * [Sample SQL file](diku_admin.sql)
+  * [Sample SQL file](diku_admin.sql), creates user with username `diku_admin` and password `admin`
 ```
 psql -h 10.0.2.15 -U folio -1 -f /vagrant/diku_admin.sql folio
 ```
+### Sidebar: creating a superuser with a different password
+The password "hash" and "salt" that are needed to bootstrap the superuser in the mod-login storage module can be generated using mod-login outside Okapi. If you want to use a different password, here's how you generate it.
+```
+# Maven is required to build mod-login
+sudo apt-get -y install maven
+git clone https://github.com/folio-org/mod-login
+cd mod-login
+mvn install
+java -jar target/mod-login-fat.jar embed_postgres=true
+```
+Then, in a separate terminal window:
+```
+# The tenant name is arbitrary. The value for "module_to" comes from the "<version>" tag in the mod-login pom.xml file
+curl -w '\n' -D - -X POST -H "Content-type: application/json" -H "X-Okapi-Tenant: this" -d '{"module_to":"mod-login-4.0.1-SNAPSHOT"}' http://localhost:8081/_/tenant
+# The "userId" key is arbitrary. Put your desired password in the "password" key
+curl -w '\n' -D - -X POST -H "Content-type: application/json" -H "X-Okapi-Tenant: this" -d '{"userId":"foo","password":"bar"}' http://localhost:8081/authn/credentials
+```
+Back in the first terminal window, type Ctrl-C to exit mod-login.
 
 ## Load permissions for “superuser”
   * Modules enabled for tenant are listed at `/_/proxy/tenants/<tenantId>/modules`
