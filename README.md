@@ -13,6 +13,7 @@ A collection of runbooks for FOLIO installation.
 ## Contents
 
 * [Single server deployment](single-server.md)
+* [Migrating a FOLIO database](database-migration.md)
 
 ## Additional information
 
