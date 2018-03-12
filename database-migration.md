@@ -40,4 +40,4 @@ pg_restore -U <username> -h <database host> --dbname=<database name> --jobs=4 --
 GRANT USAGE ON SCHEMA public TO diku_mod_circulation_storage
 ```
 
-7. Update the database connection information on the Okapi `/_/env` endpoint, and restart Okapi (assuming modules have been deployed to the `/_/discovery` endpoint for deployment persistance).
+7. Update the database connection information on the Okapi `/_/env` endpoint, and restart Okapi (assuming modules have been deployed to the `/_/discovery` endpoint for deployment persistence).
