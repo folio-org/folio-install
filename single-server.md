@@ -145,7 +145,7 @@ curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @/vagrant/okapi
 1. Post the tenant initialization to Okapi
   * [Sample tenant JSON](tenant.json) 
 ```
-curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @/vagrant/tenant.json http://localhost:9130/_/proxy/tenants
+curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @/vagrant/tenant.json http://localhost:9160/_/proxy/tenants
 ```
 2. Enable the Okapi internal module for the tenant
 ```
