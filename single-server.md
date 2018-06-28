@@ -19,26 +19,18 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 * [Notes on sample data](#notes-on-sample-data)
 
 ## Build a target Linux host
-1. Create an empty directory, cd into it
+1. Clone this repository, cd into the directory that is created
 ```
-mkdir folio-install
+git clone https://github.com/folio-org/folio-install
 cd folio-install
 ```
-2. Initialize the Vagrantfile for the VM
-```
-vagrant init --minimal bento/ubuntu-16.04
-```
-3. Update the Vagrantfile to add RAM, give access to another CPU, and set up port forwarding
-
-  * [Sample Vagrantfile](Vagrantfile)
-
-*Note: these steps can be automated by simply cloning this repository and `cd`ing into it*
-
-4. Bring up the Vagrant VM, log into it
+2. Bring up the Vagrant VM, log into it
 ```
 vagrant up
 vagrant ssh
 ```
+This will create a VirtualBox VM based on this [Vagrantfile](Vagrantfile), running a generic Ubuntu Xenial OS, with 8 GB RAM and 2 CPUs. Port 9130 of the guest will be forwarded to port 9130 of the host, and port 80 of the guest will be forwarded to port 3000 of the host.
+
 ## Install and configure required packages
 
 ### Runtime requirements: Java 8, nginx, PostgreSQL 9.6, Docker
