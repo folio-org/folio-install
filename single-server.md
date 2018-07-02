@@ -135,7 +135,7 @@ curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @/vagrant/okapi
 ```
 ## Create FOLIO tenant
 1. Post the tenant initialization to Okapi
-  * [Sample tenant JSON](tenant.json) 
+  * [Sample tenant JSON](tenant.json)
 ```
 curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @/vagrant/tenant.json http://localhost:9130/_/proxy/tenants
 ```
@@ -162,7 +162,7 @@ yarn build output --sourcemap
 cd ..
 ```
 4. Configure webserver to serve Stripes webpack
-  * [Sample nginx configuration](nginx-stripes.conf) 
+  * [Sample nginx configuration](nginx-stripes.conf)
 ```
 sudo cp /vagrant/nginx-stripes.conf /etc/nginx/sites-available/stripes
 sudo ln -s /etc/nginx/sites-available/stripes /etc/nginx/sites-enabled/stripes
