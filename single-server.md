@@ -128,7 +128,7 @@ sudo /usr/share/folio/okapi/bin/okapi.sh --initdb
 ```
 sudo systemctl restart okapi
 ```
-5. Pull module descriptors from central repository (this will take awhile)
+5. Pull module descriptors from central repository (this will take a while)
   * [Sample JSON to post to pull API](okapi-pull.json)
 ```
 curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @/vagrant/okapi-pull.json http://localhost:9130/_/proxy/pull/modules
