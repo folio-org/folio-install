@@ -128,14 +128,14 @@ sudo /usr/share/folio/okapi/bin/okapi.sh --initdb
 ```
 sudo systemctl restart okapi
 ```
-5. Pull module descriptors from central repository (this will take awhile)
+5. Pull module descriptors from central repository (this will take a while)
   * [Sample JSON to post to pull API](okapi-pull.json)
 ```
 curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @/vagrant/okapi-pull.json http://localhost:9130/_/proxy/pull/modules
 ```
 ## Create FOLIO tenant
 1. Post the tenant initialization to Okapi
-  * [Sample tenant JSON](tenant.json) 
+  * [Sample tenant JSON](tenant.json)
 ```
 curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @/vagrant/tenant.json http://localhost:9130/_/proxy/tenants
 ```
@@ -162,7 +162,7 @@ yarn build output --sourcemap
 cd ..
 ```
 4. Configure webserver to serve Stripes webpack
-  * [Sample nginx configuration](nginx-stripes.conf) 
+  * [Sample nginx configuration](nginx-stripes.conf)
 ```
 sudo cp /vagrant/nginx-stripes.conf /etc/nginx/sites-available/stripes
 sudo ln -s /etc/nginx/sites-available/stripes /etc/nginx/sites-enabled/stripes
@@ -217,6 +217,9 @@ curl -w '\n' -X POST -D - -H "Content-type: application/json" -d @full-install.j
 ```
 
 ## Create a FOLIO “superuser”
+
+See the [Securing Okapi](https://github.com/folio-org/okapi/blob/master/doc/guide.md#securing-okapi) section of the Guide and the linked detail.
+
   * Because auth modules are enabled, need to bootstrap the superuser directly in the database
   * Need to create a record for the superuser in 3 storage modules: mod-users, mod-login, mod-permissions
   * [Sample SQL file](diku_admin.sql), creates user with username `diku_admin` and password `admin`
