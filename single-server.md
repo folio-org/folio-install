@@ -217,6 +217,9 @@ curl -w '\n' -X POST -D - -H "Content-type: application/json" -d @full-install.j
 ```
 
 ## Create a FOLIO “superuser”
+
+See the [Securing Okapi](https://github.com/folio-org/okapi/blob/master/doc/guide.md#securing-okapi) section of the Guide and the linked detail.
+
   * Because auth modules are enabled, need to bootstrap the superuser directly in the database
   * Need to create a record for the superuser in 3 storage modules: mod-users, mod-login, mod-permissions
   * [Sample SQL file](diku_admin.sql), creates user with username `diku_admin` and password `admin`
