@@ -158,7 +158,7 @@ cd folio-testing-platform
   * *Note: if you're not building on a local Vagrant box, you'll need to update the Okapi URL setting in `./stripes.config.js` first*
 ```
 yarn install
-yarn build output --sourcemap
+yarn build output
 cd ..
 ```
 4. Configure webserver to serve Stripes webpack
