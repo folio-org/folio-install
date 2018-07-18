@@ -120,15 +120,11 @@ sudo apt-get -y install okapi
     * `storage="postgres"`
     * `okapiurl="http://10.0.2.15:9130"`
 
-3. Initialize the Okapi db
-```
-sudo /usr/share/folio/okapi/bin/okapi.sh --initdb
-```
-4. Restart Okapi
+3. Restart Okapi
 ```
 sudo systemctl restart okapi
 ```
-5. Pull module descriptors from central repository (this will take a while)
+4. Pull module descriptors from central repository (this will take a while)
   * [Sample JSON to post to pull API](okapi-pull.json)
 ```
 curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @/vagrant/okapi-pull.json http://localhost:9130/_/proxy/pull/modules
