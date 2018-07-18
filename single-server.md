@@ -11,7 +11,8 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 * [Create databases and roles](#create-databases-and-roles)
 * [Install and configure Okapi](#install-and-configure-okapi)
 * [Create FOLIO tenant](#create-folio-tenant)
-* [Build a Stripes platform](#build-a-stripes-platform)
+* [Build the latest release of the FOLIO Stripes platform](#build-the-latest-release-of-the-folio-stripes-platform)
+* [Configure webserver to serve Stripes webpack](#configure-webserver-to-serve-stripes-webpack)
 * [Deploy a compatible FOLIO backend, enable for tenant](#deploy-a-compatible-folio-backend-enable-for-tenant)
 * [Create a FOLIO “superuser”](#create-a-folio-superuser)
 * [Load permissions for “superuser”](#load-permissions-for-superuser)
@@ -140,7 +141,7 @@ curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @/vagrant/tenan
 curl -w '\n' -D - -X POST -H "Content-type: application/json" -d '{"id":"okapi"}' http://localhost:9130/_/proxy/tenants/diku/modules
 ```
 
-## Build a Stripes platform
+## Build the latest release of the FOLIO Stripes platform
 1. Move to NodeJS LTS
 ```
 sudo n lts
@@ -150,14 +151,31 @@ sudo n lts
 git clone https://github.com/folio-org/folio-testing-platform
 cd folio-testing-platform
 ```
-3. Install npm packages and build webpack
+3. Check out the latest tag
+```
+LATEST=$(git describe --tags `git rev-list --tags --max-count=1`)
+git checkout $LATEST
+```
+4. Install npm packages and build webpack
   * *Note: if you're not building on a local Vagrant box, you'll need to update the Okapi URL setting in `./stripes.config.js` first*
 ```
 yarn install
-yarn build output
+NODE_ENV=production yarn build output
 cd ..
 ```
-4. Configure webserver to serve Stripes webpack
+
+### Sidebar: Options for `yarn build`
+
+The `yarn build` command above can be changed to build the webpack in different ways.
+
+* By omitting the `NODE_ENV` environment variable, you can build a webpack that runs in React's development mode.
+* By adding the option `--sourcemap`, you can generate sourcemap files for the bundle that correspond to the original source code for debugging purposes.
+
+### Sidebar: Building from the bleeding edge
+
+If you would rather build Stripes with the most recent code that may not have been fully tested, omit the step of checking out the latest tag of the `folio-testing-platform` repository, remove any `yarn.lock` file in the directory, and then perform the `yarn install` and `yarn build` steps. Be warned, this could result in a bundle with unstable code.
+
+## Configure webserver to serve Stripes webpack
   * [Sample nginx configuration](nginx-stripes.conf)
 ```
 sudo cp /vagrant/nginx-stripes.conf /etc/nginx/sites-available/stripes
@@ -167,6 +185,34 @@ sudo systemctl restart nginx
 ```
 
 ## Deploy a compatible FOLIO backend, enable for tenant
+
+The tagged release of `folio-testing-platform` contains an `okapi-install.json` file which, if posted to Okapi, will download all the necessary backend modules as Docker containers, deploy them to the local system, and enable them for your tenant. There is also a `stripes-install.json` file that will enable the frontend modules for the tenant and load the necessary permissions.
+
+1. Post data source information to the Okapi environment for use by deployed modules
+```
+curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"db.host\",\"value\":\"10.0.2.15\"}" http://localhost:9130/_/env
+curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"db.port\",\"value\":\"5432\"}" http://localhost:9130/_/env
+curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"db.database\",\"value\":\"folio\"}" http://localhost:9130/_/env
+curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"db.username\",\"value\":\"folio\"}" http://localhost:9130/_/env
+curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"db.password\",\"value\":\"folio123\"}" http://localhost:9130/_/env
+```
+
+2. Post the list of backend modules to deploy and enable
+```
+curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @folio-testing-platform/okapi-install.json http://localhost:9130/_/proxy/tenants/diku/install?deploy=true
+```
+
+*Note: this will take a long time to return, as all the Docker images must be pulled from Docker Hub. You can follow progress in the Okapi log at `/var/log/folio/okapi/okapi.log`*
+
+3. Post the list of Stripes modules to enable
+```
+curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @folio-testing-platform/stripes-install.json http://localhost:9130/_/proxy/tenants/diku/install
+```
+
+### Sidebar: Building from the bleeding edge -- part II
+
+If you would rather deploy the most recent code for the backend, rather than relying on the `okapi-install.json` and `stripes-install.json` files, you can create your own files using the procedure below. Proceed at your own risk! You could end up with a system that contains unstable code.
+
 1. Build a list of frontend modules to enable
   * Each module descriptor generated by the Stripes build (except for stripes-smart-components) needs to go into a JSON array to post to the Okapi `/_/proxy/tenants/<tenantId>/install` endpoint
   * Codex connector modules (mod-codex-inventory, mod-codex-ekb) don't get pulled in by dependency, so they need to be added manually to the list
