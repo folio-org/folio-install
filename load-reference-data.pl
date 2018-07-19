@@ -11,9 +11,16 @@ use JSON;
 
 $| = 1;
 
-# Configuration -- because loan-rules-storage must be a PUT
+# Configuration
 my $default_method = 'POST';
 my %custom_method = ( 'loan-rules-storage' => 'PUT' );
+# Data that must be loaded in order
+my @sort = (
+            'location-units/institutions',
+            'location-units/campuses',
+            'location-units/libraries',
+            'locations'
+            );
 
 # Command line options
 my $tenant = 'diku';
@@ -47,12 +54,28 @@ my $login_resp = $ua->request($login_req);
 die $login_resp->status_line . "\n" unless $login_resp->is_success;
 my $token = $login_resp->header('X-Okapi-Token');
 
+# Load data in order first
+foreach my $i (@sort) {
+  process_dir("$directory/$i");
+}
+
+# Load the rest of the data
 opendir(ROOTDIR,$directory) or die "Can't open input directory $directory: $!\n";
 my @directories = grep { /^(?!\.).+/ && -d "$directory/$_" } readdir(ROOTDIR);
 closedir(ROOTDIR);
 
 foreach my $i (@directories) {
-  process_dir("$directory/$i");
+  my $processed = 0;
+  # This is not quite perfect, but will work for now
+  foreach my $j (@sort) {
+    if ($j =~ /^${i}/) {
+      $processed = 1;
+      last;
+    }
+  }
+  unless ($processed) {
+    process_dir("$directory/$i");
+  }
 }
 
 exit;
