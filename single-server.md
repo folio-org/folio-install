@@ -227,6 +227,7 @@ cd ..
 The `yarn build` command above can be changed to build the webpack in different ways.
 
   * By omitting the `NODE_ENV` environment variable, you can build a webpack that runs in React's development mode.
+  * By adding the option `--no-minify`, you can build a webpack that is not minified JS.
   * By adding the option `--sourcemap`, you can generate sourcemap files for the bundle that correspond to the original source code for debugging purposes.
 
 ### Sidebar: Building from the bleeding edge
