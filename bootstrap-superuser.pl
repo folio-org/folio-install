@@ -99,7 +99,7 @@ unless ($only_perms) {
 }
 
 unless ($no_perms) {
-  print "Logging in superuser $user...\n";
+  print "Logging in superuser $user...";
   my $credentials = { username => $user, password => $password };
   my $header = [
                 'Content-Type' => 'application/json',
@@ -112,8 +112,9 @@ unless ($no_perms) {
   my $login = decode_json($resp->content);
   my $perms_id = $$login{permissions}{id};
   my $token = $resp->header('X-Okapi-Token');
+  print "OK\n";
 
-  print "Getting list of permissions to assign...\n";
+  print "Getting list of permissions to assign...";
   $header = [
              'Accept' => 'application/json, text/plain',
              'X-Okapi-Tenant' => $tenant,
@@ -125,6 +126,7 @@ unless ($no_perms) {
   my $permissions = decode_json($resp->content);
   die "Retrieved permissions don't match total permissions count"
     unless @{$$permissions{permissions}} == $$permissions{totalRecords};
+  print "OK\n";
 
   print "Assigning permissions...\n";
   foreach my $permission (@{$$permissions{permissions}}) {
