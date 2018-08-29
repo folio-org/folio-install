@@ -17,8 +17,7 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 * [Build the latest release of the FOLIO Stripes platform](#build-the-latest-release-of-the-folio-stripes-platform)
 * [Configure webserver to serve Stripes webpack](#configure-webserver-to-serve-stripes-webpack)
 * [Deploy a compatible FOLIO backend, enable for tenant](#deploy-a-compatible-folio-backend-enable-for-tenant)
-* [Create a FOLIO “superuser”](#create-a-folio-superuser)
-* [Load permissions for “superuser”](#load-permissions-for-superuser)
+* [Create a FOLIO “superuser” and load permissions](#create-a-folio-superuser-and-load-permissions)
 * [Load module reference data](#load-module-reference-data)
 * [Notes on sample data](#notes-on-sample-data)
 
@@ -324,50 +323,19 @@ curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @okapi-install.
 curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @stripes-install.json http://localhost:9130/_/proxy/tenants/diku/install
 ```
 
-## Create a FOLIO “superuser”
+## Create a FOLIO “superuser” and load permissions
 
 See the [Securing Okapi](https://github.com/folio-org/okapi/blob/master/doc/guide.md#securing-okapi) section of the Guide and the linked detail.
 
-  * Because auth modules are enabled, need to bootstrap the superuser directly in the database
+  * A superuser can only be created if the `authtoken` interface is disabled for the tenant
   * Need to create a record for the superuser in 3 storage modules: mod-users, mod-login, mod-permissions
-  * [Sample SQL file](diku_admin.sql), creates user with username `diku_admin` and password `admin`
-
-```
-psql -h 10.0.2.15 -U folio -1 -f /vagrant/diku_admin.sql folio
-```
-
-### Sidebar: creating a superuser with a different password
-
-The password "hash" and "salt" that are needed to bootstrap the superuser in the mod-login storage module can be generated using mod-login outside Okapi. If you want to use a different password, here's how you generate it.
-
-```
-# Maven is required to build mod-login
-sudo apt-get -y install maven
-git clone https://github.com/folio-org/mod-login
-cd mod-login
-mvn install
-java -jar target/mod-login-fat.jar embed_postgres=true
-```
-
-Then, in a separate terminal window:
-
-```
-# The tenant name is arbitrary. The value for "module_to" comes from the "<version>" tag in the mod-login pom.xml file
-curl -w '\n' -D - -X POST -H "Content-type: application/json" -H "X-Okapi-Tenant: this" -d '{"module_to":"mod-login-4.0.1-SNAPSHOT"}' http://localhost:8081/_/tenant
-# The "userId" key is arbitrary. Put your desired password in the "password" key
-curl -w '\n' -D - -X POST -H "Content-type: application/json" -H "X-Okapi-Tenant: this" -d '{"userId":"foo","password":"bar"}' http://localhost:8081/authn/credentials
-```
-
-Back in the first terminal window, type Ctrl-C to exit mod-login.
-
-## Load permissions for “superuser”
-
+  * After creating the superuser, reenable the `authtoken` interface
   * All permissionSets that are not included in other permissionSets can be listed with the CQL query `/perms/permissions?query=childOf%3D%3D%5B%5D&length=500` (`childOf==[]`)
   * Go through permissionSets, POST permissions to `/perms/users/<permissionsUserId>/permissions` endpoint
-  * [Sample perl script](load-permissions.pl) to load permissions
+  * [Sample perl script](load-permissions.pl) to create a superuser and load permissions
 
 ```
-perl /vagrant/load-permissions.pl
+perl /vagrant/bootstrap-superuser.pl --tenant diku --user diku_admin --password admin --okapi http://localhost:9130
 ```
 
 ## Load module reference data
