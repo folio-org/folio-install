@@ -12,7 +12,6 @@ use Getopt::Long;
 use LWP;
 use JSON;
 use UUID::Tiny qw(:std);
-use Data::Dumper;
 
 $| = 1;
 # Command line
@@ -32,13 +31,24 @@ GetOptions( 'tenant|t=s' => \$tenant,
 my $ua = LWP::UserAgent->new();
 
 unless ($only_perms) {
-  print "Disabling mod-authtoken...";
+  print "Finding module ID for authtoken...";
   my $header = [
-                'Content-Type' => 'application/json',
                 'Accept' => 'application/json, text/plain'
                ];
-  my $req = HTTP::Request->new('POST',"$okapi/_/proxy/tenants/$tenant/install",$header,encode_json([ { id => 'mod-authtoken', action => 'disable' } ]));
+  my $req = HTTP::Request->new('GET',"$okapi/_/proxy/tenants/$tenant/interfaces/authtoken",$header);
   my $resp = $ua->request($req);
+  die $resp->status_line . "\n" unless $resp->is_success;
+  my $authtoken = decode_json($resp->content)->[0];
+  print "OK\n";
+
+  print "Disabling authtoken for tenant...";
+  $$authtoken{action} = 'disable';
+  $header = [
+             'Content-Type' => 'application/json',
+             'Accept' => 'application/json, text/plain'
+            ];
+  $req = HTTP::Request->new('POST',"$okapi/_/proxy/tenants/$tenant/install",$header,encode_json([ $authtoken ]));
+  $resp = $ua->request($req);
   die $resp->status_line . "\n" unless $resp->is_success;
   my $disabled = decode_json($resp->content);
   print "OK\n";
