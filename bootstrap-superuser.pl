@@ -96,7 +96,7 @@ unless ($only_perms) {
   my $enable = [];
   foreach my $i (@{$disabled}) {
     $$i{action} = 'enable';
-    push(@{$enable},$i);
+    unshift(@{$enable},$i);
   }
   $header = [
              'Content-Type' => 'application/json',
