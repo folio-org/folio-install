@@ -197,11 +197,11 @@ curl -w '\n' -D - -X POST -H "Content-type: application/json" -d '{"id":"okapi"}
 sudo n lts
 ```
 
-2. Clone the `folio-testing-platform` repository, `cd` into it
+2. Clone the `platform-complete` repository, `cd` into it
 
 ```
-git clone https://github.com/folio-org/folio-testing-platform
-cd folio-testing-platform
+git clone https://github.com/folio-org/platform-complete
+cd platform-complete
 ```
 
 3. Check out the latest tag
@@ -231,7 +231,7 @@ The `yarn build` command above can be changed to build the webpack in different 
 
 ### Sidebar: Building from the bleeding edge
 
-If you would rather build Stripes with the most recent code that may not have been fully tested, omit the step of checking out the latest tag of the `folio-testing-platform` repository, remove any `yarn.lock` file in the directory, and then perform the `yarn install` and `yarn build` steps. Be warned, this could result in a bundle with unstable code.
+If you would rather build Stripes with the most recent code that may not have been fully tested, omit the step of checking out the latest tag of the `platform-complete` repository, remove any `yarn.lock` file in the directory, and then perform the `yarn install` and `yarn build` steps. Be warned, this could result in a bundle with unstable code.
 
 ## Configure webserver to serve Stripes webpack
 
@@ -246,7 +246,7 @@ sudo systemctl restart nginx
 
 ## Deploy a compatible FOLIO backend, enable for tenant
 
-The tagged release of `folio-testing-platform` contains an `okapi-install.json` file which, if posted to Okapi, will download all the necessary backend modules as Docker containers, deploy them to the local system, and enable them for your tenant. There is also a `stripes-install.json` file that will enable the frontend modules for the tenant and load the necessary permissions.
+The tagged release of `platform-complete` contains an `okapi-install.json` file which, if posted to Okapi, will download all the necessary backend modules as Docker containers, deploy them to the local system, and enable them for your tenant. There is also a `stripes-install.json` file that will enable the frontend modules for the tenant and load the necessary permissions.
 
 1. Post data source information to the Okapi environment for use by deployed modules
 
@@ -261,7 +261,7 @@ curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"db
 2. Post the list of backend modules to deploy and enable
 
 ```
-curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @folio-testing-platform/okapi-install.json http://localhost:9130/_/proxy/tenants/diku/install?deploy=true
+curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @platform-complete/okapi-install.json http://localhost:9130/_/proxy/tenants/diku/install?deploy=true
 ```
 
 *Note: this will take a long time to return, as all the Docker images must be pulled from Docker Hub. You can follow progress in the Okapi log at `/var/log/folio/okapi/okapi.log`*
@@ -269,7 +269,7 @@ curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @folio-testing-
 3. Post the list of Stripes modules to enable
 
 ```
-curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @folio-testing-platform/stripes-install.json http://localhost:9130/_/proxy/tenants/diku/install
+curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @platform-complete/stripes-install.json http://localhost:9130/_/proxy/tenants/diku/install
 ```
 
 ### Sidebar: Building from the bleeding edge -- part II
@@ -283,7 +283,7 @@ If you would rather deploy the most recent code for the backend, rather than rel
   * [Sample perl script](gen-module-list.pl) to generate JSON array from Stripes build plus Codex modules
 
 ```
-perl /vagrant/gen-module-list.pl folio-testing-platform/ModuleDescriptors > stripes-install.json
+perl /vagrant/gen-module-list.pl platform-complete/ModuleDescriptors > stripes-install.json
 ```
 
 2. Post list of modules to Okapi, let Okapi resolve dependencies and send back a list of modules to deploy and enable
