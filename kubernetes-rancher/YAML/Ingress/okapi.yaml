@@ -1,0 +1,69 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    field.cattle.io/creatorId: u-d8jfk
+    field.cattle.io/ingressState: '{}'
+    field.cattle.io/publicEndpoints: '[{"addresses":["<xxx.xxx.xxx.xxx>"],"port":443,"protocol":"HTTPS","serviceName":"folio-q2:okapi","ingressName":"folio-q2:okapi","hostname":"myfolio-node-1.org","path":"/","allNodes":true},{"addresses":["<xxx.xxx.xxx.xxx>"],"port":443,"protocol":"HTTPS","serviceName":"folio-q2:okapi","ingressName":"folio-q2:okapi","hostname":"myfolio-node-1.org","path":"/_/","allNodes":true},{"addresses":["<xxx.xxx.xxx.xxx>"],"port":443,"protocol":"HTTPS","serviceName":"folio-q2:okapi","ingressName":"folio-q2:okapi","hostname":"myfolio-node-2.org","path":"/","allNodes":true},{"addresses":["<xxx.xxx.xxx.xxx>"],"port":443,"protocol":"HTTPS","serviceName":"folio-q2:okapi","ingressName":"folio-q2:okapi","hostname":"myfolio-node-2.org","path":"/_/","allNodes":true},{"addresses":["<xxx.xxx.xxx.xxx>"],"port":443,"protocol":"HTTPS","serviceName":"folio-q2:okapi","ingressName":"folio-q2:okapi","hostname":"myfolio-node-3.org","path":"/","allNodes":true},{"addresses":["<xxx.xxx.xxx.xxx>"],"port":443,"protocol":"HTTPS","serviceName":"folio-q2:okapi","ingressName":"folio-q2:okapi","hostname":"myfolio-node-3.org","path":"/_/","allNodes":true},{"addresses":["<xxx.xxx.xxx.xxx>"],"port":443,"protocol":"HTTPS","serviceName":"folio-q2:okapi","ingressName":"folio-q2:okapi","hostname":"folio-okapi-traffic-arecord.org","path":"/_/","allNodes":true},{"addresses":["<xxx.xxx.xxx.xxx>"],"port":443,"protocol":"HTTPS","serviceName":"folio-q2:okapi","ingressName":"folio-q2:okapi","hostname":"folio-okapi-traffic-arecord.org","allNodes":true},{"addresses":["<xxx.xxx.xxx.xxx>"],"port":443,"protocol":"HTTPS","serviceName":"folio-q2:okapi","ingressName":"folio-q2:okapi","hostname":"folio-okapi-traffic-arecord.org","path":"/","allNodes":true}]'
+  creationTimestamp: null
+  generation: 1
+  name: okapi
+  selfLink: /apis/extensions/v1beta1/namespaces/folio-q2/ingresses/okapi
+spec:
+  rules:
+  - host: myfolio-node-1.org
+    http:
+      paths:
+      - backend:
+          serviceName: okapi
+          servicePort: 9130
+        path: /
+      - backend:
+          serviceName: okapi
+          servicePort: 9130
+        path: /_/
+  - host: myfolio-node-2.org
+    http:
+      paths:
+      - backend:
+          serviceName: okapi
+          servicePort: 9130
+        path: /
+      - backend:
+          serviceName: okapi
+          servicePort: 9130
+        path: /_/
+  - host: myfolio-node-3.org
+    http:
+      paths:
+      - backend:
+          serviceName: okapi
+          servicePort: 9130
+        path: /
+      - backend:
+          serviceName: okapi
+          servicePort: 9130
+        path: /_/
+  - host: folio-okapi-traffic-arecord.org
+    http:
+      paths:
+      - backend:
+          serviceName: okapi
+          servicePort: 9130
+      - backend:
+          serviceName: okapi
+          servicePort: 9130
+        path: /
+      - backend:
+          serviceName: okapi
+          servicePort: 9130
+        path: /_/
+  tls:
+  - hosts:
+    - myfolio-node-1.org
+    - myfolio-node-2.org
+    - myfolio-node-3.org
+    - folio-okapi-traffic-arecord.org
+    secretName: my-secret-name
+status:
+  loadBalancer: {}

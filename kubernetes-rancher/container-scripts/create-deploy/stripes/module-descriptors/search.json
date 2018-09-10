@@ -1,0 +1,13 @@
+{
+  "id" : "folio_search-1.1.100085",
+  "name" : "Search across the Codex",
+  "requires" : [ {
+    "id" : "codex",
+    "version" : "3.0"
+  } ],
+  "permissionSets" : [ {
+    "permissionName" : "module.search.enabled",
+    "displayName" : "UI: Codex Search module is enabled",
+    "visible" : true
+  } ]
+}

@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    field.cattle.io/targetWorkloadIds: '["deployment:folio-q2:mod-codex-mux"]'
+    workload.cattle.io/targetWorkloadIdNoop: "true"
+    workload.cattle.io/workloadPortBased: "true"
+  creationTimestamp: null
+  name: mod-codex-mux
+  ownerReferences:
+  - apiVersion: apps/v1beta2
+    controller: true
+    kind: deployment
+    name: mod-codex-mux
+    uid: 3431990b-a481-11e8-af21-005056bb3657
+  selfLink: /api/v1/namespaces/folio-q2/services/mod-codex-mux
+spec:
+  clusterIP: None
+  ports:
+  - name: default
+    port: 42
+    protocol: TCP
+    targetPort: 42
+  selector:
+    workload.user.cattle.io/workloadselector: deployment-folio-q2-mod-codex-mux
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

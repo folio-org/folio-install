@@ -1,0 +1,75 @@
+{
+  "id" : "mod-notify-1.1.7-SNAPSHOT.46",
+  "name" : "Notify",
+  "requires" : [ {
+    "id" : "users",
+    "version" : "14.0 15.0"
+  } ],
+  "provides" : [ {
+    "id" : "notify",
+    "version" : "1.1",
+    "handlers" : [ {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/notify",
+      "permissionsRequired" : [ "notify.collection.get" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/notify",
+      "permissionsRequired" : [ "notify.item.post" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/notify/_username/{uid}",
+      "permissionsRequired" : [ "notify.item.post" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/notify/{id}",
+      "permissionsRequired" : [ "notify.item.get" ]
+    }, {
+      "methods" : [ "PUT" ],
+      "pathPattern" : "/notify/{id}",
+      "permissionsRequired" : [ "notify.item.put" ]
+    }, {
+      "methods" : [ "DELETE" ],
+      "pathPattern" : "/notify/{id}",
+      "permissionsRequired" : [ "notify.item.delete" ]
+    } ]
+  }, {
+    "id" : "_tenant",
+    "version" : "1.0",
+    "interfaceType" : "system",
+    "handlers" : [ {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/_/tenant"
+    }, {
+      "methods" : [ "DELETE" ],
+      "pathPattern" : "/_/tenant"
+    } ]
+  } ],
+  "permissionSets" : [ {
+    "permissionName" : "notify.collection.get",
+    "displayName" : "Notifications - get notify collection",
+    "description" : "Get notify collection"
+  }, {
+    "permissionName" : "notify.item.get",
+    "displayName" : "Notifications- get individual notification from storage",
+    "description" : "Get individual notification"
+  }, {
+    "permissionName" : "notify.item.post",
+    "displayName" : "Notifications - create notification",
+    "description" : "Create notification"
+  }, {
+    "permissionName" : "notify.item.put",
+    "displayName" : "Notifications - modify notification",
+    "description" : "Modify notification"
+  }, {
+    "permissionName" : "notify.item.delete",
+    "displayName" : "Notifications - delete notification",
+    "description" : "Delete notification"
+  }, {
+    "permissionName" : "notify.all",
+    "displayName" : "Notifications module - all permissions",
+    "description" : "Entire set of permissions needed to use the notify modules",
+    "subPermissions" : [ "notify.collection.get", "notify.item.get", "notify.item.post", "notify.item.put", "notify.item.delete" ],
+    "visible" : false
+  } ]
+}

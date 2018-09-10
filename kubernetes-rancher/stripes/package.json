@@ -1,0 +1,32 @@
+{
+  "name":"@folio/folio-testing-platform",
+  "version":"0.0.0",
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "export NODE_OPTIONS=\"--max-old-space-size=4096 $NODE_OPTIONS\"; stripescore build stripes.config.js",
+    "stripes": "stripescore",
+    "start": "stripescore dev stripes.config.js",
+    "postinstall": "node ./build-module-descriptors.js",
+    "local": "f=stripes.config.js; test -f $f.local && f=$f.local; echo Using config $f; stripescore dev $f"
+  },
+  "dependencies": {
+    "@folio/users": ">=0.0.0",
+    "@folio/inventory": ">=0.0.0",
+    "@folio/checkout": ">=0.0.0",
+    "@folio/checkin": ">=0.0.0",
+    "@folio/requests": ">=0.0.0",
+    "@folio/search": ">=0.0.0",
+    "@folio/organization": ">=0.0.0",
+    "@folio/calendar": ">=0.0.0",
+    "@folio/developer": ">=0.0.0",
+    "@folio/circulation": ">=0.0.0",
+    "@folio/eholdings": ">=0.0.0",
+    "@folio/vendors": ">=0.0.0",
+    "@folio/plugin-find-user": ">=0.0.0",
+    "@folio/stripes-core": ">=0.0.0",
+    "@folio/stripes-components": ">=0.0.0"
+  },
+  "resolutions": {
+    "**/uglify-es": "3.3.9"
+  }
+}

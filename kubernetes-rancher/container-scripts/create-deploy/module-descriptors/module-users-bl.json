@@ -1,0 +1,79 @@
+{
+  "id" : "mod-users-bl-3.0.0-SNAPSHOT.17",
+  "name" : "users business logic",
+  "requires" : [ {
+    "id" : "users",
+    "version" : "14.3 15.0"
+  }, {
+    "id" : "permissions",
+    "version" : "5.0"
+  }, {
+    "id" : "login",
+    "version" : "4.0"
+  } ],
+  "provides" : [ {
+    "id" : "users-bl",
+    "version" : "3.0",
+    "handlers" : [ {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/bl-users",
+      "permissionsRequired" : [ "users-bl.collection.get" ],
+      "modulePermissions" : [ "users.collection.get" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/bl-users/_self",
+      "permissionsRequired" : [ ],
+      "modulePermissions" : [ "users.item.get", "users.collection.get", "perms.users.get", "usergroups.item.get" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/bl-users/login",
+      "permissionsRequired" : [ ],
+      "modulePermissions" : [ "users.item.get", "users.collection.get", "perms.users.item.get", "perms.users.get", "usergroups.item.get" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/bl-users/by-username/{id}",
+      "permissionsRequired" : [ "users-bl.item.get", "perms.users.get" ],
+      "modulePermissions" : [ "users.item.get", "users.collection.get", "perms.users.get", "login.item.get" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/bl-users/by-id/{id}",
+      "permissionsRequired" : [ "users-bl.item.get", "perms.users.get" ],
+      "modulePermissions" : [ "users.item.get", "users.collection.get", "perms.users.get", "login.item.get" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/bl-users",
+      "permissionsRequired" : [ "users-bl.item.post" ],
+      "permissionsDesired" : [ "perms.users.item.post" ],
+      "modulePermissions" : [ "users.item.post", "perms.users.item.post", "login.item.post" ]
+    }, {
+      "methods" : [ "PUT" ],
+      "pathPattern" : "/bl-users/{id}",
+      "permissionsRequired" : [ "users-bl.item.put" ],
+      "permissionsDesired" : [ "perms.users.item.put" ],
+      "modulePermissions" : [ "users.edit", "users.item.put", "perms.users.item.put", "login.item.put" ]
+    } ]
+  } ],
+  "permissionSets" : [ {
+    "permissionName" : "users-bl.collection.get",
+    "displayName" : "users-bl collection get",
+    "description" : "Get a list of composite user records"
+  }, {
+    "permissionName" : "users-bl.item.get",
+    "displayName" : "users-bl item get",
+    "description" : "Get a single composite user record by id"
+  }, {
+    "permissionName" : "users-bl.item.post",
+    "displayName" : "users-bl item post",
+    "description" : "Create a new composite user record"
+  }, {
+    "permissionName" : "users-bl.item.put",
+    "displayName" : "users-bl item put",
+    "description" : "Modify a composite user record"
+  }, {
+    "permissionName" : "users-bl.all",
+    "displayName" : "users-bl all",
+    "description" : "All user business-logic permissions",
+    "subPermissions" : [ "users-bl.collection.get", "users-bl.item.get", "users-bl.item.post", "users-bl.item.put" ],
+    "visible" : false
+  } ]
+}

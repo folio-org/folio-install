@@ -1,0 +1,18 @@
+{
+  "id" : "folio_stripes-core-2.10.2000305",
+  "name" : "The starting point for Stripes applications",
+  "requires" : [ {
+    "id" : "users-bl",
+    "version" : "3.0"
+  }, {
+    "id" : "authtoken",
+    "version" : "1.0"
+  }, {
+    "id" : "configuration",
+    "version" : "2.0"
+  } ],
+  "permissionSets" : [ {
+    "permissionName" : "settings.enabled",
+    "displayName" : "UI: settings area is enabled"
+  } ]
+}

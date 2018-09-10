@@ -1,0 +1,27 @@
+{
+  "id" : "folio_requests-1.1.4000103",
+  "name" : "Requests manager",
+  "requires" : [ {
+    "id" : "notes",
+    "version" : "1.0"
+  }, {
+    "id" : "request-storage",
+    "version" : "2.0"
+  }, {
+    "id" : "circulation",
+    "version" : "3.0"
+  }, {
+    "id" : "inventory",
+    "version" : "5.0 6.0"
+  } ],
+  "permissionSets" : [ {
+    "permissionName" : "module.requests.enabled",
+    "displayName" : "UI: Requests module is enabled"
+  }, {
+    "permissionName" : "ui-requests.all",
+    "displayName" : "Requests: All permissions",
+    "description" : "All permissions for the Requests app",
+    "subPermissions" : [ "module.requests.enabled", "circulation.requests.collection.get", "circulation.requests.item.post", "circulation.requests.item.put", "circulation.requests.item.get", "circulation-storage.requests.collection.get", "circulation-storage.requests.collection.delete", "circulation-storage.requests.item.get", "circulation-storage.requests.item.post", "circulation-storage.requests.item.put", "circulation-storage.requests.item.delete", "circulation-storage.cancellation-reasons.collection.get", "users.collection.get", "users.item.get", "circulation-storage.loans.collection.get", "circulation-storage.loans.item.get", "inventory.items.collection.get", "inventory.items.item.get", "addresstypes.collection.get", "usergroups.collection.get" ],
+    "visible" : true
+  } ]
+}

@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"chart":"statefulset-1","heritage":"Tiller","name":"pgset","release":"statefulset"},"name":"pgset","namespace":"folio-q2"},"spec":{"clusterIP":"None","ports":[{"name":"web","port":5432}],"selector":{"app":"pgset"}}}
+  creationTimestamp: null
+  labels:
+    chart: statefulset-1
+    heritage: Tiller
+    io.cattle.field/appId: statefulset
+    name: pgset
+    release: statefulset
+  name: pgset
+  selfLink: /api/v1/namespaces/folio-q2/services/pgset
+spec:
+  clusterIP: None
+  ports:
+  - name: web
+    port: 5432
+    protocol: TCP
+    targetPort: 5432
+  selector:
+    app: pgset
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

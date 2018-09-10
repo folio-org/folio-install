@@ -1,0 +1,48 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    field.cattle.io/creatorId: u-d8jfk
+  creationTimestamp: null
+  labels:
+    controller-uid: 8af5a83d-ad4a-11e8-8f98-005056bb5193
+    job-name: create-tenant
+  name: create-tenant
+  selfLink: /apis/batch/v1/namespaces/folio-q2/jobs/create-tenant
+spec:
+  backoffLimit: 2
+  completions: 1
+  parallelism: 1
+  selector:
+    matchLabels:
+      controller-uid: 8af5a83d-ad4a-11e8-8f98-005056bb5193
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        controller-uid: 8af5a83d-ad4a-11e8-8f98-005056bb5193
+        job-name: create-tenant
+    spec:
+      affinity: {}
+      containers:
+      - image: <my-docker-private-registry>/folio/create-tenant:v1
+        imagePullPolicy: Always
+        name: create-tenant
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: false
+          privileged: false
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+        stdin: true
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        tty: true
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: my-secret-name
+      restartPolicy: Never
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status: {}

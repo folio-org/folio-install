@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"chart":"statefulset-1","heritage":"Tiller","name":"pgset-primary","release":"statefulset"},"name":"pgset-primary","namespace":"folio-q2"},"spec":{"ports":[{"nodePort":0,"port":5432,"protocol":"TCP","targetPort":5432}],"selector":{"name":"pgset-primary"},"sessionAffinity":"None","type":"ClusterIP"}}
+  creationTimestamp: null
+  labels:
+    chart: statefulset-1
+    heritage: Tiller
+    io.cattle.field/appId: statefulset
+    name: pgset-primary
+    release: statefulset
+  name: pgset-primary
+  selfLink: /api/v1/namespaces/folio-q2/services/pgset-primary
+spec:
+  ports:
+  - port: 5432
+    protocol: TCP
+    targetPort: 5432
+  selector:
+    name: pgset-primary
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

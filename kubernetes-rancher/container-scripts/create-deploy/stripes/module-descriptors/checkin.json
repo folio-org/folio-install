@@ -1,0 +1,30 @@
+{
+  "id" : "folio_checkin-1.1.100049",
+  "name" : "Item Check-in",
+  "requires" : [ {
+    "id" : "circulation",
+    "version" : "3.0"
+  }, {
+    "id" : "configuration",
+    "version" : "2.0"
+  }, {
+    "id" : "item-storage",
+    "version" : "5.0"
+  }, {
+    "id" : "loan-policy-storage",
+    "version" : "1.0"
+  }, {
+    "id" : "users",
+    "version" : "15.0"
+  } ],
+  "permissionSets" : [ {
+    "permissionName" : "module.checkin.enabled",
+    "displayName" : "UI: Check in module is enabled"
+  }, {
+    "permissionName" : "ui-checkin.all",
+    "displayName" : "Check in: All permissions",
+    "description" : "Entire set of permissions needed to use Checkin",
+    "subPermissions" : [ "circulation.all", "circulation-storage.all", "configuration.all", "users.collection.get", "module.checkin.enabled" ],
+    "visible" : true
+  } ]
+}
