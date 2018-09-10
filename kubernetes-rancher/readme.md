@@ -78,7 +78,7 @@ systemctl restart docker
 
 #### Setup Kubernetes Cluster (From within Rancher GUI):
 
-1) Add a Cluster -> select custom -> enter a cluster name (Folio) next
+1) Add a Cluster -> select Custom -> enter a cluster name (folio-cluster) -> Next
 2) From Node Role, select all the roles: etcd, Control, and Worker.
 3) Optional: Rancher auto-detects the IP addresses used for Rancher communication and cluster communication.
    You can override these using Public Address and Internal Address in the Node Address section.
@@ -114,73 +114,73 @@ systemctl restart docker
 
 ### Okapi Notes:
 
-Running in "clustered mode", but is not currently clustering<br/>
-Workload running as 3 pods that share database<br/>
-Initially spin up one Okapi pod, do the deployment jobs, then can scale out Okapi's pods and they will each pick up the tenants/discovery/proxy services<br/>
-After single Okapi pod has been initialized, set Workload environment variable for InitDB to false for future pod scalability<br/>
-Running Okapi with 'ClusterIP' type of port mapping, and Clusterhost IP environment variable set to the assigned 'ClusterIP' of the service as given by Kubernetes/Rancher<br/>
+Running in "clustered mode", but is not currently clustering.<br/>
+Workload running as 3 pods that share database.<br/>
+Initially spin up one Okapi pod, do the deployment jobs, then can scale out Okapi's pods and they will each pick up the tenants/discovery/proxy services.<br/>
+After single Okapi pod has been initialized, set Workload environment variable for InitDB to false for future pod scalability.<br/>
+Running Okapi with 'ClusterIP' type of port mapping, and Clusterhost IP environment variable set to the assigned 'ClusterIP' of the service as given by Kubernetes/Rancher.<br/>
 
 #### Okapi Workload environment variables:
 	
-PG_HOST					pg-folio<br/>
-OKAPI_URL				http://okapi:9130<br/>
-OKAPI_PORT				9130<br/>
-OKAPI_NODENAME			okapi1<br/>
-OKAPI_LOGLEVEL			INFO<br/>
-OKAPI_HOST				okapi<br/>
-OKAPI_CLUSTERHOST		xx.xx.x.xxx (Insert ClusterIP Kubernetes assigns the service)<br/>
-INITDB					false<br/>
-HAZELCAST_VERTX_PORT	5703<br/>
-HAZELCAST_PORT			5701<br/>
-HAZELCAST_IP			xx.xx.x.xxx (Insert ClusterIP Kubernetes assigns the service)<br/>
+PG_HOST	= pg-folio<br/>
+OKAPI_URL = http://okapi:9130<br/>
+OKAPI_PORT = 9130<br/>
+OKAPI_NODENAME = okapi1<br/>
+OKAPI_LOGLEVEL = INFO<br/>
+OKAPI_HOST = okapi<br/>
+OKAPI_CLUSTERHOST = xx.xx.x.xxx (Insert ClusterIP Kubernetes assigns the service)<br/>
+INITDB = false<br/>
+HAZELCAST_VERTX_PORT = 5703<br/>
+HAZELCAST_PORT = 5701<br/>
+HAZELCAST_IP = xx.xx.x.xxx (Insert ClusterIP Kubernetes assigns the service)<br/>
 
 
 ### HA Postgres in Kubernetes/Rancher Notes:
 
-Currently testing out crunchy-postgres HA Kubernetes solution<br/>
-Running as a Kubernetes 'Stateful Set', with one primary and two replica pods. Replica pods are read-only<br/>
-For Postgres 'Service Discovery', created a 'Selector' type called ‘pg-folio’ that targets the master pgset-0 Postgres pod via a label<br/>
-Using a 'Persistent Volume Claim' for Rancher Folio Project, which is a 10GB NFS share on our Netapp filer<br/>
-Not sure if we would run like this in Production yet, as we haven't load tested it. It is a possibility for those looking for a complete Kubernetes/Container solution and being actively developed out more<br/>
+Currently testing out crunchy-postgres HA Kubernetes solution.<br/>
+Running as a Kubernetes 'Stateful Set', with one primary and two replica pods. Replica pods are read-only.<br/>
+For Postgres 'Service Discovery', created a 'Selector' type called ‘pg-folio’ that targets the master pgset-0 Postgres pod via a label.<br/>
+Using a 'Persistent Volume Claim' for Rancher Folio Project, which is a 10GB NFS share on our Netapp filer.<br/>
+Not sure if we would run like this in Production yet, as we haven't load tested it. It is a possibility for those looking for a complete Kubernetes/Container solution and being actively developed out more.<br/>
 
 #### Crunchy-postgres Workload environment variables:
 
-WORK_MEM				32<br/>
-PGHOST					/tmp<br/>
-PGDATA_PATH_OVERRIDE	folio-data<br/>
-PG_USER					okapi<br/>
-PG_ROOT_PASSWORD		<Postgres user DB password><br/>
-PG_REPLICA_HOST			pgset-replica<br/>
-PG_PRIMARY_USER			primaryuser<br/>
-PG_PRIMARY_PORT			5432<br/>
-PG_PRIMARY_PASSWORD		<Primaryuser of the set DB password><br/>
-PG_PRIMARY_HOST			pgset-primary<br/>
-PG_PASSWORD				okapi25<br/>
-PG_MODE					set<br/>
-PG_LOCALE				en_US.UTF-8<br/>
-PG_DATABASE				okapi<br/>
-MAX_CONNECTIONS			150<br/>
-ARCHIVE_MODE			off<br/>
+WORK_MEM = 32<br/>
+PGHOST = /tmp<br/>
+PGDATA_PATH_OVERRIDE = folio-data<br/>
+PG_USER = okapi<br/>
+PG_ROOT_PASSWORD = postgres<br/>
+PG_REPLICA_HOST = pgset-replica<br/>
+PG_PRIMARY_USER = primaryuser<br/>
+PG_PRIMARY_PORT = 5432<br/>
+PG_PRIMARY_PASSWORD = Primaryuser-set-password<br/>
+PG_PRIMARY_HOST = pgset-primary<br/>
+PG_PASSWORD = okapi25<br/>
+PG_MODE = set<br/>
+PG_LOCALE = en_US.UTF-8<br/>
+PG_DATABASE = okapi<br/>
+MAX_CONNECTIONS = 150<br/>
+ARCHIVE_MODE = off<br/>
 
 #### Modules that require a database Workload environment variables:
 
-db.username 			folio_admin<br/>
-db.port 				5432<br/>
-db.password 			folio_admin<br/>
-db.host 				pg-folio<br/>
-db.database 			okapi_modules<br/>
+db.username = folio_admin<br/>
+db.port = 5432<br/>
+db.password = folio_admin<br/>
+db.host = pg-folio<br/>
+db.database = okapi_modules<br/>
 
 #### mod-authtoken Workload environment variable:
 
-JAVA_OPTIONS			-Djwt.signing.key=CorrectBatteryHorseStaple
+JAVA_OPTIONS = -Djwt.signing.key=CorrectBatteryHorseStaple
 
 
 ### Ingress Notes:
 
-Have two URLs as A Records for the three Kube nodes<br/>
-One URL is for proxying front-end and the other is for proxying Okapi traffic<br/>
-The Okapi traffic URL is the URL used when building Stripes<br/>
-When setting up Load Balancing/Ingress, target the Service name instead of Workload name if you have specific ports you have set in the Workload<br/>
+Have two URLs as A Records for the three Kube nodes.<br/>
+One URL is for proxying front-end and the other is for proxying Okapi traffic.<br/>
+The Okapi traffic URL is the URL used when building Stripes.<br/>
+When setting up Load Balancing/Ingress, target the Service name instead of Workload name if you have specific ports you have set in the Workload.<br/>
 
 
 ## Pro Tips
@@ -192,8 +192,8 @@ Run instructions from here: https://gist.github.com/superseb/3a9c0d2e4a60afa3689
 
 #### Build, tag and push docker images from within their respective folders:
 
-docker build -t <my-docker-private-registry>/folio-project/containername:v1 .<br/>
-docker push <my-docker-private-registry>/folio-project/containername:v1<br/>
+docker build -t docker-private-registry/folio-project/containername:v1 .<br/>
+docker push docker-private-registry/folio-project/containername:v1<br/>
 
 #### To clean existing Kubernetes cluster node for re-deployment run:
 
