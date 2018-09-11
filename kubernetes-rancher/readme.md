@@ -22,7 +22,7 @@ A collection of Dockerfiles and YAML for FOLIO installation on Kubernetes/Ranche
 
 #### In Oracle Linux, install correct version of Docker:
 
-yum install yum-utils
+```yum install yum-utils```
 
 yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 
