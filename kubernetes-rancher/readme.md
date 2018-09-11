@@ -1,4 +1,4 @@
-# folio-install on Kubernetes/Rancher 2.0
+# Folio on Kubernetes/Rancher 2.0
 
 ## License
 
