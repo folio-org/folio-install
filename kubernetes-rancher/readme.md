@@ -24,11 +24,11 @@ A collection of Dockerfiles and YAML for FOLIO installation on Kubernetes/Ranche
 
 ```yum install yum-utils```
 
-yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+```yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo```
 
-yum install --setopt=obsoletes=0 docker-ce-17.03.2.ce-1.el7.centos.x86_64
+```yum install --setopt=obsoletes=0 docker-ce-17.03.2.ce-1.el7.centos.x86_64```
 
-systemctl start docker.service && systemctl enable docker.service
+```systemctl start docker.service && systemctl enable docker.service```
 
 #### Add insecure Docker Registry:
 
@@ -41,11 +41,11 @@ END
 
 #### Restart Docker after ammending Docker Registry:
 
-systemctl restart docker
+```systemctl restart docker```
 
 #### Run/Install Rancher Manager:
 
-docker run -d --restart=unless-stopped -p 80:80 -p 443:443 rancher/rancher
+```docker run -d --restart=unless-stopped -p 80:80 -p 443:443 rancher/rancher```
 
 
 
@@ -55,13 +55,13 @@ docker run -d --restart=unless-stopped -p 80:80 -p 443:443 rancher/rancher
 
 #### In Oralce Linux, install correct version of Docker:
 
-yum install yum-utils
+```yum install yum-utils```
 
-yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+```yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo```
 
-yum install --setopt=obsoletes=0 docker-ce-17.03.2.ce-1.el7.centos.x86_64
+```yum install --setopt=obsoletes=0 docker-ce-17.03.2.ce-1.el7.centos.x86_64```
 
-systemctl start docker.service && systemctl enable docker.service
+```systemctl start docker.service && systemctl enable docker.service```
 
 #### Add insecure Docker Registry:
 
@@ -74,7 +74,7 @@ END
 
 #### Restart Docker after ammending Docker Registry:
 
-systemctl restart docker
+```systemctl restart docker```
 
 #### Setup Kubernetes Cluster (From within Rancher GUI):
 
@@ -192,22 +192,22 @@ Run instructions from here: https://gist.github.com/superseb/3a9c0d2e4a60afa3689
 
 #### Build, tag and push docker images from within their respective folders:
 
-docker build -t docker-private-registry/folio-project/containername:v1 .<br/>
-docker push docker-private-registry/folio-project/containername:v1<br/>
+```docker build -t docker-private-registry/folio-project/containername:v1 .```<br/>
+```docker push docker-private-registry/folio-project/containername:v1```<br/>
 
 #### To clean existing Kubernetes cluster node for re-deployment run:
 
-docker stop $(docker ps -aq)<br/>
-docker rm $(docker ps -aq)<br/>
-docker rmi $(docker images -q)<br/>
-docker volume prune<br/>
-docker system prune<br/>
-sudo rm -rf /var/lib/etcd /etc/kubernetes/ssl /etc/cni /opt/cni /var/lib/cni /var/run/calico /etc/kubernetes/.tmp/<br/>
-systemctl restart docker<br/>
+```docker stop $(docker ps -aq)```<br/>
+```docker rm $(docker ps -aq)```<br/>
+```docker rmi $(docker images -q)```<br/>
+```docker volume prune```<br/>
+```docker system prune```<br/>
+```sudo rm -rf /var/lib/etcd /etc/kubernetes/ssl /etc/cni /opt/cni /var/lib/cni /var/run/calico /etc/kubernetes/.tmp/```<br/>
+```systemctl restart docker```<br/>
 
 #### To remove dangling images from nodes that have failed:
 
-docker rmi $(docker images -aq --filter dangling=true)
+```docker rmi $(docker images -aq --filter dangling=true)```
 
 #### When spinning up containers from Dockerhub, be sure the Workload `Advanced Option - Command` "Auto Restart" setting is set to "Always"
 
@@ -215,11 +215,11 @@ docker rmi $(docker images -aq --filter dangling=true)
 
 #### When using crunchy-postgres, need to execute this command on the Kubernetes cluster for the pgset-sa service account:
 
-kubectl create clusterrolebinding pgset-sa --clusterrole=admin --serviceaccount=folio-q2:pgset-sa --namespace=folio-q2
+```kubectl create clusterrolebinding pgset-sa --clusterrole=admin --serviceaccount=folio-q2:pgset-sa --namespace=folio-q2```
 
 #### To find out which orphanded Replicasets need deleting that have 0 pods (Run this in Rancher using Launch kubectl):
 
-kubectl get --all-namespaces rs -o json|jq -r '.items[] | select(.spec.replicas | contains(0)) | "kubectl delete rs --namespace=\(.metadata.namespace) \(.metadata.name)"'
+```kubectl get --all-namespaces rs -o json|jq -r '.items[] | select(.spec.replicas | contains(0)) | "kubectl delete rs --namespace=\(.metadata.namespace) \(.metadata.name)"'```
 
 #### Set `.spec.revisionHistoryLimit` in the Kubernetes Deployment to the number of old Replicasets you want to retain.
 
