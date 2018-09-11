@@ -183,7 +183,7 @@ The Okapi traffic URL is the URL used when building Stripes.<br/>
 When setting up Load Balancing/Ingress, target the Service name instead of Workload name if you have specific ports you have set in the Workload.<br/>
 To have default Rancher 2.0 nginx ingress be a little more smart about DNS round-robin, add annotations in Rancher 2.0 GUI Service Discovery for Okapi and Stripes:
 
-nginx.ingress.kubernetes.io/upstream-fail-timeout = 1
+nginx.ingress.kubernetes.io/upstream-fail-timeout = 1<br/>
 nginx.ingress.kubernetes.io/upstream-max-fails = 2
 
 
