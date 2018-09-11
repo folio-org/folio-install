@@ -89,7 +89,7 @@ END
 
 
 
-## FOLIO in Kubernetes Notes
+## FOLIO in Kubernetes
 
 
 
