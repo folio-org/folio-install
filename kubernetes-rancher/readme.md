@@ -39,7 +39,7 @@ cat > /etc/docker/daemon.json <<END
 }
 END
 
-#### Restart Docker after ammending Docker Registry:
+#### Restart Docker after amending Docker Registry:
 
 ```systemctl restart docker```
 
@@ -72,7 +72,7 @@ cat > /etc/docker/daemon.json <<END
 }
 END
 
-#### Restart Docker after ammending Docker Registry:
+#### Restart Docker after amending Docker Registry:
 
 ```systemctl restart docker```
 
