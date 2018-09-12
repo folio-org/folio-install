@@ -114,11 +114,11 @@ END
 
 ### Okapi Notes:
 
-Running in "clustered mode", but is not currently clustering.<br/>
-Workload running as 3 pods that share database.<br/>
-Initially spin up one Okapi pod, do the deployment jobs, then can scale out Okapi's pods and they will each pick up the tenants/discovery/proxy services.<br/>
-After single Okapi pod has been initialized, set Workload environment variable for InitDB to false for future pod scalability.<br/>
-Running Okapi with 'ClusterIP' type of port mapping, and Clusterhost IP environment variable set to the assigned 'ClusterIP' of the service as given by Kubernetes/Rancher.<br/>
+-Running in "clustered mode", but is not currently clustering.<br/>
+-Workload running as 3 pods that share database.<br/>
+-Initially spin up one Okapi pod, do the deployment jobs, then can scale out Okapi's pods and they will each pick up the tenants/discovery/proxy services.<br/>
+-After single Okapi pod has been initialized, set Workload environment variable for InitDB to false for future pod scalability.<br/>
+-Running Okapi with 'ClusterIP' type of port mapping, and Clusterhost IP environment variable set to the assigned 'ClusterIP' of the service as given by Kubernetes/Rancher.<br/>
 
 #### Okapi Workload environment variables:
 	
@@ -137,11 +137,11 @@ HAZELCAST_IP = xx.xx.x.xxx (Insert ClusterIP Kubernetes assigns the service)<br/
 
 ### HA Postgres in Kubernetes/Rancher Notes:
 
-Currently testing out crunchy-postgres HA Kubernetes solution.<br/>
-Running as a Kubernetes 'Stateful Set', with one primary and two replica pods. Replica pods are read-only.<br/>
-For Postgres 'Service Discovery', created a 'Selector' type called ‘pg-folio’ that targets the master pgset-0 Postgres pod via a label.<br/>
-Using a 'Persistent Volume Claim' for Rancher Folio Project, which is a 10GB NFS share on our Netapp filer.<br/>
-Not sure if we would run like this in Production yet, as we haven't load tested it. It is a possibility for those looking for a complete Kubernetes/Container solution and being actively developed out more.<br/>
+-Currently testing out crunchy-postgres HA Kubernetes solution.<br/>
+-Running as a Kubernetes 'Stateful Set', with one primary and two replica pods. Replica pods are read-only.<br/>
+-For Postgres 'Service Discovery', created a 'Selector' type called ‘pg-folio’ that targets the master pgset-0 Postgres pod via a label.<br/>
+-Using a 'Persistent Volume Claim' for Rancher Folio Project, which is a 10GB NFS share on our Netapp filer.<br/>
+-Not sure if we would run like this in Production yet, as we haven't load tested it. It is a possibility for those looking for a complete Kubernetes/Container solution and being actively developed out more.<br/>
 
 #### Crunchy-postgres Workload environment variables:
 
@@ -177,11 +177,11 @@ JAVA_OPTIONS = -Djwt.signing.key=CorrectBatteryHorseStaple
 
 ### Ingress Notes:
 
-Have two URLs as A Records for the three Kube nodes.<br/>
-One URL is for proxying front-end and the other is for proxying Okapi traffic.<br/>
-The Okapi traffic URL is the URL used when building Stripes.<br/>
-When setting up Load Balancing/Ingress, target the Service name instead of Workload name if you have specific ports you have set in the Workload.<br/>
-To have default Rancher 2.0 nginx ingress be a little more smart about DNS round-robin, add annotations in Rancher 2.0 GUI Service Discovery for Okapi and Stripes:
+-Have two URLs as A Records for the three Kube nodes.<br/>
+-One URL is for proxying front-end and the other is for proxying Okapi traffic.<br/>
+-The Okapi traffic URL is the URL used when building Stripes.<br/>
+-When setting up Load Balancing/Ingress, target the Service name instead of Workload name if you have specific ports you have set in the Workload.<br/>
+-To have default Rancher 2.0 nginx ingress be a little more smart about DNS round-robin, add annotations in Rancher 2.0 GUI Service Discovery for Okapi and Stripes:
 
 nginx.ingress.kubernetes.io/upstream-fail-timeout = 1<br/>
 nginx.ingress.kubernetes.io/upstream-max-fails = 2
