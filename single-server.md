@@ -20,6 +20,7 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 * [Create a FOLIO “superuser” and load permissions](#create-a-folio-superuser-and-load-permissions)
 * [Load module reference data](#load-module-reference-data)
 * [Notes on sample data](#notes-on-sample-data)
+* [Known issues](#known-issues)
 
 ## Build a target Linux host
 
@@ -361,3 +362,10 @@ curl -w '\n' -D - -X POST -H "Content-type: application/json" -H "Accept: applic
 # post the files in sample-data/mod-inventory
 for i in /vagrant/sample-data/mod-inventory/*.xml; do curl -w '\n' -D - -X POST -H "Content-type: multipart/form-data" -H "X-Okapi-Tenant: diku" -H "X-Okapi-Token: <okapi token>" -F upload=@${i} http://localhost:9130/inventory/ingest/mods; done
 ```
+
+## Known issues
+
+There are some Jira filters to assist:
+* [Known critical Q3 issues](https://issues.folio.org/issues/?filter=10913)
+* [Open high-priority bugs](https://issues.folio.org/issues/?filter=10912)
+
