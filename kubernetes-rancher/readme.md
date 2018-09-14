@@ -143,7 +143,7 @@ HAZELCAST_IP = xx.xx.x.xxx (Insert ClusterIP Kubernetes assigns the service)<br/
 -Using a 'Persistent Volume Claim' for Rancher Folio Project, which is a 10GB NFS share on our Netapp filer.<br/>
 -Not sure if we would run like this in Production yet, as we haven't load tested it. It is a possibility for those looking for a complete Kubernetes/Container solution and being actively developed out more.<br/>
 
-#### Persistent Volume mount options:
+#### Persistent Volume NFS share mount options:
 
 sync<br/>
 hard<br/>
