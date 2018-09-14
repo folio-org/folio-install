@@ -143,9 +143,15 @@ HAZELCAST_IP = xx.xx.x.xxx (Insert ClusterIP Kubernetes assigns the service)<br/
 -Using a 'Persistent Volume Claim' for Rancher Folio Project, which is a 10GB NFS share on our Netapp filer.<br/>
 -Not sure if we would run like this in Production yet, as we haven't load tested it. It is a possibility for those looking for a complete Kubernetes/Container solution and being actively developed out more.<br/>
 
+#### Persistent Volume mount options:
+
+sync<br/>
+hard<br/>
+lookupcache=none<br/>
+
 #### Crunchy-postgres Workload environment variables:
 
-WORK_MEM = 32<br/>
+WORK_MEM = 4<br/>
 PGHOST = /tmp<br/>
 PGDATA_PATH_OVERRIDE = folio-data<br/>
 PG_USER = okapi<br/>
@@ -159,8 +165,9 @@ PG_PASSWORD = okapi25<br/>
 PG_MODE = set<br/>
 PG_LOCALE = en_US.UTF-8<br/>
 PG_DATABASE = okapi<br/>
-MAX_CONNECTIONS = 150<br/>
+MAX_CONNECTIONS = 200<br/>
 ARCHIVE_MODE = off<br/>
+CRUNCHY_DEBUG = FALSE<br/>
 
 #### Modules that require a database Workload environment variables:
 
