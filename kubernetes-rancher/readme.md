@@ -33,12 +33,12 @@ A collection of Dockerfiles and YAML for FOLIO Q2 installation on Kubernetes/Ran
 
 #### Add insecure Docker Registry:
 
-cat > /etc/docker/daemon.json <<END
+``cat > /etc/docker/daemon.json <<END
 {
   "insecure-registries" : ["Your Docker private registry IP or FQDN"],
   "storage-driver": "devicemapper"
 }
-END
+END``
 
 #### Restart Docker after amending Docker Registry:
 
@@ -66,12 +66,12 @@ END
 
 #### Add insecure Docker Registry:
 
-cat > /etc/docker/daemon.json <<END
+``cat > /etc/docker/daemon.json <<END
 {
   "insecure-registries" : ["Your Docker private registry IP or FQDN"],
   "storage-driver": "devicemapper"
 }
-END
+END``
 
 #### Restart Docker after amending Docker Registry:
 
