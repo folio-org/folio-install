@@ -16,8 +16,8 @@
 
 ### Start minikube with 8GB of mem and 2 CPU cores, allow insecure registry:
 
-```minikube --cpus 2 --memory 8192 start --insecure-registry "10.0.0.0/24"
-kubectl config use-context minikube```
+minikube --cpus 2 --memory 8192 start --insecure-registry "10.0.0.0/24"
+kubectl config use-context minikube
 
 ### Install Helm package manager for Kubernetes:
 
