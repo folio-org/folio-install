@@ -8,11 +8,11 @@
 
 ### Install kubectl via Homebrew:
 
-brew install kubernetes-cli
+```brew install kubernetes-cli```
 
 ### Install and update minikube via Homebrew:
 
-brew cask install minikube
+```brew cask install minikube```
 
 ### Start minikube with 8GB of mem and 2 CPU cores, allow insecure registry:
 
@@ -21,21 +21,21 @@ kubectl config use-context minikube
 
 ### Install Helm package manager for Kubernetes:
 
-brew install kubernetes-helm
+```brew install kubernetes-helm```
 
 ### Launch Kubernetes dashboard:
 
-minikube dashboard
+```minikube dashboard```
 
 ### Work with the docker daemon in minikube:
 
-eval $(minikube docker-env)
+```eval $(minikube docker-env)```
 
 ### Add insecure registries for 192.168.99.100:5000 in OSX Docker client
 
 ### Pull and start Rancher container:
 
-docker run -d --restart=unless-stopped -p 80:80 -p 443:443 --name rancher-server rancher/rancher
+```docker run -d --restart=unless-stopped -p 80:80 -p 443:443 --name rancher-server rancher/rancher```
 
 ### Open up Rancher front-end in a web browser
 
@@ -45,8 +45,8 @@ https://192.168.99.100
 
 ### Build, tag and push docker images from within their respective folders:
 
-docker build -t 192.168.99.100:5000/project/container:v1 .
-docker push 192.168.99.100:5000/project/container:v1
+```docker build -t 192.168.99.100:5000/project/container:v1 .```
+```docker push 192.168.99.100:5000/project/container:v1```
 
 ### When spinning up containers from Dockerhub, be sure the Workload `Advanced Option - Command` "Auto Restart" setting is set to "Always"
 
