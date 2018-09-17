@@ -228,7 +228,7 @@ Run instructions from here: https://gist.github.com/superseb/3a9c0d2e4a60afa3689
 
 ```kubectl create clusterrolebinding pgset-sa --clusterrole=admin --serviceaccount=folio-q2:pgset-sa --namespace=folio-q2```
 
-#### To find out which orphanded Replicasets need deleting that have 0 pods (Run this in Rancher using Launch kubectl):
+#### To find out which orphaned Replicasets need deleting that have 0 pods (Run this in Rancher using Launch kubectl):
 
 ```kubectl get --all-namespaces rs -o json|jq -r '.items[] | select(.spec.replicas | contains(0)) | "kubectl delete rs --namespace=\(.metadata.namespace) \(.metadata.name)"'```
 
