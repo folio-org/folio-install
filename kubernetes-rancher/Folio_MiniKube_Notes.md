@@ -48,5 +48,5 @@ https://192.168.99.100
 ```docker build -t 192.168.99.100:5000/project/container:v1 .```<br/>
 ```docker push 192.168.99.100:5000/project/container:v1```
 
-#### When spinning up containers from Dockerhub, be sure the Workload `Advanced Option - Command` "Auto Restart" setting is set to "Always"
+#### When spinning up containers from Dockerhub, be sure the Workload `Advanced Option - Command` *Auto Restart* setting is set to *Always*
 
