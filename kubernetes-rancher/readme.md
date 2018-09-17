@@ -13,6 +13,7 @@ A collection of Dockerfiles and YAML for FOLIO Q2 installation on Kubernetes/Ran
 ## Contents
 
 * [Minikube deployment notes](Folio_MiniKube_Notes.md)
+* [Okapi Dockerfile Readme] (okapi/Readme.md)
 
 
 
