@@ -220,7 +220,7 @@ Run instructions from here: https://gist.github.com/superseb/3a9c0d2e4a60afa3689
 
 ```docker rmi $(docker images -aq --filter dangling=true)```
 
-#### When spinning up containers from Dockerhub, be sure the Workload `Advanced Option - Command` "Auto Restart" setting is set to "Always"
+#### When spinning up containers from Dockerhub, be sure the Workload `Advanced Option - Command` *Auto Restart* setting is set to *Always*
 
 #### When creating Workloads, set min to 0 if you wish to scale your deployments to 0 - in Kubernetes Dashboard
 
