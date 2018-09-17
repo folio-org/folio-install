@@ -16,8 +16,8 @@
 
 ### Start minikube with 8GB of mem and 2 CPU cores, allow insecure registry:
 
-minikube --cpus 2 --memory 8192 start --insecure-registry "10.0.0.0/24"
-kubectl config use-context minikube
+```minikube --cpus 2 --memory 8192 start --insecure-registry "10.0.0.0/24"
+kubectl config use-context minikube```
 
 ### Install Helm package manager for Kubernetes:
 
@@ -45,7 +45,7 @@ https://192.168.99.100
 
 ### Build, tag and push docker images from within their respective folders:
 
-```docker build -t 192.168.99.100:5000/project/container:v1 .```
+```docker build -t 192.168.99.100:5000/project/container:v1 .```<br/>
 ```docker push 192.168.99.100:5000/project/container:v1```
 
 ### When spinning up containers from Dockerhub, be sure the Workload `Advanced Option - Command` "Auto Restart" setting is set to "Always"
