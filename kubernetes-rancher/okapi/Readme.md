@@ -26,31 +26,31 @@ PostgreSQL port. Defaults to 5432.
 
 ### PG_USERNAME
 
-PostgreSQL username. Defaults to okapi.
+PostgreSQL username. Defaults to okapi
 
 ### PG_PASSWORD
 
-PostgreSQL password. Defaults to okapi25.
+PostgreSQL password. Defaults to okapi25
 
 ### PG_DATABASE
 
-PostgreSQL database. Defaults to okapi.
+PostgreSQL database. Defaults to okapi
 
 ### OkAPI_COMMAND
 
-OKAPI command to use, cluster or dev. Defaults to dev.
+OKAPI command to use, cluster or dev. Defaults to dev
 
 ### OKAPI_URL
 
-Internal OKAPI URL to use.  Defaults to http://localhost:9130.
+Internal OKAPI URL to use.  Defaults to http://localhost:9130
 
 ### OKAPI_LOGLEVEL
 
-OKAPI log level to use.  Defaults to INFO; other useful values are DEBUG, TRACE, WARN and ERROR.
+OKAPI log level to use.  Defaults to INFO; other useful values are DEBUG, TRACE, WARN and ERROR
 
 ### OKAPI_HOST
 
-OKAPI host to use for deployment service.  Default localhost.
+OKAPI host to use for deployment service.  Default localhost
 
 ### OKAPI_NODENAME
 
@@ -62,20 +62,20 @@ The Docker host machine interface address for the OKAPI Cluster node to use (typ
 
 ### OKAPI_PORT
 
-The port on which Okapi listens. Defaults to 9130.
+The port on which Okapi listens. Defaults to 9130
 
 ### HAZELCAST_FILE
 
-The configuration file for hazelcast OKAPI Cluster to use for cluster node discovery. Default /usr/local/bin/folio/okapi/hazelcast.xml.
+The configuration file for hazelcast OKAPI Cluster to use for cluster node discovery. Default /usr/local/bin/folio/okapi/hazelcast.xml
 
 ### HAZELCAST_IP
 
-The PUBLIC IP for hazelcast of the OKAPI Cluster node to use. Default localhost IP.
+The PUBLIC IP for hazelcast of the OKAPI Cluster node to use. Default localhost IP
 
 ### HAZELCAST_PORT
 
-The PUBLIC port for hazelcast in the OKAPI Cluster node to use. Default 5701.
+The PUBLIC port for hazelcast in the OKAPI Cluster node to use. Default 5701
 
 ### HAZELCAST_VERTX_PORT
 
-The TCP port for vertx cluster communications to use.
+The TCP port for vertx cluster communications to use
