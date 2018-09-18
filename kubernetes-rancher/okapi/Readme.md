@@ -14,7 +14,7 @@ When you start the `okapi` image, you can adjust the configuration of the Okapi 
 
 ### INITDB
 
-Default is *false*  Determine whether or not to initialize the database before running okapi
+Default is *false*  - Determine whether or not to initialize the database before running okapi.
 
 ### PG_HOST
 
