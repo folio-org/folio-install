@@ -50,7 +50,7 @@ OKAPI log level to use.  Defaults to *INFO*; other useful values are *DEBUG, TRA
 
 ### OKAPI_HOST
 
-OKAPI host to use for deployment service.  Default *localhost*
+OKAPI host to use for deployment service.  Defaults to *localhost*
 
 ### OKAPI_NODENAME
 
@@ -58,7 +58,7 @@ Name of the OKAPI Cluster node of this instance.
 
 ### OKAPI_CLUSTERHOST
 
-The Docker host machine interface address for the OKAPI Cluster node to use (typically an IP). Default <hostname IP>
+The Docker host machine interface address for the OKAPI Cluster node to use (typically an IP). Defaults to <hostname IP>
 
 ### OKAPI_PORT
 
@@ -66,15 +66,15 @@ The port on which Okapi listens. Defaults to *9130*
 
 ### HAZELCAST_FILE
 
-The configuration file for hazelcast OKAPI Cluster to use for cluster node discovery. Default */usr/local/bin/folio/okapi/hazelcast.xml*
+The configuration file for hazelcast OKAPI Cluster to use for cluster node discovery. Defaults to */usr/local/bin/folio/okapi/hazelcast.xml*
 
 ### HAZELCAST_IP
 
-The PUBLIC IP for hazelcast of the OKAPI Cluster node to use. Default <localhost IP>
+The PUBLIC IP for hazelcast of the OKAPI Cluster node to use. Defaults to <localhost IP>
 
 ### HAZELCAST_PORT
 
-The PUBLIC network interface port for hazelcast in the OKAPI Cluster node to use. Default *5701*
+The PUBLIC network interface port for hazelcast in the OKAPI Cluster node to use. Defaults to *5701*
 
 ### HAZELCAST_VERTX_PORT
 
