@@ -58,7 +58,7 @@ Name of the OKAPI Cluster node of this instance.
 
 ### OKAPI_CLUSTERHOST
 
-The Docker host machine interface address for the OKAPI Cluster node to use (typically an IP). Defaults to <hostname IP>
+The Docker host machine interface address for the OKAPI Cluster node to use (typically an IP). Defaults to *hostname IP*
 
 ### OKAPI_PORT
 
@@ -70,7 +70,7 @@ The configuration file for hazelcast OKAPI Cluster to use for cluster node disco
 
 ### HAZELCAST_IP
 
-The PUBLIC IP for hazelcast of the OKAPI Cluster node to use. Defaults to <localhost IP>
+The PUBLIC IP for hazelcast of the OKAPI Cluster node to use. Defaults to *localhost IP*
 
 ### HAZELCAST_PORT
 
