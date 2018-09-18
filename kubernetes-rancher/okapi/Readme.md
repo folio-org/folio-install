@@ -3,13 +3,13 @@
 When you start the `okapi` image, you can adjust the configuration of the Okapi instance by passing one or more environment variables on the `docker run` command line. This assumes you have a Docker network 'folio-clustered' created, and that multicast is enabled for your network interfaces on your Docker host.
 
 
-### Linux console run command ###
+## Linux console run command:
 
 
-docker run --rm -d --network folio-clustered --name okapi -h okapi -e OKAPI_URL=http://my-folio-host.org:9130 -e INITDB=true -e PG_HOST=pg_folio -e OKAPI_PORT=9130 -e OKAPI_NODENAME=okapi1 -e OKAPI_CLUSTERHOST=<xxx.xxx.xxx.xxx> -e OKAPI_HOST=myfolio-node-1.org -e HAZELCAST_IP=<xxx.xxx.xxx.xxx> -e HAZELCAST_VERTX_PORT=5703 -e HAZELCAST_PORT=5701 -p 9130:9130 -p 5701:5701 -p 5703:5703 -p 54327:54327/udp okapi
+```docker run --rm -d --network folio-clustered --name okapi -h okapi -e OKAPI_URL=http://my-folio-host.org:9130 -e INITDB=true -e PG_HOST=pg_folio -e OKAPI_PORT=9130 -e OKAPI_NODENAME=okapi1 -e OKAPI_CLUSTERHOST=<xxx.xxx.xxx.xxx> -e OKAPI_HOST=myfolio-node-1.org -e HAZELCAST_IP=<xxx.xxx.xxx.xxx> -e HAZELCAST_VERTX_PORT=5703 -e HAZELCAST_PORT=5701 -p 9130:9130 -p 5701:5701 -p 5703:5703 -p 54327:54327/udp okapi```
 
 
-### Dockerfile and variables explained below ###
+## Dockerfile and variables explained below:
 
 
 ### INITDB
