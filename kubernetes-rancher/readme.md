@@ -54,9 +54,9 @@ END``
 
 #### VM specs:
 
-2 core CPU
-16GB of memory
-40GB disk
+2 core CPU<br/>
+16GB of memory<br/>
+40GB disk<br/>
 
 #### In Oralce Linux, install correct version of Docker:
 
