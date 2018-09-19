@@ -52,7 +52,11 @@ END``
 
 ## Prerequisites for Kubernetes Hosts
 
+#### VM specs:
 
+2 core CPU
+16GB of memory
+40GB disk
 
 #### In Oralce Linux, install correct version of Docker:
 
