@@ -1,6 +1,6 @@
 ## Environment variables
 
-When you start the `okapi` image, you can adjust the configuration of the Okapi instance by passing one or more environment variables on the `docker run` command line. This assumes you have a Docker network *folio-clustered* created, and that multicast is enabled for your network interfaces on your Docker host.
+When you start the `okapi` image, you can adjust the configuration of the Okapi instance by passing one or more environment variables on the `docker run` command line. This assumes you have a Docker host named *my-folio-host.org*, a Docker network *folio-clustered* created, a database located at *pg_folio* and that multicast is enabled for your network interfaces on your Docker host.
 
 
 ## Linux console run command:
