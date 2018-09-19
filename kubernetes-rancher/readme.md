@@ -104,8 +104,8 @@ END``
 2) Create Folio-Project in Rancher 2.0 UI
 3) Add folio-q2 Namespace for Folio-Project under Namespaces in Rancher 2.0 UI
 4) Add Dockerhub and your private Docker registries to the Folio-Project
-5) Add Persistent Volume on the cluster and Persistent Volume Claim for Folio-Project (We are using an NFS Share)
-(The rest of these steps are from within the Folio-Project in Rancher 2.0)
+5) Add Persistent Volume on the cluster and Persistent Volume Claim for Folio-Project (We are using an NFS Share)<br/>
+(The rest of these steps are from within the Folio-Project in Rancher 2.0)<br/>
 6) Deploy crunchy-postgres Workload *Stateful set* via Helm Package, edit the Workload to tweak environment variables for use with Folio
 7) Add Record under Service Discovery, named pg-folio, as type *Selector* with Label/Value: *statefulset.kubernetes.io/pod-name = pgset-0*
 8) Deploy create-db Workload *Job* - our custom Docker container with DB init scripts
