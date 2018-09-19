@@ -106,13 +106,13 @@ END``
 4) Add Dockerhub and your private Docker registries to the Folio-Project
 5) Add Persistent Volume on the cluster and Persistent Volume Claim for Folio-Project (We are using an NFS Share)
 (The rest of these steps are from within the Folio-Project in Rancher 2.0)
-6) Deploy crunchy-postgres Workload 'Stateful set' via Helm Package, edit the Workload to tweak environment variables for use with Folio
-7) Add Record under Service Discovery, named pg-folio, as type 'Selector' with Label/Value: statefulset.kubernetes.io/pod-name = pgset-0
-8) Deploy create-db Workload ‘Job’ - our custom Docker container with DB init scripts
-9) Deploy Okapi Workload 'Scalable deployment' of 1 - our custom Docker container
-10) Deploy Folio module Workloads 'Scalable deployment' of 3 (one Workload per Folio module)
-11) Deploy Stripes Workload 'Run one pod on each node' – our custom Docker container
-12) Deploy create-tenant/create-deploy Workload ‘Job’ – our custom Docker container with scripts
+6) Deploy crunchy-postgres Workload *Stateful set* via Helm Package, edit the Workload to tweak environment variables for use with Folio
+7) Add Record under Service Discovery, named pg-folio, as type *Selector* with Label/Value: *statefulset.kubernetes.io/pod-name = pgset-0*
+8) Deploy create-db Workload *Job* - our custom Docker container with DB init scripts
+9) Deploy Okapi Workload *Scalable deployment* of 1 - our custom Docker container
+10) Deploy Folio module Workloads *Scalable deployment* of 3 (one Workload per Folio module)
+11) Deploy Stripes Workload *Run one pod on each node* – our custom Docker container
+12) Deploy create-tenant/create-deploy Workload *Job* – our custom Docker container with scripts
 13) Edit Okapi Workload, set InitDB environment variable to false
 14) Scale up Okapi pods to 3 using Rancher 2.0 + button
 15) Add Ingress under Load Balancing for Okapi and Stripes using URLs for `/` and `/_/`
