@@ -123,7 +123,7 @@ END``
 -Workload running as 3 pods that share database.<br/>
 -Initially spin up one Okapi pod, do the deployment jobs, then can scale out Okapi's pods and they will each pick up the tenants/discovery/proxy services.<br/>
 -After single Okapi pod has been initialized, set Workload environment variable for InitDB to false for future pod scalability.<br/>
--Running Okapi with 'ClusterIP' type of port mapping, and Clusterhost IP environment variable set to the assigned 'ClusterIP' of the service as given by Kubernetes/Rancher.<br/>
+-Running Okapi with *ClusterIP* type of port mapping, and Clusterhost IP environment variable set to the assigned *ClusterIP* of the service as given by Kubernetes/Rancher.<br/>
 
 #### Okapi Workload environment variables:
 	
@@ -143,9 +143,9 @@ HAZELCAST_IP = xx.xx.x.xxx (Insert ClusterIP Kubernetes assigns the service)<br/
 ### HA Postgres in Kubernetes/Rancher Notes:
 
 -Currently testing out crunchy-postgres HA Kubernetes solution.<br/>
--Running as a Kubernetes 'Stateful Set', with one primary and two replica pods. Replica pods are read-only.<br/>
--For Postgres 'Service Discovery', created a 'Selector' type called ‘pg-folio’ that targets the master pgset-0 Postgres pod via a label.<br/>
--Using a 'Persistent Volume Claim' for Rancher Folio Project, which is a 10GB NFS share on our Netapp filer.<br/>
+-Running as a Kubernetes *Stateful Set*, with one primary and two replica pods. Replica pods are read-only.<br/>
+-For Postgres *Service Discovery*, created a *Selector* type called *pg-folio* that targets the master pgset-0 Postgres pod via a label.<br/>
+-Using a *Persistent Volume Claim* for Rancher Folio Project, which is a 10GB NFS share on our Netapp filer.<br/>
 -Not sure if we would run like this in Production yet, as we haven't load tested it. It is a possibility for those looking for a complete Kubernetes/Container solution and being actively developed out more.<br/>
 
 #### Persistent Volume NFS share mount options:
