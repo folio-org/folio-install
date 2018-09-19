@@ -365,7 +365,6 @@ for i in /vagrant/sample-data/mod-inventory/*.xml; do curl -w '\n' -D - -X POST 
 
 ## Known issues
 
-There are some Jira filters to assist:
+This Jira filter will assist (but note that many are already resolved):
 * [Known critical Q3 issues](https://issues.folio.org/issues/?filter=10913)
-* [Open high-priority bugs](https://issues.folio.org/issues/?filter=10912)
 
