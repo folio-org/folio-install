@@ -247,7 +247,7 @@ yarn install
 
 **Be warned, this could result in a bundle with unstable code!**
 
-If you build Stripes this way, you will need to construct your FOLIO backend system a little differently. See [Building from the bleeding edge -- part II](#sidebar-building-from-the-bleeding-edge-part-ii) below.
+If you build Stripes this way, you will need to construct your FOLIO backend system a little differently. See [Building from the bleeding edge -- part II](#sidebar-building-from-the-bleeding-edge----part-ii) below.
 
 5. Build webpack
 
