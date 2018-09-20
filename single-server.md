@@ -142,7 +142,7 @@ CREATE DATABASE folio WITH OWNER folio;
 
 ## Install and configure Okapi
 
-1. Import the FOLIO signing key, add the FOLIO apt repository, install okapi
+1. Import the FOLIO signing key, add the FOLIO apt repository, install okapi (of this release)
 
 ```
 wget --quiet -O - https://repository.folio.org/packages/debian/folio-apt-archive-key.asc | sudo apt-key add -
