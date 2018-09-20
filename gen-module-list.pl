@@ -2,9 +2,9 @@ use strict;
 use warnings;
 use JSON;
 
-my @extra_modules = ('mod-codex-inventory','mod-codex-ekb');
+my @extra_modules = ('mod-codex-inventory','mod-codex-ekb','mod-rtac');
 # Some modules don't have mod descriptors in the central repo
-my @exclude_modules = ('folio-testing-platform','stripes-smart-components','react-big-calendar','react-githubish-mentions','react-intl-safe-html');
+my @exclude_modules = ('platform-complete','platform-core','react-big-calendar','react-githubish-mentions','react-intl-safe-html');
 my $input_dir = $ARGV[0];
 die "Directory $input_dir not readable\n" unless (-r $input_dir && -d $input_dir);
 opendir(INPUTDIR,$input_dir) or die "Can't open input directory $input_dir: $!\n";
