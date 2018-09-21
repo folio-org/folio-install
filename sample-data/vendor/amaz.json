@@ -1,0 +1,197 @@
+{
+  "id": null,
+  "name": "Amazon.com",
+  "code": "AMAZ",
+  "description": "Use for rush orders, replacement requests, and second hand market",
+  "vendor_status": "Active",
+  "language": "en-us",
+  "aliases": [
+    {
+      "value": "Amazon",
+      "description": ""
+    }
+  ],
+  "addresses": [
+    {
+      "address": {
+        "addressLine1": "1 Centerpiece Blvd.",
+        "addressLine2": "P.O. Box 15550",
+        "city": "New Castle",
+        "stateRegion": "DE",
+        "zipCode": "19720-5550",
+        "country": "USA"
+      },
+      "categories": [],
+      "language": "English",
+      "san_code": ""
+    }
+  ],
+  "phone_numbers": [
+    {
+      "phone_number": {
+        "country_code": "1",
+        "area_code": "888",
+        "phone_number": "238-22090"
+      },
+      "categories": [],
+      "language": "English"
+    }
+  ],
+  "emails": [
+    {
+      "email": {
+        "value": "cust.service03@amazon.com",
+        "description": "customer service"
+      },
+      "categories": [],
+      "language": "English"
+    }
+  ],
+  "urls": [
+    {
+      "url": {
+        "value": "https://www.amazon.com",
+        "description": "main website"
+      },
+      "language": "en-us",
+      "categories": [],
+      "notes": ""
+    }
+  ],
+  "contacts": [
+    {
+      "language": "English",
+      "contact_person": {
+        "prefix": "Ms.",
+        "first_name": "Carrie",
+        "last_name": "Brownstein",
+        "language": "English",
+        "notes": "",
+        "phone_number": {
+          "country_code": "1",
+          "area_code": "888",
+          "phone_number": "238-2209"
+        },
+        "email": {
+          "value": "cust.service03@amazon.com",
+          "description": "main customer service contact"
+        },
+        "address": {
+          "addressLine1": "325 9th Ave.",
+          "addressLine2": "",
+          "city": "Seattle",
+          "stateRegion": "WA",
+          "zipCode": "",
+          "country": "USA"
+        },
+        "url": {
+          "value": "https://www.doi.gov/",
+          "description": "web address for U.S. Dept. of Interior"
+        }
+      },
+      "categories": []
+    }
+  ],
+  "agreements": [
+    {
+      "name": "",
+      "discount": 0,
+      "reference_url": "",
+      "notes": ""
+    }
+  ],
+  "erp_code": "G64758-74834",
+  "payment_method": "credit card",
+  "access_provider": false,
+  "governmental": false,
+  "licensor": false,
+  "material_supplier": true,
+  "vendor_currencies": [
+    "USD"
+  ],
+  "claiming_interval": 45,
+  "discount_percent": 0,
+  "expected_activation_interval": 0,
+  "expected_invoice_interval": 0,
+  "renewal_activation_interval": 0,
+  "subscription_interval": 0,
+  "liable_for_vat": false,
+  "tax_id": "",
+  "tax_percentage": 0,
+  "edi": {
+    "vendor_edi_code": "",
+    "vendor_edi_type": "",
+    "lib_edi_code": "",
+    "lib_edi_type": "",
+    "prorate_tax": false,
+    "prorate_fees": false,
+    "edi_naming_convention": "",
+    "send_acct_num": false,
+    "support_order": false,
+    "support_invoice": false,
+    "notes": "",
+    "edi_ftp": {
+      "ftp_format": "",
+      "server_address": "",
+      "username": "",
+      "password": "",
+      "ftp_mode": "",
+      "ftp_conn_mode": "",
+      "ftp_port": "22",
+      "order_directory": "",
+      "invoice_directory": "",
+      "notes": ""
+    },
+    "edi_job": {
+      "schedule_edi": false,
+      "date": null,
+      "time": null,
+      "is_monday": false,
+      "is_tuesday": false,
+      "is_wednesday": false,
+      "is_thursday": false,
+      "is_friday": false,
+      "is_saturday": false,
+      "is_sunday": false,
+      "send_to_emails": "",
+      "notify_all_edi": false,
+      "notify_invoice_only": false,
+      "notify_error_only": false
+    }
+  },
+  "interfaces": [
+    {
+      "name": "Amazon",
+      "uri": "www.amazon.com",
+      "username": "****",
+      "password": "****",
+      "notes": "",
+      "available": false,
+      "delivery_method": "",
+      "statistics_format": "",
+      "locally_stored": false,
+      "online_location": "",
+      "statistics_notes": ""
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Monographic ordering unit account",
+      "account_no": "1234",
+      "description": "Monographic ordering unit account",
+      "app_system_no": "",
+      "payment_method": "credit card",
+      "account_status": "Active",
+      "contact_info": "cust.service03@amazon.com",
+      "library_code": "COB",
+      "library_edi_code": "765987610",
+      "notes": ""
+    }
+  ],
+  "changelogs": [
+    {
+      "description": "This is a sample note.",
+      "timestamp": "2008-05-15T03:53:00-07:00"
+    }
+  ]
+}

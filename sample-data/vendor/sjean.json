@@ -1,0 +1,190 @@
+{
+  "id": null,
+  "name": "Jean Simmons",
+  "code": "SJEAN",
+  "description": "Individual donor to library archives",
+  "vendor_status": "Active",
+  "language": "en-us",
+  "aliases": [
+    {
+      "value": "Sister Jean",
+      "description": ""
+    }
+  ],
+  "addresses": [
+    {
+      "address": {
+        "addressLine1": "1032 W. Sheridan Rd",
+        "addressLine2": "",
+        "city": "Chicago",
+        "stateRegion": "IL",
+        "zipCode": "60660",
+        "country": "USA"
+      },
+      "categories": [],
+      "language": "English",
+      "san_code": ""
+    }
+  ],
+  "phone_numbers": [
+    {
+      "phone_number": {
+        "country_code": "1",
+        "area_code": "773",
+        "phone_number": "274-3000"
+      },
+      "categories": [],
+      "language": "English"
+    }
+  ],
+  "emails": [
+    {
+      "email": {
+        "value": "sister@luc.edu",
+        "description": "personal email "
+      },
+      "categories": [],
+      "language": "English"
+    }
+  ],
+  "urls": [
+    {
+      "url": {
+        "value": "",
+        "description": ""
+      },
+      "language": "",
+      "categories": [],
+      "notes": ""
+    }
+  ],
+  "contacts": [
+    {
+      "language": "English",
+      "contact_person": {
+        "prefix": "Sister",
+        "first_name": "Jean",
+        "last_name": "Simmons",
+        "language": "English",
+        "notes": "",
+        "phone_number": {
+          "country_code": "1",
+          "area_code": "773",
+          "phone_number": "274-3000"
+        },
+        "email": {
+          "value": "sister@luc.edu",
+          "description": ""
+        },
+        "address": {
+          "addressLine1": "1032 W. Sheridan Rd",
+          "addressLine2": "",
+          "city": "Chicago",
+          "stateRegion": "IL",
+          "zipCode": "",
+          "country": "USA"
+        },
+        "url": {
+          "value": "https://www.doi.gov/",
+          "description": "web address for U.S. Dept. of Interior"
+        }
+      },
+      "categories": []
+    }
+  ],
+  "agreements": [],
+  "erp_code": "G64758-74830",
+  "payment_method": "check",
+  "access_provider": false,
+  "governmental": false,
+  "licensor": false,
+  "material_supplier": true,
+  "vendor_currencies": [
+    "USD"
+  ],
+  "claiming_interval": 0,
+  "discount_percent": 0,
+  "expected_activation_interval": 0,
+  "expected_invoice_interval": 0,
+  "renewal_activation_interval": 0,
+  "subscription_interval": 0,
+  "liable_for_vat": false,
+  "tax_id": "",
+  "tax_percentage": 0,
+  "edi": {
+    "vendor_edi_code": "",
+    "vendor_edi_type": "",
+    "lib_edi_code": "",
+    "lib_edi_type": "",
+    "prorate_tax": false,
+    "prorate_fees": false,
+    "edi_naming_convention": "",
+    "send_acct_num": false,
+    "support_order": false,
+    "support_invoice": false,
+    "notes": "",
+    "edi_ftp": {
+      "ftp_format": "",
+      "server_address": "",
+      "username": "",
+      "password": "",
+      "ftp_mode": "",
+      "ftp_conn_mode": "",
+      "ftp_port": "22",
+      "order_directory": "",
+      "invoice_directory": "",
+      "notes": ""
+    },
+    "edi_job": {
+      "schedule_edi": false,
+      "date": null,
+      "time": null,
+      "is_monday": false,
+      "is_tuesday": false,
+      "is_wednesday": false,
+      "is_thursday": false,
+      "is_friday": false,
+      "is_saturday": false,
+      "is_sunday": false,
+      "send_to_emails": "",
+      "notify_all_edi": false,
+      "notify_invoice_only": false,
+      "notify_error_only": false
+    }
+  },
+  "interfaces": [
+    {
+      "name": "",
+      "uri": "",
+      "username": "",
+      "password": "",
+      "notes": "",
+      "available": false,
+      "delivery_method": "",
+      "statistics_format": "",
+      "locally_stored": "",
+      "online_location": "",
+      "statistics_notes": ""
+    }
+  ],
+  "accounts": [
+    {
+      "name": "SJean account",
+      "account_no": "1234",
+      "description": "Donor account",
+      "app_system_no": "",
+      "payment_method": "check",
+      "account_status": "Active",
+      "contact_info": "sister@luc.edu",
+      "library_code": "COB",
+      "library_edi_code": "765987610",
+      "notes": ""
+    }
+  ],
+  "changelogs": [
+    {
+      "description": "This is a sample note.",
+      "timestamp": "2008-05-15T03:53:00-07:00"
+    }
+  ]
+}

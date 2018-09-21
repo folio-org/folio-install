@@ -1,0 +1,12 @@
+{
+  "id": "6506b79b-7702-48b2-9774-a1c538fdd34e",
+  "name": "Gifts (Non-recurring)",
+  "code": "GIFTS-ONE-TIME",
+  "created_date": "2018-01-01T13:06:34.186Z",
+  "fund_status": "Active",
+  "currency": "USD",
+  "description": "use for any one-time gift funds",
+  "ledger_id": "133a7916-f05e-4df4-8f7f-09eb2a7076d1",
+  "allocation_from": null,
+  "allocation_to": null
+}

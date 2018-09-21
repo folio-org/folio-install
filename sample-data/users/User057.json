@@ -1,0 +1,30 @@
+{
+   "enrollmentDate" : "2016-11-10",
+   "username" : "dane",
+   "patronGroup" : "97a31a9d-52bf-4a80-98ca-39df96520abb",
+   "barcode" : "306694020525370",
+   "id" : "dc079fa2-b9ca-44da-8c76-02ddc2aaf7db",
+   "personal" : {
+      "dateOfBirth" : "1984-08-01",
+      "lastName" : "Tremblay",
+      "firstName" : "Rashad",
+      "email" : "daisha@anderson-wuckert.bf",
+      "phone" : "269-224-7954 x98844",
+      "addresses" : [
+         {
+            "postalCode" : "41991-5047",
+            "addressLine1" : "79051 Okuneva Radial",
+            "countryId" : "US",
+            "addressTypeId" : "ad2c4726-b397-4a0c-8e0e-c31dc5503296",
+            "city" : "Texarkana",
+            "region" : "AL",
+            "primaryAddress" : true
+         }
+      ],
+      "preferredContactTypeId" : "005"
+   },
+   "expirationDate" : "2019-07-17",
+   "active" : true,
+   "type" : "patron"
+}
+

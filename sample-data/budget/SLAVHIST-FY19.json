@@ -1,0 +1,16 @@
+{
+  "name": "SLAVHIST-FY19",
+  "code": "SLAVHIST-FY19",
+  "budget_status": "Active",
+  "limit_enc_percent": 110,
+  "limit_exp_percent": 100,
+  "allocation": 15000.00,
+  "awaiting_payment": 90.36,
+  "available": 9188.07,
+  "encumbered": 4384.44,
+  "expenditures": 1337.13,
+  "over_encumbrance": 0,
+  "fund_id": "f31a36de-fcf8-44f9-87ef-a55d06ad21ae",
+  "fiscal_year_id": "684b5dc5-92f6-4db7-b996-b549d88f5e4e",
+  "tags": null
+}

@@ -1,0 +1,32 @@
+{
+   "patronGroup" : "97a31a9d-52bf-4a80-98ca-39df96520abb",
+   "personal" : {
+      "mobilePhone" : "976-570-7531 x15260",
+      "preferredContactTypeId" : "003",
+      "addresses" : [
+         {
+            "addressTypeId" : "f6a96d06-618c-4697-9bf1-984cd8229831",
+            "countryId" : "US",
+            "city" : "Sahuarita",
+            "region" : "WV",
+            "primaryAddress" : true,
+            "postalCode" : "77722",
+            "addressLine1" : "11085 Liam Ferry"
+         }
+      ],
+      "email" : "amparo@koch-and-sons.uz",
+      "dateOfBirth" : "1961-12-06",
+      "phone" : "454-887-2298",
+      "middleName" : "Brandy",
+      "firstName" : "Arthur",
+      "lastName" : "Kuhic"
+   },
+   "id" : "78fa4763-6987-4951-a0fe-47766e7ea83a",
+   "barcode" : "393127161794733",
+   "active" : false,
+   "expirationDate" : "2020-05-17",
+   "type" : "patron",
+   "username" : "pablo",
+   "enrollmentDate" : "2015-06-15"
+}
+

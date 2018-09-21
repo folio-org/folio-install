@@ -1,0 +1,31 @@
+{
+   "username" : "nash",
+   "enrollmentDate" : "2018-03-30",
+   "type" : "patron",
+   "active" : true,
+   "expirationDate" : "2019-11-20",
+   "id" : "38c5e0fa-e2c9-4a09-aecc-044af3f39e1b",
+   "personal" : {
+      "phone" : "1-189-278-3478 x59402",
+      "firstName" : "Sofia",
+      "lastName" : "Littel",
+      "email" : "elliot@tromp-jacobs.an",
+      "dateOfBirth" : "2011-11-07",
+      "mobilePhone" : "(934)171-9322",
+      "preferredContactTypeId" : "001",
+      "addresses" : [
+         {
+            "postalCode" : "35857-5770",
+            "addressLine1" : "60089 Friesen Plain",
+            "city" : "Long Beach",
+            "addressTypeId" : "ad2c4726-b397-4a0c-8e0e-c31dc5503296",
+            "countryId" : "US",
+            "primaryAddress" : true,
+            "region" : "PW"
+         }
+      ]
+   },
+   "barcode" : "757563877102114",
+   "patronGroup" : "97a31a9d-52bf-4a80-98ca-39df96520abb"
+}
+

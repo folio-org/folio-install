@@ -1,0 +1,77 @@
+{
+  "id": "1640f178-f243-4e4a-bf1c-9e1e62b3171d",
+  "hrid": "in000004",
+  "source": "MARC",
+  "title": "Futures, biometrics and neuroscience research Luiz Moutinho, Mladen Sokele, editors",
+  "alternativeTitles": [],
+  "series": [
+    "Innovative research methodologies in management  / Luiz Moutinho, Mladen Sokele ; Volume 2",
+    "Innovative research methodologies in management Volume 2"
+  ],
+  "identifiers": [
+    {
+      "value": "101073931X",
+      "identifierTypeId": "5d164f4b-0b15-4e42-ae75-cfcf85318ad9"
+    },
+    {
+      "value": "3319643991",
+      "identifierTypeId": "8261054f-be78-422d-bd51-4ed9f33c3422"
+    },
+    {
+      "value": "9783319643991",
+      "identifierTypeId": "8261054f-be78-422d-bd51-4ed9f33c3422"
+    },
+    {
+      "value": "9783319644004",
+      "identifierTypeId": "8261054f-be78-422d-bd51-4ed9f33c3422"
+    },
+    {
+      "value": "(OCoLC)ocn992783736",
+      "identifierTypeId": "7e591197-f335-4afb-bc6d-a6d76ca3bace"
+    },
+    {
+      "value": "(OCoLC)992783736",
+      "identifierTypeId": "7e591197-f335-4afb-bc6d-a6d76ca3bace"
+    },
+    {
+      "value": "(DE-599)GBV101073931X",
+      "identifierTypeId": "7e591197-f335-4afb-bc6d-a6d76ca3bace"
+    }
+  ],
+  "contributors": [
+    {
+      "contributorNameTypeId": "2b94c631-fca9-4892-a730-03ee529ffe2a",
+      "name": "Moutinho, Luiz"
+    },
+    {
+      "contributorNameTypeId": "2b94c631-fca9-4892-a730-03ee529ffe2a",
+      "name": "Sokele, Mladen"
+    }
+  ],
+  "subjects": [
+    "Betriebswirtschaftslehre",
+    "Management",
+    "Wissenschaftliche Methode"
+  ],
+  "classifications": [],
+  "publication": [
+    {
+      "publisher": "Palgrave Macmillan",
+      "place": "Cham",
+      "dateOfPublication": "[2018]"
+    }
+  ],
+  "urls": [
+    "http://www.gbv.de/dms/zbw/101073931X.pdf"
+  ],
+  "instanceTypeId": "6312d172-f0cf-40f6-b27d-9fa8feaf332f",
+  "physicalDescriptions": [
+    "xxix, 224 Seiten Illustrationen"
+  ],
+  "languages": [
+    "eng"
+  ],
+  "notes": [
+    "Enthält 9 Beiträge"
+  ]
+}

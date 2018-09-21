@@ -1,0 +1,30 @@
+{
+   "username" : "mary",
+   "enrollmentDate" : "2017-04-24",
+   "personal" : {
+      "phone" : "(242)088-8096 x5481",
+      "email" : "hunter@reichel-sanford.be",
+      "dateOfBirth" : "1993-06-21",
+      "lastName" : "Graham",
+      "firstName" : "Beaulah",
+      "addresses" : [
+         {
+            "primaryAddress" : true,
+            "region" : "MP",
+            "addressTypeId" : "ad2c4726-b397-4a0c-8e0e-c31dc5503296",
+            "city" : "Fountain Valley",
+            "countryId" : "US",
+            "postalCode" : "71744-2526",
+            "addressLine1" : "19758 Dedric Drive"
+         }
+      ],
+      "preferredContactTypeId" : "003"
+   },
+   "id" : "7d6457f6-0edc-4d5c-8b06-7b8370507f66",
+   "barcode" : "265035487636620",
+   "patronGroup" : "f2bf7b08-6ead-4498-9227-b379b72d4a4d",
+   "type" : "patron",
+   "active" : true,
+   "expirationDate" : "2020-08-07"
+}
+

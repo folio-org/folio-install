@@ -1,0 +1,31 @@
+{
+   "enrollmentDate" : "2017-03-16",
+   "username" : "sage",
+   "barcode" : "987355702180327",
+   "personal" : {
+      "firstName" : "Kasey",
+      "lastName" : "Smith",
+      "phone" : "120-064-5038",
+      "dateOfBirth" : "2009-07-03",
+      "email" : "burnice@cole-gaylord.ug",
+      "preferredContactTypeId" : "005",
+      "addresses" : [
+         {
+            "region" : "MN",
+            "primaryAddress" : true,
+            "addressTypeId" : "f6a96d06-618c-4697-9bf1-984cd8229831",
+            "countryId" : "US",
+            "city" : "San Jose",
+            "addressLine1" : "08647 Hassie Lane Suite 614",
+            "postalCode" : "39678"
+         }
+      ],
+      "mobilePhone" : "785.608.8557 x46310"
+   },
+   "id" : "e52b1503-6c2b-4312-99d6-29bacc4cd3c5",
+   "patronGroup" : "f2bf7b08-6ead-4498-9227-b379b72d4a4d",
+   "type" : "patron",
+   "expirationDate" : "2019-07-28",
+   "active" : false
+}
+

@@ -1,0 +1,92 @@
+{
+  "id": "04489a01-f3cd-4f9e-9be4-d9c198703f45",
+  "hrid": "in000014",
+  "source": "MARC",
+  "title": "Environment and identity politics in colonial Africa Fulani migrations and land conflict by Emmanuel M. Mbah",
+  "series": [
+    "Global Africa 2"
+  ],
+  "identifiers": [
+    {
+      "value": "2016030844",
+      "identifierTypeId": "c858e4f2-2b6b-4385-842b-60732ee14abb"
+    },
+    {
+      "value": "9781138239555",
+      "identifierTypeId": "8261054f-be78-422d-bd51-4ed9f33c3422"
+    },
+    {
+      "value": "9781315294179",
+      "identifierTypeId": "8261054f-be78-422d-bd51-4ed9f33c3422"
+    },
+    {
+      "value": "(OCoLC)961183745",
+      "identifierTypeId": "7e591197-f335-4afb-bc6d-a6d76ca3bace"
+    },
+    {
+      "value": "(DE-599)GBV869303589",
+      "identifierTypeId": "7e591197-f335-4afb-bc6d-a6d76ca3bace"
+    }
+  ],
+  "contributors": [
+    {
+      "contributorNameTypeId": "2b94c631-fca9-4892-a730-03ee529ffe2a",
+      "name": "Mbah, Emmanuel M"
+    }
+  ],
+  "subjects": [
+    "Fula (African people)--Cameroon--Bamenda Highlands",
+    "Fula (African people)--Land tenure",
+    "Land settlement patterns--Cameroon--Bamenda Highlands",
+    "Cattle--Environmental aspects--Cameroon--Bamenda Highlands",
+    "Grazing--Environmental aspects--Cameroon--Bamenda Highlands",
+    "Kolonie",
+    "Fulbe",
+    "Regionale Mobilität",
+    "Weidewirtschaft",
+    "Ethnische Beziehungen",
+    "Konflikt",
+    "Grundeigentum",
+    "Natürliche Ressourcen",
+    "Cameroon--Ethnic relations",
+    "Great Britain--Colonies--Africa--Administration",
+    "Großbritannien",
+    "Kamerun--Nordwest",
+    "Cameroon Ethnic relations",
+    "Great Britain Colonies Africa Administration",
+    "Cattle Environmental aspects Cameroon Bamenda Highlands",
+    "Fula (African people) Land tenure",
+    "Fula (African people) Cameroon Bamenda Highlands",
+    "Grazing Environmental aspects Cameroon Bamenda Highlands",
+    "Land settlement patterns Cameroon Bamenda Highlands",
+    "Geschichte 1916-1960"
+  ],
+  "classifications": [
+    {
+      "classificationNumber": "DT571.F84",
+      "classificationTypeId": "ce176ace-a53e-4b4d-aa89-725ed7b2edac"
+    },
+    {
+      "classificationNumber": "967.1100496322",
+      "classificationTypeId": "42471af9-7d25-4f3a-bf78-60d29dcf463b"
+    }
+  ],
+  "publication": [
+    {
+      "publisher": "Routledge Taylor & Francis Group",
+      "place": "London New York, NY",
+      "dateOfPublication": "2017"
+    }
+  ],
+  "instanceTypeId": "6312d172-f0cf-40f6-b27d-9fa8feaf332f",
+  "physicalDescriptions": [
+    "175 Seiten Karten"
+  ],
+  "languages": [
+    "eng"
+  ],
+  "notes": [
+    "Literaturangaben",
+    "Introduction: The environment in colonial Africa -- British Cameroon grasslands of Bamenda : geography and history -- Heterogeneous societies and ethnic identity : Fulani and cattle migrations -- Resource conflicts : farmers, pastoralists, cattle taxes and disputes over grazing and land -- Towards a resolution : the land settlement question -- Transforming British Bamenda : cattle wealth and development -- Semi-autonomy for pastoralists : native authority and court for the Fulani -- Modernizing the minds : introduction Western education to the pastoral Fulani -- Managing development : grazing innovations -- Continuity and change : the limits of colonial modernization"
+  ]
+}

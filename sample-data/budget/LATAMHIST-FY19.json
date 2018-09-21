@@ -1,0 +1,16 @@
+{
+  "name": "LATAMHIST-FY19",
+  "code": "LATAMHIST-FY19",
+  "budget_status": "Active",
+  "limit_enc_percent": 110,
+  "limit_exp_percent": 100,
+  "allocation": 12000.00,
+  "awaiting_payment": 72.29,
+  "available": 7350.46,
+  "encumbered": 3507.55,
+  "expenditures": 1069.7,
+  "over_encumbrance": 0,
+  "fund_id": "e6d7e91a-4dbc-4a70-9b38-e000d2fbdc79",
+  "fiscal_year_id": "684b5dc5-92f6-4db7-b996-b549d88f5e4e",
+  "tags": null
+}

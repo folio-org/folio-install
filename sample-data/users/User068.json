@@ -1,0 +1,32 @@
+{
+   "username" : "bernhard",
+   "enrollmentDate" : "2016-12-22",
+   "active" : false,
+   "expirationDate" : "2020-03-23",
+   "type" : "patron",
+   "patronGroup" : "cb73adc7-5554-47d1-a074-9d56020c1030",
+   "id" : "71b92411-a887-4e82-a2b0-0d58eb791d83",
+   "personal" : {
+      "middleName" : "Josianne",
+      "firstName" : "Penelope",
+      "lastName" : "Schultz",
+      "phone" : "(042)489-2225",
+      "preferredContactTypeId" : "003",
+      "addresses" : [
+         {
+            "region" : "PR",
+            "primaryAddress" : true,
+            "city" : "Muncie",
+            "addressTypeId" : "ad2c4726-b397-4a0c-8e0e-c31dc5503296",
+            "countryId" : "US",
+            "addressLine1" : "97835 Janet Lock",
+            "postalCode" : "16823-1786"
+         }
+      ],
+      "mobilePhone" : "(000)321-7558 x87661",
+      "dateOfBirth" : "2001-12-15",
+      "email" : "blaze@jast-block.jp"
+   },
+   "barcode" : "47014612720271"
+}
+

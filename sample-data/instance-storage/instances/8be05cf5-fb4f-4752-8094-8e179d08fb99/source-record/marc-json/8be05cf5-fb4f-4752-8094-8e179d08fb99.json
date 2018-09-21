@@ -1,0 +1,468 @@
+{
+  "leader": "01926nam a2200397 cc4500",
+  "fields": [
+    {
+      "001": "880391235"
+    },
+    {
+      "003": "DE-601"
+    },
+    {
+      "005": "20180615233857.0"
+    },
+    {
+      "007": "he\\amu000uuuu"
+    },
+    {
+      "008": "170217s2016\\\\\\\\xxu\\\\\\\\\\\\\\\\\\\\\\000\\0\\eng\\d"
+    },
+    {
+      "020": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "9780866989732"
+          },
+          {
+            "9": "978-0-86698-973-2"
+          }
+        ]
+      }
+    },
+    {
+      "020": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "0866989730"
+          },
+          {
+            "9": "0-86698-973-0"
+          }
+        ]
+      }
+    },
+    {
+      "020": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "9780866985529"
+          },
+          {
+            "9": "978-0-86698-552-9"
+          }
+        ]
+      }
+    },
+    {
+      "020": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "0866985522"
+          },
+          {
+            "9": "0-86698-552-2"
+          }
+        ]
+      }
+    },
+    {
+      "035": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "(OCoLC)962073864"
+          }
+        ]
+      }
+    },
+    {
+      "035": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "(OCoLC)ocn962073864"
+          }
+        ]
+      }
+    },
+    {
+      "035": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "(OCoLC)962073864"
+          }
+        ]
+      }
+    },
+    {
+      "035": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "(DE-599)GBV880391235"
+          }
+        ]
+      }
+    },
+    {
+      "040": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "b": "ger"
+          },
+          {
+            "c": "GBVCP"
+          },
+          {
+            "e": "rda"
+          }
+        ]
+      }
+    },
+    {
+      "041": {
+        "ind1": "0",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "eng"
+          },
+          {
+            "a": "ang"
+          },
+          {
+            "a": "lat"
+          }
+        ]
+      }
+    },
+    {
+      "245": {
+        "ind1": "0",
+        "ind2": "0",
+        "subfields": [
+          {
+            "a": "Anglo-Saxon manuscripts in microfiche facsimile"
+          },
+          {
+            "n": "Volume 25"
+          },
+          {
+            "p": "Corpus Christi College, Cambridge II, MSS 12, 144, 162, 178, 188, 198, 265, 285, 322, 326, 449"
+          },
+          {
+            "h": "microform"
+          },
+          {
+            "c": "A. N. Doane (editor and director), Matthew T. Hussey (associate editor), Phillip Pulsiano (founding editor)"
+          }
+        ]
+      }
+    },
+    {
+      "264": {
+        "ind1": "3",
+        "ind2": "1",
+        "subfields": [
+          {
+            "a": "Tempe, Arizona"
+          },
+          {
+            "b": "ACMRS, Arizona Center for Medieval and Renaissance Studies"
+          },
+          {
+            "c": "2016"
+          }
+        ]
+      }
+    },
+    {
+      "300": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "69 Mikrofiches"
+          },
+          {
+            "e": "1 Begleitbuch (XII, 167 Seiten)"
+          }
+        ]
+      }
+    },
+    {
+      "336": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "Text"
+          },
+          {
+            "b": "txt"
+          },
+          {
+            "2": "rdacontent"
+          }
+        ]
+      }
+    },
+    {
+      "337": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "Mikroform"
+          },
+          {
+            "b": "h"
+          },
+          {
+            "2": "rdamedia"
+          }
+        ]
+      }
+    },
+    {
+      "338": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "Mikrofiche"
+          },
+          {
+            "b": "he"
+          },
+          {
+            "2": "rdacarrier"
+          }
+        ]
+      }
+    },
+    {
+      "490": {
+        "ind1": "0",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "Medieval and Renaissance Texts and Studies"
+          },
+          {
+            "v": "volume 497"
+          }
+        ]
+      }
+    },
+    {
+      "500": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "Titel und Angaben zu beteiligter Person vom Begleitheft"
+          }
+        ]
+      }
+    },
+    {
+      "546": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "In English with segments in Anglo-Saxon and Latin"
+          }
+        ]
+      }
+    },
+    {
+      "700": {
+        "ind1": "1",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "Lucas, Peter J."
+          },
+          {
+            "e": "VerfasserIn von Zusatztexten"
+          },
+          {
+            "4": "wat"
+          },
+          {
+            "0": "(DE-601)699400066"
+          },
+          {
+            "0": "(DE-588)188475893"
+          }
+        ]
+      }
+    },
+    {
+      "710": {
+        "ind1": "2",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "Arizona Center for Medieval and Renaissance Studies"
+          }
+        ]
+      }
+    },
+    {
+      "773": {
+        "ind1": "0",
+        "ind2": "8",
+        "subfields": [
+          {
+            "q": "25.2016"
+          },
+          {
+            "w": "(DE-601)281985480"
+          }
+        ]
+      }
+    },
+    {
+      "830": {
+        "ind1": "\\",
+        "ind2": "0",
+        "subfields": [
+          {
+            "w": "(DE-601)13055846X"
+          },
+          {
+            "v": "volume 497"
+          },
+          {
+            "9": "49700"
+          }
+        ]
+      }
+    },
+    {
+      "900": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "GBV"
+          },
+          {
+            "b": "SBB-PK Berlin <1+1A>"
+          },
+          {
+            "d": "!2! 1 F 5327-25"
+          },
+          {
+            "x": "L"
+          },
+          {
+            "z": "LC"
+          },
+          {
+            "f": "Mikrofiches"
+          },
+          {
+            "d": "!2! 1 F 5327-25,Beil."
+          },
+          {
+            "x": "L"
+          },
+          {
+            "z": "LC"
+          },
+          {
+            "f": "Begleitbuch"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "SBB-PK Berlin <1+1A>"
+          },
+          {
+            "a": "11"
+          },
+          {
+            "b": "1665961309"
+          },
+          {
+            "c": "01"
+          },
+          {
+            "f": "2"
+          },
+          {
+            "d": "1 F 5327-25"
+          },
+          {
+            "e": "d"
+          },
+          {
+            "k": "Mikrofiches"
+          },
+          {
+            "x": "0001"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "SBB-PK Berlin <1+1A>"
+          },
+          {
+            "a": "11"
+          },
+          {
+            "b": "1665961317"
+          },
+          {
+            "c": "02"
+          },
+          {
+            "f": "2"
+          },
+          {
+            "d": "1 F 5327-25,Beil."
+          },
+          {
+            "e": "u"
+          },
+          {
+            "k": "Begleitbuch"
+          },
+          {
+            "x": "0001"
+          }
+        ]
+      }
+    }
+  ]
+}

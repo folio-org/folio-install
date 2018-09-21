@@ -1,0 +1,31 @@
+{
+   "active" : true,
+   "expirationDate" : "2020-01-20",
+   "type" : "patron",
+   "patronGroup" : "f2bf7b08-6ead-4498-9227-b379b72d4a4d",
+   "id" : "63b0adb2-ac31-4f7b-a784-9401a3d827a1",
+   "personal" : {
+      "lastName" : "Kreiger",
+      "middleName" : "Devin",
+      "firstName" : "Barrett",
+      "phone" : "1-680-105-6703 x183",
+      "addresses" : [
+         {
+            "postalCode" : "24343-4061",
+            "addressLine1" : "07605 Burdette Crescent",
+            "region" : "PA",
+            "primaryAddress" : true,
+            "addressTypeId" : "ad2c4726-b397-4a0c-8e0e-c31dc5503296",
+            "city" : "Escondido",
+            "countryId" : "US"
+         }
+      ],
+      "preferredContactTypeId" : "004",
+      "dateOfBirth" : "1956-11-07",
+      "email" : "maureen@becker-davis-and-lueilwitz.cd"
+   },
+   "barcode" : "481573440960549",
+   "username" : "jannie",
+   "enrollmentDate" : "2015-07-12"
+}
+

@@ -1,0 +1,3226 @@
+{
+  "leader": "15708nrm a2200877 c 4500",
+  "fields": [
+    {
+      "001": "727867881"
+    },
+    {
+      "003": "DE-601"
+    },
+    {
+      "005": "20170207141811.0"
+    },
+    {
+      "008": "121018s2016\\\\\\\\gw\\\\\\\\\\\\\\\\\\\\\\\\000\\0\\ger\\d"
+    },
+    {
+      "035": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "(DE-599)GBV727867881"
+          }
+        ]
+      }
+    },
+    {
+      "040": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "b": "ger"
+          },
+          {
+            "c": "GBVCP"
+          }
+        ]
+      }
+    },
+    {
+      "041": {
+        "ind1": "0",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "ger"
+          }
+        ]
+      }
+    },
+    {
+      "245": {
+        "ind1": "0",
+        "ind2": "0",
+        "subfields": [
+          {
+            "a": "DC Motor Control Experiment"
+          },
+          {
+            "h": "Objekt"
+          },
+          {
+            "b": "for introduction to control systems"
+          },
+          {
+            "c": "Herbert Werner"
+          }
+        ]
+      }
+    },
+    {
+      "264": {
+        "ind1": "3",
+        "ind2": "1",
+        "subfields": [
+          {
+            "a": "Hamburg"
+          },
+          {
+            "b": "Techn. Univ., Inst. für Regelungstechnik"
+          },
+          {
+            "c": "[2016]"
+          }
+        ]
+      }
+    },
+    {
+      "300": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "1 Koffer (Inhalt: 1 Motor mit Platine auf Plattform, 1 Netzteil, 1 USB-Kabel)"
+          }
+        ]
+      }
+    },
+    {
+      "700": {
+        "ind1": "1",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "Werner, Herbert"
+          },
+          {
+            "0": "(DE-601)728189534"
+          },
+          {
+            "0": "(DE-588)1027072291"
+          }
+        ]
+      }
+    },
+    {
+      "710": {
+        "ind1": "2",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "Technische Universität Hamburg-Harburg"
+          },
+          {
+            "b": "Institut für Regelungstechnik"
+          },
+          {
+            "0": "(DE-601)620694963"
+          },
+          {
+            "0": "(DE-588)16058694-X"
+          }
+        ]
+      }
+    },
+    {
+      "900": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "GBV"
+          },
+          {
+            "b": "TUB Hamburg <830>"
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2014"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2027"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2030"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2043"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2056"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2069"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2072"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2085"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2098"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2108"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2111"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2124"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2137"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2140"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2153"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2166"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2179"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2182"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2195"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2205"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2218"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2221"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2234"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2247"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2250"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2263"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2276"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2289"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2292"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2302"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2315"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2328"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2331"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2344"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2357"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2360"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2373"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2386"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2399"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2409"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2412"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2425"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2438"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2441"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2454"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2470"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2483"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2496"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2506"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2519"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2522"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2535"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2548"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2551"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2577"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2580"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2593"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "d": "!MAG! Motor"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "g": "1000-2603"
+          },
+          {
+            "f": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "133379679X"
+          },
+          {
+            "c": "01"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2014"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1644298783"
+          },
+          {
+            "c": "02"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2027"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1644298791"
+          },
+          {
+            "c": "03"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2030"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1644298805"
+          },
+          {
+            "c": "04"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2043"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1644298813"
+          },
+          {
+            "c": "05"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2056"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1644298821"
+          },
+          {
+            "c": "06"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2069"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "164429883X"
+          },
+          {
+            "c": "07"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2072"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1644298848"
+          },
+          {
+            "c": "08"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2085"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1644298856"
+          },
+          {
+            "c": "09"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2098"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1644298864"
+          },
+          {
+            "c": "10"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2108"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1644298872"
+          },
+          {
+            "c": "11"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2111"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1644298880"
+          },
+          {
+            "c": "12"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2124"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1644298899"
+          },
+          {
+            "c": "13"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2137"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1644298902"
+          },
+          {
+            "c": "14"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2140"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1644298910"
+          },
+          {
+            "c": "15"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2153"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1644298929"
+          },
+          {
+            "c": "16"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2166"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1644298937"
+          },
+          {
+            "c": "17"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2179"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1644298945"
+          },
+          {
+            "c": "18"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2182"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1648742858"
+          },
+          {
+            "c": "19"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2195"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1648744095"
+          },
+          {
+            "c": "20"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2205"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1649776810"
+          },
+          {
+            "c": "21"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2218"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "164977723X"
+          },
+          {
+            "c": "22"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2221"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1650086431"
+          },
+          {
+            "c": "23"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2234"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1650087187"
+          },
+          {
+            "c": "24"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2247"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1650087713"
+          },
+          {
+            "c": "25"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2250"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1650087969"
+          },
+          {
+            "c": "26"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2263"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1650088329"
+          },
+          {
+            "c": "27"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2276"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1650088744"
+          },
+          {
+            "c": "28"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2289"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "165008952X"
+          },
+          {
+            "c": "29"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2292"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1650091311"
+          },
+          {
+            "c": "30"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2302"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1654578789"
+          },
+          {
+            "c": "31"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2315"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1654584509"
+          },
+          {
+            "c": "32"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2328"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1654595713"
+          },
+          {
+            "c": "33"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2331"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1654595721"
+          },
+          {
+            "c": "34"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2344"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "165462022X"
+          },
+          {
+            "c": "35"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2357"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1654620238"
+          },
+          {
+            "c": "36"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2360"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "165462988X"
+          },
+          {
+            "c": "37"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2373"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1654629898"
+          },
+          {
+            "c": "38"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2386"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1654636088"
+          },
+          {
+            "c": "39"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2399"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1654636096"
+          },
+          {
+            "c": "40"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2409"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1657695654"
+          },
+          {
+            "c": "41"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2412"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1657695816"
+          },
+          {
+            "c": "42"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2425"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1657696383"
+          },
+          {
+            "c": "43"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2438"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1657696391"
+          },
+          {
+            "c": "44"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2441"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1657696898"
+          },
+          {
+            "c": "45"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2454"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1657700178"
+          },
+          {
+            "c": "47"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2470"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1657700992"
+          },
+          {
+            "c": "48"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2483"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1657701549"
+          },
+          {
+            "c": "49"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2496"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1657701557"
+          },
+          {
+            "c": "50"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2506"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1657703274"
+          },
+          {
+            "c": "51"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2519"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1657703282"
+          },
+          {
+            "c": "52"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2522"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1657704513"
+          },
+          {
+            "c": "53"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2535"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1657704521"
+          },
+          {
+            "c": "54"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2548"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "165770498X"
+          },
+          {
+            "c": "55"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2551"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "165770551X"
+          },
+          {
+            "c": "57"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2577"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1657705528"
+          },
+          {
+            "c": "58"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2580"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "1657705951"
+          },
+          {
+            "c": "59"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2593"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TUB Hamburg <830>"
+          },
+          {
+            "a": "23"
+          },
+          {
+            "b": "165770596X"
+          },
+          {
+            "c": "60"
+          },
+          {
+            "f": "MAG"
+          },
+          {
+            "d": "Motor"
+          },
+          {
+            "e": "c"
+          },
+          {
+            "d": "1000-2603"
+          },
+          {
+            "k": "Die Software zur Steuerung ist nur über StudIP der TUHH zu beziehen."
+          },
+          {
+            "x": "0830"
+          }
+        ]
+      }
+    }
+  ]
+}

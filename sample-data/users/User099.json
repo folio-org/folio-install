@@ -1,0 +1,30 @@
+{
+   "enrollmentDate" : "2016-04-03",
+   "username" : "georgianna",
+   "patronGroup" : "1f53a184-d791-48d7-bf34-3fea3eed1ad7",
+   "barcode" : "954453411079267",
+   "personal" : {
+      "firstName" : "Rudy",
+      "lastName" : "Prohaska",
+      "dateOfBirth" : "1969-02-12",
+      "phone" : "(175)541-7245 x95866",
+      "email" : "davion@kovacek-lesch.ar.us",
+      "preferredContactTypeId" : "001",
+      "addresses" : [
+         {
+            "addressTypeId" : "ad2c4726-b397-4a0c-8e0e-c31dc5503296",
+            "countryId" : "US",
+            "city" : "La Verne",
+            "region" : "NH",
+            "primaryAddress" : true,
+            "postalCode" : "48995",
+            "addressLine1" : "46983 Deckow Mill"
+         }
+      ]
+   },
+   "id" : "ed965bad-1ef7-4a15-a31b-844395292f67",
+   "expirationDate" : "2019-10-25",
+   "active" : false,
+   "type" : "patron"
+}
+

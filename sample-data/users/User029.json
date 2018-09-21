@@ -1,0 +1,31 @@
+{
+   "type" : "patron",
+   "active" : false,
+   "expirationDate" : "2019-01-30",
+   "id" : "de473ccd-2d82-4af5-9bec-de12c994d7fa",
+   "personal" : {
+      "phone" : "1-465-913-6488",
+      "lastName" : "Koss",
+      "middleName" : "Kaia",
+      "firstName" : "Lucy",
+      "addresses" : [
+         {
+            "primaryAddress" : true,
+            "region" : "VA",
+            "countryId" : "US",
+            "addressTypeId" : "f6a96d06-618c-4697-9bf1-984cd8229831",
+            "city" : "Ontario",
+            "addressLine1" : "12902 Oceane Run #697",
+            "postalCode" : "03894"
+         }
+      ],
+      "preferredContactTypeId" : "003",
+      "email" : "aiden@greenfelder-llc.kp",
+      "dateOfBirth" : "1949-09-15"
+   },
+   "barcode" : "99273327156137",
+   "patronGroup" : "1f53a184-d791-48d7-bf34-3fea3eed1ad7",
+   "username" : "jacques",
+   "enrollmentDate" : "2015-09-03"
+}
+

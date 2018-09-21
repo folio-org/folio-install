@@ -1,0 +1,31 @@
+{
+   "patronGroup" : "cb73adc7-5554-47d1-a074-9d56020c1030",
+   "barcode" : "662785162666704",
+   "id" : "ad81321f-c76c-4dea-b400-87d9cf7a75be",
+   "personal" : {
+      "dateOfBirth" : "1948-10-10",
+      "email" : "isom@bode-group.gi",
+      "preferredContactTypeId" : "005",
+      "addresses" : [
+         {
+            "region" : "CT",
+            "primaryAddress" : true,
+            "countryId" : "US",
+            "addressTypeId" : "ad2c4726-b397-4a0c-8e0e-c31dc5503296",
+            "city" : "San Mateo",
+            "addressLine1" : "37592 Unit 9-I",
+            "postalCode" : "87585-7282"
+         }
+      ],
+      "middleName" : "Clair",
+      "firstName" : "Delmer",
+      "lastName" : "White",
+      "phone" : "562-671-0326 x81662"
+   },
+   "expirationDate" : "2018-12-12",
+   "active" : true,
+   "type" : "patron",
+   "enrollmentDate" : "2017-09-14",
+   "username" : "lupe"
+}
+

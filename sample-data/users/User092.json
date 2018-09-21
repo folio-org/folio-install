@@ -1,0 +1,32 @@
+{
+   "enrollmentDate" : "2015-05-18",
+   "username" : "jody",
+   "type" : "patron",
+   "expirationDate" : "2020-02-15",
+   "active" : false,
+   "barcode" : "679966618999387",
+   "id" : "c504272d-7c4c-48df-83e8-b0ad68ad3c5d",
+   "personal" : {
+      "dateOfBirth" : "2013-05-18",
+      "email" : "sonya@crona-rodriguez-and-harvey.pa",
+      "addresses" : [
+         {
+            "region" : "AZ",
+            "primaryAddress" : true,
+            "addressTypeId" : "ad2c4726-b397-4a0c-8e0e-c31dc5503296",
+            "countryId" : "US",
+            "city" : "Hermosa Beach",
+            "postalCode" : "34981",
+            "addressLine1" : "03643 Funk Inlet"
+         }
+      ],
+      "preferredContactTypeId" : "005",
+      "mobilePhone" : "251-092-7308 x64620",
+      "lastName" : "Boehm",
+      "middleName" : "Triston",
+      "firstName" : "Princess",
+      "phone" : "(465)891-4441 x051"
+   },
+   "patronGroup" : "f2bf7b08-6ead-4498-9227-b379b72d4a4d"
+}
+

@@ -1,0 +1,32 @@
+{
+   "enrollmentDate" : "2016-05-05",
+   "username" : "ayana",
+   "barcode" : "18447337064074",
+   "id" : "fbf80ba8-3267-45bc-97ed-7ded8bfe7b3a",
+   "personal" : {
+      "preferredContactTypeId" : "005",
+      "addresses" : [
+         {
+            "postalCode" : "63707-4396",
+            "addressLine1" : "46235 Chester Valley Apt. 880",
+            "countryId" : "US",
+            "addressTypeId" : "f6a96d06-618c-4697-9bf1-984cd8229831",
+            "city" : "Avalon",
+            "primaryAddress" : true,
+            "region" : "OH"
+         }
+      ],
+      "mobilePhone" : "1-123-598-1800 x5242",
+      "dateOfBirth" : "1950-01-09",
+      "email" : "olin@ritchie-mclaughlin-and-maggio.mo.us",
+      "middleName" : "Bernita",
+      "firstName" : "Anna",
+      "lastName" : "Gorczany",
+      "phone" : "1-596-484-3332 x838"
+   },
+   "patronGroup" : "1f53a184-d791-48d7-bf34-3fea3eed1ad7",
+   "type" : "patron",
+   "expirationDate" : "2019-09-03",
+   "active" : true
+}
+

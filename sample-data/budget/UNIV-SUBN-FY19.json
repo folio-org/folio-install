@@ -1,0 +1,16 @@
+{
+  "name": "UNIV-SUBN-FY19",
+  "code": "UNIV-SUBN-FY19",
+  "budget_status": "Active",
+  "limit_enc_percent": 100,
+  "limit_exp_percent": 100,
+  "allocation": 400000.00,
+  "awaiting_payment": 13200.00,
+  "available": 348800.00,
+  "encumbered": 16400.00,
+  "expenditures": 21600.00,
+  "over_encumbrance": 0,
+  "fund_id": "4428a37c-8bae-4f0d-865d-970d83d5ad55",
+  "fiscal_year_id": "684b5dc5-92f6-4db7-b996-b549d88f5e4e",
+  "tags": null
+}

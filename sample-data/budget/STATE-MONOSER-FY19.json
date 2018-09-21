@@ -1,0 +1,16 @@
+{
+  "name": "GIFTS-ONE-TIME-FY19",
+  "code": "GIFTS-ONE-TIME-FY19",
+  "budget_status": "Active",
+  "limit_enc_percent": 100,
+  "limit_exp_percent": 100,
+  "allocation": 70000.00,
+  "awaiting_payment": 2310.00,
+  "available": 61040.00,
+  "encumbered": 2870.00,
+  "expenditures": 3780.00,
+  "over_encumbrance": 0,
+  "fund_id": "bbd4a5e1-c9f3-44b9-bfdf-d184e04f0ba0",
+  "fiscal_year_id": "684b5dc5-92f6-4db7-b996-b549d88f5e4e",
+  "tags": null
+}
