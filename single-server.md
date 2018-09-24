@@ -237,7 +237,7 @@ yarn upgrade --scope @folio
 
 ### Sidebar: Building from the bleeding edge
 
-The `platform-complete` platform is put together with versions of FOLIO components and dependencies that have been tested together and are known to work.
+The `platform-complete` platform is constructed with versions of FOLIO components and dependencies that have been tested together and are known to work.
 
 If you would rather build Stripes with the most recent code that may not have been fully integration tested, clone the `platform-complete` repository, omit the step of checking out the latest tag, then:
 
