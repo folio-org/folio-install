@@ -20,7 +20,7 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 * [Deploy a compatible FOLIO backend, enable for tenant](#deploy-a-compatible-folio-backend-enable-for-tenant)
 * [Create a FOLIO “superuser” and load permissions](#create-a-folio-superuser-and-load-permissions)
 * [Load module reference data](#load-module-reference-data)
-* [Notes on sample data](#notes-on-sample-data)
+* [Load sample data](#load-sample-data)
 * [Known issues](#known-issues)
 
 ## Build a target Linux host
@@ -369,7 +369,7 @@ See the [Securing Okapi](https://github.com/folio-org/okapi/blob/master/doc/guid
   * After creating the superuser, reenable the `authtoken` interface
   * All permissionSets that are not included in other permissionSets can be listed with the CQL query `/perms/permissions?query=childOf%3D%3D%5B%5D&length=500` (`childOf==[]`)
   * Go through permissionSets, POST permissions to `/perms/users/<permissionsUserId>/permissions` endpoint
-  * [Sample perl script](load-permissions.pl) to create a superuser and load permissions
+  * [Sample perl script](bootstrap-superuser.pl) to create a superuser and load permissions
 
 ```
 perl /vagrant/bootstrap-superuser.pl --tenant diku --user diku_admin --password admin --okapi http://localhost:9130
