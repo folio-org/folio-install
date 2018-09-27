@@ -303,7 +303,7 @@ If you would rather deploy the most recent code for the backend, rather than rel
 
 ```
 cd platform-complete
-yarn build-module-descriptors
+yarn generate-mod-descriptors
 cd ..
 ```
 
