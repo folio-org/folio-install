@@ -216,23 +216,16 @@ git clone https://github.com/folio-org/platform-complete
 cd platform-complete
 ```
 
-3. Check out the latest tag
+3. Check out the `q3-2018` branch. The HEAD of this branch should reflect the latest Q3 release, including any bug fix releases.
 
 ```
-LATEST=$(git describe --tags `git rev-list --tags --max-count=1`)
-git checkout $LATEST
+git checkout q3-2018
 ```
 
 4. Install npm packages
 
 ```
 yarn install
-```
-
-Some FOLIO packages may have made patch releases since the latest full platform release. To obtain updated packages, after the `yarn install`:
-
-```
-yarn upgrade --scope @folio
 ```
 
 ### Sidebar: Building from the bleeding edge
