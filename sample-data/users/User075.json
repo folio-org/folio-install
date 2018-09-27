@@ -1,0 +1,32 @@
+{
+   "username" : "liliana",
+   "enrollmentDate" : "2016-05-09",
+   "patronGroup" : "f2bf7b08-6ead-4498-9227-b379b72d4a4d",
+   "id" : "e9b755f5-9d72-49f5-a4ad-ea4db8d6eb04",
+   "personal" : {
+      "dateOfBirth" : "1972-08-25",
+      "email" : "howell@parisian-goldner-and-koch.az",
+      "addresses" : [
+         {
+            "addressTypeId" : "f6a96d06-618c-4697-9bf1-984cd8229831",
+            "city" : "Cerritos",
+            "countryId" : "US",
+            "region" : "AL",
+            "primaryAddress" : true,
+            "postalCode" : "52010-1347",
+            "addressLine1" : "88717 Weimann Ford #269"
+         }
+      ],
+      "preferredContactTypeId" : "005",
+      "mobilePhone" : "229-815-3370",
+      "lastName" : "Jewess",
+      "firstName" : "Karli",
+      "middleName" : "Bernard",
+      "phone" : "213.706.8501"
+   },
+   "barcode" : "662095559576421",
+   "active" : true,
+   "expirationDate" : "2020-06-10",
+   "type" : "patron"
+}
+

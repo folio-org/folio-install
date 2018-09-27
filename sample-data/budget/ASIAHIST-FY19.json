@@ -1,0 +1,16 @@
+{
+  "name": "ASIAHIST-FY19",
+  "code": "ASIAHIST-FY19",
+  "budget_status": "Active",
+  "limit_enc_percent": 110,
+  "limit_exp_percent": 100,
+  "allocation": 23000.00,
+  "awaiting_payment": 138.55,
+  "available": 14088.37,
+  "encumbered": 6722.81,
+  "expenditures": 2050.27,
+  "over_encumbrance": 0,
+  "fund_id": "55f48dc6-efa7-4cfe-bc7c-4786efe493e3",
+  "fiscal_year_id": "684b5dc5-92f6-4db7-b996-b549d88f5e4e",
+  "tags": null
+}

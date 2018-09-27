@@ -1,0 +1,67 @@
+{
+  "id": "7fbd5d84-62d1-44c6-9c45-6cb173998bbd",
+  "hrid": "in000005",
+  "source": "MARC",
+  "title": "Bridget Jones's Baby: the diaries",
+  "edition": "First American Edition",
+  "identifiers": [
+    {
+      "identifierTypeId": "5d164f4b-0b15-4e42-ae75-cfcf85318ad9",
+      "value": "ocn956625961"
+    }
+  ],
+  "contributors": [
+    {
+      "contributorNameTypeId": "2b94c631-fca9-4892-a730-03ee529ffe2a",
+      "name": "Fielding, Helen"
+    }
+  ],
+  "subjects": [
+    "Jones, Bridget",
+    "Pregnant women",
+    "England",
+    "Humorous fiction",
+    "Diary fiction"
+  ],
+  "classifications": [
+    {
+      "classificationTypeId": "ce176ace-a53e-4b4d-aa89-725ed7b2edac",
+      "classificationNumber": "PR6056.I4588"
+    }
+  ],
+  "publication": [
+    {
+      "publisher": "Alfred A. Knopf",
+      "place": "New York",
+      "dateOfPublication": "2016"
+    }
+  ],
+  "publicationFrequency": [
+    "A frequency description"
+  ],
+  "publicationRange": [
+    "A publication range"
+  ],
+  "electronicAccess": [
+    {
+      "uri": "http://www.folio.org/",
+      "linkText": "Bridget Jones URI",
+      "materialsSpecification": "Novel",
+      "publicNote": "A note",
+      "relationship": "Relationship"
+    }
+  ],
+  "instanceTypeId": "6312d172-f0cf-40f6-b27d-9fa8feaf332f",
+  "physicalDescriptions": [
+    "219 pages ; 20 cm."
+  ],
+  "languages": [
+    "eng"
+  ],
+  "notes": [
+    "Bridget Jones finds herself unexpectedly pregnant at the eleventh hour. However, her joyful pregnancy is dominated by one crucial but awkward question --who is the father? Could it be honorable, decent, notable human rights lawyer, Mark Darcy? Or, is it charming, witty, and totally despicable, Daniel Cleaver?"
+  ],
+  "previouslyHeld": true,
+  "staffSuppress": true,
+  "discoverySuppress": true
+}

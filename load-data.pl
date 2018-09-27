@@ -1,11 +1,18 @@
-# Load reference data from a directory
+# Load FOLIO data from a directory
 # All files must have .json extension
 # Path to file relative to root of load directory should match load endpoint
 # No files will be loaded from root of load directory
+# Use `--sort` with a comma-delimited list of endpoints to force data to
+# load in order, e.g. `--sort location-units/institutions,location-units/campuses`
+# Use `--custom-method` with a comma-delimited list of endpoints and methods
+# to set up custom methods, e.g. `--custom-method loan-rules-storage=PUT,locations=PUT`
+# custom method can take a regular expression, e.g.:
+# `--custom-method "^instances/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/"=PUT`
 
 use strict;
 use warnings;
 use Getopt::Long;
+use Encode;
 use LWP;
 use JSON;
 
@@ -13,24 +20,32 @@ $| = 1;
 
 # Configuration
 my $default_method = 'POST';
-my %custom_method = ( 'loan-rules-storage' => 'PUT' );
-# Data that must be loaded in order
-my @sort = (
-            'location-units/institutions',
-            'location-units/campuses',
-            'location-units/libraries',
-            'locations'
-            );
 
 # Command line options
 my $tenant = 'diku';
 my $user = 'diku_admin';
 my $password = 'admin';
 my $okapi = 'http://localhost:9130';
-GetOptions( 'tenant|t=s' => \$tenant,
-            'user|u=s' => \$user,
-            'password|p=s' => \$password,
-            'okapi=s' => \$okapi );
+my $sort = '';
+my $custom_method = '';
+GetOptions(
+           'tenant|t=s' => \$tenant,
+           'user|u=s' => \$user,
+           'password|p=s' => \$password,
+           'okapi=s' => \$okapi,
+           'sort:s' => \$sort,
+           'custom-method:s' => \$custom_method
+          );
+
+# Data that must be loaded in order
+my @sort = split(/,/,$sort);
+
+# Custom methods
+my %custom_method;
+foreach my $i (split(/,/,$custom_method)) {
+  my ($path,$method) = split(/=/,$i);
+  $custom_method{$path} = $method;
+}
 
 # Command line argument
 my $directory = 'reference-data';
@@ -84,7 +99,15 @@ sub process_dir {
   my $dir = shift;
   print "Processing $dir...\n";
   my $endpoint = (split("$directory/",$dir))[-1];
-  my $method = $custom_method{$endpoint} ? $custom_method{$endpoint} : $default_method;
+  my $method = $default_method;
+  while (my ($custom_endpoint,$custom_method) = each %custom_method) {
+    if ($endpoint =~ /$custom_endpoint/) {
+      $method = $custom_method;
+      last;
+    }
+  }
+  # reset the hash iterator
+  my $junk = keys(%custom_method);
   my $dh;
   unless (opendir($dh,$dir)) {
     warn "Can't open input directory $dir: $!\n";
@@ -92,9 +115,10 @@ sub process_dir {
   }
   my @entries = grep { /^(?!\.).+/ } readdir($dh);
   closedir($dh);
+  my @nested;
   foreach my $i (@entries) {
     if (-d "$dir/$i") {
-      process_dir("$dir/$i");
+      push(@nested,"$dir/$i");
     } elsif ($i =~ /.json$/) {
       open(DATA, "<:encoding(UTF-8)", "$dir/$i")
         or warn("Can't open $dir/$i: $!\n");
@@ -107,13 +131,21 @@ sub process_dir {
                          'X-Okapi-Tenant' => $tenant,
                          'X-Okapi-Token' => $token
                         ];
-      my $post_req = HTTP::Request->new($method,"$okapi/$endpoint",$post_header,$data);
-      my $post_resp = $ua->request($post_req);
-      if ($post_resp->is_success) {
-        print "Loaded $dir/$i\n";
-      } else {
-        warn "FAILED loading $dir/$i: " . $post_resp->status_line . "\n";
+      eval {
+        my $post_req = HTTP::Request->new($method,"$okapi/$endpoint",$post_header,encode('UTF-8',$data));
+        my $post_resp = $ua->request($post_req);
+        if ($post_resp->is_success) {
+          print "Loaded $dir/$i\n";
+        } else {
+          warn "FAILED loading $dir/$i: " . $post_resp->status_line . "\n";
+        }
+      };
+      if ($@) {
+        warn "FAILED loading $dir/$i: $@\n";
       }
     }
+  }
+  foreach my $i (@nested) {
+    process_dir($i);
   }
 }

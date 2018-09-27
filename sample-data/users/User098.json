@@ -1,0 +1,32 @@
+{
+   "barcode" : "931465303149554",
+   "id" : "19894577-131e-4c03-8b23-e823939fa2c4",
+   "personal" : {
+      "lastName" : "Zemlak",
+      "middleName" : "Maggie",
+      "firstName" : "Adelle",
+      "phone" : "051.321.9235 x92604",
+      "addresses" : [
+         {
+            "addressLine1" : "64234 Padberg Alley Apt. 671",
+            "postalCode" : "92421-3461",
+            "region" : "AS",
+            "primaryAddress" : true,
+            "addressTypeId" : "ad2c4726-b397-4a0c-8e0e-c31dc5503296",
+            "city" : "Gilbert",
+            "countryId" : "US"
+         }
+      ],
+      "preferredContactTypeId" : "005",
+      "mobilePhone" : "1-716-674-1835",
+      "dateOfBirth" : "2010-03-01",
+      "email" : "unique@sawayn-lind-and-strosin.ie"
+   },
+   "patronGroup" : "f2bf7b08-6ead-4498-9227-b379b72d4a4d",
+   "type" : "patron",
+   "expirationDate" : "2018-09-27",
+   "active" : true,
+   "enrollmentDate" : "2014-12-25",
+   "username" : "bridget"
+}
+

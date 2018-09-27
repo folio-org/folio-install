@@ -1,0 +1,31 @@
+{
+   "expirationDate" : "2019-09-06",
+   "active" : true,
+   "type" : "patron",
+   "patronGroup" : "1f53a184-d791-48d7-bf34-3fea3eed1ad7",
+   "barcode" : "1766653708351",
+   "personal" : {
+      "lastName" : "Ferry",
+      "firstName" : "Bernadette",
+      "phone" : "(220)133-5058",
+      "addresses" : [
+         {
+            "addressTypeId" : "ad2c4726-b397-4a0c-8e0e-c31dc5503296",
+            "city" : "Los Angeles",
+            "countryId" : "US",
+            "region" : "TX",
+            "primaryAddress" : true,
+            "postalCode" : "30377",
+            "addressLine1" : "61508 Jewess Circles"
+         }
+      ],
+      "preferredContactTypeId" : "005",
+      "mobilePhone" : "464-938-6473 x42668",
+      "dateOfBirth" : "1996-05-27",
+      "email" : "dovie@bailey-langosh-and-batz.biz"
+   },
+   "id" : "95bf2f4b-a0b3-4a7c-888c-f66d3773467d",
+   "enrollmentDate" : "2016-09-05",
+   "username" : "bernard"
+}
+

@@ -1,0 +1,12 @@
+{
+  "id": "4428a37c-8bae-4f0d-865d-970d83d5ad55",
+  "name": "University Allocation",
+  "code": "UNIV-SUBN",
+  "created_date": "2018-01-01T13:06:34.186Z",
+  "fund_status": "Active",
+  "currency": "USD",
+  "description": "university money used for ongoing subscriptions",
+  "ledger_id": "65cb2bf0-d4c2-4886-8ad0-b76f1ba75d61",
+  "allocation_from": null,
+  "allocation_to": null
+}

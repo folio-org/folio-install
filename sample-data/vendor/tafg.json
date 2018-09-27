@@ -1,0 +1,197 @@
+{
+  "id": null,
+  "name": "Taylor & Francis Group, LLC ",
+  "code": "TAFG",
+  "description": "Serials - Domestic",
+  "vendor_status": "Active",
+  "language": "en-us",
+  "aliases": [
+    {
+      "value": "Taylor & Francis ",
+      "description": ""
+    }
+  ],
+  "addresses": [
+    {
+      "address": {
+        "addressLine1": "Suite 300, 6000 Broken Sound Parkway, NW",
+        "addressLine2": "",
+        "city": "Boca Raton",
+        "stateRegion": "FL",
+        "zipCode": "33487",
+        "country": "USA"
+      },
+      "categories": ["Customer Service","Payments"],
+      "language": "English",
+      "san_code": ""
+    }
+  ],
+  "phone_numbers": [
+    {
+      "phone_number": {
+        "country_code": "1",
+        "area_code": "800",
+        "phone_number": "634-7064"
+      },
+      "categories": [],
+      "language": "English"
+    }
+  ],
+  "emails": [
+    {
+      "email": {
+        "value": "enquiries@taylorandfrancis.com",
+        "description": "Customer Servicel"
+      },
+      "categories": [],
+      "language": "English"
+    }
+  ],
+  "urls": [
+    {
+      "url": {
+        "value": "http://taylorandfrancis.com/",
+        "description": "main website"
+      },
+      "language": "en-us",
+      "categories": [],
+      "notes": ""
+    }
+  ],
+  "contacts": [
+    {
+      "language": "English",
+      "contact_person": {
+        "prefix": "Mr.",
+        "first_name": "John-Joe",
+        "last_name": "Taylor",
+        "language": "English",
+        "notes": "",
+        "phone_number": {
+          "country_code": "1",
+          "area_code": "800",
+          "phone_number": "634-8888"
+        },
+        "email": {
+          "value": "john-joe.taylor@taylorandfrancis.com",
+          "description": "General"
+        },
+        "address": {
+          "addressLine1": "Suite 300, 6000 Broken Sound Parkway, NW",
+          "addressLine2": "",
+          "city": "Boca Raton",
+          "stateRegion": "FL",
+          "zipCode": "",
+          "country": "USA"
+        },
+        "url": {
+          "value": "https://www.doi.gov/",
+          "description": "web address for U.S. Dept. of Interior"
+        }
+      },
+      "categories": []
+    }
+  ],
+  "agreements": [
+    {
+      "name": "Association of Digital Humanities Journal Package",
+      "discount": 40,
+      "reference_url": "F:\\Sample\\Licensing\\License and Renewal Agreements\\Content Providers\\Taylor & Francis",
+      "notes": "Amendment to Multiyear Master Agreement (2015-2019)"
+    }
+  ],
+  "erp_code": "G64758-74832",
+  "payment_method": "EFT",
+  "access_provider": true,
+  "governmental": false,
+  "licensor": true,
+  "material_supplier": true,
+  "vendor_currencies": [
+    "USD"
+  ],
+  "claiming_interval": 0,
+  "discount_percent": 0,
+  "expected_activation_interval": 30,
+  "expected_invoice_interval": 30,
+  "renewal_activation_interval": 365,
+  "subscription_interval": 365,
+  "liable_for_vat": false,
+  "tax_id": "",
+  "tax_percentage": 0,
+  "edi": {
+    "vendor_edi_code": "",
+    "vendor_edi_type": "",
+    "lib_edi_code": "",
+    "lib_edi_type": "",
+    "prorate_tax": false,
+    "prorate_fees": false,
+    "edi_naming_convention": "",
+    "send_acct_num": false,
+    "support_order": false,
+    "support_invoice": false,
+    "notes": "",
+    "edi_ftp": {
+      "ftp_format": "",
+      "server_address": "",
+      "username": "",
+      "password": "",
+      "ftp_mode": "",
+      "ftp_conn_mode": "",
+      "ftp_port": "22",
+      "order_directory": "",
+      "invoice_directory": "",
+      "notes": ""
+    },
+    "edi_job": {
+      "schedule_edi": false,
+      "date": null,
+      "time": null,
+      "is_monday": false,
+      "is_tuesday": false,
+      "is_wednesday": false,
+      "is_thursday": false,
+      "is_friday": false,
+      "is_saturday": false,
+      "is_sunday": false,
+      "send_to_emails": "",
+      "notify_all_edi": false,
+      "notify_invoice_only": false,
+      "notify_error_only": false
+    }
+  },
+  "interfaces": [
+    {
+      "name": "Taylor & Francis Online",
+      "uri": "https://www.tandfonline.com",
+      "username": "",
+      "password": "",
+      "notes": "",
+      "available": true,
+      "delivery_method": "online",
+      "statistics_format": "COUNTER",
+      "locally_stored": "https://www.lib.sample.edu/staff/collectiondevelopment/",
+      "online_location": "https://accounts.taylorfrancis.com/identity/#/login",
+      "statistics_notes": ""
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Serialst",
+      "account_no": "xxxx4962",
+      "description": "Libraries",
+      "app_system_no": "",
+      "payment_method": "EFT",
+      "account_status": "Active",
+      "contact_info": "Richard.Plantagenet@taylorandfrancis.com",
+      "library_code": "COB",
+      "library_edi_code": "765987610",
+      "notes": ""
+    }
+  ],
+  "changelogs": [
+    {
+      "description": "This is a sample note.",
+      "timestamp": "2008-05-15T03:53:00-07:00"
+    }
+  ]
+}

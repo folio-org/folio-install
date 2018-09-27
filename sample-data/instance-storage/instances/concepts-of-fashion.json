@@ -1,0 +1,45 @@
+{
+  "id": "5b1eb450-ff9f-412d-a9e7-887f6eaeb5b4",
+  "hrid": "in000009",
+  "source": "MARC",
+  "title": "Concepts of fashion 1921 - 1987 microform a study of garments worn by selected winners of the Miss America Pageant Marian Ann J. Matwiejczyk-Montgomery",
+  "alternativeTitles": [],
+  "series": [],
+  "identifiers": [
+    {
+      "value": "1008673218",
+      "identifierTypeId": "5d164f4b-0b15-4e42-ae75-cfcf85318ad9"
+    },
+    {
+      "value": "(DE-599)GBV1008673218",
+      "identifierTypeId": "7e591197-f335-4afb-bc6d-a6d76ca3bace"
+    }
+  ],
+  "contributors": [
+    {
+      "contributorNameTypeId": "2b94c631-fca9-4892-a730-03ee529ffe2a",
+      "name": "Matwiejczyk-Montgomery, Marian Ann J"
+    }
+  ],
+  "subjects": [
+    "Hochschulschrift"
+  ],
+  "classifications": [],
+  "publication": [
+    {
+      "publisher": "University Microfims International",
+      "place": "Ann Arbor, MI",
+      "dateOfPublication": "1993"
+    }
+  ],
+  "urls": [],
+  "instanceTypeId": "6312d172-f0cf-40f6-b27d-9fa8feaf332f",
+  "physicalDescriptions": [],
+  "languages": [
+    "eng"
+  ],
+  "notes": [
+    "Dissertation New York University 1993",
+    "Mikrofiche-Ausgabe"
+  ]
+}

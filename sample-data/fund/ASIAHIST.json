@@ -1,0 +1,16 @@
+{
+  "id": "55f48dc6-efa7-4cfe-bc7c-4786efe493e3",
+  "name": "Asian History",
+  "code": "ASIAHIST",
+  "created_date": "2018-01-01T13:06:34.186Z",
+  "fund_status": "Active",
+  "currency": "USD",
+  "description": "use for East, Central, and South Asia",
+  "ledger_id": "133a7916-f05e-4df4-8f7f-09eb2a7076d1",
+  "allocation_from": [
+    "fb7b70f1-b898-4924-a991-0e4b6312bb5f"
+  ],
+  "allocation_to": [
+    "cf23adf0-61ba-4887-bf82-956c4aae2260"
+  ]
+}

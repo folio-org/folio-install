@@ -1,0 +1,31 @@
+{
+   "username" : "pink",
+   "enrollmentDate" : "2017-12-10",
+   "active" : true,
+   "expirationDate" : "2020-08-30",
+   "type" : "patron",
+   "patronGroup" : "97a31a9d-52bf-4a80-98ca-39df96520abb",
+   "id" : "ed50e0cb-75ef-4082-85a9-83e9d4128d34",
+   "personal" : {
+      "mobilePhone" : "1-991-033-0377 x73103",
+      "addresses" : [
+         {
+            "postalCode" : "03541",
+            "addressLine1" : "07604 Jamaal Ford Suite 148",
+            "countryId" : "US",
+            "addressTypeId" : "f6a96d06-618c-4697-9bf1-984cd8229831",
+            "city" : "Whittier",
+            "primaryAddress" : true,
+            "region" : "GU"
+         }
+      ],
+      "preferredContactTypeId" : "001",
+      "email" : "helene@kris-reinger-and-sauer.il",
+      "dateOfBirth" : "1976-03-05",
+      "phone" : "1-873-818-3612 x675",
+      "lastName" : "Christiansen",
+      "firstName" : "Tomas"
+   },
+   "barcode" : "827217155887407"
+}
+

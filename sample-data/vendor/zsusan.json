@@ -1,0 +1,197 @@
+{
+  "id": null,
+  "name": "Susan Bach Books (Brazil)",
+  "code": "ZSUSANBA$*",
+  "description": "Print monographs in Spanish, books from Brazil",
+  "vendor_status": "Active",
+  "language": "Portuguese/Spanish",
+  "aliases": [
+    {
+      "value": "Susan Bach Books from Brazil",
+      "description": ""
+    }
+  ],
+  "addresses": [
+    {
+      "address": {
+        "addressLine1": "RUA VISCONDE DE CARAVELAS, Nº 17",
+        "addressLine2": "BOTAFOGO",
+        "city": "RIO DE JANEIRO",
+        "stateRegion": "",
+        "zipCode": "22271-021",
+        "country": "Brazil"
+      },
+      "categories": [],
+      "language": "Portuguese",
+      "san_code": ""
+    }
+  ],
+  "phone_numbers": [
+    {
+      "phone_number": {
+        "country_code": "55",
+        "area_code": "55-21",
+        "phone_number": "2539-3590"
+      },
+      "categories": [],
+      "language": "Portuguese"
+    }
+  ],
+  "emails": [
+    {
+      "email": {
+        "value": "sbach@sbachbooks.com.br",
+        "description": "Customer Service"
+      },
+      "categories": [],
+      "language": "English"
+    }
+  ],
+  "urls": [
+    {
+      "url": {
+        "value": "http://www.sbachbooks.com.br/",
+        "description": "main website"
+      },
+      "language": "English/Portuguese",
+      "categories": [],
+      "notes": ""
+    }
+  ],
+  "contacts": [
+    {
+      "language": "English",
+      "contact_person": {
+        "prefix": "",
+        "first_name": "Susan",
+        "last_name": "Bach",
+        "language": "English",
+        "notes": "",
+        "phone_number": {
+          "country_code": "55",
+          "area_code": "55-21",
+          "phone_number": "2539-3590"
+        },
+        "email": {
+          "value": "sbach@sbachbooks.com.br",
+          "description": ""
+        },
+        "address": {
+          "addressLine1": "RUA VISCONDE DE CARAVELAS, Nº 17",
+          "addressLine2": "BOTAFOGO",
+          "city": "RIO DE JANEIRO",
+          "stateRegion": "",
+          "zipCode": "",
+          "country": "Brazil"
+        },
+        "url": {
+          "value": "https://www.doi.gov/",
+          "description": "web address for U.S. Dept. of Interior"
+        }
+      },
+      "categories": []
+    }
+  ],
+  "agreements": [
+    {
+      "name": "",
+      "discount": 0,
+      "reference_url": "",
+      "notes": ""
+    }
+  ],
+  "erp_code": "G64758-74827",
+  "payment_method": "EFT",
+  "access_provider": false,
+  "governmental": false,
+  "licensor": false,
+  "material_supplier": true,
+  "vendor_currencies": [
+    "USD"
+  ],
+  "claiming_interval": 60,
+  "discount_percent": 20,
+  "expected_activation_interval": 0,
+  "expected_invoice_interval": 0,
+  "renewal_activation_interval": 0,
+  "subscription_interval": 0,
+  "liable_for_vat": false,
+  "tax_id": "",
+  "tax_percentage": 0,
+  "edi": {
+    "vendor_edi_code": "",
+    "vendor_edi_type": "",
+    "lib_edi_code": "",
+    "lib_edi_type": "",
+    "prorate_tax": false,
+    "prorate_fees": false,
+    "edi_naming_convention": "",
+    "send_acct_num": false,
+    "support_order": false,
+    "support_invoice": false,
+    "notes": "",
+    "edi_ftp": {
+      "ftp_format": "",
+      "server_address": "",
+      "username": "",
+      "password": "",
+      "ftp_mode": "",
+      "ftp_conn_mode": "",
+      "ftp_port": "22",
+      "order_directory": "",
+      "invoice_directory": "",
+      "notes": ""
+    },
+    "edi_job": {
+      "schedule_edi": false,
+      "date": null,
+      "time": null,
+      "is_monday": false,
+      "is_tuesday": false,
+      "is_wednesday": false,
+      "is_thursday": false,
+      "is_friday": false,
+      "is_saturday": false,
+      "is_sunday": false,
+      "send_to_emails": "",
+      "notify_all_edi": false,
+      "notify_invoice_only": false,
+      "notify_error_only": false
+    }
+  },
+  "interfaces": [
+    {
+      "name": "",
+      "uri": "",
+      "username": "",
+      "password": "",
+      "notes": "",
+      "available": false,
+      "delivery_method": "",
+      "statistics_format": "",
+      "locally_stored": "",
+      "online_location": "",
+      "statistics_notes": ""
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Monograph",
+      "account_no": "852-987",
+      "description": "one time monographs",
+      "app_system_no": "",
+      "payment_method": "EFT/Procard",
+      "account_status": "Active",
+      "contact_info": "service@naxosusa.com",
+      "library_code": "pfirm",
+      "library_edi_code": "765987610",
+      "notes": ""
+    }
+  ],
+  "changelogs": [
+    {
+      "description": "This is a sample note.",
+      "timestamp": "2008-05-15T03:53:00-07:00"
+    }
+  ]
+}

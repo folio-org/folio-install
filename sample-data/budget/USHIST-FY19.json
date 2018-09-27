@@ -1,0 +1,16 @@
+{
+  "name": "USHIST-FY19",
+  "code": "USHIST-FY19",
+  "budget_status": "Active",
+  "limit_enc_percent": 110,
+  "limit_exp_percent": 100,
+  "allocation": 30000.00,
+  "awaiting_payment": 180.72,
+  "available": 18376.14,
+  "encumbered": 8768.88,
+  "expenditures": 2674.26,
+  "over_encumbrance": 0,
+  "fund_id": "65032151-39a5-4cef-8810-5350eb316300",
+  "fiscal_year_id": "684b5dc5-92f6-4db7-b996-b549d88f5e4e",
+  "tags": null
+}

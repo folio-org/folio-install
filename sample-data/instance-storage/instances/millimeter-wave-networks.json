@@ -1,0 +1,68 @@
+{
+  "id": "6b4ae089-e1ee-431f-af83-e1133f8e3da0",
+  "hrid": "in000018",
+  "source": "MARC",
+  "title": "MobiCom'17 5 mmNets'17, October 16, 2017, Snowbird, UT, USA / general chairs: Haitham Hassanieh (University of Illinois at Urbana Champaign, USA), Xinyu Zhang (University of California San Diego, USA)",
+  "alternativeTitles": [
+    "1st First ACM Workshop Millimeter Wave Networks Sensing Systems"
+  ],
+  "series": [],
+  "identifiers": [
+    {
+      "value": "1011273942",
+      "identifierTypeId": "5d164f4b-0b15-4e42-ae75-cfcf85318ad9"
+    },
+    {
+      "value": "9781450351430",
+      "identifierTypeId": "8261054f-be78-422d-bd51-4ed9f33c3422"
+    },
+    {
+      "value": "(DE-599)GBV1011273942",
+      "identifierTypeId": "7e591197-f335-4afb-bc6d-a6d76ca3bace"
+    }
+  ],
+  "contributors": [
+    {
+      "contributorNameTypeId": "2e48e713-17f3-4c13-a9f8-23845bb210aa",
+      "name": "ACM Workshop on Millimeter Wave Networks and Sensing Systems 1. 2017 Snowbird, Utah"
+    },
+    {
+      "contributorNameTypeId": "2b94c631-fca9-4892-a730-03ee529ffe2a",
+      "name": "Hassanieh, Haitham"
+    },
+    {
+      "contributorNameTypeId": "2b94c631-fca9-4892-a730-03ee529ffe2a",
+      "name": "Zhang, Xinyu"
+    },
+    {
+      "contributorNameTypeId": "2e48e713-17f3-4c13-a9f8-23845bb210aa",
+      "name": "MobiCom 23. 2017 Snowbird, Utah"
+    },
+    {
+      "contributorNameTypeId": "2e48e713-17f3-4c13-a9f8-23845bb210aa",
+      "name": "Association for Computing Machinery Special Interest Group on Mobility of Systems Users, Data, and Computing"
+    },
+    {
+      "contributorNameTypeId": "e8b311a6-3b21-43f2-a269-dd9310cb2d0a",
+      "name": "ACM Workshop on Millimeter Wave Networks and Sensing Systems 1 2017.10.16 Snowbird, Utah"
+    },
+    {
+      "contributorNameTypeId": "e8b311a6-3b21-43f2-a269-dd9310cb2d0a",
+      "name": "mmNets 1 2017.10.16 Snowbird, Utah"
+    },
+    {
+      "contributorNameTypeId": "e8b311a6-3b21-43f2-a269-dd9310cb2d0a",
+      "name": "Annual International Conference on Mobile Computing and Networking (ACM MobiCom) 23 2017.10.16-20 Snowbird, Utah"
+    }
+  ],
+  "subjects": [],
+  "classifications": [],
+  "publication": [],
+  "urls": [],
+  "instanceTypeId": "a2c91e87-6bab-44d6-8adb-1fd02481fc4f",
+  "physicalDescriptions": [],
+  "languages": [
+    "eng"
+  ],
+  "notes": []
+}

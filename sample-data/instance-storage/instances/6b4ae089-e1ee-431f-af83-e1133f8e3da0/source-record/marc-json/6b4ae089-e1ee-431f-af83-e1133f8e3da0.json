@@ -1,0 +1,375 @@
+{
+  "leader": "01922nma a2200325 c 4500",
+  "fields": [
+    {
+      "001": "1011273942"
+    },
+    {
+      "003": "DE-601"
+    },
+    {
+      "005": "20180122150003.0"
+    },
+    {
+      "007": "cu\\uuu---uuuuu"
+    },
+    {
+      "008": "180122s2017\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\000\\0\\eng\\d"
+    },
+    {
+      "020": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "9781450351430"
+          },
+          {
+            "9": "978-1-4503-5143-0"
+          }
+        ]
+      }
+    },
+    {
+      "035": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "(DE-599)GBV1011273942"
+          }
+        ]
+      }
+    },
+    {
+      "040": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "b": "ger"
+          },
+          {
+            "c": "GBVCP"
+          },
+          {
+            "e": "rda"
+          }
+        ]
+      }
+    },
+    {
+      "041": {
+        "ind1": "0",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "eng"
+          }
+        ]
+      }
+    },
+    {
+      "110": {
+        "ind1": "2",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "ACM Workshop on Millimeter Wave Networks and Sensing Systems"
+          },
+          {
+            "n": "1."
+          },
+          {
+            "d": "2017"
+          },
+          {
+            "c": "Snowbird, Utah"
+          },
+          {
+            "e": "VerfasserIn"
+          },
+          {
+            "4": "aut"
+          }
+        ]
+      }
+    },
+    {
+      "245": {
+        "ind1": "0",
+        "ind2": "0",
+        "subfields": [
+          {
+            "a": "MobiCom'17"
+          },
+          {
+            "n": "5"
+          },
+          {
+            "p": "mmNets'17, October 16, 2017, Snowbird, UT, USA \/ general chairs: Haitham Hassanieh (University of Illinois at Urbana Champaign, USA), Xinyu Zhang (University of California San Diego, USA)"
+          }
+        ]
+      }
+    },
+    {
+      "246": {
+        "ind1": "3",
+        "ind2": "0",
+        "subfields": [
+          {
+            "a": "1st First ACM Workshop Millimeter Wave Networks Sensing Systems"
+          }
+        ]
+      }
+    },
+    {
+      "336": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "Text"
+          },
+          {
+            "b": "txt"
+          },
+          {
+            "2": "rdacontent"
+          }
+        ]
+      }
+    },
+    {
+      "337": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "Computermedien"
+          },
+          {
+            "b": "c"
+          },
+          {
+            "2": "rdamedia"
+          }
+        ]
+      }
+    },
+    {
+      "338": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "Computerdisk"
+          },
+          {
+            "b": "cd"
+          },
+          {
+            "2": "rdacarrier"
+          }
+        ]
+      }
+    },
+    {
+      "700": {
+        "ind1": "1",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "Hassanieh, Haitham"
+          },
+          {
+            "e": "VeranstalterIn"
+          },
+          {
+            "4": "orm"
+          }
+        ]
+      }
+    },
+    {
+      "700": {
+        "ind1": "1",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "Zhang, Xinyu"
+          },
+          {
+            "e": "VeranstalterIn"
+          },
+          {
+            "4": "orm"
+          }
+        ]
+      }
+    },
+    {
+      "710": {
+        "ind1": "2",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "MobiCom"
+          },
+          {
+            "n": "23."
+          },
+          {
+            "d": "2017"
+          },
+          {
+            "c": "Snowbird, Utah"
+          },
+          {
+            "e": "VeranstalterIn"
+          },
+          {
+            "4": "orm"
+          }
+        ]
+      }
+    },
+    {
+      "710": {
+        "ind1": "2",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "Association for Computing Machinery"
+          },
+          {
+            "b": "Special Interest Group on Mobility of Systems Users, Data, and Computing"
+          },
+          {
+            "e": "SponsorIn"
+          },
+          {
+            "4": "spn"
+          },
+          {
+            "0": "(DE-601)499677137"
+          },
+          {
+            "0": "(DE-588)10113390-X"
+          }
+        ]
+      }
+    },
+    {
+      "711": {
+        "ind1": "2",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "ACM Workshop on Millimeter Wave Networks and Sensing Systems"
+          },
+          {
+            "n": "1"
+          },
+          {
+            "d": "2017.10.16"
+          },
+          {
+            "c": "Snowbird, Utah"
+          }
+        ]
+      }
+    },
+    {
+      "711": {
+        "ind1": "2",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "mmNets"
+          },
+          {
+            "n": "1"
+          },
+          {
+            "d": "2017.10.16"
+          },
+          {
+            "c": "Snowbird, Utah"
+          }
+        ]
+      }
+    },
+    {
+      "711": {
+        "ind1": "2",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "Annual International Conference on Mobile Computing and Networking (ACM MobiCom)"
+          },
+          {
+            "n": "23"
+          },
+          {
+            "d": "2017.10.16-20"
+          },
+          {
+            "c": "Snowbird, Utah"
+          }
+        ]
+      }
+    },
+    {
+      "773": {
+        "ind1": "0",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "w": "(DE-601)1011270897"
+          },
+          {
+            "t": "MobiCom'17, MobiCom'17, proceedings and co-located workshops of the 23rd Annual International Conference on Mobile Computing and Networking : October 16-20, 2017, Snowbird, UT, USA, MobiCom, Snowbird, Utah. - New York, NY : ACM, Association for Computing Machinery"
+          }
+        ]
+      }
+    },
+    {
+      "900": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "GBV"
+          },
+          {
+            "b": "TIB\/UB Hannover <89>"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "TIB\/UB Hannover <89>"
+          },
+          {
+            "a": "70"
+          },
+          {
+            "b": "1743063695"
+          },
+          {
+            "c": "01"
+          },
+          {
+            "x": "0089"
+          }
+        ]
+      }
+    }
+  ]
+}

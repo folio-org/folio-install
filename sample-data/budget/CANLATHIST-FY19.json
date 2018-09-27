@@ -1,0 +1,16 @@
+{
+  "name": "CANLATHIST-FY19",
+  "code": "CANLATHIST-FY19",
+  "budget_status": "Closed",
+  "limit_enc_percent": 100,
+  "limit_exp_percent": 100,
+  "allocation": 0.00,
+  "awaiting_payment": 0.00,
+  "available": 0.00,
+  "encumbered": 589.77,
+  "expenditures": 275.86,
+  "over_encumbrance": 0,
+  "fund_id": "67cd0046-e4f1-4e4f-9024-adf0b0039d09",
+  "fiscal_year_id": "684b5dc5-92f6-4db7-b996-b549d88f5e4e",
+  "tags": null
+}

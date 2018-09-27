@@ -1,0 +1,16 @@
+{
+  "name": "EXCH-SUBN-FY19",
+  "code": "EXCH-SUBN-FY19",
+  "budget_status": "Active",
+  "limit_enc_percent": 100,
+  "limit_exp_percent": 100,
+  "allocation": 50000.00,
+  "awaiting_payment": 0.00,
+  "available": 50000.00,
+  "encumbered": 2000.00,
+  "expenditures": 0.00,
+  "over_encumbrance": 0,
+  "fund_id": "d6f7c1ba-a237-465e-94ed-f37e91bc64bd",
+  "fiscal_year_id": "684b5dc5-92f6-4db7-b996-b549d88f5e4e",
+  "tags": null
+}

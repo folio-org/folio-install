@@ -1,0 +1,46 @@
+{
+  "id": "6eee8eb9-db1a-46e2-a8ad-780f19974efa",
+  "hrid": "in000010",
+  "source": "MARC",
+  "title": "DC Motor Control Experiment Objekt for introduction to control systems Herbert Werner",
+  "alternativeTitles": [],
+  "series": [],
+  "identifiers": [
+    {
+      "value": "727867881",
+      "identifierTypeId": "5d164f4b-0b15-4e42-ae75-cfcf85318ad9"
+    },
+    {
+      "value": "(DE-599)GBV727867881",
+      "identifierTypeId": "7e591197-f335-4afb-bc6d-a6d76ca3bace"
+    }
+  ],
+  "contributors": [
+    {
+      "contributorNameTypeId": "2b94c631-fca9-4892-a730-03ee529ffe2a",
+      "name": "Werner, Herbert"
+    },
+    {
+      "contributorNameTypeId": "2e48e713-17f3-4c13-a9f8-23845bb210aa",
+      "name": "Technische Universität Hamburg-Harburg Institut für Regelungstechnik"
+    }
+  ],
+  "subjects": [],
+  "classifications": [],
+  "publication": [
+    {
+      "publisher": "Techn. Univ., Inst. für Regelungstechnik",
+      "place": "Hamburg",
+      "dateOfPublication": "[2016]"
+    }
+  ],
+  "urls": [],
+  "instanceTypeId": "c1e95c2b-4efc-48cf-9e71-edb622cf0c22",
+  "physicalDescriptions": [
+    "1 Koffer (Inhalt: 1 Motor mit Platine auf Plattform, 1 Netzteil, 1 USB-Kabel)"
+  ],
+  "languages": [
+    "ger"
+  ],
+  "notes": []
+}

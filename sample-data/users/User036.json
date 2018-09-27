@@ -1,0 +1,32 @@
+{
+   "patronGroup" : "cb73adc7-5554-47d1-a074-9d56020c1030",
+   "personal" : {
+      "lastName" : "Powlowski",
+      "middleName" : "Carmelo",
+      "firstName" : "Cedrick",
+      "phone" : "424-491-2467",
+      "addresses" : [
+         {
+            "addressTypeId" : "ad2c4726-b397-4a0c-8e0e-c31dc5503296",
+            "countryId" : "US",
+            "city" : "San Diego",
+            "region" : "NE",
+            "primaryAddress" : true,
+            "postalCode" : "47298",
+            "addressLine1" : "65649 Powlowski Plaza #557"
+         }
+      ],
+      "preferredContactTypeId" : "001",
+      "mobilePhone" : "(296)651-9523 x044",
+      "dateOfBirth" : "2004-03-10",
+      "email" : "juvenal@lebsack-stehr-and-daniel.edu"
+   },
+   "id" : "1844d17d-60f2-4878-a491-4c0e24efbd02",
+   "barcode" : "568769999316145",
+   "active" : true,
+   "expirationDate" : "2019-01-01",
+   "type" : "patron",
+   "username" : "zoey",
+   "enrollmentDate" : "2016-03-16"
+}
+

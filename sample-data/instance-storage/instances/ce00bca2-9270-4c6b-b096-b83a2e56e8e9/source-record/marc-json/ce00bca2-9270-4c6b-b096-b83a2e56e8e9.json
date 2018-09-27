@@ -1,0 +1,312 @@
+{
+  "leader": "01344nja a2200289 c 4500",
+  "fields": [
+    {
+      "001": "1011162431"
+    },
+    {
+      "003": "DE-601"
+    },
+    {
+      "005": "20180118183625.0"
+    },
+    {
+      "007": "su\\uuuuuuuuuuu"
+    },
+    {
+      "008": "180118s2017\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\000\\0\\ger\\d"
+    },
+    {
+      "035": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "(DE-599)GBV1011162431"
+          }
+        ]
+      }
+    },
+    {
+      "040": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "b": "ger"
+          },
+          {
+            "c": "GBVCP"
+          },
+          {
+            "e": "rda"
+          }
+        ]
+      }
+    },
+    {
+      "041": {
+        "ind1": "0",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "ger"
+          }
+        ]
+      }
+    },
+    {
+      "100": {
+        "ind1": "1",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "Bach, Johann Sebastian"
+          },
+          {
+            "e": "KomponistIn"
+          },
+          {
+            "4": "cmp"
+          },
+          {
+            "0": "(DE-601)134579348"
+          },
+          {
+            "0": "(DE-588)11850553X"
+          }
+        ]
+      }
+    },
+    {
+      "240": {
+        "ind1": "1",
+        "ind2": "0",
+        "subfields": [
+          {
+            "0": "(DE-601)701589477"
+          },
+          {
+            "0": "(DE-588)300007736"
+          },
+          {
+            "a": "Ich habe genung"
+          }
+        ]
+      }
+    },
+    {
+      "245": {
+        "ind1": "1",
+        "ind2": "0",
+        "subfields": [
+          {
+            "a": "Cantatas for bass"
+          },
+          {
+            "n": "4"
+          },
+          {
+            "p": "Ich habe genug : BWV 82 \/ Johann Sebastian Bach ; Matthias Goerne, baritone ; Freiburger Barockorchester, Gottfried von der Goltz, violin and conductor"
+          }
+        ]
+      }
+    },
+    {
+      "246": {
+        "ind1": "1",
+        "ind2": "3",
+        "subfields": [
+          {
+            "i": "Abweichender Titel"
+          },
+          {
+            "a": "Ich habe genung"
+          }
+        ]
+      }
+    },
+    {
+      "300": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "Track 10-14"
+          }
+        ]
+      }
+    },
+    {
+      "336": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "aufgeführte Musik"
+          },
+          {
+            "b": "prm"
+          },
+          {
+            "2": "rdacontent"
+          }
+        ]
+      }
+    },
+    {
+      "337": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "audio"
+          },
+          {
+            "b": "s"
+          },
+          {
+            "2": "rdamedia"
+          }
+        ]
+      }
+    },
+    {
+      "338": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "Audiodisk"
+          },
+          {
+            "b": "sd"
+          },
+          {
+            "2": "rdacarrier"
+          }
+        ]
+      }
+    },
+    {
+      "700": {
+        "ind1": "1",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "Arfken, Katharina"
+          },
+          {
+            "e": "InstrumentalmusikerIn"
+          },
+          {
+            "4": "itr"
+          },
+          {
+            "0": "(DE-601)576364940"
+          },
+          {
+            "0": "(DE-588)135158265"
+          }
+        ]
+      }
+    },
+    {
+      "700": {
+        "ind1": "1",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "Goltz, Gottfried von der"
+          },
+          {
+            "e": "DirigentIn"
+          },
+          {
+            "4": "cnd"
+          },
+          {
+            "0": "(DE-601)081724969"
+          },
+          {
+            "0": "(DE-588)122080912"
+          }
+        ]
+      }
+    },
+    {
+      "710": {
+        "ind1": "2",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "Freiburger Barockorchester"
+          },
+          {
+            "e": "InstrumentalmusikerIn"
+          },
+          {
+            "4": "itr"
+          },
+          {
+            "0": "(DE-601)12121060X"
+          },
+          {
+            "0": "(DE-588)5066798-1"
+          }
+        ]
+      }
+    },
+    {
+      "773": {
+        "ind1": "0",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "w": "(DE-601)895161729"
+          },
+          {
+            "t": "Cantatas for bass, Bach, Johann Sebastian. - Arles : Harmonia Mundi"
+          }
+        ]
+      }
+    },
+    {
+      "900": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "GBV"
+          },
+          {
+            "b": "SBB-PK Berlin <1+1A>"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "SBB-PK Berlin <1+1A>"
+          },
+          {
+            "a": "11"
+          },
+          {
+            "b": "1742288871"
+          },
+          {
+            "c": "01"
+          },
+          {
+            "x": "0001"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "id": "549fad9e-7f8e-4d8e-9a71-00d251817866",
+  "hrid": "in000026",
+  "source": "MARC",
+  "title": "Agile Organisation, Risiko- und Change Management Harald Augustin (Hrsg.)",
+  "series": [
+    "Umsetzung der DIN EN ISO 9001:2015  / Harald Augustin (Hrsg.) ; Band 2",
+    "Berichte aus der Betriebswirtschaft",
+    "Umsetzung der DIN EN ISO 9001:2015 Band 2"
+  ],
+  "identifiers": [
+    {
+      "value": "3844057439",
+      "identifierTypeId": "8261054f-be78-422d-bd51-4ed9f33c3422"
+    },
+    {
+      "value": "9783844057430",
+      "identifierTypeId": "8261054f-be78-422d-bd51-4ed9f33c3422"
+    },
+    {
+      "value": "9783844057430",
+      "identifierTypeId": "2e8b3b6c-0e7d-4e48-bca2-b0b23b376af5"
+    },
+    {
+      "value": "(OCoLC)1024128245",
+      "identifierTypeId": "7e591197-f335-4afb-bc6d-a6d76ca3bace"
+    },
+    {
+      "value": "(DE-101)1150176652",
+      "identifierTypeId": "7e591197-f335-4afb-bc6d-a6d76ca3bace"
+    },
+    {
+      "value": "(DE-599)DNB1150176652",
+      "identifierTypeId": "7e591197-f335-4afb-bc6d-a6d76ca3bace"
+    }
+  ],
+  "contributors": [
+    {
+      "contributorNameTypeId": "2b94c631-fca9-4892-a730-03ee529ffe2a",
+      "name": "Augustin, Harald"
+    },
+    {
+      "contributorNameTypeId": "2e48e713-17f3-4c13-a9f8-23845bb210aa",
+      "name": "Shaker Verlag GmbH"
+    }
+  ],
+  "subjects": [
+    "DIN EN ISO 9001:2015",
+    "Standard",
+    "Risikomanagement",
+    "Einführung",
+    "Organisatorischer Wandel",
+    "Industrie",
+    "Deutschland"
+  ],
+  "classifications": [
+    {
+      "classificationNumber": "658.4013",
+      "classificationTypeId": "42471af9-7d25-4f3a-bf78-60d29dcf463b"
+    },
+    {
+      "classificationNumber": "650",
+      "classificationTypeId": "42471af9-7d25-4f3a-bf78-60d29dcf463b"
+    }
+  ],
+  "publication": [
+    {
+      "publisher": "Shaker Verlag",
+      "place": "Aachen",
+      "dateOfPublication": "2017"
+    }
+  ],
+  "urls": [
+    "http://d-nb.info/1150176652/04"
+  ],
+  "instanceTypeId": "6312d172-f0cf-40f6-b27d-9fa8feaf332f",
+  "physicalDescriptions": [
+    "x, 148 Seiten Illustrationen 21 cm, 188 g"
+  ],
+  "languages": [
+    "ger"
+  ]
+}
