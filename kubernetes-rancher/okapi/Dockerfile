@@ -1,5 +1,3 @@
-FROM ubuntu:xenial
-
 #Prerequisites JDK
 FROM openjdk:8
 
@@ -7,11 +5,6 @@ FROM openjdk:8
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 RUN apt-get update && apt-get install -y --no-install-recommends apt-utils
 RUN apt-get update && apt-get install -y wget apt-transport-https ca-certificates python-apt ssl-cert dpkg
-
-#Postgres-client
-RUN apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8
-RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main" > /etc/apt/sources.list.d/pgdg.list
-RUN apt-get update && apt-get install -y software-properties-common postgresql-client-9.6
 
 #Mvn
 RUN apt-get update && apt-get install -y curl git maven unzip 
