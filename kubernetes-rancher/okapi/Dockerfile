@@ -1,8 +1,8 @@
 #Prerequisites JDK
-FROM maven:3.5.4-jdk-8
+FROM maven:3.5.4-jdk-8-alpine
 
 #Mvn
-RUN apt-get update && apt-get install -y curl git
+RUN apk add --no-cache curl git
 
 #Okapi git clone and MVN Build
 RUN mkdir -p /usr/local/bin/folio/
