@@ -1,13 +1,8 @@
 #Prerequisites JDK
-FROM openjdk:8
-
-#Okapi Repo
-RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
-RUN apt-get update && apt-get install -y --no-install-recommends apt-utils
-RUN apt-get update && apt-get install -y wget apt-transport-https ca-certificates python-apt ssl-cert dpkg
+FROM maven:3.5.4-jdk-8
 
 #Mvn
-RUN apt-get update && apt-get install -y curl git maven unzip 
+RUN apt-get update && apt-get install -y curl git
 
 #Okapi git clone and MVN Build
 RUN mkdir -p /usr/local/bin/folio/
