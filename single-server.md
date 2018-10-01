@@ -166,7 +166,7 @@ Note that there is some risk in this, as the latest Okapi release may not have b
 
   * Edit file `/etc/folio/okapi/okapi.conf` and make the following changes:
     * `role="dev"`
-    * `port_end="9160"`
+    * `port_end="9230"`
     * `host="10.0.2.15"`
     * `storage="postgres"`
     * `okapiurl="http://10.0.2.15:9130"`
