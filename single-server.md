@@ -149,7 +149,7 @@ CREATE DATABASE folio WITH OWNER folio;
 wget --quiet -O - https://repository.folio.org/packages/debian/folio-apt-archive-key.asc | sudo apt-key add -
 sudo add-apt-repository "deb https://repository.folio.org/packages/ubuntu xenial/"
 sudo apt-get update
-sudo apt-get -y install okapi=2.17.4-1
+sudo apt-get -y install okapi=2.17.4-2
 ```
 
 ### Sidebar: Okapi releases
