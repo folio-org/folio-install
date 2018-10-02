@@ -1,0 +1,62 @@
+apiVersion: apps/v1beta2
+kind: DaemonSet
+metadata:
+  annotations:
+    deprecated.daemonset.template.generation: "1"
+    field.cattle.io/creatorId: u-d8jfk
+    field.cattle.io/publicEndpoints: '[{"addresses":["<xxx.xxx.xxx.xxx>"],"port":443,"protocol":"HTTPS","serviceName":"folio-q2:stripes","ingressName":"folio-q2:stripes","hostname":"folio-stripes-arecord.org","path":"/","allNodes":true},{"addresses":["<xxx.xxx.xxx.xxx>"],"port":443,"protocol":"HTTPS","serviceName":"folio-q2:stripes","ingressName":"folio-q2:stripes","hostname":"folio-stripes-arecord.org","allNodes":true},{"addresses":["<xxx.xxx.xxx.xxx>"],"port":31990,"protocol":"TCP","serviceName":"folio-q2:stripes-nodeport","allNodes":true}]'
+  creationTimestamp: null
+  generation: 1
+  labels:
+    workload.user.cattle.io/workloadselector: daemonSet-folio-q2-stripes
+  name: stripes
+  selfLink: /apis/apps/v1beta2/namespaces/folio-q2/daemonsets/stripes
+spec:
+  minReadySeconds: 30
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      workload.user.cattle.io/workloadselector: daemonSet-folio-q2-stripes
+  template:
+    metadata:
+      annotations:
+        field.cattle.io/ports: '[[{"containerPort":3000,"dnsName":"stripes-nodeport","kind":"NodePort","name":"3000tcp01","protocol":"TCP","sourcePort":0}]]'
+      creationTimestamp: null
+      labels:
+        workload.user.cattle.io/workloadselector: daemonSet-folio-q2-stripes
+    spec:
+      affinity: {}
+      containers:
+      - image: <my-docker-private-registry>/folio/stripes:v2
+        imagePullPolicy: Always
+        name: stripes
+        ports:
+        - containerPort: 3000
+          name: 3000tcp01
+          protocol: TCP
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: false
+          privileged: false
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+        stdin: true
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        tty: true
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: my-secret-name
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+  updateStrategy:
+    rollingUpdate:
+      maxUnavailable: 1
+    type: RollingUpdate
+status:
+  currentNumberScheduled: 0
+  desiredNumberScheduled: 0
+  numberMisscheduled: 0
+  numberReady: 0

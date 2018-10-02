@@ -1,0 +1,193 @@
+{
+  "id" : "mod-users-15.1.0-SNAPSHOT.36",
+  "name" : "users",
+  "provides" : [ {
+    "id" : "users",
+    "version" : "15.0",
+    "handlers" : [ {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/users",
+      "permissionsRequired" : [ "users.collection.get" ],
+      "permissionsDesired" : [ "users.read.basic", "users.read.restricted" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/users/{id}",
+      "permissionsRequired" : [ "users.item.get" ],
+      "permissionsDesired" : [ "users.read.basic", "users.read.restricted" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/users",
+      "permissionsRequired" : [ "users.item.post" ]
+    }, {
+      "methods" : [ "PUT" ],
+      "pathPattern" : "/users/{id}",
+      "permissionsRequired" : [ "users.item.put" ]
+    }, {
+      "methods" : [ "DELETE" ],
+      "pathPattern" : "/users/{id}",
+      "permissionsRequired" : [ "users.item.delete" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/groups",
+      "permissionsRequired" : [ "usergroups.collection.get" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/groups/{id}*",
+      "permissionsRequired" : [ "usergroups.item.get" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/groups*",
+      "permissionsRequired" : [ "usergroups.item.post" ]
+    }, {
+      "methods" : [ "PUT" ],
+      "pathPattern" : "/groups/{id}*",
+      "permissionsRequired" : [ "usergroups.item.put" ]
+    }, {
+      "methods" : [ "DELETE" ],
+      "pathPattern" : "/groups/{id}*",
+      "permissionsRequired" : [ "usergroups.item.delete" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/addresstypes",
+      "permissionsRequired" : [ "addresstypes.collection.get" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/addresstypes/{id}",
+      "permissionsRequired" : [ "addresstypes.item.get" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/addresstypes",
+      "permissionsRequired" : [ "addresstypes.item.post" ]
+    }, {
+      "methods" : [ "PUT" ],
+      "pathPattern" : "/addresstypes/{id}",
+      "permissionsRequired" : [ "addresstypes.item.put" ]
+    }, {
+      "methods" : [ "DELETE" ],
+      "pathPattern" : "/addresstypes/{id}",
+      "permissionsRequired" : [ "addresstypes.item.delete" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/proxiesfor",
+      "permissionsRequired" : [ "proxiesfor.collection.get" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/proxiesfor/{id}",
+      "permissionsRequired" : [ "proxiesfor.item.get" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/proxiesfor",
+      "permissionsRequired" : [ "proxiesfor.item.post" ]
+    }, {
+      "methods" : [ "PUT" ],
+      "pathPattern" : "/proxiesfor/{id}",
+      "permissionsRequired" : [ "proxiesfor.item.put" ]
+    }, {
+      "methods" : [ "DELETE" ],
+      "pathPattern" : "/proxiesfor/{id}",
+      "permissionsRequired" : [ "proxiesfor.item.delete" ]
+    } ]
+  }, {
+    "id" : "_tenant",
+    "version" : "1.0",
+    "interfaceType" : "system",
+    "handlers" : [ {
+      "methods" : [ "POST", "DELETE" ],
+      "pathPattern" : "/_/tenant"
+    } ]
+  } ],
+  "permissionSets" : [ {
+    "permissionName" : "users.collection.get",
+    "displayName" : "users collection get",
+    "description" : "Get a collection of user records"
+  }, {
+    "permissionName" : "users.item.get",
+    "displayName" : "users item get",
+    "description" : "Read an individual record in the User module"
+  }, {
+    "permissionName" : "users.read.basic",
+    "displayName" : "users read-basic",
+    "description" : "Read non-restricted User data information"
+  }, {
+    "permissionName" : "users.read.restricted",
+    "displayName" : "users read-restricted",
+    "description" : "Read restricted User data information"
+  }, {
+    "permissionName" : "users.item.post",
+    "displayName" : "users item post",
+    "description" : "Create new records in the User module"
+  }, {
+    "permissionName" : "users.item.put",
+    "displayName" : "users item put",
+    "description" : "Edit existing records in the User module"
+  }, {
+    "permissionName" : "users.item.delete",
+    "displayName" : "users item delete",
+    "description" : "Delete records from the User module"
+  }, {
+    "permissionName" : "usergroups.collection.get",
+    "displayName" : "usergroups collection get",
+    "description" : "Get a list of usergroup records"
+  }, {
+    "permissionName" : "usergroups.item.get",
+    "displayName" : "usergroups item get",
+    "description" : "Get a single usergroup item"
+  }, {
+    "permissionName" : "usergroups.item.post",
+    "displayName" : "usergroups item post",
+    "description" : "Create new Groups for users"
+  }, {
+    "permissionName" : "usergroups.item.put",
+    "displayName" : "usergroups item put",
+    "description" : "Edit existing Groups for users"
+  }, {
+    "permissionName" : "usergroups.item.delete",
+    "displayName" : "usergroups item delete",
+    "description" : "Delete Groups for users"
+  }, {
+    "permissionName" : "addresstypes.collection.get",
+    "displayName" : "addresstypes collection get",
+    "description" : "Get a list of addresstype records"
+  }, {
+    "permissionName" : "addresstypes.item.get",
+    "displayName" : "addresstypes item get",
+    "description" : "Get a single addresstype record"
+  }, {
+    "permissionName" : "addresstypes.item.post",
+    "displayName" : "addresstypes item post",
+    "description" : "Create a new addresstype record"
+  }, {
+    "permissionName" : "addresstypes.item.put",
+    "displayName" : "addresstypes item put",
+    "description" : "Edit an addresstype record"
+  }, {
+    "permissionName" : "addresstypes.item.delete",
+    "displayName" : "addresstypes item delete",
+    "description" : "Delete an addresstype record"
+  }, {
+    "permissionName" : "proxiesfor.collection.get",
+    "displayName" : "proxiesfor collection get",
+    "description" : "Get a list of proxyfor records"
+  }, {
+    "permissionName" : "proxiesfor.item.get",
+    "displayName" : "proxiesfor item get",
+    "description" : "Get a single proxyfor record"
+  }, {
+    "permissionName" : "proxiesfor.item.post",
+    "displayName" : "proxiesfor item post",
+    "description" : "Create a new proxyfor record"
+  }, {
+    "permissionName" : "proxiesfor.item.put",
+    "displayName" : "proxiesfor item put",
+    "description" : "Edit a proxyfor record"
+  }, {
+    "permissionName" : "proxiesfor.item.delete",
+    "displayName" : "proxiesfor.item.delete",
+    "description" : "Delete a proxyfor record"
+  }, {
+    "permissionName" : "users.all",
+    "displayName" : "users all",
+    "description" : "All permissions for the mod-users module",
+    "subPermissions" : [ "users.collection.get", "users.item.get", "users.read.basic", "users.read.restricted", "users.item.post", "users.item.put", "users.item.delete", "usergroups.collection.get", "usergroups.item.get", "usergroups.item.post", "usergroups.item.put", "usergroups.item.delete", "addresstypes.collection.get", "addresstypes.item.get", "addresstypes.item.post", "addresstypes.item.put", "addresstypes.item.delete", "proxiesfor.collection.get", "proxiesfor.item.get", "proxiesfor.item.post", "proxiesfor.item.put", "proxiesfor.item.delete" ]
+  } ]
+}

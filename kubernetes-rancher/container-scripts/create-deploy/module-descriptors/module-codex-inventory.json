@@ -1,0 +1,36 @@
+{
+  "id" : "mod-codex-inventory-1.2.0-SNAPSHOT.53",
+  "name" : "Codex wrapper for Inventory",
+  "requires" : [ {
+    "id" : "instance-storage",
+    "version" : "4.0"
+  }, {
+    "id" : "contributor-name-types",
+    "version" : "1.0"
+  }, {
+    "id" : "instance-types",
+    "version" : "2.0"
+  }, {
+    "id" : "instance-formats",
+    "version" : "2.0"
+  }, {
+    "id" : "identifier-types",
+    "version" : "1.0"
+  }, {
+    "id" : "locations",
+    "version" : "1.1 2.0"
+  } ],
+  "provides" : [ {
+    "id" : "codex",
+    "version" : "3.0",
+    "interfaceType" : "multiple",
+    "handlers" : [ {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/codex-instances"
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/codex-instances/{id}"
+    } ]
+  } ],
+  "permissionSets" : [ ]
+}

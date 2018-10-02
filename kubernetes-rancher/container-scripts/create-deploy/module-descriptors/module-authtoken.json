@@ -1,0 +1,19 @@
+{
+  "id" : "mod-authtoken-1.4.1-SNAPSHOT.21",
+  "name" : "authtoken",
+  "provides" : [ {
+    "id" : "authtoken",
+    "version" : "1.2",
+    "handlers" : [ {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/token"
+    } ]
+  } ],
+  "filters" : [ {
+    "methods" : [ "*" ],
+    "pathPattern" : "/*",
+    "phase" : "auth",
+    "type" : "headers",
+    "modulePermissions" : [ "perms.users.get" ]
+  } ]
+}

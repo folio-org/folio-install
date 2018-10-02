@@ -1,0 +1,67 @@
+{
+  "id" : "mod-calendar-1.0.0-SNAPSHOT.37",
+  "name" : "Calendar module",
+  "provides" : [ {
+    "id" : "calendar",
+    "version" : "1.0",
+    "handlers" : [ {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/calendar/openings"
+    }, {
+      "methods" : [ "GET", "POST", "DELETE" ],
+      "pathPattern" : "/calendar/openings/{servicePointId}/regular",
+      "permissionsRequired" : [ "calendar.collection.add", "calendar.collection.get", "calendar.collection.update", "calendar.collection.remove" ]
+    }, {
+      "methods" : [ "GET", "POST", "DELETE" ],
+      "pathPattern" : "/calendar/openings/{servicePointId}/exceptional",
+      "permissionsRequired" : [ "calendar.collection.add", "calendar.collection.get", "calendar.collection.update", "calendar.collection.remove" ]
+    }, {
+      "methods" : [ "GET", "DELETE", "PUT" ],
+      "pathPattern" : "/calendar/openings/{servicePointId}/regular/{openingId}",
+      "permissionsRequired" : [ "calendar.collection.get", "calendar.collection.update", "calendar.collection.remove" ]
+    }, {
+      "methods" : [ "GET", "DELETE", "PUT" ],
+      "pathPattern" : "/calendar/openings/{servicePointId}/exceptional/{openingId}",
+      "permissionsRequired" : [ "calendar.collection.get", "calendar.collection.update", "calendar.collection.remove" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/calendar/openings/{servicePointId}/calculateopening",
+      "permissionsRequired" : [ "calendar.collection.get" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/calendar/openings/{servicePointId}/calculateopeningduration",
+      "permissionsRequired" : [ "calendar.collection.get" ]
+    } ]
+  }, {
+    "id" : "_tenant",
+    "version" : "1.0",
+    "interfaceType" : "system",
+    "handlers" : [ {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/_/tenant"
+    } ]
+  } ],
+  "permissionSets" : [ {
+    "permissionName" : "calendar.collection.get",
+    "displayName" : "List calendar event descriptions",
+    "description" : ""
+  }, {
+    "permissionName" : "calendar.collection.add",
+    "displayName" : "Add new calendar event description",
+    "description" : ""
+  }, {
+    "permissionName" : "calendar.collection.update",
+    "displayName" : "Update existing calendar event description",
+    "description" : ""
+  }, {
+    "permissionName" : "calendar.collection.remove",
+    "displayName" : "Remove calendar event description",
+    "description" : ""
+  }, {
+    "permissionName" : "calendar.collection.all",
+    "displayName" : "Calendar permissions",
+    "description" : "",
+    "subPermissions" : [ "calendar.collection.get", "calendar.collection.add", "calendar.collection.update", "calendar.collection.remove" ],
+    "visible" : true
+  } ]
+}

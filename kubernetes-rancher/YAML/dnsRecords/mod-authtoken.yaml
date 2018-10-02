@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    field.cattle.io/targetWorkloadIds: '["deployment:folio-q2:mod-authtoken"]'
+    workload.cattle.io/targetWorkloadIdNoop: "true"
+    workload.cattle.io/workloadPortBased: "true"
+  creationTimestamp: null
+  name: mod-authtoken
+  ownerReferences:
+  - apiVersion: apps/v1beta2
+    controller: true
+    kind: deployment
+    name: mod-authtoken
+    uid: 9ef35fdb-a47f-11e8-af21-005056bb3657
+  selfLink: /api/v1/namespaces/folio-q2/services/mod-authtoken
+spec:
+  clusterIP: None
+  ports:
+  - name: default
+    port: 42
+    protocol: TCP
+    targetPort: 42
+  selector:
+    workload.user.cattle.io/workloadselector: deployment-folio-q2-mod-authtoken
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

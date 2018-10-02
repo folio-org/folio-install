@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    field.cattle.io/creatorId: u-d8jfk
+    field.cattle.io/ingressState: '{}'
+    field.cattle.io/publicEndpoints: '[{"addresses":["<xxx.xxx.xxx.xxx>"],"port":443,"protocol":"HTTPS","serviceName":"folio-q2:stripes","ingressName":"folio-q2:stripes","hostname":"folio-stripes-arecord.org","path":"/","allNodes":true},{"addresses":["<xxx.xxx.xxx.xxx>"],"port":443,"protocol":"HTTPS","serviceName":"folio-q2:stripes","ingressName":"folio-q2:stripes","hostname":"folio-stripes-arecord.org","allNodes":true}]'
+  creationTimestamp: null
+  generation: 1
+  name: stripes
+  selfLink: /apis/extensions/v1beta1/namespaces/folio-q2/ingresses/stripes
+spec:
+  rules:
+  - host: folio-stripes-arecord.org
+    http:
+      paths:
+      - backend:
+          serviceName: stripes
+          servicePort: 3000
+      - backend:
+          serviceName: stripes
+          servicePort: 3000
+        path: /
+  tls:
+  - hosts:
+    - folio-stripes-arecord.org
+    secretName: my-secret-name
+status:
+  loadBalancer: {}

@@ -1,0 +1,52 @@
+{
+  "id" : "mod-kb-ebsco-0.1.1-SNAPSHOT.112",
+  "name" : "kb-ebsco",
+  "provides" : [ {
+    "id" : "eholdings",
+    "version" : "0.1",
+    "handlers" : [ {
+      "methods" : [ "GET", "PUT" ],
+      "pathPattern" : "/eholdings/configuration"
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/eholdings/status"
+    }, {
+      "methods" : [ "GET", "PUT", "DELETE" ],
+      "pathPattern" : "/eholdings/custom-labels*"
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/eholdings/proxy-types"
+    }, {
+      "methods" : [ "GET", "PUT" ],
+      "pathPattern" : "/eholdings/root-proxy"
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/eholdings/vendors*"
+    }, {
+      "methods" : [ "GET", "PUT" ],
+      "pathPattern" : "/eholdings/providers*"
+    }, {
+      "methods" : [ "GET", "POST", "PUT", "DELETE" ],
+      "pathPattern" : "/eholdings/packages*"
+    }, {
+      "methods" : [ "GET", "POST", "PUT", "DELETE" ],
+      "pathPattern" : "/eholdings/titles*"
+    }, {
+      "methods" : [ "GET", "POST", "PUT", "DELETE" ],
+      "pathPattern" : "/eholdings/resources*"
+    }, {
+      "methods" : [ "GET", "POST", "PUT", "PATCH", "DELETE" ],
+      "pathPattern" : "/ebsco-rmapi/holdings*"
+    }, {
+      "methods" : [ "GET", "POST", "PUT", "PATCH", "DELETE" ],
+      "pathPattern" : "/ebsco-rmapi/packages*"
+    }, {
+      "methods" : [ "GET", "POST", "PUT", "PATCH", "DELETE" ],
+      "pathPattern" : "/ebsco-rmapi/vendors*"
+    }, {
+      "methods" : [ "GET", "POST", "PUT", "PATCH", "DELETE" ],
+      "pathPattern" : "/ebsco-rmapi/titles*"
+    } ]
+  } ],
+  "permissionSets" : [ ]
+}
