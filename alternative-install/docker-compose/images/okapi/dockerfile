@@ -1,0 +1,21 @@
+FROM ubuntu
+
+#Java
+RUN apt-get update;
+RUN apt-get -y install openjdk-8-jdk; 
+RUN update-java-alternatives --jre-headless --jre --set java-1.8.0-openjdk-amd64
+RUN apt-get -y install git wget curl nodejs npm libjson-perl libwww-perl
+#RUN software-properties-common python-software-properties
+RUN apt-get install -y software-properties-common
+#Docker
+RUN wget --quiet -O - https://yum.dockerproject.org/gpg | apt-key add -
+RUN add-apt-repository "deb https://apt.dockerproject.org/repo ubuntu-xenial main"
+RUN apt-get update
+RUN apt-get -y install docker-engine
+
+# sudo mkdir -p /etc/systemd/system/docker.service.d
+# sudo cp /vagrant/docker-opts.conf /etc/systemd/system/docker.service.d
+# sudo systemctl daemon-reload
+# sudo systemctl restart docker
+
+# sudo usermod -aG docker $USER

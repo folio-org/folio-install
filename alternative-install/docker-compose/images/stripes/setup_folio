@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+#Find Javascript bundle and use ENV Variables to set OKAPI URL AND TENANT
+for file in /usr/share/nginx/html/bundle.*.js ; do
+  echo $file
+  sed -i "s/DOCKER_OKAPI_SCHEME/$(echo "${OKAPI_SCHEME}" | envsubst)/g" $file;
+  sed -i "s/DOCKER_OKAPI_HOSTPORT/$(echo "${OKAPI_HOSTPORT}" | envsubst)/g" $file;
+  sed -i "s/DOCKER_OKAPI_TENANT/$(echo "${OKAPI_TENANT}" | envsubst)/g" $file;
+done
+#Start Nginx
+nginx -g 'daemon off;'

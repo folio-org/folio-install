@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -e
+
+echo "$POSTGRES_USER"
+echo "$POSTGRES_DB"
+
+psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
+    CREATE ROLE okapi WITH PASSWORD 'okapi25' LOGIN CREATEDB;
+    CREATE DATABASE okapi WITH OWNER okapi;
+    CREATE ROLE folio WITH PASSWORD 'folio123' LOGIN SUPERUSER;
+    CREATE DATABASE folio WITH OWNER folio;
+EOSQL

@@ -1,0 +1,2 @@
+FROM postgres:9.6
+COPY initDB.sh /docker-entrypoint-initdb.d

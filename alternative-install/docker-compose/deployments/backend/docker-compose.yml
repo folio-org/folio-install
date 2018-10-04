@@ -1,0 +1,15 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    volumes:
+      - ../../images/postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+  okapi:
+    image: okapi
+    build: ../../images/okapi
+    ports:
+     - "5000:5000"
+    depends_on:
+      - db
+  postgres:
+    image: "redis:alpine"
