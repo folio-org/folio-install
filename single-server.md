@@ -243,7 +243,19 @@ yarn install
 
 If you build Stripes this way, you will need to construct your FOLIO backend system a little differently. See [Building from the bleeding edge -- part II](#sidebar-building-from-the-bleeding-edge----part-ii) below.
 
-5. Build webpack
+5. Configure Stripes
+
+Before you build, you will need to configure Stripes with the correct IP address and tenant. Edit `stripes.config.js` and add an `okapi` key to the `platformComplete` object: 
+
+```JS
+const platformComplete = {
+  okapi: { 'url':'htt//10.0.2.15:9130', 'tenant':'divu' },
+  modules: { ... },
+  branding: { ... },
+```
+
+
+6. Build webpack
 
   * *Note: if you're not building on a local Vagrant box, see [Options for `yarn build`](#sidebar-options-for-yarn-build) below*
 
