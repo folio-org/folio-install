@@ -156,7 +156,7 @@ lookupcache=none<br/>
 
 #### Crunchy-postgres Workload environment variables:
 
-WORK_MEM = 4<br/>
+WORK_MEM = 8MB<br/>
 PGHOST = /tmp<br/>
 PGDATA_PATH_OVERRIDE = folio-data<br/>
 PG_USER = okapi<br/>
