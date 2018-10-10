@@ -1,21 +1,50 @@
-FROM ubuntu
+#Prerequisites JDK
+FROM maven:3.5.4-jdk-8-alpine
 
-#Java
-RUN apt-get update;
-RUN apt-get -y install openjdk-8-jdk; 
-RUN update-java-alternatives --jre-headless --jre --set java-1.8.0-openjdk-amd64
-RUN apt-get -y install git wget curl nodejs npm libjson-perl libwww-perl
-#RUN software-properties-common python-software-properties
-RUN apt-get install -y software-properties-common
-#Docker
-RUN wget --quiet -O - https://yum.dockerproject.org/gpg | apt-key add -
-RUN add-apt-repository "deb https://apt.dockerproject.org/repo ubuntu-xenial main"
-RUN apt-get update
-RUN apt-get -y install docker-engine
+#Mvn
+RUN apk add --no-cache curl git wget docker
 
-# sudo mkdir -p /etc/systemd/system/docker.service.d
-# sudo cp /vagrant/docker-opts.conf /etc/systemd/system/docker.service.d
-# sudo systemctl daemon-reload
-# sudo systemctl restart docker
+#Okapi git clone and MVN Build
+RUN mkdir -p /usr/local/bin/folio/
+WORKDIR /usr/local/bin/folio
+RUN git clone  -b "v2.16.1" --recursive https://github.com/folio-org/okapi.git
+RUN cd okapi && mvn clean install -DskipTests
 
-# sudo usermod -aG docker $USER
+
+
+#Expose ports
+EXPOSE 9130
+EXPOSE 9150
+EXPOSE 5701
+EXPOSE 5702
+EXPOSE 5703
+EXPOSE 5704
+EXPOSE 5705
+EXPOSE 5706
+EXPOSE 54327
+
+#Set environment variables for script
+ENV INITDB='false'
+ENV PG_HOST='localhost'
+ENV PG_PORT='5432'
+ENV PG_USERNAME='okapi'
+ENV PG_PASSWORD='okapi25'
+ENV PG_DATABASE='okapi'
+ENV OKAPI_COMMAND='cluster'
+ENV OKAPI_PORT='9130'
+ENV OKAPI_URL='http://localhost:9130'
+ENV OKAPI_HOST='localhost'
+ENV OKAPI_CLUSTERHOST='localhost'
+ENV OKAPI_NODENAME='okapi1'
+ENV OKAPI_LOGLEVEL='DEBUG'
+ENV HAZELCAST_FILE='/usr/local/bin/folio/okapi/hazelcast.xml'
+ENV HAZELCAST_PORT='5701'
+ENV HAZELCAST_VERTX_PORT='5703'
+ENV HAZELCAST_IP='localhost'
+
+#Copy in scripts and files
+COPY hazelcast.xml /usr/local/bin/folio/okapi/
+COPY startup.sh /usr/local/bin/folio/
+
+#Execute the script on container runtime
+CMD ["/usr/local/bin/folio/startup.sh"]
