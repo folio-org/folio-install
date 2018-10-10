@@ -1,15 +1,27 @@
 version: '3'
 services:
-  db:
-    image: postgres
+  folio-db:
+    image: postgres:9.6
+    env_file:
+      - ./folio-variables.env
     volumes:
       - ../../images/postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
-  okapi:
+  folio-okapi1:
     image: okapi
     build: ../../images/okapi
+    env_file:
+      - ./folio-variables.env
+    environment:
+      - OKAPI_NODENAME=okapi1
+    expose:
+      - 5701-5710
+      - 54327
+      - 9130
+      - 9150
     ports:
-     - "5000:5000"
+      - 9999:9130
+    volumes:
+      - ../../images/okapi/startup.sh:/usr/local/bin/folio/startup.sh
+      - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
-      - db
-  postgres:
-    image: "redis:alpine"
+      - folio-db
