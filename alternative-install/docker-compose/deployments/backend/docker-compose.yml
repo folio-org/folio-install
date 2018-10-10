@@ -6,7 +6,7 @@ services:
       - ./folio-variables.env
     volumes:
       - ../../images/postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
-  folio-okapi1:
+  okapi1:
     image: okapi
     build: ../../images/okapi
     env_file:
@@ -18,10 +18,21 @@ services:
       - 54327
       - 9130
       - 9150
+      - 4243
     ports:
       - 9999:9130
     volumes:
       - ../../images/okapi/startup.sh:/usr/local/bin/folio/startup.sh
       - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
+      - folio-db
+  folio-setup:
+    image: foliosetup
+    build: ../../images/folio-setup
+    env_file:
+      - ./folio-variables.env
+    environment:
+      - OKAPI_NODENAME=okapi1
+    depends_on:
+      - okapi1
       - folio-db
