@@ -2,17 +2,21 @@ version: '3'
 services:
   folio-db:
     image: postgres:9.6
+    container_name: folio-db
     env_file:
-      - ./folio-variables.env
+      - ./config/folio-db.env
     volumes:
+      - folio-pgdata:/var/lib/postgresql/data
       - ../../images/postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
-  okapi1:
+  okapi:
     image: okapi
+    container_name: folio-okapi
     build: ../../images/okapi
     env_file:
-      - ./folio-variables.env
+      - ./config/folio-db.env
+      - ./config/folio-okapi.env
     environment:
-      - OKAPI_NODENAME=okapi1
+      - OKAPI_NODENAME=okapi
     expose:
       - 5701-5710
       - 54327
@@ -20,7 +24,7 @@ services:
       - 9150
       - 4243
     ports:
-      - 9999:9130
+      - ${OKAPI_PORT_HOST}:9130
     volumes:
       - ../../images/okapi/startup.sh:/usr/local/bin/folio/startup.sh
       - /var/run/docker.sock:/var/run/docker.sock
@@ -28,11 +32,34 @@ services:
       - folio-db
   folio-setup:
     image: foliosetup
+    container_name: folio-setup
     build: ../../images/folio-setup
     env_file:
-      - ./folio-variables.env
+      - ./config/folio-setup.env
+      - ./config/folio-okapi.env
     environment:
-      - OKAPI_NODENAME=okapi1
+      - OKAPI_NODENAME=okapi
     depends_on:
-      - okapi1
+      - okapi
       - folio-db
+  mod-authtoken:
+    image: ${MOD_AUTHTOKEN_ORG}/${MOD_AUTHTOKEN_MODULE}:${MOD_AUTHTOKEN_TAG}
+    container_name: folio-mod-authtoken
+    build:
+      context: ../../images/backend-module
+      args:
+        - ORG=${MOD_AUTHTOKEN_ORG}
+        - MODULE=${MOD_AUTHTOKEN_MODULE}
+        - TAG=${MOD_AUTHTOKEN_TAG}
+    environment:
+      - OKAPI_URL=${OKAPI_URL}
+      - OKAPI_TENANT=${OKAPI_TENANT}
+      - ORG=${MOD_AUTHTOKEN_ORG}
+      - MODULE=${MOD_AUTHTOKEN_MODULE}
+      - TAG=${MOD_AUTHTOKEN_TAG}
+      - MODULE_URL=${MOD_AUTHTOKEN_URL}
+    depends_on:
+      - okapi
+      - folio-db
+volumes:
+  folio-pgdata:

@@ -14,10 +14,10 @@ curl -w '\n' -D - -X POST -H "Content-type: application/json" -d '{"id":"okapi"}
 
 (cd platform-complete  && git checkout "$PLATFORM_COMPLETE_TAG");
 # Post the list of backend modules to deploy and enable
-curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @platform-complete/okapi-install.json "http://$OKAPI_NODENAME:$OKAPI_PORT/_/proxy/tenants/$OKAPI_TENANT/install?deploy=true&preRelease=false";
+#curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @platform-complete/okapi-install.json "http://$OKAPI_NODENAME:$OKAPI_PORT/_/proxy/tenants/$OKAPI_TENANT/install?deploy=true&preRelease=false";
 
 # Post the list of Stripes modules to enable
-curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @platform-complete/stripes-install.json "http://$OKAPI_NODENAME:$OKAPI_PORT/_/proxy/tenants/$OKAPI_TENANT/install?preRelease=false";
+#curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @platform-complete/stripes-install.json "http://$OKAPI_NODENAME:$OKAPI_PORT/_/proxy/tenants/$OKAPI_TENANT/install?preRelease=false";
 
 #Create FOLIO Superuser
 perl folio-install/bootstrap-superuser.pl --tenant "$OKAPI_TENANT" --user "$FOLIO_USER" --password "$FOLIO_PASSWORD" --okapi "http://$OKAPI_NODENAME:$OKAPI_PORT";
