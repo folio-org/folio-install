@@ -1,10 +1,11 @@
 #!/bin/sh
 
-sleep 90;
+sleep 60;
+
 if [ $INITDB = 'true' ]; then
     #Pull module descriptors from central repository (this will take a while)
     curl -w '\n' -X POST -H "Content-type: application/json" -d '{"urls":["http://folio-registry.aws.indexdata.com"]}' "http://$OKAPI_NODENAME:$OKAPI_PORT/_/proxy/pull/modules";
-
+    sleep 180
     #Create Tenant
     curl -i -w '\n' -X POST -H 'Content-type: application/json' \
     -d '{"id":"'"$OKAPI_TENANT"'","name":"'"$TENANT_NAME"'","description":"'"$TENANT_DESCRIPTION"'"}' "http://$OKAPI_NODENAME:$OKAPI_PORT/_/proxy/tenants";
@@ -13,11 +14,12 @@ if [ $INITDB = 'true' ]; then
     curl -w '\n' -D - -X POST -H "Content-type: application/json" -d '{"id":"okapi"}' "http://$OKAPI_NODENAME:$OKAPI_PORT/_/proxy/tenants/$OKAPI_TENANT/modules";
 
     (cd platform-complete  && git checkout "$PLATFORM_COMPLETE_TAG");
+    (cd folio-install  && git checkout "$FOLIO_INSTALL_TAG");
     # Post the list of backend modules to deploy and enable
     #curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @platform-complete/okapi-install.json "http://$OKAPI_NODENAME:$OKAPI_PORT/_/proxy/tenants/$OKAPI_TENANT/install?deploy=true&preRelease=false";
 
     # Post the list of Stripes modules to enable
-    #curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @platform-complete/stripes-install.json "http://$OKAPI_NODENAME:$OKAPI_PORT/_/proxy/tenants/$OKAPI_TENANT/install?preRelease=false";
+    curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @platform-complete/stripes-install.json "http://$OKAPI_NODENAME:$OKAPI_PORT/_/proxy/tenants/$OKAPI_TENANT/install?preRelease=false";
 
     #Create FOLIO Superuser
     perl folio-install/bootstrap-superuser.pl --tenant "$OKAPI_TENANT" --user "$FOLIO_USER" --password "$FOLIO_PASSWORD" --okapi "http://$OKAPI_NODENAME:$OKAPI_PORT";
