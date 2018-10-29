@@ -31,7 +31,6 @@ services:
       - ${OKAPI_PORT_HOST}:9130
     volumes:
       - ../../images/okapi/startup.sh:/usr/local/bin/folio/startup.sh
-      - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
       - folio-db
   folio-setup:
