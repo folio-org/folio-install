@@ -1,5 +1,5 @@
 #!/bin/sh
-
+sleep 1;
 if [ $INITDB = 'true' ]; then
     echo "InitDB"
     java -Dstorage=postgres -Dpostgres_host=$PG_HOST -Dpostgres_port=$PG_PORT -Dpostgres_username=$PG_USERNAME \
