@@ -1,6 +1,6 @@
 # FOLIO Installation
 
-The following is a docker-compose image build and deployment script. This should work on Windows, Mac, and Linux based systems. The deployment script has only been tested on Mac and Linux. 
+The following is a docker-compose image build and deployment script. This should work on Windows, Mac, and Linux based systems. The deployment script has only been tested on Mac and Linux.
 
 ### Requirements
 
@@ -11,7 +11,7 @@ The following is a docker-compose image build and deployment script. This should
 
 1. Deploy FOLIO backend
 
-        $ cd folio-backend
+        $ cd deployments/folio-backend
         $ docker-compose up -d --build
 
     The --build argument will force docker-compose to build all images prior to deployment. After the initial deployment --build is not needed.
@@ -40,7 +40,7 @@ The following is a docker-compose image build and deployment script. This should
 
 1. Deploy FOLIO backend
 
-        $ cd folio-frontend
+        $ cd deployments/folio-frontend
         $ docker-compose up -d --build
 
 2. Shutdown of frontend
