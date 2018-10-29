@@ -4,10 +4,13 @@ FROM maven:3.5.4-jdk-8-alpine
 #Mvn
 RUN apk add --no-cache curl git wget docker
 
+#Okapi release tag
+ARG OKAPI_TAG=v2.18.0
+
 #Okapi git clone and MVN Build
 RUN mkdir -p /usr/local/bin/folio/
 WORKDIR /usr/local/bin/folio
-RUN git clone  -b "v2.16.1" --recursive https://github.com/folio-org/okapi.git
+RUN git clone  -b "${OKAPI_TAG}" --recursive https://github.com/folio-org/okapi.git
 RUN cd okapi && mvn clean install -DskipTests
 
 
