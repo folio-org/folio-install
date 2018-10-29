@@ -46,6 +46,7 @@ services:
       - PLATFORM_COMPLETE_TAG=${PLATFORM_COMPLETE_TAG}
       - FOLIO_INSTALL_TAG=${FOLIO_INSTALL_TAG}
       - LOAD_SAMPLEDATA=${LOAD_SAMPLEDATA}
+      - INITDB=${INITDB}
     depends_on:
       - okapi
       - folio-db
