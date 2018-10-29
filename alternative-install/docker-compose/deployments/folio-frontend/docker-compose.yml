@@ -1,0 +1,15 @@
+version: '3'
+services:
+  folio-stripes:
+    image: folio-stripes
+    container_name: folio-stripes
+    build:
+      context: ../../images/stripes
+      args:
+        - stripestag=${PLATFORM_COMPLETE_TAG}
+    environment:
+      - OKAPI_SCHEME=${OKAPI_SCHEME}
+      - OKAPI_HOSTPORT=${OKAPI_HOSTPORT}
+      - OKAPI_TENANT=${OKAPI_TENANT}
+    ports:
+      - ${EXTERNAL_HTTP_PORT}:80
