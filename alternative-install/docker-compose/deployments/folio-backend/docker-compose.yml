@@ -9,7 +9,7 @@ services:
       - folio-pgdata:/var/lib/postgresql/data
       - ../../images/postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
   okapi:
-    image: okapi
+    image: folio/okapi:${OKAPI_TAG}
     container_name: folio-okapi
     build:
       context: ../../images/okapi
@@ -34,7 +34,7 @@ services:
     depends_on:
       - folio-db
   folio-setup:
-    image: foliosetup
+    image: folio/foliosetup:0.0.1
     container_name: folio-setup
     build: ../../images/folio-setup
     env_file:
