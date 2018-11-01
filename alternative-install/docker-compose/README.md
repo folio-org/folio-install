@@ -73,22 +73,20 @@ The detail overview with docker build and deployment explanation of orchestratio
     * Kompose will be used to create Kubernetes YAML files.
 
 #### Docker images
-1. ###### PostgreSQL
+1. PostgreSQL
  Image uses [postres official repository](https://hub.docker.com/_/postgres/).
         FROM Image: postgres:9.6
         startup: Creates Users, Role, and Database for okapi and folio
 
  Dockerfile and startup scripts available - [postgres build](./images/postgres/)
-
-2. ###### Okapi
+2. Okapi
  Image uses [maven official repository](https://hub.docker.com/_/maven/).
 
         FROM Image: maven:3.5.4-jdk-8-alpine
         Starup: Depending on ENV variables initializes DB or start okapi
 
  Dockerfile and startup scripts available - [okapi build](./images/okapi/)
-
-3. ###### Folio Setup
+3. Folio Setup
 Image uses [ubuntu official repository](https://hub.docker.com/_/ubuntu/).
 
         FROM Image: ubuntu:16.04
@@ -122,7 +120,7 @@ Dockerfile and startup scripts available - [folio-setup](./images/folio-setup/)
 >
 >        Data for within git repo 'folio-install'. Branch dependent on ENV variable
 
-4. ###### Backend modules
+4. Backend modules
 Image uses [folioorg](https://hub.docker.com/_/folioorg/) and/or [folioci](https://hub.docker.com/_/folioci/).
 
         FROM Image(example): folioorg/mod-authtoken:1.5.2
@@ -141,7 +139,7 @@ Dockerfile and startup scripts available - [backend-module](./images/backend-mod
 >           DATA {"srvcId":"$MODULE-$TAG","instId":"$MODULE-$TAG","url":"$MODULE_URL"}
 >           TIMEOUT - If dependency problems runs a timeout and retry
 
-5. ###### Stripes Frontend
+5. Stripes Frontend
 Stripes is a mulit-build container. Stripes builds using [ubuntu](https://hub.docker.com/_/ubuntu/) image with the final stage uses [nginx](https://hub.docker.com/_/nginx/) web server container.
 
         Startup: Sets OKAPI URL and OKAPI TENANT within stripes bundle
