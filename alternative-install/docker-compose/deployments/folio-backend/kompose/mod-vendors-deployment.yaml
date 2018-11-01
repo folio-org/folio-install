@@ -1,0 +1,102 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert --out kompose/
+    kompose.version: 1.16.0 ()
+  creationTimestamp: null
+  labels:
+    io.kompose.service: mod-vendors
+  name: mod-vendors
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: mod-vendors
+    spec:
+      containers:
+      - env:
+        - name: FOLIO_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              key: FOLIO_DATABASE
+              name: mod-vendors-config-folio-db-env
+        - name: FOLIO_DATABASE_ROLE_USER
+          valueFrom:
+            configMapKeyRef:
+              key: FOLIO_DATABASE_ROLE_USER
+              name: mod-vendors-config-folio-db-env
+        - name: FOLIO_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: FOLIO_PASSWORD
+              name: mod-vendors-config-folio-db-env
+        - name: MODULE
+        - name: MODULE_URL
+        - name: OKAPI_TENANT
+        - name: OKAPI_URL
+        - name: ORG
+        - name: PG_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              key: PG_DATABASE
+              name: mod-vendors-config-folio-db-env
+        - name: PG_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: PG_HOST
+              name: mod-vendors-config-folio-db-env
+        - name: PG_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: PG_PASSWORD
+              name: mod-vendors-config-folio-db-env
+        - name: PG_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: PG_PORT
+              name: mod-vendors-config-folio-db-env
+        - name: PG_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              key: PG_USERNAME
+              name: mod-vendors-config-folio-db-env
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_PASSWORD
+              name: mod-vendors-config-folio-db-env
+        - name: TAG
+        - name: db.database
+          valueFrom:
+            configMapKeyRef:
+              key: db.database
+              name: mod-vendors-config-folio-db-env
+        - name: db.host
+          valueFrom:
+            configMapKeyRef:
+              key: db.host
+              name: mod-vendors-config-folio-db-env
+        - name: db.password
+          valueFrom:
+            configMapKeyRef:
+              key: db.password
+              name: mod-vendors-config-folio-db-env
+        - name: db.port
+          valueFrom:
+            configMapKeyRef:
+              key: db.port
+              name: mod-vendors-config-folio-db-env
+        - name: db.username
+          valueFrom:
+            configMapKeyRef:
+              key: db.username
+              name: mod-vendors-config-folio-db-env
+        image: '/:'
+        name: folio-mod-vendors
+        resources: {}
+      restartPolicy: Always
+status: {}
