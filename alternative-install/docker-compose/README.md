@@ -8,7 +8,7 @@ The following is a docker-compose image build and deployment script. This should
 * Docker
 * Docker Compose   
 
-The current environmental variables are set to produce the Q3 2018 release
+    The current environmental variables are set to produce the Q3 2018 release
 
 #### Deployment FOLIO Backend
 
@@ -50,168 +50,154 @@ The current environmental variables are set to produce the Q3 2018 release
 
         $ docker-compose down
 
-## Build and Deployment Detail Instructions
+## Detail Build and Deploy Instructions
 
 The detail overview with docker build and deployment explanation of orchestration of FOLIO modules.
 
 #### Docker Compose
 
-Docker Compose overview [docker-compose](https://docs.docker.com/compose/overview/) definition.
+ Docker Compose overview [docker-compose](https://docs.docker.com/compose/overview/) definition.
 
-        "Compose is a tool for defining and running multi-container Docker applications.
-        With Compose, you use a YAML file to configure your application’s services.
-        Then, with a single command, you create and start all the services from your configuration."
+    "Compose is a tool for defining and running multi-container Docker applications.
+    With Compose, you use a YAML file to configure your application’s services.
+    Then, with a single command, you create and start all the services from your configuration."
 
-The main reason for choosing this tool for FOLIO lie in these primary goals.
-1. Organizes docker containers to be autonomous. The docker containers can exist without dependencies. Dependencies are essential, but the actual container can live without and continue to check for dependency resolution. Thus the system will handle dependencies but with the concept of eventual dependency resolution(EDR).
-    * FOLIO will use Okapi to understand the dependencies and provide information to allow EDR to work.
-2. The production of the YAML docker-compose file provides an organization of modules and dependencies within the FOLIO system.
+#### Deployment goals
+
+1. Create FOLIO docker containers to be autonomous. The docker containers can exist without dependencies. Dependencies are essential, but the actual container can live without dependencies and continue to check for dependency resolution. Thus the deployed system will handle dependencies with the concept of eventual dependency resolution(EDR).
+
+    * Okapi will handle and inform each module dependencies and provide feedback allowing EDR.
+
+2. The docker-compose YAML file provides a mechanism to orchestrate services needed within the FOLIO system.
     * The critical item within this goal is the production Kubernetes YAML which will be used to deploy Kubernetes cluster.
-    * The production of the Kubernetes YAML files uses a tool called Kompose
-3. System Deployment (This goal is my current hope, unsure at this point)
-    * Possible integration with development team to streamline modules and lower memory footprint.
-    * Start of SaaS backend modules
+    * Kompose will be used to create Kubernetes YAML files.
 
 #### Docker images
-
-###### PostgreSQL
-Image uses [postres official repository](https://hub.docker.com/_/postgres/).
-
+1. ###### PostgreSQL
+ Image uses [postres official repository](https://hub.docker.com/_/postgres/).
         FROM Image: postgres:9.6
         startup: Creates Users, Role, and Database for okapi and folio
 
+ Dockerfile and startup scripts available - [postgres build](./images/postgres/)
 
-Dockerfile and startup scripts available - [postgres build](./images/postgres/)
-
-###### Okapi
-
-Image uses [maven official repository](https://hub.docker.com/_/maven/).
+2. ###### Okapi
+ Image uses [maven official repository](https://hub.docker.com/_/maven/).
 
         FROM Image: maven:3.5.4-jdk-8-alpine
         Starup: Depending on ENV variables initializes DB or start okapi
 
-Dockerfile and startup scripts available - [okapi build](./images/okapi/)
+ Dockerfile and startup scripts available - [okapi build](./images/okapi/)
 
-###### Folio Setup
-
+3. ###### Folio Setup
 Image uses [ubuntu official repository](https://hub.docker.com/_/ubuntu/).
 
         FROM Image: ubuntu:16.04
         Starup: Start up currently performs Folio registry pull,Tenant creation,
         Tenant superuser, load sample data, and enable stripes module.
         Please see Okapi sections for specific interactions.
-
 Dockerfile and startup scripts available - [folio-setup](./images/folio-setup/)
+> OKAPI Interaction:
+>1.  Pull FOLIO registry
+>
+>           POST "OKAPI_URL/_/proxy/pull/modules"
+>           DATA {"urls":["http://folio-registry.aws.indexdata.com"]}
+>
+>
+>2. Create Tenant (*Possible move to separate orchestration module component)
+>
+>            POST "OKAPI_URL/_/proxy/tenants"
+>           DATA Tenant id, name, and description in json format
+>
+>3. Enable Backend Modules for Tenant (*Possible move to separate orchestration module component)
+>
+>           POST "OKAPI_URL/_/proxy/tenants/OKAPI_TENANT/modules"
+>           DATA Backend modules
+>
+> 4.  Stripes module enable (*This action will be moved to the stripes frontend container)
+>
+>           POST "OKAPI_URL/_/proxy/tenants/OKAPI_TENANT/install?preRelease=false"
+>           DATA git repo 'platform-complete' branch based on ENV variable
+>
+> 5. Load Sample Data (*Possible move to separate orchestration module component)
+>
+>        Data for within git repo 'folio-install'. Branch dependent on ENV variable
 
-OKAPI Interaction:
-1.  Pull FOLIO registry
-
-        POST "OKAPI_URL/_/proxy/pull/modules"
-        DATA {"urls":["http://folio-registry.aws.indexdata.com"]}
-
-2. Create Tenant (*Possible move to separate orchestration module component)
-
-        POST "OKAPI_URL/_/proxy/tenants"
-        DATA Tenant id, name, and description in json format
-
-3. Enable Backend Modules for Tenant (*Possible move to separate orchestration module component)
-
-        POST "OKAPI_URL/_/proxy/tenants/OKAPI_TENANT/modules"
-        DATA Backend modules
-
-4.  Stripes module enable (*This action will be moved to the stripes frontend container)
-
-        POST "OKAPI_URL/_/proxy/tenants/OKAPI_TENANT/install?preRelease=false"
-        DATA git repo 'platform-complete' branch based on ENV variable
-
-5. Load Sample Data (*Possible move to separate orchestration module component)
-
-        Data for within git repo 'folio-install'. Branch dependent on ENV variable
-
-###### Backend modules
-
+4. ###### Backend modules
 Image uses [folioorg](https://hub.docker.com/_/folioorg/) and/or [folioci](https://hub.docker.com/_/folioci/).
 
         FROM Image(example): folioorg/mod-authtoken:1.5.2
         Startup: Startup registers the DEPLOY_DESCRIPTOR with Okapi
         Please see OKAPI Interaction.
-
 Dockerfile and startup scripts available - [backend-module](./images/backend-module/)
+>OKAPI Interaction:
+>
+>1. Check if module is already registered.
+>
+>           GET "$OKAPI_URL/_/discovery/modules/$MODULE-$TAG"
+>
+>2. If not registered
+>
+>           POST "$OKAPI_URL/_/discovery/modules"
+>           DATA {"srvcId":"$MODULE-$TAG","instId":"$MODULE-$TAG","url":"$MODULE_URL"}
+>           TIMEOUT - If dependency problems runs a timeout and retry
 
-OKAPI Interaction:
+5. ###### Stripes Frontend
+Stripes is a mulit-build container. Stripes builds using [ubuntu](https://hub.docker.com/_/ubuntu/) image with the final stage uses [nginx](https://hub.docker.com/_/nginx/) web server container.
 
-1. Check if module is already registered.
-
-        GET "$OKAPI_URL/_/discovery/modules/$MODULE-$TAG"
-
-2. If not registered
-
-        POST "$OKAPI_URL/_/discovery/modules"
-        DATA {"srvcId":"$MODULE-$TAG","instId":"$MODULE-$TAG","url":"$MODULE_URL"}
-        TIMEOUT - If dependency problems runs a timeout and retry
-
-###### Stripes Frontend
-
-Stripes is a mulit-build container. Stripes builds using ububtu image with the final stage uses nginx web server container.
-
-Image uses [ubuntu](https://hub.docker.com/_/ubuntu/) for stripes build and [nginx](https://hub.docker.com/_/nginx/).
-
-        Startup: Sets OKAPI URL and OKAPI TENANT
-        TODO: This should enable the frontend module with okapi. Pull this out of folio-setup.
+        Startup: Sets OKAPI URL and OKAPI TENANT within stripes bundle
+>OKAPI Interaction
+>        
+>     TODO: This should enable the frontend module with okapi. Pull this out of folio-setup.
 
 #### Environmental variables
 
-###### Location
+1. ###### Location
+    1. .env file
+        * this file is used to configure docker-compose.yml file
+    2. config/*.env files
+        * These files are used to set recurring variables within containers
 
-1. .env file
-    * this file is used for swap out variables within the docker-compose.yml file
-
-2. config/*.env files
-    * These files are used to set recurring variables within the container
-
-###### Variable definition
-
+2. ###### Variable definition
 This is still a work in progress.... The environmental variables still need to be cleaned up. Duplicate variables are currently required. The list below is just a start.... updates will continue.
+    1. .env file
 
-1. .env file
+            # OKAPI Version Release Tag
+            OKAPI_TAG=v2.18.0
 
-        # OKAPI Version Release Tag
-        OKAPI_TAG=v2.18.0
+            #Branch Tag for git repo
+            PLATFORM_COMPLETE_TAG=q3-2018
+            FOLIO_INSTALL_TAG=q3-2018-2
 
-        #Branch Tag for git repo
-        PLATFORM_COMPLETE_TAG=q3-2018
-        FOLIO_INSTALL_TAG=q3-2018-2
+            # Load sample data from folio-install
+            LOAD_SAMPLEDATA=true
+            INITDB=true
 
-        # Load sample data from folio-install
-        LOAD_SAMPLEDATA=true
-        INITDB=true
+            #internal cluster OKAPI URL
+            OKAPI_URL=http://okapi:9130
+            OKAPI_TENANT=diku
 
-        #internal cluster OKAPI URL
-        OKAPI_URL=http://okapi:9130
-        OKAPI_TENANT=diku
+            #Exposed okapi port on HOST
+            OKAPI_PORT_HOST=9130
 
-        #Exposed okapi port on HOST
-        OKAPI_PORT_HOST=9130
+            #Backend Modules
 
-        #Backend Modules
+            #auth example
+            MOD_AUTHTOKEN_MODULE=mod-authtoken
+            MOD_AUTHTOKEN_TAG=1.5.2
+            MOD_AUTHTOKEN_ORG=folioorg
+            MOD_AUTHTOKEN_URL=http://mod-authtoken:8081
 
-        #auth example
-        MOD_AUTHTOKEN_MODULE=mod-authtoken
-        MOD_AUTHTOKEN_TAG=1.5.2
-        MOD_AUTHTOKEN_ORG=folioorg
-        MOD_AUTHTOKEN_URL=http://mod-authtoken:8081
+            ...
 
-        ...
+    2. config/*.env files
 
-2. config/*.env files
+        This can be added to a service within docker-compose.yml file that are repeatable within multiple containers. For example if backend module needs a database connection.
 
-    This can be added to a service within docker-compose.yml file that are repeatable within multiple containers. For example if backend module needs a database connection.
-
-            env_file:
-              - ./config/folio-db.env
+                env_file:
+                  - ./config/folio-db.env
 
 
-###### Network
+#### Network
 
 Within docker-compose a default network is created for the deployment containers and every container has access to each other through the service name.
 
@@ -219,7 +205,7 @@ Example:
         #auth example
         'mod-authtoken' as service name allows communication over http://mod-authtoken:8081
 
-###### How to update or add modules
+#### How to update or add modules
 
 1. Update
 
@@ -309,6 +295,7 @@ Still having difficulty standing up on Kubernetes cluster.
         3         local          local:p-tft5q         cybercom
         4         local          local:project-ff6jr   Default         Default project created for the cluster
         Select a Project: 1
+4. Kubectl create
 
         $ cd kompose
         mast4541@cu-norlin3-128:.../folio-backend/kompose$ rancher kubectl create -f .
@@ -373,7 +360,7 @@ Still having difficulty standing up on Kubernetes cluster.
         deployment.extensions "okapi" created
         service "okapi" created
 
-4. Still working on this deployment. docker-compose works but kubernetes working through trouble areas.
+5. Show Deployments
 
         mast4541@cu-norlin3-128:.../folio-backend/kompose$ rancher kubectl get deployments
         NAME                      DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
@@ -405,7 +392,7 @@ Still having difficulty standing up on Kubernetes cluster.
         mod-vendors               1         1         1            1           12m
         okapi                     1         1         1            1           12m
 
-5. Shutdown
+6. Kubectl Shutdown
 
         mast4541@cu-norlin3-128:.../folio-backend/kompose$ rancher kubectl delete -f .
         persistentvolumeclaim "folio-db-claim1" deleted
