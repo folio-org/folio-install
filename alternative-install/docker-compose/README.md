@@ -74,11 +74,12 @@ The detail overview with docker build and deployment explanation of orchestratio
 
 #### Docker images
 1. PostgreSQL
- Image uses [postres official repository](https://hub.docker.com/_/postgres/).
+
+    Image uses [postres official repository](https://hub.docker.com/_/postgres/).
         FROM Image: postgres:9.6
         startup: Creates Users, Role, and Database for okapi and folio
 
- Dockerfile and startup scripts available - [postgres build](./images/postgres/)
+    Dockerfile and startup scripts available - [postgres build](./images/postgres/)
 2. Okapi
  Image uses [maven official repository](https://hub.docker.com/_/maven/).
 
