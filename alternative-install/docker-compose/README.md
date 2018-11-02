@@ -162,7 +162,8 @@ The detail overview with docker build and deployment explanation of orchestratio
         * These files are used to set recurring variables within containers
 
 2. ###### Variable definition
-This is still a work in progress.... The environmental variables still need to be cleaned up. Duplicate variables are currently required. The list below is just a start.... updates will continue.
+This is still a work in progress.... The environmental variables still need to be cleaned up. Duplicate variables are currently required. The list below is just a start.
+
     1. .env file
 
             # OKAPI Version Release Tag
@@ -195,23 +196,25 @@ This is still a work in progress.... The environmental variables still need to b
 
     2. config/*.env files
 
-        This can be added to a service within docker-compose.yml file that are repeatable within multiple containers. For example if backend module needs a database connection.
+    This can be added to a service within docker-compose.yml file that are repeatable within multiple containers. For example if backend module needs a database connection.
 
-                env_file:
-                  - ./config/folio-db.env
+            env_file:
+              - ./config/folio-db.env
 
 
-#### Network
+### Network
 
-Within docker-compose a default network is created for the deployment containers and every container has access to each other through the service name.
+docker-compose creates a default network which deployed containers within network can access each other by service name.
 
 Example:
-        #auth example
-        'mod-authtoken' as service name allows communication over http://mod-authtoken:8081
 
-#### How to update or add modules
+    #auth example
+    Service name: 'mod-authtoken'
+    Okapi Endpoint: http://mod-authtoken:8081
 
-1. Update
+### How to update or add modules
+
+1. Update (Requires Restart)
 
         #within env file update tag
         MOD_AUTHTOKEN_TAG=1.5.3
@@ -267,7 +270,6 @@ Kubernetes deployment script is generated from docker-compose.yml file.
 
     This procedure will create the YAML files to deploy to Kubernetes.
 
-The above works as expected but need to debug and refine deployments.
 
 ### Rancher 2.0
 This section has only been tested on Mac. Will add and refine documentation.
