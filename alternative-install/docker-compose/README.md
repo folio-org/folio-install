@@ -278,6 +278,7 @@ Still having difficulty standing up on Kubernetes cluster.
 ###### Installation
 
 1. Rancher
+
         docker run -d --restart=unless-stopped \
         -p 80:80 -p 443:443 \
         rancher/rancher:latest
