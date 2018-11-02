@@ -162,7 +162,9 @@ The detail overview with docker build and deployment explanation of orchestratio
         * These files are used to set recurring variables within containers
 
 2. ###### Variable definition
-  This is still a work in progress.... The environmental variables still need to be cleaned up. Duplicate variables are currently required. The list below is just a start.
+
+  This is still a work in progress.... The environmental variables still need to be cleaned up. Duplicate variables are currently required.
+  
     1. .env file
 
             # OKAPI Version Release Tag
@@ -190,12 +192,11 @@ The detail overview with docker build and deployment explanation of orchestratio
             MOD_AUTHTOKEN_TAG=1.5.2
             MOD_AUTHTOKEN_ORG=folioorg
             MOD_AUTHTOKEN_URL=http://mod-authtoken:8081
-
             ...
 
     2. config/*.env files
 
-    This can be added to a service within docker-compose.yml file that are repeatable within multiple containers. For example if backend module needs a database connection.
+      This can be added to a service within docker-compose.yml file that are repeatable within multiple containers. For example if backend module needs a database connection.
 
             env_file:
               - ./config/folio-db.env
