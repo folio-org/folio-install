@@ -41,7 +41,7 @@ The following is a docker-compose image build and deployment script. This should
 
 #### Deployment FOLIO Frontend
 
-1. Deploy FOLIO backend
+1. Deploy FOLIO frontend
 
         $ cd deployments/folio-frontend
         $ docker-compose up -d --build
