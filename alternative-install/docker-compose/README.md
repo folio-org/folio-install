@@ -259,11 +259,11 @@ Example:
 
 Kubernetes deployment script is generated from docker-compose.yml file.
 
-1. The following command can be run to check variable substitution.  
+1. Variable substitution: Can check output.  
 
         $ docker-compose config
 
-2. Kubernetes deployment YAML generation using Kompose
+2. YAML generation using Kompose
 
         $ mkdir kompose
         $ docker-compose config |kompose convert --out kompose/
