@@ -90,66 +90,68 @@ The detail overview with docker build and deployment explanation of orchestratio
  Dockerfile and startup scripts available - [okapi build](./images/okapi/)
 
 3. Folio Setup
-Image uses [ubuntu official repository](https://hub.docker.com/_/ubuntu/).
 
-        FROM Image: ubuntu:16.04
-        Starup: Start up currently performs Folio registry pull,Tenant creation,
-        Tenant superuser, load sample data, and enable stripes module.
-        Please see Okapi sections for specific interactions.
-Dockerfile and startup scripts available - [folio-setup](./images/folio-setup/)
-> OKAPI Interaction:
->1.  Pull FOLIO registry
->
->           POST "OKAPI_URL/_/proxy/pull/modules"
->           DATA {"urls":["http://folio-registry.aws.indexdata.com"]}
->
->
->2. Create Tenant (*Possible move to separate orchestration module component)
->
->            POST "OKAPI_URL/_/proxy/tenants"
->           DATA Tenant id, name, and description in json format
->
->3. Enable Backend Modules for Tenant (*Possible move to separate orchestration module component)
->
->           POST "OKAPI_URL/_/proxy/tenants/OKAPI_TENANT/modules"
->           DATA Backend modules
->
-> 4.  Stripes module enable (*This action will be moved to the stripes frontend container)
->
->           POST "OKAPI_URL/_/proxy/tenants/OKAPI_TENANT/install?preRelease=false"
->           DATA git repo 'platform-complete' branch based on ENV variable
->
-> 5. Load Sample Data (*Possible move to separate orchestration module component)
->
->        Data for within git repo 'folio-install'. Branch dependent on ENV variable
+    Image uses [ubuntu official repository](https://hub.docker.com/_/ubuntu/).
+
+            FROM Image: ubuntu:16.04
+            Starup: Start up currently performs Folio registry pull,Tenant creation,
+            Tenant superuser, load sample data, and enable stripes module.
+            Please see Okapi sections for specific interactions.
+    Dockerfile and startup scripts available - [folio-setup](./images/folio-setup/)
+    > OKAPI Interaction:
+    >1.  Pull FOLIO registry
+    >
+    >           POST "OKAPI_URL/_/proxy/pull/modules"
+    >           DATA {"urls":["http://folio-registry.aws.indexdata.com"]}
+    >
+    >
+    >2. Create Tenant (*Possible move to separate orchestration module component)
+    >
+    >            POST "OKAPI_URL/_/proxy/tenants"
+    >           DATA Tenant id, name, and description in json format
+    >
+    >3. Enable Backend Modules for Tenant (*Possible move to separate orchestration module component)
+    >
+    >           POST "OKAPI_URL/_/proxy/tenants/OKAPI_TENANT/modules"
+    >           DATA Backend modules
+    >
+    > 4.  Stripes module enable (*This action will be moved to the stripes frontend container)
+    >
+    >           POST "OKAPI_URL/_/proxy/tenants/OKAPI_TENANT/install?preRelease=false"
+    >           DATA git repo 'platform-complete' branch based on ENV variable
+    >
+    > 5. Load Sample Data (*Possible move to separate orchestration module component)
+    >
+    >        Data for within git repo 'folio-install'. Branch dependent on ENV variable
 
 4. Backend modules
 
-Image uses [folioorg](https://hub.docker.com/_/folioorg/) and/or [folioci](https://hub.docker.com/_/folioci/).
+    Image uses [folioorg](https://hub.docker.com/_/folioorg/) and/or [folioci](https://hub.docker.com/_/folioci/).
 
-        FROM Image(example): folioorg/mod-authtoken:1.5.2
-        Startup: Startup registers the DEPLOY_DESCRIPTOR with Okapi
-        Please see OKAPI Interaction.
-Dockerfile and startup scripts available - [backend-module](./images/backend-module/)
->OKAPI Interaction:
->
->1. Check if module is already registered.
->
->           GET "$OKAPI_URL/_/discovery/modules/$MODULE-$TAG"
->
->2. If not registered
->
->           POST "$OKAPI_URL/_/discovery/modules"
->           DATA {"srvcId":"$MODULE-$TAG","instId":"$MODULE-$TAG","url":"$MODULE_URL"}
->           TIMEOUT - If dependency problems runs a timeout and retry
+            FROM Image(example): folioorg/mod-authtoken:1.5.2
+            Startup: Startup registers the DEPLOY_DESCRIPTOR with Okapi
+            Please see OKAPI Interaction.
+    Dockerfile and startup scripts available - [backend-module](./images/backend-module/)
+    >OKAPI Interaction:
+    >
+    >1. Check if module is already registered.
+    >
+    >           GET "$OKAPI_URL/_/discovery/modules/$MODULE-$TAG"
+    >
+    >2. If not registered
+    >
+    >           POST "$OKAPI_URL/_/discovery/modules"
+    >           DATA {"srvcId":"$MODULE-$TAG","instId":"$MODULE-$TAG","url":"$MODULE_URL"}
+    >           TIMEOUT - If dependency problems runs a timeout and retry
 
 5. Stripes Frontend
-Stripes is a mulit-build container. Stripes builds using [ubuntu](https://hub.docker.com/_/ubuntu/) image with the final stage uses [nginx](https://hub.docker.com/_/nginx/) web server container.
 
-        Startup: Sets OKAPI URL and OKAPI TENANT within stripes bundle
->OKAPI Interaction
->        
->     TODO: This should enable the frontend module with okapi. Pull this out of folio-setup.
+    Stripes is a mulit-build container. Stripes builds using [ubuntu](https://hub.docker.com/_/ubuntu/) image with the final stage uses [nginx](https://hub.docker.com/_/nginx/) web server container.
+
+            Startup: Sets OKAPI URL and OKAPI TENANT within stripes bundle
+    >OKAPI Interaction
+    >        
+    >     TODO: This should enable the frontend module with okapi. Pull this out of folio-setup.
 
 #### Environmental variables
 
