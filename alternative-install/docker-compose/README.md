@@ -160,12 +160,11 @@ The detail overview with docker build and deployment explanation of orchestratio
         * this file is used to configure docker-compose.yml file
     2. config/*.env files
         * These files are used to set recurring variables within containers
-
 2. Variable definition
-
-  This is still a work in progress.... The environmental variables still need to be cleaned up. Duplicate variables are currently required.
-
+    This is still a work in progress. The environmental variables still need to be cleaned up. Duplicate variables are currently required.
+    
     1. .env file
+    
             # OKAPI Version Release Tag
             OKAPI_TAG=v2.18.0
 
@@ -222,6 +221,7 @@ Example:
     Creation of the .env and docker-compose.yml can be scripted with ansible. Could also include .env and docker-compose.yml within folio-install repos for regular folio releases.
 
     1. add variables to .env file
+    
             # Add Env variables to .env files
             #mymodule example
             MOD_MYMODULE_MODULE=mod-mymodule
