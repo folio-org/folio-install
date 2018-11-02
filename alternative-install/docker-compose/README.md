@@ -272,8 +272,7 @@ Kubernetes deployment script is generated from docker-compose.yml file.
 
 
 ### Rancher 2.0
-This section has only been tested on Mac. Will add and refine documentation.
-Still having difficulty standing up on Kubernetes cluster.
+This section has only been tested on Mac. Will add and refine documentation with expanded deployment to AWS.
 
 ###### Installation
 
@@ -283,7 +282,6 @@ Still having difficulty standing up on Kubernetes cluster.
         -p 80:80 -p 443:443 \
         rancher/rancher:latest
 
-    This is just a beginning of documentation will expand when deploying in AWS.
 
 2. Rancher cli
 
