@@ -6,9 +6,13 @@ The following is a docker-compose image build and deployment script. This should
 #### Requirements
 
 * Docker
+    * Under docker preferences set the amount of memory docker can use to at least 8GB
+    * Set CPU count to at least 2
 * Docker Compose   
 
-    The current environmental variables are set to produce the Q3 2018 release
+    The current environmental variables are set to produce the Q3 2018 release. The folio-backend deployment and initialization of DB with sample data usually takes around 5-6 mins to complete. If you wish to watch the current deployment:
+
+        $ docker-compose logs -f
 
 #### Deployment FOLIO Backend
 
@@ -39,6 +43,7 @@ The following is a docker-compose image build and deployment script. This should
         LOAD_SAMPLEDATA=true
         INITDB=true
 
+
 #### Deployment FOLIO Frontend
 
 1. Deploy FOLIO frontend
@@ -50,7 +55,7 @@ The following is a docker-compose image build and deployment script. This should
 
         $ docker-compose down
 
-## FOLIO detailed build and deploy 
+## FOLIO detailed build and deploy
 
 #### Docker Compose
 
