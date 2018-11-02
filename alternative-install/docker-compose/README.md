@@ -10,7 +10,7 @@ The following is a docker-compose image build and deployment script. This should
     * Set CPU count to at least 2
 * Docker Compose   
 
-    The current environmental variables are set to produce the Q3 2018 release. The folio-backend deployment and initialization of DB with sample data usually takes around 5-6 mins to complete. If you wish to watch the current deployment:
+    The current environmental variables are set to produce the Q3 2018 release. The folio-backend deployment and initialization of DB with sample data usually takes around 5-6 mins to complete. If you wish to watch, the deployment activity, start the backend deployment and run the following command. 
 
         $ docker-compose logs -f
 
