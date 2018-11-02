@@ -88,6 +88,7 @@ The detail overview with docker build and deployment explanation of orchestratio
         Starup: Depending on ENV variables initializes DB or start okapi
 
  Dockerfile and startup scripts available - [okapi build](./images/okapi/)
+
 3. Folio Setup
 Image uses [ubuntu official repository](https://hub.docker.com/_/ubuntu/).
 
@@ -123,6 +124,7 @@ Dockerfile and startup scripts available - [folio-setup](./images/folio-setup/)
 >        Data for within git repo 'folio-install'. Branch dependent on ENV variable
 
 4. Backend modules
+
 Image uses [folioorg](https://hub.docker.com/_/folioorg/) and/or [folioci](https://hub.docker.com/_/folioci/).
 
         FROM Image(example): folioorg/mod-authtoken:1.5.2
