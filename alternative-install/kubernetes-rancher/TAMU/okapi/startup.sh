@@ -8,6 +8,7 @@ if [ $INITDB = 'true' ]; then
 
     sleep 1
     export OKAPI_CLUSTERHOST=$(hostname -i)
+    export OKAPI_NODENAME=$(hostname)
 
     echo "Start Okapi after init"
     java -Dstorage=postgres -Dpostgres_host=$PG_HOST -Dpostgres_port=$PG_PORT -Dpostgres_username=$PG_USERNAME \
@@ -18,6 +19,7 @@ if [ $INITDB = 'true' ]; then
 
 else
     export OKAPI_CLUSTERHOST=$(hostname -i)
+    export OKAPI_NODENAME=$(hostname)
 
     echo "Start Okapi Only"
     java -Dstorage=postgres -Dpostgres_host=$PG_HOST -Dpostgres_port=$PG_PORT -Dpostgres_username=$PG_USERNAME \
