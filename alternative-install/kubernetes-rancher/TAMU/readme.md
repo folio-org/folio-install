@@ -8,7 +8,7 @@ This software is distributed under the terms of the Apache License, Version 2.0.
 
 ## Introduction
 
-A collection of Dockerfiles and YAML for FOLIO Q2 installation on Kubernetes/Rancher 2.0.
+A collection of Dockerfiles and YAML for FOLIO Q2 installation on Kubernetes/Rancher 2.0.<br/>
 Latest deployment procedure here: https://wiki.folio.org/pages/viewpage.action?pageId=14458600
 
 ## Contents
