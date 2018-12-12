@@ -249,7 +249,7 @@ Before you build, you will need to configure Stripes with the correct IP address
 
 ```JS
 const platformComplete = {
-  okapi: { 'url':'htt//10.0.2.15:9130', 'tenant':'divu' },
+  okapi: { 'url':'http://10.0.2.15:9130', 'tenant':'diku' },
   modules: { ... },
   branding: { ... },
 ```
