@@ -149,18 +149,18 @@ CREATE DATABASE folio WITH OWNER folio;
 wget --quiet -O - https://repository.folio.org/packages/debian/folio-apt-archive-key.asc | sudo apt-key add -
 sudo add-apt-repository "deb https://repository.folio.org/packages/ubuntu xenial/"
 sudo apt-get update
-sudo apt-get -y install okapi=2.17.4-2
+sudo apt-get -y install okapi=2.22.0-1
 ```
 
 ### Sidebar: Okapi releases
 
-Okapi 2.17.4 is the version of Okapi that was made a part of the Q3-2018 release. If you'd like to work with the latest Okapi release, change the final command above to:
+Okapi 2.22.0 is the version of Okapi that was made a part of the Q4-2018 release. If you'd like to work with the latest Okapi release, change the final command above to:
 
 ```
 sudo apt-get -y install okapi
 ```
 
-Note that there is some risk in this, as the latest Okapi release may not have been tested with the rest of the components in the Q3-2018 release.
+Note that there is some risk in this, as the latest Okapi release may not have been tested with the rest of the components in the Q4-2018 release.
 
 2. Configure Okapi to run as a single node server with persistent storage
 
@@ -216,10 +216,10 @@ git clone https://github.com/folio-org/platform-complete
 cd platform-complete
 ```
 
-3. Check out the `q3-2018` branch. The HEAD of this branch should reflect the latest Q3 release, including any bug fix releases.
+3. Check out the `q4-2018` branch. The HEAD of this branch should reflect the latest Q4 release, including any bug fix releases.
 
 ```
-git checkout q3-2018
+git checkout q4-2018
 ```
 
 4. Install npm packages
