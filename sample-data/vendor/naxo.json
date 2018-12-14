@@ -29,9 +29,7 @@
   "phone_numbers": [
     {
       "phone_number": {
-        "country_code": "1",
-        "area_code": "615",
-        "phone_number": "771-9393"
+        "phone_number": "1-615-771-9393"
       },
       "categories": [],
       "language": "English"
@@ -67,27 +65,51 @@
         "last_name": "Curie",
         "language": "English",
         "notes": "",
-        "phone_number": {
-          "country_code": "1",
-          "area_code": "615",
-          "phone_number": "771-9393 x2819"
-        },
-        "email": {
-          "value": "Mcur@naxosusa.com",
-          "description": "Databases"
-        },
-        "address": {
-          "addressLine1": "416 Mary Lindsay Polk Dr.",
-          "addressLine2": "",
-          "city": "Franklin",
-          "stateRegion": "TN",
-          "zipCode": "",
-          "country": "USA"
-        },
-        "url": {
-          "value": "https://www.doi.gov/",
-          "description": "web address for U.S. Dept. of Interior"
-        }
+        "phone_numbers": [
+          {
+            "phone_number": {
+              "phone_number": "1-615-771-9393"
+            },
+            "categories": [],
+            "language": "English"
+          }
+        ],
+        "emails": [
+          {
+            "email": {
+              "value": "service@naxosusa.com",
+              "description": "Customer Service"
+            },
+            "categories": [],
+            "language": "English"
+          }
+        ],
+        "addresses": [
+          {
+            "address": {
+              "addressLine1": "416 Mary Lindsay Polk Dr.",
+              "addressLine2": "",
+              "city": "Franklin",
+              "stateRegion": "TN",
+              "zipCode": "37067",
+              "country": "USA"
+            },
+            "categories": [],
+            "language": "English",
+            "san_code": ""
+          }
+        ],
+        "urls": [
+          {
+            "url": {
+              "value": "https://www.naxos.com/",
+              "description": "main website"
+            },
+            "language": "en-us",
+            "categories": [],
+            "notes": ""
+          }
+        ]
       },
       "categories": []
     }

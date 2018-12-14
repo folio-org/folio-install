@@ -29,9 +29,7 @@
   "phone_numbers": [
     {
       "phone_number": {
-        "country_code": "1",
-        "area_code": "800",
-        "phone_number": "333-9511"
+        "phone_number": "1-800-333-9511"
       },
       "categories": [],
       "language": "English"
@@ -67,27 +65,51 @@
         "last_name": "Denver",
         "language": "English",
         "notes": "Postal code = 80303",
-        "phone_number": {
-          "country_code": "1",
-          "area_code": "800",
-          "phone_number": "333-9511 x262626"
-        },
-        "email": {
-          "value": "john.denver@acs.org",
-          "description": "Journals, Licenses"
-        },
-        "address": {
-          "addressLine1": "417 Rocky Mountain Drive",
-          "addressLine2": "",
-          "city": "Boulder",
-          "stateRegion": "CO",
-          "zipCode": "",
-          "country": "USA"
-        },
-        "url": {
-          "value": "https://www.doi.gov/",
-          "description": "web address for U.S. Dept. of Interior"
-        }
+        "phone_numbers": [
+          {
+            "phone_number": {
+              "phone_number": "1-800-333-9511"
+            },
+            "categories": [],
+            "language": "English"
+          }
+        ],
+        "emails": [
+          {
+            "email": {
+              "value": "service@acs.org",
+              "description": "Customer Service"
+            },
+            "categories": [],
+            "language": "English"
+          }
+        ],
+        "addresses": [
+          {
+            "address": {
+              "addressLine1": "1155 Sixteenth Street, NW",
+              "addressLine2": "",
+              "city": "Washington",
+              "stateRegion": "DC",
+              "zipCode": "20036",
+              "country": "USA"
+            },
+            "categories": [],
+            "language": "English",
+            "san_code": ""
+          }
+        ],
+        "urls": [
+          {
+            "url": {
+              "value": "https://www.acs.org/content/acs/en.html",
+              "description": "main English language website"
+            },
+            "language": "en-us",
+            "categories": [],
+            "notes": ""
+          }
+        ]
       },
       "categories": []
     }

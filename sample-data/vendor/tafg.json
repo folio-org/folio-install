@@ -29,9 +29,7 @@
   "phone_numbers": [
     {
       "phone_number": {
-        "country_code": "1",
-        "area_code": "800",
-        "phone_number": "634-7064"
+        "phone_number": "1-800-634-7064"
       },
       "categories": [],
       "language": "English"
@@ -67,27 +65,51 @@
         "last_name": "Taylor",
         "language": "English",
         "notes": "",
-        "phone_number": {
-          "country_code": "1",
-          "area_code": "800",
-          "phone_number": "634-8888"
-        },
-        "email": {
-          "value": "john-joe.taylor@taylorandfrancis.com",
-          "description": "General"
-        },
-        "address": {
-          "addressLine1": "Suite 300, 6000 Broken Sound Parkway, NW",
-          "addressLine2": "",
-          "city": "Boca Raton",
-          "stateRegion": "FL",
-          "zipCode": "",
-          "country": "USA"
-        },
-        "url": {
-          "value": "https://www.doi.gov/",
-          "description": "web address for U.S. Dept. of Interior"
-        }
+        "phone_numbers": [
+          {
+            "phone_number": {
+              "phone_number": "1-800-634-7064"
+            },
+            "categories": [],
+            "language": "English"
+          }
+        ],
+        "emails": [
+          {
+            "email": {
+              "value": "enquiries@taylorandfrancis.com",
+              "description": "Customer Servicel"
+            },
+            "categories": [],
+            "language": "English"
+          }
+        ],
+        "addresses": [
+          {
+            "address": {
+              "addressLine1": "Suite 300, 6000 Broken Sound Parkway, NW",
+              "addressLine2": "",
+              "city": "Boca Raton",
+              "stateRegion": "FL",
+              "zipCode": "33487",
+              "country": "USA"
+            },
+            "categories": ["Customer Service","Payments"],
+            "language": "English",
+            "san_code": ""
+          }
+        ],
+        "urls": [
+          {
+            "url": {
+              "value": "http://taylorandfrancis.com/",
+              "description": "main website"
+            },
+            "language": "en-us",
+            "categories": [],
+            "notes": ""
+          }
+        ]
       },
       "categories": []
     }

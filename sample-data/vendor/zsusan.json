@@ -29,9 +29,7 @@
   "phone_numbers": [
     {
       "phone_number": {
-        "country_code": "55",
-        "area_code": "55-21",
-        "phone_number": "2539-3590"
+        "phone_number": "55-55-21-2539-3590"
       },
       "categories": [],
       "language": "Portuguese"
@@ -67,27 +65,51 @@
         "last_name": "Bach",
         "language": "English",
         "notes": "",
-        "phone_number": {
-          "country_code": "55",
-          "area_code": "55-21",
-          "phone_number": "2539-3590"
-        },
-        "email": {
-          "value": "sbach@sbachbooks.com.br",
-          "description": ""
-        },
-        "address": {
-          "addressLine1": "RUA VISCONDE DE CARAVELAS, Nº 17",
-          "addressLine2": "BOTAFOGO",
-          "city": "RIO DE JANEIRO",
-          "stateRegion": "",
-          "zipCode": "",
-          "country": "Brazil"
-        },
-        "url": {
-          "value": "https://www.doi.gov/",
-          "description": "web address for U.S. Dept. of Interior"
-        }
+        "phone_numbers": [
+          {
+            "phone_number": {
+              "phone_number": "55-55-21-2539-3590"
+            },
+            "categories": [],
+            "language": "Portuguese"
+          }
+        ],
+        "emails": [
+          {
+            "email": {
+              "value": "sbach@sbachbooks.com.br",
+              "description": "Customer Service"
+            },
+            "categories": [],
+            "language": "English"
+          }
+        ],
+        "addresses": [
+          {
+            "address": {
+              "addressLine1": "RUA VISCONDE DE CARAVELAS, Nº 17",
+              "addressLine2": "BOTAFOGO",
+              "city": "RIO DE JANEIRO",
+              "stateRegion": "",
+              "zipCode": "22271-021",
+              "country": "Brazil"
+            },
+            "categories": [],
+            "language": "Portuguese",
+            "san_code": ""
+          }
+        ],
+        "urls": [
+          {
+            "url": {
+              "value": "http://www.sbachbooks.com.br/",
+              "description": "main website"
+            },
+            "language": "English/Portuguese",
+            "categories": [],
+            "notes": ""
+          }
+        ]
       },
       "categories": []
     }

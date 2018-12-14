@@ -29,9 +29,7 @@
   "phone_numbers": [
     {
       "phone_number": {
-        "country_code": "1",
-        "area_code": "800",
-        "phone_number": "258-3774"
+        "phone_number": "1-800-258-3774"
       },
       "categories": ["Customer Service"],
       "language": "en-us"
@@ -67,27 +65,51 @@
         "last_name": "Silverman",
         "language": "en-us",
         "notes": "",
-        "phone_number": {
-          "country_code": "1",
-          "area_code": "800",
-          "phone_number": "258-3774 x8852"
-        },
-        "email": {
-          "value": "ssilverman@ebsco.com",
-          "description": "main customer service contact"
-        },
-        "address": {
-          "addressLine1": "999 Maple Street",
-          "addressLine2": "",
-          "city": "Contoocook",
-          "stateRegion": "NH",
-          "zipCode": "01938",
-          "country": "USA"
-        },
-        "url": {
-          "value": "https://www.doi.gov/",
-          "description": "web address for U.S. Dept. of Interior"
-        }
+        "phone_numbers": [
+          {
+            "phone_number": {
+              "phone_number": "1-800-258-3774"
+            },
+            "categories": ["Customer Service"],
+            "language": "en-us"
+          }
+        ],
+        "emails": [
+          {
+            "email": {
+              "value": "gobiserviceissue@ebsco.com",
+              "description": "for general questions"
+            },
+            "categories": ["Customer Service"],
+            "language": "en-us"
+          }
+        ],
+        "addresses": [
+          {
+            "address": {
+              "addressLine1": "999 Maple Street",
+              "addressLine2": "2",
+              "city": "Contoocook",
+              "stateRegion": "NH",
+              "zipCode": "03229",
+              "country": "USA"
+            },
+            "categories": ["Customer","Service","Shipments"],
+            "language": "en",
+            "san_code": "1234567"
+          }
+        ],
+        "urls": [
+          {
+            "url": {
+              "value": "https://gobi.ebsco.com/",
+              "description": "main website"
+            },
+            "language": "en-us",
+            "categories": [],
+            "notes": ""
+          }
+        ]
       },
       "categories": []
     }

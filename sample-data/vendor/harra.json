@@ -29,9 +29,7 @@
   "phone_numbers": [
     {
       "phone_number": {
-        "country_code": "49",
-        "area_code": "611",
-        "phone_number": "530 ext. 0"
+        "phone_number": "49-611-530 ext. 0"
       },
       "categories": ["Customer Service","Payments","Returns","Shipments"],
       "language": "German"
@@ -67,27 +65,50 @@
         "last_name": "Kerner",
         "language": "German and English",
         "notes": "",
-        "phone_number": {
-          "country_code": "49",
-          "area_code": "611",
-          "phone_number": "530 ext. 0"
-        },
-        "email": {
-          "value": "service@harrassowitz.de",
-          "description": "main customer service contact"
-        },
-        "address": {
-          "addressLine1": "Kreuzberger Ring 6 b-d",
-          "addressLine2": "",
-          "city": "Wiesbaden",
-          "stateRegion": "",
-          "zipCode": "",
-          "country": "Germany"
-        },
-        "url": {
-          "value": "https://www.doi.gov/",
-          "description": "web address for U.S. Dept. of Interior"
-        }
+        "phone_numbers": [
+          {
+            "phone_number": {
+              "phone_number": "49-611-530 ext. 0"
+            },
+            "categories": ["Customer Service","Payments","Returns","Shipments"],
+            "language": "German"
+          }
+        ],
+        "emails": [
+          {
+            "email": {
+              "value": "service@harrassowitz.de",
+              "description": "customer service"
+            },
+            "categories": [],
+            "language": "German and English"
+          }
+        ],
+        "addresses": [
+          {
+            "address": {
+              "addressLine1": "Kreuzberger Ring 6 b-d",
+              "addressLine2": "",
+              "city": "Wiesbaden",
+              "stateRegion": "",
+              "zipCode": "65205",
+              "country": "Germany"
+            },
+            "categories": ["Customer Service","Payments","Returns","Shipments"],
+            "language": "German",
+            "san_code": "1234567"
+          }
+        ],
+        "emails": [
+          {
+            "email": {
+              "value": "service@harrassowitz.de",
+              "description": "customer service"
+            },
+            "categories": [],
+            "language": "German and English"
+          }
+        ]
       },
       "categories": []
     }

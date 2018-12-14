@@ -29,9 +29,7 @@
   "phone_numbers": [
     {
       "phone_number": {
-        "country_code": "1",
-        "area_code": "415",
-        "phone_number": "332-6471"
+        "phone_number": "1-415-332-6471"
       },
       "categories": [],
       "language": "English"
@@ -67,27 +65,51 @@
         "last_name": "Clark",
         "language": "English",
         "notes": "",
-        "phone_number": {
-          "country_code": "1",
-          "area_code": "415",
-          "phone_number": "332-6471"
-        },
-        "email": {
-          "value": "dana@roco.com",
-          "description": "sales rep"
-        },
-        "address": {
-          "addressLine1": "80 LIBERTY SHIP WAY",
-          "addressLine2": "SUITE 5",
-          "city": "SAUSALITO",
-          "stateRegion": "CA",
-          "zipCode": "",
-          "country": "USA"
-        },
-        "url": {
-          "value": "https://www.doi.gov/",
-          "description": "web address for U.S. Dept. of Interior"
-        }
+        "phone_numbers": [
+          {
+            "phone_number": {
+              "phone_number": "1-415-332-6471"
+            },
+            "categories": [],
+            "language": "English"
+          }
+        ],
+        "emails": [
+          {
+            "email": {
+              "value": "info@rocofilms.com",
+              "description": "initial contact address"
+            },
+            "categories": [],
+            "language": "English"
+          }
+        ],
+        "addresses": [
+          {
+            "address": {
+              "addressLine1": "80 LIBERTY SHIP WAY7",
+              "addressLine2": "SUITE 5",
+              "city": "SAUSALITO",
+              "stateRegion": "CA",
+              "zipCode": "94965",
+              "country": "USA"
+            },
+            "categories": [],
+            "language": "English",
+            "san_code": ""
+          }
+        ],
+        "urls": [
+          {
+            "url": {
+              "value": "http://www.rocofilms.com/",
+              "description": "main website"
+            },
+            "language": "English",
+            "categories": [],
+            "notes": ""
+          }
+        ]
       },
       "categories": []
     }
