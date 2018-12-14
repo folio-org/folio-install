@@ -4,7 +4,12 @@
   "callNumber": "D15.H63 A3 2002",
   "permanentLocationId": "f34d27c6-a8eb-461b-acd6-5dea81771e70",
   "holdingsStatements": [
-    "Line 1b", "Line 2b"
+    {
+      "statement": "Line 1b"
+    },
+    {
+      "statement": "Line 2b"
+    }
   ]
 }
 

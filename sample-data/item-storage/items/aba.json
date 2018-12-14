@@ -6,5 +6,9 @@
   "status": {
     "name": "Available online"
   },
-  "notes": [ "Print began in 1915. Available in print: Vol. 1 (Jan. 1915)-v. 69, no. 12 (Dec. 1983)." ]
+  "notes": [
+    {
+      "note": "Print began in 1915. Available in print: Vol. 1 (Jan. 1915)-v. 69, no. 12 (Dec. 1983)."
+    }
+  ]
 }

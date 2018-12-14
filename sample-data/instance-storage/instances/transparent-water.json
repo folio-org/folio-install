@@ -54,7 +54,9 @@
     }
   ],
   "instanceTypeId": "3be24c14-3551-4180-9292-26a786649c8b",
-  "instanceFormatId": "5cb91d15-96b1-4b8a-bf60-ec310538da66",
+  "instanceFormatIds": [
+    "5cb91d15-96b1-4b8a-bf60-ec310538da66"
+  ],
   "physicalDescriptions": [
     "1 audio disc: digital; 4 3/4 in."
   ],

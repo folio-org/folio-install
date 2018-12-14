@@ -4,7 +4,9 @@
   "source": "MARC",
   "title": "MobiCom'17 5 mmNets'17, October 16, 2017, Snowbird, UT, USA / general chairs: Haitham Hassanieh (University of Illinois at Urbana Champaign, USA), Xinyu Zhang (University of California San Diego, USA)",
   "alternativeTitles": [
-    "1st First ACM Workshop Millimeter Wave Networks Sensing Systems"
+    {
+      "alternativeTitle": "1st First ACM Workshop Millimeter Wave Networks Sensing Systems"
+    }
   ],
   "series": [],
   "identifiers": [
@@ -58,7 +60,6 @@
   "subjects": [],
   "classifications": [],
   "publication": [],
-  "urls": [],
   "instanceTypeId": "a2c91e87-6bab-44d6-8adb-1fd02481fc4f",
   "physicalDescriptions": [],
   "languages": [
