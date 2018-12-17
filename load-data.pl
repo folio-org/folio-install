@@ -137,7 +137,7 @@ sub process_dir {
         if ($post_resp->is_success) {
           print "Loaded $dir/$i\n";
         } else {
-          warn "FAILED loading $dir/$i: " . $post_resp->status_line . "\n";
+          warn "FAILED loading $dir/$i: " . $post_resp->status_line . ": " . $post_resp->content . "\n";
         }
       };
       if ($@) {
