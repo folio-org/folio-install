@@ -180,7 +180,7 @@ Note that there is some risk in this, as the latest Okapi release may not have b
 sudo systemctl restart okapi
 ```
 
-4. Pull module descriptors from central repository (this will take a while)
+4. Pull module descriptors from central registry (this will take a while)
 
   * [Sample JSON to post to pull API](okapi-pull.json)
 
@@ -385,7 +385,7 @@ perl /vagrant/bootstrap-superuser.pl --tenant diku --user diku_admin --password 
 
 ## Load module reference data
 
-  * Reference data is required for mod-inventory-storage and mod-circulation-storage
+  * Reference data is required for mod-inventory-storage and mod-circulation-storage and mod-users
     * It is included in the GitHub repos for these modules, along with a shell script for loading
     * Reference data for the latest release has been copied into this repository, in the directory `reference-data`
   * Reference data (address types, patron groups) can be created in the UI for mod-users
