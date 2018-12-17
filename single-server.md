@@ -1,6 +1,6 @@
 # FOLIO deployment: single server
 
-** NOTE: 20181215: ** This document is still being adjusted for q4-2018 release.
+*NOTE: 20181215:* This document is still being adjusted for q4-2018 release.
 See [FOLIO-1651](https://issues.folio.org/browse/FOLIO-1651).
 
 Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ansible
@@ -269,7 +269,7 @@ cd ..
 
 ### Sidebar: Options for `yarn build`
 
-The `yarn build` command above can be changed to build the webpack in different ways. For more details, see the documentation for the [Stripes command line](https://github.com/folio-org/stripes-cli/blob/v1.4.0/doc/commands.md#build-command).
+The `yarn build` command above can be changed to build the webpack in different ways. For more details, see the documentation for the [Stripes command line](https://github.com/folio-org/stripes-cli/blob/master/doc/commands.md#build-command).
 
 ## Configure webserver to serve Stripes webpack
 
