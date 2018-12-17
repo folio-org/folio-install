@@ -392,7 +392,7 @@ perl /vagrant/bootstrap-superuser.pl --tenant diku --user diku_admin --password 
   * [Sample perl script](load-data.pl) to load data from this repository
 
 ```
-perl /vagrant/load-data.pl --sort location-units/institutions,location-units/campuses,location-units/libraries,locations --custom-method loan-rules-storage=PUT /vagrant/reference-data
+perl /vagrant/load-data.pl --sort location-units/institutions,location-units/campuses,location-units/libraries,locations,statistical-code-types --custom-method loan-rules-storage=PUT /vagrant/reference-data
 ```
 
 ## Load sample data
