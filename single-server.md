@@ -289,11 +289,11 @@ The tagged release of `platform-complete` contains an `okapi-install.json` file 
 1. Post data source information to the Okapi environment for use by deployed modules
 
 ```
-curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"db.host\",\"value\":\"10.0.2.15\"}" http://localhost:9130/_/env
-curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"db.port\",\"value\":\"5432\"}" http://localhost:9130/_/env
-curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"db.database\",\"value\":\"folio\"}" http://localhost:9130/_/env
-curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"db.username\",\"value\":\"folio\"}" http://localhost:9130/_/env
-curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"db.password\",\"value\":\"folio123\"}" http://localhost:9130/_/env
+curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"DB_HOST\",\"value\":\"10.0.2.15\"}" http://localhost:9130/_/env
+curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"DB_PORT\",\"value\":\"5432\"}" http://localhost:9130/_/env
+curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"DB_DATABASE\",\"value\":\"folio\"}" http://localhost:9130/_/env
+curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"DB_USERNAME\",\"value\":\"folio\"}" http://localhost:9130/_/env
+curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"DB_PASSWORD\",\"value\":\"folio123\"}" http://localhost:9130/_/env
 ```
 
 2. Post the list of backend modules to deploy and enable
@@ -350,11 +350,11 @@ perl /vagrant/build-okapi-install.pl full-install.json > okapi-install.json
 4. Post data source information to the Okapi environment for use by deployed modules
 
 ```
-curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"db.host\",\"value\":\"10.0.2.15\"}" http://localhost:9130/_/env
-curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"db.port\",\"value\":\"5432\"}" http://localhost:9130/_/env
-curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"db.database\",\"value\":\"folio\"}" http://localhost:9130/_/env
-curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"db.username\",\"value\":\"folio\"}" http://localhost:9130/_/env
-curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"db.password\",\"value\":\"folio123\"}" http://localhost:9130/_/env
+curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"DB_HOST\",\"value\":\"10.0.2.15\"}" http://localhost:9130/_/env
+curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"DB_PORT\",\"value\":\"5432\"}" http://localhost:9130/_/env
+curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"DB_DATABASE\",\"value\":\"folio\"}" http://localhost:9130/_/env
+curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"DB_USERNAME\",\"value\":\"folio\"}" http://localhost:9130/_/env
+curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"DB_PASSWORD\",\"value\":\"folio123\"}" http://localhost:9130/_/env
 ```
 
 5. Post the list of backend modules to deploy and enable
