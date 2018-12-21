@@ -180,6 +180,8 @@ Note that there is some risk in this, as the latest Okapi release may not have b
 sudo systemctl restart okapi
 ```
 
+The Okapi log is at `/var/log/folio/okapi/okapi.log`
+
 4. Pull module descriptors from central registry (this will take a while)
 
   * [Sample JSON to post to pull API](okapi-pull.json)
