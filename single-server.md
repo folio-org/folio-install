@@ -250,11 +250,11 @@ If you build Stripes this way, you will need to construct your FOLIO backend sys
 
 5. Configure Stripes
 
-Before you build, you will need to configure Stripes with the correct IP address and tenant. Edit `stripes.config.js` and add an `okapi` key to the `platformComplete` object: 
+Configure Stripes with the relevant IP address and tenant. Edit `stripes.config.js` and add an `okapi` key to the `platformComplete` object: 
 
 ```JS
 const platformComplete = {
-  okapi: { 'url':'http://localhost:9130', 'tenant':'diku' },
+  okapi: { 'url': 'http://localhost:9130', 'tenant': 'diku' },
   modules: { ... },
   branding: { ... },
 ```
@@ -286,7 +286,7 @@ sudo systemctl restart nginx
 
 ## Deploy a compatible FOLIO backend, enable for tenant
 
-The tagged release of `platform-complete` contains an `okapi-install.json` file which, if posted to Okapi, will download all the necessary backend modules as Docker containers, deploy them to the local system, and enable them for your tenant. There is also a `stripes-install.json` file that will enable the frontend modules for the tenant and load the necessary permissions.
+The tagged release of `platform-complete` contains an `okapi-install.json` file which, when posted to Okapi, will download all the necessary backend modules as Docker containers, deploy them to the local system, and enable them for your tenant. There is also a `stripes-install.json` file that will enable the frontend modules for the tenant and load the necessary permissions.
 
 1. Post data source information to the Okapi environment for use by deployed modules
 
@@ -304,7 +304,7 @@ curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"DB
 curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @platform-complete/okapi-install.json http://localhost:9130/_/proxy/tenants/diku/install?deploy=true\&preRelease=false
 ```
 
-*Note: this will take a long time to return, as all the Docker images must be pulled from Docker Hub. You can follow progress in the Okapi log at `/var/log/folio/okapi/okapi.log`*
+Note: This will take a long time to return, as all the Docker images must be pulled from Docker Hub. Progress can be followed in the Okapi log at `/var/log/folio/okapi/okapi.log` and via `sudo docker ps`
 
 3. Post the list of Stripes modules to enable
 
