@@ -9,7 +9,7 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 
 * Much of this is already automated as part of the folio-ansible project
 * This is not a full production install. One obvious omission is securing the Okapi API itself.
-* The _minimum_ RAM required for a full system is 12 GB. Keep this in mind if you are running on a VM.
+* The _minimum_ RAM required for a full system based on [platform-complete](https://github.com/folio-org/platform-complete) is 16 GB. Keep this in mind if you are running on a VM.
 
 ## Summary
 
@@ -42,7 +42,7 @@ vagrant up
 vagrant ssh
 ```
 
-This will create a VirtualBox VM based on this [Vagrantfile](Vagrantfile), running a generic Ubuntu Xenial OS, with 10 GB RAM and 2 CPUs. Port 9130 of the guest will be forwarded to port 9130 of the host, and port 80 of the guest will be forwarded to port 3000 of the host. The `folio-install` directory on the host will be shared on the guest at the mount point `/vagrant`.
+This will create a VirtualBox VM based on this [Vagrantfile](Vagrantfile), running a generic Ubuntu Xenial OS, with 16 GB RAM and 2 CPUs. Port 9130 of the guest will be forwarded to port 9130 of the host, and port 80 of the guest will be forwarded to port 3000 of the host. The `folio-install` directory on the host will be shared on the guest at the mount point `/vagrant`.
 
 ## Install and configure required packages
 
