@@ -311,7 +311,7 @@ curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @platform-compl
 
 ### Sidebar: Building from the bleeding edge -- part II
 
-If you would rather deploy the most recent code for the backend, rather than relying on the `okapi-install.json` and `stripes-install.json` files from the folio-testing, you can create your own files using the procedure below. **Proceed at your own risk!** You could end up with a system that contains unstable code. In addition, the reference and sample data included in this repository may not be compatible with your new backend.
+If you would rather deploy the most recent code for the backend, rather than relying on the `okapi-install.json` and `stripes-install.json` files from the platform-complete, then create your own files using the procedure below. **Proceed at your own risk!** You could end up with a system that contains unstable code. In addition, the reference and sample data included in this repository may not be compatible with your new backend.
 
 1. Build a list of frontend modules to enable
 
