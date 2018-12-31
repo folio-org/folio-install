@@ -6,8 +6,8 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 
 * Much of this is already automated as part of the folio-ansible project
 * This is not a full production install. One obvious omission is securing the Okapi API itself.
-* The _minimum_ RAM required for a system based on [platform-core](https://github.com/folio-org/platform-core) is 9GB. Keep this in mind if you are running on a VM.
-* To instead build a system based on [platform-complete](https://github.com/folio-org/platform-complete) will require approximately 20GB.
+* The _minimum_ RAM required for a system based on [platform-core](https://github.com/folio-org/platform-core) is 9 GB. Keep this in mind if you are running on a VM.
+* To instead build a system based on [platform-complete](https://github.com/folio-org/platform-complete) will require approximately 20 GB.
 
 ## Summary
 
@@ -33,14 +33,14 @@ git clone https://github.com/folio-org/folio-install
 cd folio-install
 ```
 
-The default procedure will create a VirtualBox VM based on this [Vagrantfile](Vagrantfile), running a generic Ubuntu Xenial OS, with 9GB RAM and 2 CPUs. Port 9130 of the guest will be forwarded to port 9130 of the host, and port 80 of the guest will be forwarded to port 3000 of the host. The `folio-install` directory on the host will be shared on the guest at the mount point `/vagrant`.
+The default procedure will create a VirtualBox VM based on this [Vagrantfile](Vagrantfile), running a generic Ubuntu Xenial OS, with 9 GB RAM and 2 CPUs. Port 9130 of the guest will be forwarded to port 9130 of the host, and port 80 of the guest will be forwarded to port 3000 of the host. The `folio-install` directory on the host will be shared on the guest at the mount point `/vagrant`.
 
 2. Decide between platform-core and platform-complete
 
-The default procedure uses the 
+The default procedure uses the
 [platform-core](https://github.com/folio-org/platform-core) configuration.
 
-To instead build a system based on [platform-complete](https://github.com/folio-org/platform-complete), adjust the `vb.memory` in the [Vagrantfile](Vagrantfile) to be approximately 20GB. In `nginx-stripes.conf` replace `platform-core` with `platform-complete`. Throughout these instructions, replace every mention of `platform-core` with `platform-complete`.
+To instead build a system based on [platform-complete](https://github.com/folio-org/platform-complete), adjust the `vb.memory` in the [Vagrantfile](Vagrantfile) to be approximately 20 GB. In `nginx-stripes.conf` replace `platform-core` with `platform-complete`. Throughout these instructions, replace every mention of `platform-core` with `platform-complete`.
 
 3. Bring up the Vagrant VM, log into it
 
@@ -261,7 +261,9 @@ If you build Stripes this way, you will need to construct your FOLIO backend sys
 
 5. Configure Stripes
 
-Configure Stripes with the relevant IP address and tenant. Edit `stripes.config.js` and add an `okapi` key to the `platformComplete` object: 
+The platform-core `stripes.config.js` provides the default okapi url and tenant. This is included by platform-complete.
+
+To configure a different IP address and tenant, edit `stripes.config.js` and add an `okapi` key to the `platformComplete` object:
 
 ```JS
 const platformComplete = {
@@ -269,7 +271,6 @@ const platformComplete = {
   modules: { ... },
   branding: { ... },
 ```
-
 
 6. Build webpack
 
