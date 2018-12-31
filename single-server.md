@@ -426,7 +426,19 @@ perl /vagrant/load-data.pl \
 
 ## Load sample data
 
-It can be convenient to have sample data to load into the system for testing. Some sample data that is compatible with the last FOLIO release has been included in this repository, in the directory `sample-data`. You can load it using the same [sample perl script](load-data.pl) as above:
+It can be convenient to have sample data to load into the system for testing. Some sample data that is compatible with the last FOLIO release has been included in this repository, in the directory `sample-data`. You can load it using the same [sample perl script](load-data.pl) as above.
+
+When building the default system based on `platform-core` then do:
+
+```
+perl /vagrant/load-data.pl \
+  --exclude budget,fiscal_year,fund,ledger,vendor \
+  --sort instance-storage/instances,instance-storage/instance-relationships,holdings-storage,item-storage,users,authn,perms,service-points-users \
+  --custom-method "instances/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/"=PUT \
+  /vagrant/sample-data
+```
+
+If instead building a system based on `platform-complete` then do:
 
 ```
 perl /vagrant/load-data.pl \

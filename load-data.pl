@@ -26,6 +26,7 @@ my $tenant = 'diku';
 my $user = 'diku_admin';
 my $password = 'admin';
 my $okapi = 'http://localhost:9130';
+my $exclude = '';
 my $sort = '';
 my $custom_method = '';
 GetOptions(
@@ -33,9 +34,13 @@ GetOptions(
            'user|u=s' => \$user,
            'password|p=s' => \$password,
            'okapi=s' => \$okapi,
+           'exclude:s' => \$exclude,
            'sort:s' => \$sort,
            'custom-method:s' => \$custom_method
           );
+
+# Data directories to be excluded
+my @exclude = split(/,/,$exclude);
 
 # Data that must be loaded in order
 my @sort = split(/,/,$sort);
@@ -83,6 +88,12 @@ foreach my $i (@directories) {
   my $processed = 0;
   # This is not quite perfect, but will work for now
   foreach my $j (@sort) {
+    if ($j =~ /^${i}/) {
+      $processed = 1;
+      last;
+    }
+  }
+  foreach my $j (@exclude) {
     if ($j =~ /^${i}/) {
       $processed = 1;
       last;
