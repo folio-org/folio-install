@@ -407,7 +407,7 @@ perl /vagrant/load-data.pl --sort location-units/institutions,location-units/cam
 It can be convenient to have sample data to load into the system for testing. Some sample data that is compatible with the last FOLIO release has been included in this repository, in the directory `sample-data`. You can load it using the same [sample perl script](load-data.pl) as above:
 
 ```
-perl /vagrant/load-data.pl --sort fiscal_year,ledger,fund,budget,instance-storage/instances,instance-storage/instance-relationships,holdings-storage,item-storage,users,authn,perms,service-points-users --custom-method --custom-method "instances/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/"=PUT /vagrant/sample-data
+perl /vagrant/load-data.pl --sort fiscal_year,ledger,fund,budget,instance-storage/instances,instance-storage/instance-relationships,holdings-storage,item-storage,users,authn,perms,service-points-users --custom-method "instances/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/"=PUT /vagrant/sample-data
 ```
 
 mod-inventory provides an `/inventory/ingest/mods` endpoint for loading MODS records, which it will use to create instances, holdings, and items with default values. There are sample files in the `sample-data/mod-inventory` directory of this repository.
