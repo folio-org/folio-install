@@ -225,11 +225,11 @@ curl -w '\n' -D - -X POST -H "Content-type: application/json" \
 sudo n lts
 ```
 
-2. Clone the `platform-complete` repository, `cd` into it
+2. Clone the `platform-core` repository, `cd` into it
 
 ```
-git clone https://github.com/folio-org/platform-complete
-cd platform-complete
+git clone https://github.com/folio-org/platform-core
+cd platform-core
 ```
 
 3. Check out the `q4-2018` branch. The HEAD of this branch should reflect the latest release, including any bug fix releases.
@@ -246,9 +246,9 @@ yarn install
 
 ### Sidebar: Building from the bleeding edge
 
-The `platform-complete` platform is constructed with versions of FOLIO components and dependencies that have been tested together and are known to work.
+The `platform-core` platform is constructed with versions of FOLIO components and dependencies that have been tested together and are known to work.
 
-If you would rather build Stripes with the most recent code that may not have been fully integration tested, clone the `platform-complete` repository, omit the step of checking out the latest tag, then:
+If you would rather build Stripes with the most recent code that may not have been fully integration tested, clone the `platform-core` repository, omit the step of checking out the latest tag, then:
 
 ```
 git checkout snapshot
@@ -297,7 +297,7 @@ sudo systemctl restart nginx
 
 ## Deploy a compatible FOLIO backend, enable for tenant
 
-The tagged release of `platform-complete` contains an `okapi-install.json` file which, when posted to Okapi, will download all the necessary backend modules as Docker containers, deploy them to the local system, and enable them for your tenant. There is also a `stripes-install.json` file that will enable the frontend modules for the tenant and load the necessary permissions.
+The tagged release of `platform-core` contains an `okapi-install.json` file which, when posted to Okapi, will download all the necessary backend modules as Docker containers, deploy them to the local system, and enable them for your tenant. There is also a `stripes-install.json` file that will enable the frontend modules for the tenant and load the necessary permissions.
 
 1. Post data source information to the Okapi environment for use by deployed modules
 
@@ -313,7 +313,7 @@ curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"DB
 
 ```
 curl -w '\n' -D - -X POST -H "Content-type: application/json" \
-  -d @platform-complete/okapi-install.json \
+  -d @platform-core/okapi-install.json \
   http://localhost:9130/_/proxy/tenants/diku/install?deploy=true\&preRelease=false
 ```
 
@@ -323,18 +323,18 @@ Note: This will take a long time to return, as all the Docker images must be pul
 
 ```
 curl -w '\n' -D - -X POST -H "Content-type: application/json" \
-  -d @platform-complete/stripes-install.json \
+  -d @platform-core/stripes-install.json \
   http://localhost:9130/_/proxy/tenants/diku/install?preRelease=false
 ```
 
 ### Sidebar: Building from the bleeding edge -- part II
 
-If you would rather deploy the most recent code for the backend, rather than relying on the `okapi-install.json` and `stripes-install.json` files from the platform-complete, then create your own files using the procedure below. **Proceed at your own risk!** You could end up with a system that contains unstable code. In addition, the reference and sample data included in this repository may not be compatible with your new backend.
+If you would rather deploy the most recent code for the backend, rather than relying on the `okapi-install.json` and `stripes-install.json` files from the platform-core, then create your own files using the procedure below. **Proceed at your own risk!** You could end up with a system that contains unstable code. In addition, the reference and sample data included in this repository may not be compatible with your new backend.
 
 1. Build a list of frontend modules to enable
 
 ```
-cd platform-complete
+cd platform-core
 yarn build-module-descriptors
 cd ..
 ```
@@ -345,7 +345,7 @@ cd ..
   * [Sample perl script](gen-module-list.pl) to generate JSON array from Stripes build with the correct packages added and removed:
 
 ```
-perl /vagrant/gen-module-list.pl platform-complete/ModuleDescriptors > stripes-install.json
+perl /vagrant/gen-module-list.pl platform-core/ModuleDescriptors > stripes-install.json
 ```
 
 2. Post list of modules to Okapi, let Okapi resolve dependencies and send back a list of modules to deploy and enable
