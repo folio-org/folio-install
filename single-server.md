@@ -192,7 +192,9 @@ The Okapi log is at `/var/log/folio/okapi/okapi.log`
   * [Sample JSON to post to pull API](okapi-pull.json)
 
 ```
-curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @/vagrant/okapi-pull.json http://localhost:9130/_/proxy/pull/modules
+curl -w '\n' -D - -X POST -H "Content-type: application/json" \
+  -d @/vagrant/okapi-pull.json \
+  http://localhost:9130/_/proxy/pull/modules
 ```
 
 ## Create FOLIO tenant
@@ -202,13 +204,17 @@ curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @/vagrant/okapi
   * [Sample tenant JSON](tenant.json)
 
 ```
-curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @/vagrant/tenant.json http://localhost:9130/_/proxy/tenants
+curl -w '\n' -D - -X POST -H "Content-type: application/json" \
+  -d @/vagrant/tenant.json \
+  http://localhost:9130/_/proxy/tenants
 ```
 
 2. Enable the Okapi internal module for the tenant
 
 ```
-curl -w '\n' -D - -X POST -H "Content-type: application/json" -d '{"id":"okapi"}' http://localhost:9130/_/proxy/tenants/diku/modules
+curl -w '\n' -D - -X POST -H "Content-type: application/json" \
+  -d '{"id":"okapi"}' \
+  http://localhost:9130/_/proxy/tenants/diku/modules
 ```
 
 ## Build the latest release of the FOLIO Stripes platform
@@ -306,7 +312,9 @@ curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"DB
 2. Post the list of backend modules to deploy and enable
 
 ```
-curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @platform-complete/okapi-install.json http://localhost:9130/_/proxy/tenants/diku/install?deploy=true\&preRelease=false
+curl -w '\n' -D - -X POST -H "Content-type: application/json" \
+  -d @platform-complete/okapi-install.json \
+  http://localhost:9130/_/proxy/tenants/diku/install?deploy=true\&preRelease=false
 ```
 
 Note: This will take a long time to return, as all the Docker images must be pulled from Docker Hub. Progress can be followed in the Okapi log at `/var/log/folio/okapi/okapi.log` and via `sudo docker ps`
@@ -314,7 +322,9 @@ Note: This will take a long time to return, as all the Docker images must be pul
 3. Post the list of Stripes modules to enable
 
 ```
-curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @platform-complete/stripes-install.json http://localhost:9130/_/proxy/tenants/diku/install?preRelease=false
+curl -w '\n' -D - -X POST -H "Content-type: application/json" \
+  -d @platform-complete/stripes-install.json \
+  http://localhost:9130/_/proxy/tenants/diku/install?preRelease=false
 ```
 
 ### Sidebar: Building from the bleeding edge -- part II
@@ -341,7 +351,9 @@ perl /vagrant/gen-module-list.pl platform-complete/ModuleDescriptors > stripes-i
 2. Post list of modules to Okapi, let Okapi resolve dependencies and send back a list of modules to deploy and enable
 
 ```
-curl -w '\n' -X POST -D - -H "Content-type: application/json" -d @stripes-install.json -o full-install.json http://localhost:9130/_/proxy/tenants/diku/install?simulate=true
+curl -w '\n' -X POST -D - -H "Content-type: application/json" \
+  -d @stripes-install.json -o full-install.json \
+  http://localhost:9130/_/proxy/tenants/diku/install?simulate=true
 ```
 
 3. Extract the backend modules from the `full-install.json` file
@@ -367,12 +379,17 @@ curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"DB
 5. Post the list of backend modules to deploy and enable
 
 ```
-curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @okapi-install.json http://localhost:9130/_/proxy/tenants/diku/install?deploy=true
+curl -w '\n' -D - -X POST -H "Content-type: application/json" \
+  -d @okapi-install.json \
+  http://localhost:9130/_/proxy/tenants/diku/install?deploy=true
 ```
 
 6. Post the list of Stripes modules to enable
+
 ```
-curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @stripes-install.json http://localhost:9130/_/proxy/tenants/diku/install
+curl -w '\n' -D - -X POST -H "Content-type: application/json" \
+  -d @stripes-install.json \
+  http://localhost:9130/_/proxy/tenants/diku/install
 ```
 
 ## Create a FOLIO “superuser” and load permissions
@@ -387,7 +404,9 @@ See the [Securing Okapi](https://github.com/folio-org/okapi/blob/master/doc/guid
   * [Sample perl script](bootstrap-superuser.pl) to create a superuser and load permissions
 
 ```
-perl /vagrant/bootstrap-superuser.pl --tenant diku --user diku_admin --password admin --okapi http://localhost:9130
+perl /vagrant/bootstrap-superuser.pl \
+  --tenant diku --user diku_admin --password admin \
+  --okapi http://localhost:9130
 ```
 
 ## Load module reference data
@@ -399,7 +418,10 @@ perl /vagrant/bootstrap-superuser.pl --tenant diku --user diku_admin --password 
   * [Sample perl script](load-data.pl) to load data from this repository
 
 ```
-perl /vagrant/load-data.pl --sort location-units/institutions,location-units/campuses,location-units/libraries,locations,statistical-code-types --custom-method loan-rules-storage=PUT /vagrant/reference-data
+perl /vagrant/load-data.pl \
+  --sort location-units/institutions,location-units/campuses,location-units/libraries,locations,statistical-code-types \
+  --custom-method loan-rules-storage=PUT \
+  /vagrant/reference-data
 ```
 
 ## Load sample data
@@ -407,15 +429,27 @@ perl /vagrant/load-data.pl --sort location-units/institutions,location-units/cam
 It can be convenient to have sample data to load into the system for testing. Some sample data that is compatible with the last FOLIO release has been included in this repository, in the directory `sample-data`. You can load it using the same [sample perl script](load-data.pl) as above:
 
 ```
-perl /vagrant/load-data.pl --sort fiscal_year,ledger,fund,budget,instance-storage/instances,instance-storage/instance-relationships,holdings-storage,item-storage,users,authn,perms,service-points-users --custom-method "instances/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/"=PUT /vagrant/sample-data
+perl /vagrant/load-data.pl \
+  --sort fiscal_year,ledger,fund,budget,instance-storage/instances,instance-storage/instance-relationships,holdings-storage,item-storage,users,authn,perms,service-points-users \
+  --custom-method "instances/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/"=PUT \
+  /vagrant/sample-data
 ```
 
 mod-inventory provides an `/inventory/ingest/mods` endpoint for loading MODS records, which it will use to create instances, holdings, and items with default values. There are sample files in the `sample-data/mod-inventory` directory of this repository.
 
+First login and obtain an Okapi token -- it will be in the x-okapi-token header
+
 ```
-# get an Okapi token -- token will be in the x-okapi-token header
-curl -w '\n' -D - -X POST -H "Content-type: application/json" -H "Accept: application/json" -H "X-Okapi-Tenant: diku" -d '{"username":"diku_admin","password":"admin"}' http://localhost:9130/authn/login
-# post the files in sample-data/mod-inventory
+curl -w '\n' -D - -X POST -H "Content-type: application/json" \
+  -H "Accept: application/json" -H "X-Okapi-Tenant: diku" \
+  -d '{"username":"diku_admin","password":"admin"}' \
+  http://localhost:9130/authn/login
+```
+
+Then post the files from the `sample-data/mod-inventory` directory.
+Replace the `<okapi token>` placeholder with the actual token from the previous response.
+
+```
 for i in /vagrant/sample-data/mod-inventory/*.xml; do curl -w '\n' -D - -X POST -H "Content-type: multipart/form-data" -H "X-Okapi-Tenant: diku" -H "X-Okapi-Token: <okapi token>" -F upload=@${i} http://localhost:9130/inventory/ingest/mods; done
 ```
 
