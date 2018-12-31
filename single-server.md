@@ -40,7 +40,7 @@ The default procedure will create a VirtualBox VM based on this [Vagrantfile](Va
 The default procedure uses the 
 [platform-core](https://github.com/folio-org/platform-core) configuration.
 
-To instead build a system based on [platform-complete](https://github.com/folio-org/platform-complete), adjust the `vb.memory` in the [Vagrantfile](Vagrantfile) to be approximately 20GB. Throughout these instructions, replace every mention of `platform-core` with `platform-complete`.
+To instead build a system based on [platform-complete](https://github.com/folio-org/platform-complete), adjust the `vb.memory` in the [Vagrantfile](Vagrantfile) to be approximately 20GB. In `nginx-stripes.conf` replace `platform-core` with `platform-complete`. Throughout these instructions, replace every mention of `platform-core` with `platform-complete`.
 
 3. Bring up the Vagrant VM, log into it
 
