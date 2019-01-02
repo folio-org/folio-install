@@ -29,9 +29,7 @@
   "phone_numbers": [
     {
       "phone_number": {
-        "country_code": "64",
-        "area_code": "95",
-        "phone_number": "783-996"
+        "phone_number": "64-95-783-996"
       },
       "categories": [],
       "language": "English"
@@ -67,27 +65,51 @@
         "last_name": "Sioux ",
         "language": "English",
         "notes": "",
-        "phone_number": {
-          "country_code": "64",
-          "area_code": "95",
-          "phone_number": "783-996"
-        },
-        "email": {
-          "value": "Siouxsie@mapress.com",
-          "description": "Licenses"
-        },
-        "address": {
-          "addressLine1": "Saint Lukes",
-          "addressLine2": "Unit 5",
-          "city": "Auckland",
-          "stateRegion": "",
-          "zipCode": "",
-          "country": "New Zealand"
-        },
-        "url": {
-          "value": "https://www.doi.gov/",
-          "description": "web address for U.S. Dept. of Interior"
-        }
+        "phone_numbers": [
+          {
+            "phone_number": {
+              "phone_number": "64-95-783-996"
+            },
+            "categories": [],
+            "language": "English"
+          }
+        ],
+        "emails": [
+          {
+            "email": {
+              "value": "magnolia@mapress.com",
+              "description": "Customer Service"
+            },
+            "categories": [],
+            "language": "English"
+          }
+        ],
+        "addresses": [
+          {
+            "address": {
+              "addressLine1": "Saint Lukes",
+              "addressLine2": "P.O. Box 41383",
+              "city": "Auckland",
+              "stateRegion": "",
+              "zipCode": "1346",
+              "country": "New Zealand"
+            },
+            "categories": [],
+            "language": "English",
+            "san_code": ""
+          }
+        ],
+        "urls": [
+          {
+            "url": {
+              "value": "http://www.mapress.com/j/",
+              "description": "main website"
+            },
+            "language": "en-us",
+            "categories": [],
+            "notes": ""
+          }
+        ]
       },
       "categories": []
     }

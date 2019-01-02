@@ -70,8 +70,12 @@
       "dateOfPublication": "2017"
     }
   ],
-  "urls": [
-    "http://d-nb.info/1150175923/04"
+  "electronicAccess": [
+    {
+      "uri": "http://d-nb.info/1150175923/04",
+      "linkText": "Electronic resource (PDF)",
+      "publicNote": "Address for accessing the table of content. PDF file"
+    } 
   ],
   "instanceTypeId": "6312d172-f0cf-40f6-b27d-9fa8feaf332f",
   "physicalDescriptions": [

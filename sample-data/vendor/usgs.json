@@ -29,9 +29,7 @@
   "phone_numbers": [
     {
       "phone_number": {
-        "country_code": "1",
-        "area_code": "888",
-        "phone_number": "ASK-USGS"
+        "phone_number": "1-888-ASK-USGS"
       },
       "categories": [],
       "language": "English"
@@ -67,27 +65,51 @@
         "last_name": "Zinke",
         "language": "English",
         "notes": "",
-        "phone_number": {
-          "country_code": "1",
-          "area_code": "202",
-          "phone_number": "208-3100"
-        },
-        "email": {
-          "value": "feedback@ios.doi.gov",
-          "description": "contact email for U.S. Dept of the Interior"
-        },
-        "address": {
-          "addressLine1": "1849 C Street, N.W.",
-          "addressLine2": "",
-          "city": "Washington",
-          "stateRegion": "D.C.",
-          "zipCode": "",
-          "country": "USA"
-        },
-        "url": {
-          "value": "https://www.doi.gov/",
-          "description": "web address for U.S. Dept. of Interior"
-        }
+        "phone_numbers": [
+          {
+            "phone_number": {
+              "phone_number": "1-888-ASK-USGS"
+            },
+            "categories": [],
+            "language": "English"
+          }
+        ],
+        "emails": [
+          {
+            "email": {
+              "value": "usgsstore@usgs.gov",
+              "description": "main customer service email"
+            },
+            "categories": [],
+            "language": "English"
+          }
+        ],
+        "addresses": [
+          {
+            "address": {
+              "addressLine1": "12201 Sunrise Valley Drive",
+              "addressLine2": "P.O. Box 15550",
+              "city": "Reston",
+              "stateRegion": "VA",
+              "zipCode": "20192",
+              "country": "USA"
+            },
+            "categories": [],
+            "language": "English",
+            "san_code": ""
+          }
+        ],
+        "urls": [
+          {
+            "url": {
+              "value": "https://www.usgs.gov/",
+              "description": "main website"
+            },
+            "language": "en-us",
+            "categories": [],
+            "notes": ""
+          }
+        ]
       },
       "categories": []
     }

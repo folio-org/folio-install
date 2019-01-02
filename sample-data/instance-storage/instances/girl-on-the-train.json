@@ -3,8 +3,14 @@
   "hrid": "in000011",
   "source": "MARC",
   "title": "The Girl on the Train",
-  "alternativeTitles": ["First alternative title",
-                        "Second alternative title"],
+  "alternativeTitles": [
+    {
+      "alternativeTitle": "First alternative title"
+    },
+    {
+      "alternativeTitle": "Second alternative title"
+    }
+  ],
   "identifiers": [
     { "identifierTypeId": "7f907515-a1bf-4513-8a38-92e1a07c539d",
       "value": "B01LO7PJOE"

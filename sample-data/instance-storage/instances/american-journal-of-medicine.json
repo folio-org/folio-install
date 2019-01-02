@@ -3,7 +3,17 @@
   "hrid": "in000002",
   "source" : "MARC",
   "title" : "The American Journal of Medicine",
-  "alternativeTitles" : [ "The American journal of medicine Ionline)", "Am. J. med", "Green journal" ],
+  "alternativeTitles" : [ 
+    {
+      "alternativeTitle": "The American journal of medicine Ionline)"
+    }, 
+    { 
+      "alternativeTitle": "Am. J. med"
+    }, 
+    {
+      "alternativeTitle": "Green journal" 
+    } 
+  ],
   "series" : [ ],
   "identifiers" : [ {
     "value" : "AJMEAZ",
@@ -29,7 +39,6 @@
     "place" : "New York",
     "dateOfPublication" : "1946-"
   } ],
-  "urls" : [ ],
   "instanceTypeId" : "6312d172-f0cf-40f6-b27d-9fa8feaf332f",
   "physicalDescriptions" : [ "v., ill. 27 cm." ],
   "languages" : [ "eng" ],

@@ -4,7 +4,7 @@ use JSON;
 
 my @extra_modules = ('mod-codex-inventory','mod-codex-ekb','mod-rtac');
 # Some modules don't have mod descriptors in the central repo
-my @exclude_modules = ('eslint-config-stripes','platform-complete','platform-core','react-big-calendar','react-githubish-mentions','react-intl-safe-html','stripes-smart-components');
+my @exclude_modules = ('eslint-config-stripes','platform-complete','platform-core','react-big-calendar','react-githubish-mentions','react-intl-safe-html','stripes-smart-components', 'stripes');
 my $input_dir = $ARGV[0];
 die "Directory $input_dir not readable\n" unless (-r $input_dir && -d $input_dir);
 opendir(INPUTDIR,$input_dir) or die "Can't open input directory $input_dir: $!\n";

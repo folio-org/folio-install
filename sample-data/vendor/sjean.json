@@ -29,9 +29,7 @@
   "phone_numbers": [
     {
       "phone_number": {
-        "country_code": "1",
-        "area_code": "773",
-        "phone_number": "274-3000"
+        "phone_number": "1-773-274-3000"
       },
       "categories": [],
       "language": "English"
@@ -67,27 +65,51 @@
         "last_name": "Simmons",
         "language": "English",
         "notes": "",
-        "phone_number": {
-          "country_code": "1",
-          "area_code": "773",
-          "phone_number": "274-3000"
-        },
-        "email": {
-          "value": "sister@luc.edu",
-          "description": ""
-        },
-        "address": {
-          "addressLine1": "1032 W. Sheridan Rd",
-          "addressLine2": "",
-          "city": "Chicago",
-          "stateRegion": "IL",
-          "zipCode": "",
-          "country": "USA"
-        },
-        "url": {
-          "value": "https://www.doi.gov/",
-          "description": "web address for U.S. Dept. of Interior"
-        }
+        "phone_numbers": [
+          {
+            "phone_number": {
+              "phone_number": "1-773-274-3000"
+            },
+            "categories": [],
+            "language": "English"
+          }
+        ],
+        "emails": [
+          {
+            "email": {
+              "value": "sister@luc.edu",
+              "description": "personal email "
+            },
+            "categories": [],
+            "language": "English"
+          }
+        ],
+        "addresses": [
+          {
+            "address": {
+              "addressLine1": "1032 W. Sheridan Rd",
+              "addressLine2": "",
+              "city": "Chicago",
+              "stateRegion": "IL",
+              "zipCode": "60660",
+              "country": "USA"
+            },
+            "categories": [],
+            "language": "English",
+            "san_code": ""
+          }
+        ],
+        "urls": [
+          {
+            "url": {
+              "value": "",
+              "description": ""
+            },
+            "language": "",
+            "categories": [],
+            "notes": ""
+          }
+        ]
       },
       "categories": []
     }

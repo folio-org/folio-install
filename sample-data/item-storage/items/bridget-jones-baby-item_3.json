@@ -8,6 +8,6 @@
   "status": {
     "name": "Available"
   },
-  "pieceIdentifiers": ["Copy 3"],
+  "copyNumbers": ["Copy 3"],
   "numberOfPieces": "1"
 }

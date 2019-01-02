@@ -6,7 +6,8 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 
 * Much of this is already automated as part of the folio-ansible project
 * This is not a full production install. One obvious omission is securing the Okapi API itself.
-* The _minimum_ RAM required for a full system is 10 GB. Keep this in mind if you are running on a VM.
+* The _minimum_ RAM required for a system based on [platform-core](https://github.com/folio-org/platform-core) is 9 GB. Keep this in mind if you are running on a VM.
+* To instead build a system based on [platform-complete](https://github.com/folio-org/platform-complete) will require approximately 20 GB.
 
 ## Summary
 
@@ -32,14 +33,21 @@ git clone https://github.com/folio-org/folio-install
 cd folio-install
 ```
 
-2. Bring up the Vagrant VM, log into it
+The default procedure will create a VirtualBox VM based on this [Vagrantfile](Vagrantfile), running a generic Ubuntu Xenial OS, with 9 GB RAM and 2 CPUs. Port 9130 of the guest will be forwarded to port 9130 of the host, and port 80 of the guest will be forwarded to port 3000 of the host. The `folio-install` directory on the host will be shared on the guest at the mount point `/vagrant`.
+
+2. Decide between platform-core and platform-complete
+
+The default procedure uses the
+[platform-core](https://github.com/folio-org/platform-core) configuration.
+
+To instead build a system based on [platform-complete](https://github.com/folio-org/platform-complete), adjust the `vb.memory` in the [Vagrantfile](Vagrantfile) to be approximately 20 GB. In `nginx-stripes.conf` replace `platform-core` with `platform-complete`. Throughout these instructions, replace every mention of `platform-core` with `platform-complete`.
+
+3. Bring up the Vagrant VM, log into it
 
 ```
 vagrant up
 vagrant ssh
 ```
-
-This will create a VirtualBox VM based on this [Vagrantfile](Vagrantfile), running a generic Ubuntu Xenial OS, with 10 GB RAM and 2 CPUs. Port 9130 of the guest will be forwarded to port 9130 of the host, and port 80 of the guest will be forwarded to port 3000 of the host. The `folio-install` directory on the host will be shared on the guest at the mount point `/vagrant`.
 
 ## Install and configure required packages
 
@@ -149,18 +157,18 @@ CREATE DATABASE folio WITH OWNER folio;
 wget --quiet -O - https://repository.folio.org/packages/debian/folio-apt-archive-key.asc | sudo apt-key add -
 sudo add-apt-repository "deb https://repository.folio.org/packages/ubuntu xenial/"
 sudo apt-get update
-sudo apt-get -y install okapi=2.17.4-2
+sudo apt-get -y install okapi=2.22.0-1
 ```
 
 ### Sidebar: Okapi releases
 
-Okapi 2.17.4 is the version of Okapi that was made a part of the Q3-2018 release. If you'd like to work with the latest Okapi release, change the final command above to:
+Okapi 2.22.0 is the version of Okapi that was made a part of the Q4-2018 release. If you'd like to work with the latest Okapi release, change the final command above to:
 
 ```
 sudo apt-get -y install okapi
 ```
 
-Note that there is some risk in this, as the latest Okapi release may not have been tested with the rest of the components in the Q3-2018 release.
+Note that there is some risk in this, as the latest Okapi release may not have been tested with the rest of the components in the Q4-2018 release.
 
 2. Configure Okapi to run as a single node server with persistent storage
 
@@ -177,12 +185,16 @@ Note that there is some risk in this, as the latest Okapi release may not have b
 sudo systemctl restart okapi
 ```
 
-4. Pull module descriptors from central repository (this will take a while)
+The Okapi log is at `/var/log/folio/okapi/okapi.log`
+
+4. Pull module descriptors from central registry (this will take a while)
 
   * [Sample JSON to post to pull API](okapi-pull.json)
 
 ```
-curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @/vagrant/okapi-pull.json http://localhost:9130/_/proxy/pull/modules
+curl -w '\n' -D - -X POST -H "Content-type: application/json" \
+  -d @/vagrant/okapi-pull.json \
+  http://localhost:9130/_/proxy/pull/modules
 ```
 
 ## Create FOLIO tenant
@@ -192,13 +204,17 @@ curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @/vagrant/okapi
   * [Sample tenant JSON](tenant.json)
 
 ```
-curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @/vagrant/tenant.json http://localhost:9130/_/proxy/tenants
+curl -w '\n' -D - -X POST -H "Content-type: application/json" \
+  -d @/vagrant/tenant.json \
+  http://localhost:9130/_/proxy/tenants
 ```
 
 2. Enable the Okapi internal module for the tenant
 
 ```
-curl -w '\n' -D - -X POST -H "Content-type: application/json" -d '{"id":"okapi"}' http://localhost:9130/_/proxy/tenants/diku/modules
+curl -w '\n' -D - -X POST -H "Content-type: application/json" \
+  -d '{"id":"okapi"}' \
+  http://localhost:9130/_/proxy/tenants/diku/modules
 ```
 
 ## Build the latest release of the FOLIO Stripes platform
@@ -209,17 +225,17 @@ curl -w '\n' -D - -X POST -H "Content-type: application/json" -d '{"id":"okapi"}
 sudo n lts
 ```
 
-2. Clone the `platform-complete` repository, `cd` into it
+2. Clone the `platform-core` repository, `cd` into it
 
 ```
-git clone https://github.com/folio-org/platform-complete
-cd platform-complete
+git clone https://github.com/folio-org/platform-core
+cd platform-core
 ```
 
-3. Check out the `q3-2018` branch. The HEAD of this branch should reflect the latest Q3 release, including any bug fix releases.
+3. Check out the `q4-2018` branch. The HEAD of this branch should reflect the latest release, including any bug fix releases.
 
 ```
-git checkout q3-2018
+git checkout q4-2018
 ```
 
 4. Install npm packages
@@ -230,9 +246,9 @@ yarn install
 
 ### Sidebar: Building from the bleeding edge
 
-The `platform-complete` platform is constructed with versions of FOLIO components and dependencies that have been tested together and are known to work.
+The `platform-core` platform is constructed with versions of FOLIO components and dependencies that have been tested together and are known to work.
 
-If you would rather build Stripes with the most recent code that may not have been fully integration tested, clone the `platform-complete` repository, omit the step of checking out the latest tag, then:
+If you would rather build Stripes with the most recent code that may not have been fully integration tested, clone the `platform-core` repository, omit the step of checking out the latest tag, then:
 
 ```
 git checkout snapshot
@@ -245,15 +261,16 @@ If you build Stripes this way, you will need to construct your FOLIO backend sys
 
 5. Configure Stripes
 
-Before you build, you will need to configure Stripes with the correct IP address and tenant. Edit `stripes.config.js` and add an `okapi` key to the `platformComplete` object: 
+The platform-core `stripes.config.js` provides the default okapi url and tenant. This is included by platform-complete.
+
+To configure a different IP address and tenant, edit `stripes.config.js` and add an `okapi` key to the `platformComplete` object:
 
 ```JS
 const platformComplete = {
-  okapi: { 'url':'http://10.0.2.15:9130', 'tenant':'diku' },
+  okapi: { 'url': 'http://localhost:9130', 'tenant': 'diku' },
   modules: { ... },
   branding: { ... },
 ```
-
 
 6. Build webpack
 
@@ -266,7 +283,7 @@ cd ..
 
 ### Sidebar: Options for `yarn build`
 
-The `yarn build` command above can be changed to build the webpack in different ways. For more details, see the documentation for the [Stripes command line](https://github.com/folio-org/stripes-cli/blob/v1.4.0/doc/commands.md#build-command).
+The `yarn build` command above can be changed to build the webpack in different ways. For more details, see the documentation for the [Stripes command line](https://github.com/folio-org/stripes-cli/blob/master/doc/commands.md#build-command).
 
 ## Configure webserver to serve Stripes webpack
 
@@ -281,40 +298,44 @@ sudo systemctl restart nginx
 
 ## Deploy a compatible FOLIO backend, enable for tenant
 
-The tagged release of `platform-complete` contains an `okapi-install.json` file which, if posted to Okapi, will download all the necessary backend modules as Docker containers, deploy them to the local system, and enable them for your tenant. There is also a `stripes-install.json` file that will enable the frontend modules for the tenant and load the necessary permissions.
+The tagged release of `platform-core` contains an `okapi-install.json` file which, when posted to Okapi, will download all the necessary backend modules as Docker containers, deploy them to the local system, and enable them for your tenant. There is also a `stripes-install.json` file that will enable the frontend modules for the tenant and load the necessary permissions.
 
 1. Post data source information to the Okapi environment for use by deployed modules
 
 ```
-curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"db.host\",\"value\":\"10.0.2.15\"}" http://localhost:9130/_/env
-curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"db.port\",\"value\":\"5432\"}" http://localhost:9130/_/env
-curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"db.database\",\"value\":\"folio\"}" http://localhost:9130/_/env
-curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"db.username\",\"value\":\"folio\"}" http://localhost:9130/_/env
-curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"db.password\",\"value\":\"folio123\"}" http://localhost:9130/_/env
+curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"DB_HOST\",\"value\":\"10.0.2.15\"}" http://localhost:9130/_/env
+curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"DB_PORT\",\"value\":\"5432\"}" http://localhost:9130/_/env
+curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"DB_DATABASE\",\"value\":\"folio\"}" http://localhost:9130/_/env
+curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"DB_USERNAME\",\"value\":\"folio\"}" http://localhost:9130/_/env
+curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"DB_PASSWORD\",\"value\":\"folio123\"}" http://localhost:9130/_/env
 ```
 
 2. Post the list of backend modules to deploy and enable
 
 ```
-curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @platform-complete/okapi-install.json http://localhost:9130/_/proxy/tenants/diku/install?deploy=true\&preRelease=false
+curl -w '\n' -D - -X POST -H "Content-type: application/json" \
+  -d @platform-core/okapi-install.json \
+  http://localhost:9130/_/proxy/tenants/diku/install?deploy=true\&preRelease=false
 ```
 
-*Note: this will take a long time to return, as all the Docker images must be pulled from Docker Hub. You can follow progress in the Okapi log at `/var/log/folio/okapi/okapi.log`*
+Note: This will take a long time to return, as all the Docker images must be pulled from Docker Hub. Progress can be followed in the Okapi log at `/var/log/folio/okapi/okapi.log` and via `sudo docker ps`
 
 3. Post the list of Stripes modules to enable
 
 ```
-curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @platform-complete/stripes-install.json http://localhost:9130/_/proxy/tenants/diku/install?preRelease=false
+curl -w '\n' -D - -X POST -H "Content-type: application/json" \
+  -d @platform-core/stripes-install.json \
+  http://localhost:9130/_/proxy/tenants/diku/install?preRelease=false
 ```
 
 ### Sidebar: Building from the bleeding edge -- part II
 
-If you would rather deploy the most recent code for the backend, rather than relying on the `okapi-install.json` and `stripes-install.json` files from the folio-testing, you can create your own files using the procedure below. **Proceed at your own risk!** You could end up with a system that contains unstable code. In addition, the reference and sample data included in this repository may not be compatible with your new backend.
+If you would rather deploy the most recent code for the backend, rather than relying on the `okapi-install.json` and `stripes-install.json` files from the platform-core, then create your own files using the procedure below. **Proceed at your own risk!** You could end up with a system that contains unstable code. In addition, the reference and sample data included in this repository may not be compatible with your new backend.
 
 1. Build a list of frontend modules to enable
 
 ```
-cd platform-complete
+cd platform-core
 yarn build-module-descriptors
 cd ..
 ```
@@ -325,13 +346,15 @@ cd ..
   * [Sample perl script](gen-module-list.pl) to generate JSON array from Stripes build with the correct packages added and removed:
 
 ```
-perl /vagrant/gen-module-list.pl platform-complete/ModuleDescriptors > stripes-install.json
+perl /vagrant/gen-module-list.pl platform-core/ModuleDescriptors > stripes-install.json
 ```
 
 2. Post list of modules to Okapi, let Okapi resolve dependencies and send back a list of modules to deploy and enable
 
 ```
-curl -w '\n' -X POST -D - -H "Content-type: application/json" -d @stripes-install.json -o full-install.json http://localhost:9130/_/proxy/tenants/diku/install?simulate=true
+curl -w '\n' -X POST -D - -H "Content-type: application/json" \
+  -d @stripes-install.json -o full-install.json \
+  http://localhost:9130/_/proxy/tenants/diku/install?simulate=true
 ```
 
 3. Extract the backend modules from the `full-install.json` file
@@ -347,22 +370,27 @@ perl /vagrant/build-okapi-install.pl full-install.json > okapi-install.json
 4. Post data source information to the Okapi environment for use by deployed modules
 
 ```
-curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"db.host\",\"value\":\"10.0.2.15\"}" http://localhost:9130/_/env
-curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"db.port\",\"value\":\"5432\"}" http://localhost:9130/_/env
-curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"db.database\",\"value\":\"folio\"}" http://localhost:9130/_/env
-curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"db.username\",\"value\":\"folio\"}" http://localhost:9130/_/env
-curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"db.password\",\"value\":\"folio123\"}" http://localhost:9130/_/env
+curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"DB_HOST\",\"value\":\"10.0.2.15\"}" http://localhost:9130/_/env
+curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"DB_PORT\",\"value\":\"5432\"}" http://localhost:9130/_/env
+curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"DB_DATABASE\",\"value\":\"folio\"}" http://localhost:9130/_/env
+curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"DB_USERNAME\",\"value\":\"folio\"}" http://localhost:9130/_/env
+curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"DB_PASSWORD\",\"value\":\"folio123\"}" http://localhost:9130/_/env
 ```
 
 5. Post the list of backend modules to deploy and enable
 
 ```
-curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @okapi-install.json http://localhost:9130/_/proxy/tenants/diku/install?deploy=true
+curl -w '\n' -D - -X POST -H "Content-type: application/json" \
+  -d @okapi-install.json \
+  http://localhost:9130/_/proxy/tenants/diku/install?deploy=true
 ```
 
 6. Post the list of Stripes modules to enable
+
 ```
-curl -w '\n' -D - -X POST -H "Content-type: application/json" -d @stripes-install.json http://localhost:9130/_/proxy/tenants/diku/install
+curl -w '\n' -D - -X POST -H "Content-type: application/json" \
+  -d @stripes-install.json \
+  http://localhost:9130/_/proxy/tenants/diku/install
 ```
 
 ## Create a FOLIO “superuser” and load permissions
@@ -377,40 +405,69 @@ See the [Securing Okapi](https://github.com/folio-org/okapi/blob/master/doc/guid
   * [Sample perl script](bootstrap-superuser.pl) to create a superuser and load permissions
 
 ```
-perl /vagrant/bootstrap-superuser.pl --tenant diku --user diku_admin --password admin --okapi http://localhost:9130
+perl /vagrant/bootstrap-superuser.pl \
+  --tenant diku --user diku_admin --password admin \
+  --okapi http://localhost:9130
 ```
 
 ## Load module reference data
 
-  * Reference data is required for mod-inventory-storage and mod-circulation-storage
+  * Reference data is required for mod-inventory-storage and mod-circulation-storage and mod-users
     * It is included in the GitHub repos for these modules, along with a shell script for loading
     * Reference data for the latest release has been copied into this repository, in the directory `reference-data`
   * Reference data (address types, patron groups) can be created in the UI for mod-users
   * [Sample perl script](load-data.pl) to load data from this repository
 
 ```
-perl /vagrant/load-data.pl --sort location-units/institutions,location-units/campuses,location-units/libraries,locations --custom-method loan-rules-storage=PUT /vagrant/reference-data
+perl /vagrant/load-data.pl \
+  --sort location-units/institutions,location-units/campuses,location-units/libraries,locations,statistical-code-types \
+  --custom-method loan-rules-storage=PUT \
+  /vagrant/reference-data
 ```
 
 ## Load sample data
 
-It can be convenient to have sample data to load into the system for testing. Some sample data that is compatible with the last FOLIO release has been included in this repository, in the directory `sample-data`. You can load it using the same [sample perl script](load-data.pl) as above:
+It can be convenient to have sample data to load into the system for testing. Some sample data that is compatible with the last FOLIO release has been included in this repository, in the directory `sample-data`. You can load it using the same [sample perl script](load-data.pl) as above.
+
+When building the default system based on `platform-core` then do:
 
 ```
-perl /vagrant/load-data.pl --sort fiscal_year,ledger,fund,budget,instance-storage/instances,instance-storage/instance-relationships,holdings-storage,item-storage,users,authn,perms,service-points-users --custom-method --custom-method "instances/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/"=PUT /vagrant/sample-data
+perl /vagrant/load-data.pl \
+  --exclude budget,fiscal_year,fund,ledger,vendor \
+  --sort instance-storage/instances,instance-storage/instance-relationships,holdings-storage,item-storage,users,authn,perms,service-points-users \
+  --custom-method "instances/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/"=PUT \
+  /vagrant/sample-data
+```
+
+If instead building a system based on `platform-complete` then do:
+
+```
+perl /vagrant/load-data.pl \
+  --sort fiscal_year,ledger,fund,budget,instance-storage/instances,instance-storage/instance-relationships,holdings-storage,item-storage,users,authn,perms,service-points-users \
+  --custom-method "instances/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/"=PUT \
+  /vagrant/sample-data
 ```
 
 mod-inventory provides an `/inventory/ingest/mods` endpoint for loading MODS records, which it will use to create instances, holdings, and items with default values. There are sample files in the `sample-data/mod-inventory` directory of this repository.
 
+First login and obtain an Okapi token -- it will be in the x-okapi-token header
+
 ```
-# get an Okapi token -- token will be in the x-okapi-token header
-curl -w '\n' -D - -X POST -H "Content-type: application/json" -H "Accept: application/json" -H "X-Okapi-Tenant: diku" -d '{"username":"diku_admin","password":"admin"}' http://localhost:9130/authn/login
-# post the files in sample-data/mod-inventory
+curl -w '\n' -D - -X POST -H "Content-type: application/json" \
+  -H "Accept: application/json" -H "X-Okapi-Tenant: diku" \
+  -d '{"username":"diku_admin","password":"admin"}' \
+  http://localhost:9130/authn/login
+```
+
+Then post the files from the `sample-data/mod-inventory` directory.
+Replace the `<okapi token>` placeholder with the actual token from the previous response.
+
+```
 for i in /vagrant/sample-data/mod-inventory/*.xml; do curl -w '\n' -D - -X POST -H "Content-type: multipart/form-data" -H "X-Okapi-Tenant: diku" -H "X-Okapi-Token: <okapi token>" -F upload=@${i} http://localhost:9130/inventory/ingest/mods; done
 ```
 
 ## Known issues
 
 This Jira filter shows known critical issues that are not yet resolved:
-* [Known critical Q3 issues](https://issues.folio.org/issues/?filter=10913)
+* [Known critical Q4-2018 issues](https://issues.folio.org/issues/?filter=11081)
 
