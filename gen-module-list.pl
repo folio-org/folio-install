@@ -14,7 +14,7 @@ my @enable;
 foreach my $i (@mod_descrs) {
   my $exclude;
   foreach my $j (@exclude_modules) {
-    $exclude = 1 if $i =~ /$j/;
+    $exclude = 1 if $i eq $j;
   }
   unless ($exclude) {
     open(MODDESCR, "<:encoding(UTF-8)", "$input_dir/$i")
