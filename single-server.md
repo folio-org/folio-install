@@ -7,7 +7,7 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 * Much of this is already automated as part of the folio-ansible project
 * This is not a full production install. One obvious omission is securing the Okapi API itself.
 * The _minimum_ RAM required for a system based on [platform-core](https://github.com/folio-org/platform-core) is 9 GB. Keep this in mind if you are running on a VM.
-* To instead build a system based on [platform-complete](https://github.com/folio-org/platform-complete) will require approximately 20 GB.
+* To instead build a system based on [platform-complete](https://github.com/folio-org/platform-complete) will require approximately 22 GB.
 
 ## Summary
 
@@ -40,7 +40,7 @@ The default procedure will create a VirtualBox VM based on this [Vagrantfile](Va
 The default procedure uses the
 [platform-core](https://github.com/folio-org/platform-core) configuration.
 
-To instead build a system based on [platform-complete](https://github.com/folio-org/platform-complete), adjust the `vb.memory` in the [Vagrantfile](Vagrantfile) to be approximately 20 GB. In `nginx-stripes.conf` replace `platform-core` with `platform-complete`. Throughout these instructions, replace every mention of `platform-core` with `platform-complete`.
+To instead build a system based on [platform-complete](https://github.com/folio-org/platform-complete), adjust the `vb.memory` in the [Vagrantfile](Vagrantfile) to be approximately 22 GB. In `nginx-stripes.conf` replace `platform-core` with `platform-complete`. Throughout these instructions, replace every mention of `platform-core` with `platform-complete`.
 
 3. Bring up the Vagrant VM, log into it
 
