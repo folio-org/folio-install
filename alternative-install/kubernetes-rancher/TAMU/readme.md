@@ -8,7 +8,8 @@ This software is distributed under the terms of the Apache License, Version 2.0.
 
 ## Introduction
 
-A collection of Dockerfiles and YAML for FOLIO Q2 installation on Kubernetes/Rancher 2.0.
+A collection of Dockerfiles and YAML for FOLIO Q2 installation on Kubernetes/Rancher 2.0.<br/>
+Latest deployment procedure here: https://wiki.folio.org/pages/viewpage.action?pageId=14458600
 
 ## Contents
 
@@ -176,11 +177,11 @@ CRUNCHY_DEBUG = FALSE<br/>
 
 #### Modules that require a database Workload environment variables:
 
-db.username = folio_admin<br/>
-db.port = 5432<br/>
-db.password = folio_admin<br/>
-db.host = pg-folio<br/>
-db.database = okapi_modules<br/>
+DB_USERNAME = folio_admin<br/>
+DB_PORT = 5432<br/>
+DB_PASSWORD = folio_admin<br/>
+DB_HOST = pg-folio<br/>
+DB_DATABASE = okapi_modules<br/>
 
 #### mod-authtoken Workload environment variable:
 

@@ -7,7 +7,7 @@ RUN apk add --no-cache curl git
 #Okapi git clone and MVN Build
 RUN mkdir -p /usr/local/bin/folio/
 WORKDIR /usr/local/bin/folio
-RUN git clone  -b "v2.16.1" --recursive https://github.com/folio-org/okapi.git
+RUN git clone  -b "v2.19.0" --recursive https://github.com/folio-org/okapi.git
 RUN cd okapi && mvn clean install -DskipTests
 
 #Expose ports
@@ -34,7 +34,7 @@ ENV OKAPI_URL='http://localhost:9130'
 ENV OKAPI_HOST='localhost'
 ENV OKAPI_CLUSTERHOST='localhost'
 ENV OKAPI_NODENAME='okapi1'
-ENV OKAPI_LOGLEVEL='DEBUG'
+ENV OKAPI_LOGLEVEL='INFO'
 ENV HAZELCAST_FILE='/usr/local/bin/folio/okapi/hazelcast.xml'
 ENV HAZELCAST_PORT='5701'
 ENV HAZELCAST_VERTX_PORT='5703'
