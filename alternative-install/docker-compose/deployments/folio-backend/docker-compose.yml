@@ -1,15 +1,16 @@
-version: '3'
+version: "3"
 services:
   folio-db:
-    image: postgres:9.6
+    image: ${BUILD_ORG}/postgres:9.6
     container_name: folio-db
+    build:
+      context: ../../images/postgres
     env_file:
       - ./config/folio-db.env
     volumes:
       - folio-pgdata:/var/lib/postgresql/data
-      - ../../images/postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
   okapi:
-    image: folio/okapi:${OKAPI_TAG}
+    image: ${BUILD_ORG}/okapi:${OKAPI_TAG}
     container_name: folio-okapi
     build:
       context: ../../images/okapi
@@ -29,12 +30,10 @@ services:
       - 4243
     ports:
       - ${OKAPI_PORT_HOST}:9130
-    volumes:
-      - ../../images/okapi/startup.sh:/usr/local/bin/folio/startup.sh
     depends_on:
       - folio-db
   folio-setup:
-    image: folio/foliosetup:0.0.1
+    image: ${BUILD_ORG}/foliosetup:0.0.1
     container_name: folio-setup
     build: ../../images/folio-setup
     env_file:
@@ -50,7 +49,7 @@ services:
       - okapi
       - folio-db
   mod-authtoken:
-    image: ${MOD_AUTHTOKEN_ORG}/${MOD_AUTHTOKEN_MODULE}:${MOD_AUTHTOKEN_TAG}
+    image: ${BUILD_ORG}/${MOD_AUTHTOKEN_MODULE}:${MOD_AUTHTOKEN_TAG}
     container_name: folio-mod-authtoken
     build:
       context: ../../images/backend-module
@@ -72,7 +71,7 @@ services:
       - folio-db
       - folio-setup
   mod-calendar:
-    image: ${MOD_CALENDAR_ORG}/${MOD_CALENDAR_MODULE}:${MOD_CALENDAR_TAG}
+    image: ${BUILD_ORG}/${MOD_CALENDAR_MODULE}:${MOD_CALENDAR_TAG}
     container_name: folio-mod-calendar
     build:
       context: ../../images/backend-module
@@ -94,7 +93,7 @@ services:
       - folio-db
       - folio-setup
   mod-permissions:
-    image: ${MOD_PERMISSION_ORG}/${MOD_PERMISSION_MODULE}:${MOD_PERMISSION_TAG}
+    image: ${BUILD_ORG}/${MOD_PERMISSION_MODULE}:${MOD_PERMISSION_TAG}
     container_name: folio-mod-permissions
     build:
       context: ../../images/backend-module
@@ -116,7 +115,7 @@ services:
       - folio-db
       - folio-setup
   mod-login:
-    image: ${MOD_LOGIN_ORG}/${MOD_LOGIN_MODULE}:${MOD_LOGIN_TAG}
+    image: ${BUILD_ORG}/${MOD_LOGIN_MODULE}:${MOD_LOGIN_TAG}
     container_name: folio-mod-login
     build:
       context: ../../images/backend-module
@@ -138,7 +137,7 @@ services:
       - folio-db
       - folio-setup
   mod-configuration:
-    image: ${MOD_CONFIGURATION_ORG}/${MOD_CONFIGURATION_MODULE}:${MOD_CONFIGURATION_TAG}
+    image: ${BUILD_ORG}/${MOD_CONFIGURATION_MODULE}:${MOD_CONFIGURATION_TAG}
     container_name: folio-mod-configuration
     build:
       context: ../../images/backend-module
@@ -160,7 +159,7 @@ services:
       - folio-db
       - folio-setup
   mod-users:
-    image: ${MOD_USERS_ORG}/${MOD_USERS_MODULE}:${MOD_USERS_TAG}
+    image: ${BUILD_ORG}/${MOD_USERS_MODULE}:${MOD_USERS_TAG}
     container_name: folio-mod-users
     build:
       context: ../../images/backend-module
@@ -182,7 +181,7 @@ services:
       - folio-db
       - folio-setup
   mod-users-bl:
-    image: ${MOD_USERSBL_ORG}/${MOD_USERSBL_MODULE}:${MOD_USERSBL_TAG}
+    image: ${BUILD_ORG}/${MOD_USERSBL_MODULE}:${MOD_USERSBL_TAG}
     container_name: folio-mod-users-bl
     build:
       context: ../../images/backend-module
@@ -204,7 +203,7 @@ services:
       - folio-db
       - folio-setup
   mod-user-import:
-    image: ${MOD_USERIMPORT_ORG}/${MOD_USERIMPORT_MODULE}:${MOD_USERIMPORT_TAG}
+    image: ${BUILD_ORG}/${MOD_USERIMPORT_MODULE}:${MOD_USERIMPORT_TAG}
     container_name: folio-mod-user-import
     build:
       context: ../../images/backend-module
@@ -226,7 +225,7 @@ services:
       - folio-db
       - folio-setup
   mod-login-saml:
-    image: ${MOD_LOGINSAML_ORG}/${MOD_LOGINSAML_MODULE}:${MOD_LOGINSAML_TAG}
+    image: ${BUILD_ORG}/${MOD_LOGINSAML_MODULE}:${MOD_LOGINSAML_TAG}
     container_name: folio-mod-login-saml
     build:
       context: ../../images/backend-module
@@ -248,7 +247,7 @@ services:
       - folio-db
       - folio-setup
   mod-inventory-storage:
-    image: ${MOD_INVSTORAGE_ORG}/${MOD_INVSTORAGE_MODULE}:${MOD_INVSTORAGE_TAG}
+    image: ${BUILD_ORG}/${MOD_INVSTORAGE_MODULE}:${MOD_INVSTORAGE_TAG}
     container_name: folio-mod-inventory-storage
     build:
       context: ../../images/backend-module
@@ -270,7 +269,7 @@ services:
       - folio-db
       - folio-setup
   mod-inventory:
-    image: ${MOD_INVENTORY_ORG}/${MOD_INVENTORY_MODULE}:${MOD_INVENTORY_TAG}
+    image: ${BUILD_ORG}/${MOD_INVENTORY_MODULE}:${MOD_INVENTORY_TAG}
     container_name: folio-mod-inventory
     build:
       context: ../../images/backend-module
@@ -292,7 +291,7 @@ services:
       - folio-db
       - folio-setup
   mod-codex-inventory:
-    image: ${MOD_CODEXINVENTORY_ORG}/${MOD_CODEXINVENTORY_MODULE}:${MOD_CODEXINVENTORY_TAG}
+    image: ${BUILD_ORG}/${MOD_CODEXINVENTORY_MODULE}:${MOD_CODEXINVENTORY_TAG}
     container_name: folio-mod-codex-inventory
     build:
       context: ../../images/backend-module
@@ -314,7 +313,7 @@ services:
       - folio-db
       - folio-setup
   mod-circulation-storage:
-    image: ${MOD_CIRCULATIONSTORAGE_ORG}/${MOD_CIRCULATIONSTORAGE_MODULE}:${MOD_CIRCULATIONSTORAGE_TAG}
+    image: ${BUILD_ORG}/${MOD_CIRCULATIONSTORAGE_MODULE}:${MOD_CIRCULATIONSTORAGE_TAG}
     container_name: folio-mod-circulation-storage
     build:
       context: ../../images/backend-module
@@ -336,7 +335,7 @@ services:
       - folio-db
       - folio-setup
   mod-circulation:
-    image: ${MOD_CIRCULATION_ORG}/${MOD_CIRCULATION_MODULE}:${MOD_CIRCULATION_TAG}
+    image: ${BUILD_ORG}/${MOD_CIRCULATION_MODULE}:${MOD_CIRCULATION_TAG}
     container_name: folio-mod-circulation
     build:
       context: ../../images/backend-module
@@ -358,7 +357,7 @@ services:
       - folio-db
       - folio-setup
   mod-notify:
-    image: ${MOD_NOTIFY_ORG}/${MOD_NOTIFY_MODULE}:${MOD_NOTIFY_TAG}
+    image: ${BUILD_ORG}/${MOD_NOTIFY_MODULE}:${MOD_NOTIFY_TAG}
     container_name: folio-mod-notify
     build:
       context: ../../images/backend-module
@@ -380,7 +379,7 @@ services:
       - folio-db
       - folio-setup
   mod-notes:
-    image: ${MOD_NOTES_ORG}/${MOD_NOTES_MODULE}:${MOD_NOTES_TAG}
+    image: ${BUILD_ORG}/${MOD_NOTES_MODULE}:${MOD_NOTES_TAG}
     container_name: folio-mod-notes
     build:
       context: ../../images/backend-module
@@ -402,7 +401,7 @@ services:
       - folio-db
       - folio-setup
   mod-kb-ebsco:
-    image: ${MOD_KBEBSCO_ORG}/${MOD_KBEBSCO_MODULE}:${MOD_KBEBSCO_TAG}
+    image: ${BUILD_ORG}/${MOD_KBEBSCO_MODULE}:${MOD_KBEBSCO_TAG}
     container_name: folio-mod-kb-ebsco
     build:
       context: ../../images/backend-module
@@ -425,7 +424,7 @@ services:
       - folio-db
       - folio-setup
   mod-codex-mux:
-    image: ${MOD_CODEXMUX_ORG}/${MOD_CODEXMUX_MODULE}:${MOD_CODEXMUX_TAG}
+    image: ${BUILD_ORG}/${MOD_CODEXMUX_MODULE}:${MOD_CODEXMUX_TAG}
     container_name: folio-mod-codex-mux
     build:
       context: ../../images/backend-module
@@ -447,7 +446,7 @@ services:
       - folio-db
       - folio-setup
   mod-codex-ekb:
-    image: ${MOD_CODEXEKB_ORG}/${MOD_CODEXEKB_MODULE}:${MOD_CODEXEKB_TAG}
+    image: ${BUILD_ORG}/${MOD_CODEXEKB_MODULE}:${MOD_CODEXEKB_TAG}
     container_name: folio-mod-codex-ekb
     build:
       context: ../../images/backend-module
@@ -469,7 +468,7 @@ services:
       - folio-db
       - folio-setup
   mod-vendors:
-    image: ${MOD_VENDORS_ORG}/${MOD_VENDORS_MODULE}:${MOD_VENDORS_TAG}
+    image: ${BUILD_ORG}/${MOD_VENDORS_MODULE}:${MOD_VENDORS_TAG}
     container_name: folio-mod-vendors
     build:
       context: ../../images/backend-module
@@ -491,7 +490,7 @@ services:
       - folio-db
       - folio-setup
   mod-tags:
-    image: ${MOD_TAGS_ORG}/${MOD_TAGS_MODULE}:${MOD_TAGS_TAG}
+    image: ${BUILD_ORG}/${MOD_TAGS_MODULE}:${MOD_TAGS_TAG}
     container_name: folio-mod-tags
     build:
       context: ../../images/backend-module
@@ -513,7 +512,7 @@ services:
       - folio-db
       - folio-setup
   mod-feesfines:
-    image: ${MOD_FEESFINES_ORG}/${MOD_FEESFINES_MODULE}:${MOD_FEESFINES_TAG}
+    image: ${BUILD_ORG}/${MOD_FEESFINES_MODULE}:${MOD_FEESFINES_TAG}
     container_name: folio-mod-feesfines
     build:
       context: ../../images/backend-module
@@ -535,7 +534,7 @@ services:
       - folio-db
       - folio-setup
   mod-rtac:
-    image: ${MOD_RTAC_ORG}/${MOD_RTAC_MODULE}:${MOD_RTAC_TAG}
+    image: ${BUILD_ORG}/${MOD_RTAC_MODULE}:${MOD_RTAC_TAG}
     container_name: folio-mod-rtac
     build:
       context: ../../images/backend-module
@@ -557,7 +556,7 @@ services:
       - folio-db
       - folio-setup
   mod-finance:
-    image: ${MOD_FINANCE_ORG}/${MOD_FINANCE_MODULE}:${MOD_FINANCE_TAG}
+    image: ${BUILD_ORG}/${MOD_FINANCE_MODULE}:${MOD_FINANCE_TAG}
     container_name: folio-mod-finance
     build:
       context: ../../images/backend-module

@@ -2,7 +2,8 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   annotations:
-    kompose.cmd: kompose convert --out kompose/
+    kompose.cmd: kompose convert -f folio-release/folio-q3-docker-compose.yml --out
+      kompose/
     kompose.version: 1.16.0 ()
   creationTimestamp: null
   labels:
@@ -21,89 +22,42 @@ spec:
       containers:
       - env:
         - name: FOLIO_DATABASE
-          valueFrom:
-            configMapKeyRef:
-              key: FOLIO_DATABASE
-              name: folio-db-config-folio-db-env
+          value: folio
         - name: FOLIO_DATABASE_ROLE_USER
-          valueFrom:
-            configMapKeyRef:
-              key: FOLIO_DATABASE_ROLE_USER
-              name: folio-db-config-folio-db-env
+          value: folio
         - name: FOLIO_PASSWORD
-          valueFrom:
-            configMapKeyRef:
-              key: FOLIO_PASSWORD
-              name: folio-db-config-folio-db-env
+          value: folio123
         - name: PG_DATABASE
-          valueFrom:
-            configMapKeyRef:
-              key: PG_DATABASE
-              name: folio-db-config-folio-db-env
+          value: okapi
         - name: PG_HOST
-          valueFrom:
-            configMapKeyRef:
-              key: PG_HOST
-              name: folio-db-config-folio-db-env
+          value: folio-db
         - name: PG_PASSWORD
-          valueFrom:
-            configMapKeyRef:
-              key: PG_PASSWORD
-              name: folio-db-config-folio-db-env
+          value: okapi25
         - name: PG_PORT
-          valueFrom:
-            configMapKeyRef:
-              key: PG_PORT
-              name: folio-db-config-folio-db-env
+          value: "5432"
         - name: PG_USERNAME
-          valueFrom:
-            configMapKeyRef:
-              key: PG_USERNAME
-              name: folio-db-config-folio-db-env
+          value: okapi
         - name: POSTGRES_PASSWORD
-          valueFrom:
-            configMapKeyRef:
-              key: POSTGRES_PASSWORD
-              name: folio-db-config-folio-db-env
+          value: password
         - name: db.database
-          valueFrom:
-            configMapKeyRef:
-              key: db.database
-              name: folio-db-config-folio-db-env
+          value: folio
         - name: db.host
-          valueFrom:
-            configMapKeyRef:
-              key: db.host
-              name: folio-db-config-folio-db-env
+          value: folio-db
         - name: db.password
-          valueFrom:
-            configMapKeyRef:
-              key: db.password
-              name: folio-db-config-folio-db-env
+          value: folio123
         - name: db.port
-          valueFrom:
-            configMapKeyRef:
-              key: db.port
-              name: folio-db-config-folio-db-env
+          value: "5432"
         - name: db.username
-          valueFrom:
-            configMapKeyRef:
-              key: db.username
-              name: folio-db-config-folio-db-env
-        image: postgres:9.6
+          value: folio
+        image: culibraries/postgres:9.6
         name: folio-db
         resources: {}
         volumeMounts:
         - mountPath: /var/lib/postgresql/data
           name: folio-pgdata
-        - mountPath: /docker-entrypoint-initdb.d
-          name: folio-db-claim1
       restartPolicy: Always
       volumes:
       - name: folio-pgdata
         persistentVolumeClaim:
           claimName: folio-pgdata
-      - name: folio-db-claim1
-        persistentVolumeClaim:
-          claimName: folio-db-claim1
 status: {}

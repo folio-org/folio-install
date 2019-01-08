@@ -2,7 +2,8 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   annotations:
-    kompose.cmd: kompose convert --out kompose/
+    kompose.cmd: kompose convert -f folio-release/folio-q3-docker-compose.yml --out
+      kompose/
     kompose.version: 1.16.0 ()
   creationTimestamp: null
   labels:
@@ -20,83 +21,48 @@ spec:
       containers:
       - env:
         - name: FOLIO_DATABASE
-          valueFrom:
-            configMapKeyRef:
-              key: FOLIO_DATABASE
-              name: mod-kb-ebsco-config-folio-db-env
+          value: folio
         - name: FOLIO_DATABASE_ROLE_USER
-          valueFrom:
-            configMapKeyRef:
-              key: FOLIO_DATABASE_ROLE_USER
-              name: mod-kb-ebsco-config-folio-db-env
+          value: folio
         - name: FOLIO_PASSWORD
-          valueFrom:
-            configMapKeyRef:
-              key: FOLIO_PASSWORD
-              name: mod-kb-ebsco-config-folio-db-env
+          value: folio123
         - name: MODULE
+          value: mod-kb-ebsco
         - name: MODULE_URL
+          value: http://mod-kb-ebsco:8081
         - name: OKAPI_TENANT
+          value: diku
         - name: OKAPI_URL
+          value: http://okapi:9130
         - name: ORG
+          value: folioorg
         - name: PG_DATABASE
-          valueFrom:
-            configMapKeyRef:
-              key: PG_DATABASE
-              name: mod-kb-ebsco-config-folio-db-env
+          value: okapi
         - name: PG_HOST
-          valueFrom:
-            configMapKeyRef:
-              key: PG_HOST
-              name: mod-kb-ebsco-config-folio-db-env
+          value: folio-db
         - name: PG_PASSWORD
-          valueFrom:
-            configMapKeyRef:
-              key: PG_PASSWORD
-              name: mod-kb-ebsco-config-folio-db-env
+          value: okapi25
         - name: PG_PORT
-          valueFrom:
-            configMapKeyRef:
-              key: PG_PORT
-              name: mod-kb-ebsco-config-folio-db-env
+          value: "5432"
         - name: PG_USERNAME
-          valueFrom:
-            configMapKeyRef:
-              key: PG_USERNAME
-              name: mod-kb-ebsco-config-folio-db-env
+          value: okapi
         - name: POSTGRES_PASSWORD
-          valueFrom:
-            configMapKeyRef:
-              key: POSTGRES_PASSWORD
-              name: mod-kb-ebsco-config-folio-db-env
+          value: password
         - name: START_CMD
+          value: '"rails server -b 0.0.0.0 -p 8081"'
         - name: TAG
+          value: 1.0.1
         - name: db.database
-          valueFrom:
-            configMapKeyRef:
-              key: db.database
-              name: mod-kb-ebsco-config-folio-db-env
+          value: folio
         - name: db.host
-          valueFrom:
-            configMapKeyRef:
-              key: db.host
-              name: mod-kb-ebsco-config-folio-db-env
+          value: folio-db
         - name: db.password
-          valueFrom:
-            configMapKeyRef:
-              key: db.password
-              name: mod-kb-ebsco-config-folio-db-env
+          value: folio123
         - name: db.port
-          valueFrom:
-            configMapKeyRef:
-              key: db.port
-              name: mod-kb-ebsco-config-folio-db-env
+          value: "5432"
         - name: db.username
-          valueFrom:
-            configMapKeyRef:
-              key: db.username
-              name: mod-kb-ebsco-config-folio-db-env
-        image: '/:'
+          value: folio
+        image: culibraries/mod-kb-ebsco:1.0.1
         name: folio-mod-kb-ebsco
         resources: {}
       restartPolicy: Always

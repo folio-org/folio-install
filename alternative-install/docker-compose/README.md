@@ -266,8 +266,10 @@ Kubernetes deployment script is generated from docker-compose.yml file.
 
 2. YAML generation using Kompose
 
+        $ mkdir folio-release
+        $ docker-compose config > folio-release/folio-q3-docker-compose.yml
         $ mkdir kompose
-        $ docker-compose config |kompose convert --out kompose/
+        $ kompose convert -f folio-release/folio-q3-docker-compose.yml --out kompose/
 
     This procedure will create the YAML files to deploy to Kubernetes.
 
