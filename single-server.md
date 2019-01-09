@@ -253,7 +253,6 @@ If you would rather build Stripes with the most recent code that may not have be
 
 ```
 git checkout snapshot
-rm yarn.lock
 yarn install
 ```
 
@@ -263,7 +262,7 @@ If you build Stripes this way, you will need to construct your FOLIO backend sys
 
 5. Configure Stripes
 
-The platform-core `stripes.config.js` provides the default okapi url and tenant. This is included by platform-complete.
+The platform-core `stripes.config.js` provides the default okapi url and tenant. That is included by platform-complete.
 
 To configure a different IP address and tenant, edit `stripes.config.js` and add an `okapi` key to the `platformComplete` object:
 
@@ -362,6 +361,9 @@ perl /vagrant/gen-module-list.pl \
   --extra-modules mod-audit,mod-audit-filter,mod-codex-inventory,mod-codex-ekb,mod-email,mod-event-config,mod-gobi,mod-oai-pmh,mod-patron,mod-rtac,mod-sender \
   platform-complete/ModuleDescriptors > stripes-install.json
 ```
+
+Note: Its snapshot branch is missing some modules compared to q4-2018 branch [FOLIO-1688](https://issues.folio.org/browse/FOLIO-1688).
+This might require the Vagrantfile to be allocated more memory, and more modules added to that `--extra-modules` option.
 
 2. Post list of modules to Okapi, let Okapi resolve dependencies and send back a list of modules to deploy and enable
 
