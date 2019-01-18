@@ -1,0 +1,31 @@
+{
+   "expirationDate" : "2020-07-11",
+   "active" : false,
+   "type" : "patron",
+   "patronGroup" : "cb73adc7-5554-47d1-a074-9d56020c1030",
+   "barcode" : "201478814211210",
+   "id" : "b340f9c8-0387-49eb-adb7-63221dc6f1d9",
+   "personal" : {
+      "dateOfBirth" : "1962-08-20",
+      "email" : "gunnar@morissette-collier-and-crona.tt",
+      "addresses" : [
+         {
+            "region" : "GA",
+            "primaryAddress" : true,
+            "addressTypeId" : "ad2c4726-b397-4a0c-8e0e-c31dc5503296",
+            "countryId" : "US",
+            "city" : "Evansville",
+            "addressLine1" : "44625 Zieme Rapids",
+            "postalCode" : "70147"
+         }
+      ],
+      "preferredContactTypeId" : "003",
+      "mobilePhone" : "648-862-0510 x598",
+      "lastName" : "Vandervort",
+      "firstName" : "Meta",
+      "phone" : "321.935.7720 x840"
+   },
+   "enrollmentDate" : "2016-02-19",
+   "username" : "letha"
+}
+

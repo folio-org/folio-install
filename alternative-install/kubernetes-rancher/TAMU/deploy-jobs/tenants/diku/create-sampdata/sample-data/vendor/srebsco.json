@@ -1,0 +1,219 @@
+{
+  "id": null,
+  "name": "EBSCO SUBSCRIPTION SERVICES",
+  "code": "SREBSCO",
+  "description": "Use for single title subscriptions.",
+  "vendor_status": "Active",
+  "language": "en-us",
+  "aliases": [
+    {
+      "value": "EBSCO",
+      "description": ""
+    }
+  ],
+  "addresses": [
+    {
+      "address": {
+        "addressLine1": "10 ESTES ST",
+        "addressLine2": "PO BOX 682",
+        "city": "Ipswich",
+        "stateRegion": "MA",
+        "zipCode": "01938",
+        "country": "USA"
+      },
+      "categories": [],
+      "language": "en",
+      "san_code": "1234567"
+    }
+  ],
+  "phone_numbers": [
+    {
+      "phone_number": {
+        "phone_number": "1-800-653-2726"
+      },
+      "categories": [],
+      "language": "en-us"
+    }
+  ],
+  "emails": [
+    {
+      "email": {
+        "value": "jbeck@ebsco.com",
+        "description": "Customer Service Rep"
+      },
+      "categories": [],
+      "language": "en-us"
+    }
+  ],
+  "urls": [
+    {
+      "url": {
+        "value": "www.ebsco.com",
+        "description": "main website"
+      },
+      "language": "en-us",
+      "categories": [],
+      "notes": ""
+    }
+  ],
+  "contacts": [
+    {
+      "language": "en-us",
+      "contact_person": {
+        "prefix": "",
+        "first_name": "Josh",
+        "last_name": "Beck",
+        "language": "en-us",
+        "notes": "",
+        "phone_numbers": [
+          {
+            "phone_number": {
+              "phone_number": "1-800-653-2726"
+            },
+            "categories": [],
+            "language": "en-us"
+          }
+        ],
+        "emails": [
+          {
+            "email": {
+              "value": "jbeck@ebsco.com",
+              "description": "Customer Service Rep"
+            },
+            "categories": [],
+            "language": "en-us"
+          }
+        ],
+        "addresses": [
+          {
+            "address": {
+              "addressLine1": "10 ESTES ST",
+              "addressLine2": "PO BOX 682",
+              "city": "Ipswich",
+              "stateRegion": "MA",
+              "zipCode": "01938",
+              "country": "USA"
+            },
+            "categories": [],
+            "language": "en",
+            "san_code": "1234567"
+          }
+        ],
+        "urls": [
+          {
+            "url": {
+              "value": "www.ebsco.com",
+              "description": "main website"
+            },
+            "language": "en-us",
+            "categories": [],
+            "notes": ""
+          }
+        ]
+      },
+      "categories": []
+    }
+  ],
+  "agreements": [
+    {
+      "name": "XXXXXX credit",
+      "discount": 0,
+      "reference_url": "",
+      "notes": ""
+    }
+  ],
+  "erp_code": "G64758-74837",
+  "payment_method": "EFT",
+  "access_provider": false,
+  "governmental": false,
+  "licensor": false,
+  "material_supplier": false,
+  "vendor_currencies": [
+    "USD"
+  ],
+  "claiming_interval": 60,
+  "discount_percent": 10,
+  "expected_activation_interval": 0,
+  "expected_invoice_interval": 30,
+  "renewal_activation_interval": 0,
+  "subscription_interval": 0,
+  "liable_for_vat": false,
+  "tax_id": "",
+  "tax_percentage": 0,
+  "edi": {
+    "vendor_edi_code": "xx-xxx014186",
+    "vendor_edi_type": "31B",
+    "lib_edi_code": "VOY0081",
+    "lib_edi_type": "31B",
+    "prorate_tax": true,
+    "prorate_fees": false,
+    "edi_naming_convention": "*.edu",
+    "send_acct_num": true,
+    "support_order": false,
+    "support_invoice": true,
+    "notes": "",
+    "edi_ftp": {
+      "ftp_format": "SFTP",
+      "server_address": "ftp.ebsco.com",
+      "username": "edi_username",
+      "password": "edi_password",
+      "ftp_mode": "binary",
+      "ftp_conn_mode": "Passive",
+      "ftp_port": "22",
+      "order_directory": "",
+      "invoice_directory": "",
+      "notes": ""
+    },
+    "edi_job": {
+      "schedule_edi": false,
+      "date": null,
+      "time": null,
+      "is_monday": false,
+      "is_tuesday": false,
+      "is_wednesday": false,
+      "is_thursday": false,
+      "is_friday": false,
+      "is_saturday": false,
+      "is_sunday": false,
+      "send_to_emails": "bobbarker@priceisright.com",
+      "notify_all_edi": false,
+      "notify_invoice_only": true,
+      "notify_error_only": false
+    }
+  },
+  "interfaces": [
+    {
+      "name": "EBSCONet",
+      "uri": "https://www.ebsconet.com/",
+      "username": "username",
+      "password": "password",
+      "notes": "all staff have different logins and permissions associated with them",
+      "available": true,
+      "delivery_method": "Email",
+      "statistics_format": "Excel",
+      "locally_stored": false,
+      "online_location": "",
+      "statistics_notes": ""
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Serials",
+      "account_no": "BRXXXXX-01",
+      "description": "Print serial subscriptions",
+      "app_system_no": "",
+      "payment_method": "EFT",
+      "account_status": "Active",
+      "contact_info": "Some basic contact information note.",
+      "library_code": "-01, -02, -03",
+      "library_edi_code": "VOY0081",
+      "notes": ""
+    }
+  ],
+  "changelogs": [
+    {
+      "description": "This is a sample note.",
+      "timestamp": "2008-05-15T03:53:00-07:00"
+    }
+  ]
+}

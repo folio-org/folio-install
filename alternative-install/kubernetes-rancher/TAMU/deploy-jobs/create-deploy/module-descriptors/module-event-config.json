@@ -1,0 +1,85 @@
+{
+  "id" : "mod-event-config-1.0.0",
+  "name" : "mod-event-config",
+  "requires" : [ ],
+  "provides" : [ {
+    "id" : "mod-event",
+    "version" : "1.0",
+    "handlers" : [ {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/eventConfig/{id}",
+      "permissionsRequired" : [ "event.config.item.get" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/eventConfig",
+      "permissionsRequired" : [ "event.config.collection.get" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/eventConfig",
+      "permissionsRequired" : [ "event.config.item.post" ]
+    }, {
+      "methods" : [ "PUT" ],
+      "pathPattern" : "/eventConfig/{id}",
+      "permissionsRequired" : [ "event.config.item.put" ]
+    }, {
+      "methods" : [ "DELETE" ],
+      "pathPattern" : "/eventConfig/{id}",
+      "permissionsRequired" : [ "event.config.item.delete" ]
+    } ]
+  }, {
+    "id" : "_tenant",
+    "version" : "1.0",
+    "interfaceType" : "system",
+    "handlers" : [ {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/_/tenant"
+    }, {
+      "methods" : [ "DELETE" ],
+      "pathPattern" : "/_/tenant"
+    } ]
+  } ],
+  "permissionSets" : [ {
+    "permissionName" : "event.config.item.get",
+    "displayName" : "Event Config - get event configuration from storage",
+    "description" : "Get individual event configuration"
+  }, {
+    "permissionName" : "event.config.collection.get",
+    "displayName" : "Event Config - get event configuration list",
+    "description" : "Get a list of event configurations"
+  }, {
+    "permissionName" : "event.config.item.post",
+    "displayName" : "Event Config - create event configuration",
+    "description" : "Create event configuration"
+  }, {
+    "permissionName" : "event.config.item.put",
+    "displayName" : "Event Config - modify event configuration",
+    "description" : "Modify event configuration"
+  }, {
+    "permissionName" : "event.config.item.delete",
+    "displayName" : "Event Config - delete event configuration",
+    "description" : "Delete event configuration"
+  }, {
+    "permissionName" : "event.config.all",
+    "displayName" : "Event configuration module - all permissions",
+    "description" : "Entire set of permissions needed to use the event configuration modules",
+    "subPermissions" : [ "event.config.item.get", "event.config.collection.get", "event.config.item.post", "event.config.item.put", "event.config.item.delete" ],
+    "visible" : false
+  } ],
+  "launchDescriptor" : {
+    "dockerImage" : "folioorg/mod-event-config:1.0.0",
+    "dockerPull" : true,
+    "env" : [ {
+      "name" : "JAVA_OPTIONS",
+      "value" : "-Xmx256m"
+    } ],
+    "dockerArgs" : {
+      "HostConfig" : {
+        "PortBindings" : {
+          "8081/tcp" : [ {
+            "HostPort" : "%p"
+          } ]
+        }
+      }
+    }
+  }
+}

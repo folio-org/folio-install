@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    field.cattle.io/publicEndpoints: '[{"addresses":["XX.XX.XXX.XXX"],"port":30029,"protocol":"TCP","serviceName":"folio-q4:mod-circulation-nodeport","allNodes":true}]'
+    field.cattle.io/targetWorkloadIds: '["deployment:folio-q4:mod-circulation"]'
+    workload.cattle.io/targetWorkloadIdNoop: "true"
+    workload.cattle.io/workloadPortBased: "true"
+  creationTimestamp: null
+  labels:
+    cattle.io/creator: norman
+  name: mod-circulation-nodeport
+  ownerReferences:
+  - apiVersion: apps/v1beta2
+    controller: true
+    kind: deployment
+    name: mod-circulation
+    uid:
+  selfLink: /api/v1/namespaces/folio-q4/services/mod-circulation-nodeport
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+  - name: 9801tcp01
+    port: 9801
+    protocol: TCP
+    targetPort: 9801
+  selector:
+    workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-circulation
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}

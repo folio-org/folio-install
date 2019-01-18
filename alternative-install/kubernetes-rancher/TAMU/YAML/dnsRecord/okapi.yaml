@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    field.cattle.io/targetWorkloadIds: '["deployment:folio-q4:okapi"]'
+    workload.cattle.io/targetWorkloadIdNoop: "true"
+    workload.cattle.io/workloadPortBased: "true"
+  creationTimestamp: null
+  labels:
+    cattle.io/creator: norman
+  name: okapi
+  ownerReferences:
+  - apiVersion: apps/v1beta2
+    controller: true
+    kind: deployment
+    name: okapi
+    uid:
+  selfLink: /api/v1/namespaces/folio-q4/services/okapi
+spec:
+  ports:
+  - name: 9130tcp02
+    port: 9130
+    protocol: TCP
+    targetPort: 9130
+  - name: 5701tcp02
+    port: 5701
+    protocol: TCP
+    targetPort: 5701
+  - name: 5702tcp02
+    port: 5702
+    protocol: TCP
+    targetPort: 5702
+  - name: 5703tcp02
+    port: 5703
+    protocol: TCP
+    targetPort: 5703
+  - name: 54327udp02
+    port: 54327
+    protocol: UDP
+    targetPort: 54327
+  - name: 5704tcp02
+    port: 5704
+    protocol: TCP
+    targetPort: 5704
+  selector:
+    workload.user.cattle.io/workloadselector: deployment-folio-q4-okapi
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

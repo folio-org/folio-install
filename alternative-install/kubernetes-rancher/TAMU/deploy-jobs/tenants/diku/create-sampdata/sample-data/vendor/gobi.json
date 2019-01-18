@@ -1,0 +1,219 @@
+{
+  "id": null,
+  "name": "GOBI Library Solutions",
+  "code": "GOBI",
+  "description": "Use for print and eBooks, approval plans, firm orders, standing orders, DDA",
+  "vendor_status": "Active",
+  "language": "en-us",
+  "aliases": [
+    {
+      "value": "YBP Library Services",
+      "description": "former name"
+    }
+  ],
+  "addresses": [
+    {
+      "address": {
+        "addressLine1": "999 Maple Street",
+        "addressLine2": "2",
+        "city": "Contoocook",
+        "stateRegion": "NH",
+        "zipCode": "03229",
+        "country": "USA"
+      },
+      "categories": ["Customer","Service","Shipments"],
+      "language": "en",
+      "san_code": "1234567"
+    }
+  ],
+  "phone_numbers": [
+    {
+      "phone_number": {
+        "phone_number": "1-800-258-3774"
+      },
+      "categories": ["Customer Service"],
+      "language": "en-us"
+    }
+  ],
+  "emails": [
+    {
+      "email": {
+        "value": "gobiserviceissue@ebsco.com",
+        "description": "for general questions"
+      },
+      "categories": ["Customer Service"],
+      "language": "en-us"
+    }
+  ],
+  "urls": [
+    {
+      "url": {
+        "value": "https://gobi.ebsco.com/",
+        "description": "main website"
+      },
+      "language": "en-us",
+      "categories": [],
+      "notes": ""
+    }
+  ],
+  "contacts": [
+    {
+      "language": "en-us",
+      "contact_person": {
+        "prefix": "",
+        "first_name": "Sarah",
+        "last_name": "Silverman",
+        "language": "en-us",
+        "notes": "",
+        "phone_numbers": [
+          {
+            "phone_number": {
+              "phone_number": "1-800-258-3774"
+            },
+            "categories": ["Customer Service"],
+            "language": "en-us"
+          }
+        ],
+        "emails": [
+          {
+            "email": {
+              "value": "gobiserviceissue@ebsco.com",
+              "description": "for general questions"
+            },
+            "categories": ["Customer Service"],
+            "language": "en-us"
+          }
+        ],
+        "addresses": [
+          {
+            "address": {
+              "addressLine1": "999 Maple Street",
+              "addressLine2": "2",
+              "city": "Contoocook",
+              "stateRegion": "NH",
+              "zipCode": "03229",
+              "country": "USA"
+            },
+            "categories": ["Customer","Service","Shipments"],
+            "language": "en",
+            "san_code": "1234567"
+          }
+        ],
+        "urls": [
+          {
+            "url": {
+              "value": "https://gobi.ebsco.com/",
+              "description": "main website"
+            },
+            "language": "en-us",
+            "categories": [],
+            "notes": ""
+          }
+        ]
+      },
+      "categories": []
+    }
+  ],
+  "agreements": [
+    {
+      "name": "No formal agreement",
+      "discount": 10,
+      "reference_url": "",
+      "notes": "Review SLAs & fulfillment stats 2 months before end of FY"
+    }
+  ],
+  "erp_code": "G64758-74836",
+  "payment_method": "EFT",
+  "access_provider": false,
+  "governmental": false,
+  "licensor": false,
+  "material_supplier": true,
+  "vendor_currencies": [
+    "USD"
+  ],
+  "claiming_interval": 45,
+  "discount_percent": 10,
+  "expected_activation_interval": 3,
+  "expected_invoice_interval": 30,
+  "renewal_activation_interval": 0,
+  "subscription_interval": 0,
+  "liable_for_vat": false,
+  "tax_id": "888888888",
+  "tax_percentage": 0,
+  "edi": {
+    "vendor_edi_code": "1694510",
+    "vendor_edi_type": "31B",
+    "lib_edi_code": "7659876",
+    "lib_edi_type": "31B",
+    "prorate_tax": true,
+    "prorate_fees": false,
+    "edi_naming_convention": "*.edi",
+    "send_acct_num": true,
+    "support_order": true,
+    "support_invoice": true,
+    "notes": "no EDI invoices for our tech services invoices",
+    "edi_ftp": {
+      "ftp_format": "SFTP",
+      "server_address": "ftp.ybp.com",
+      "username": "sample",
+      "password": "password",
+      "ftp_mode": "binary",
+      "ftp_conn_mode": "Passive",
+      "ftp_port": "22",
+      "order_directory": "/dropoff",
+      "invoice_directory": "/invoices",
+      "notes": "separate directories for EOCRs and cat records"
+    },
+    "edi_job": {
+      "schedule_edi": true,
+      "date": null,
+      "time": null,
+      "is_monday": false,
+      "is_tuesday": false,
+      "is_wednesday": false,
+      "is_thursday": false,
+      "is_friday": false,
+      "is_saturday": false,
+      "is_sunday": false,
+      "send_to_emails": "bobbarker@priceisright.com",
+      "notify_all_edi": true,
+      "notify_invoice_only": false,
+      "notify_error_only": false
+    }
+  },
+  "interfaces": [
+    {
+      "name": "GOBI",
+      "uri": "www.gobi3.com",
+      "username": "",
+      "password": "",
+      "notes": "all staff have different logons with different permissions",
+      "available": false,
+      "delivery_method": "",
+      "statistics_format": "",
+      "locally_stored": false,
+      "online_location": "",
+      "statistics_notes": "get stats on demand from GOBI, or contact customers service"
+    }
+  ],
+  "accounts": [
+    {
+      "name": "US print orders",
+      "account_no": "99999-10",
+      "description": "Main library orders for print books, shipped from US office",
+      "app_system_no": "",
+      "payment_method": "EFT",
+      "account_status": "Active",
+      "contact_info": "jlegier@ebsco.com",
+      "library_code": "COB",
+      "library_edi_code": "765987610",
+      "notes": "separate accounts for eBooks and UK orders"
+    }
+  ],
+  "changelogs": [
+    {
+      "description": "This is a sample note.",
+      "timestamp": "2008-05-15T03:53:00-07:00"
+    }
+  ]
+}

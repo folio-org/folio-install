@@ -1,0 +1,16 @@
+{
+  "name": "CANHIST-FY19",
+  "code": "CANHIST-FY19",
+  "budget_status": "Active",
+  "limit_enc_percent": 110,
+  "limit_exp_percent": 100,
+  "allocation": 4000.00,
+  "awaiting_payment": 24.10,
+  "available": 2450.15,
+  "encumbered": 1169.18,
+  "expenditures": 356.57,
+  "over_encumbrance": 0,
+  "fund_id": "68872d8a-bf16-420b-829f-206da38f6c10",
+  "fiscal_year_id": "684b5dc5-92f6-4db7-b996-b549d88f5e4e",
+  "tags": null
+}

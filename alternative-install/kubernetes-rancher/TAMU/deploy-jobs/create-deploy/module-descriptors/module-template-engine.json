@@ -1,0 +1,91 @@
+{
+  "id" : "mod-template-engine-1.0.1",
+  "name" : "Template engine module",
+  "requires" : [ ],
+  "provides" : [ {
+    "id" : "template-engine",
+    "version" : "1.0",
+    "handlers" : [ {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/templates",
+      "permissionsRequired" : [ "templates.collection.get" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/templates",
+      "permissionsRequired" : [ "templates.item.post" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/templates/{templateId}",
+      "permissionsRequired" : [ "templates.item.get" ]
+    }, {
+      "methods" : [ "PUT" ],
+      "pathPattern" : "/templates/{templateId}",
+      "permissionsRequired" : [ "templates.item.put" ]
+    }, {
+      "methods" : [ "DELETE" ],
+      "pathPattern" : "/templates/{templateId}",
+      "permissionsRequired" : [ "templates.item.delete" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/template-request",
+      "permissionsRequired" : [ "template-request.post" ]
+    } ]
+  }, {
+    "id" : "_tenant",
+    "version" : "1.0",
+    "interfaceType" : "system",
+    "handlers" : [ {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/_/tenant"
+    } ]
+  } ],
+  "permissionSets" : [ {
+    "permissionName" : "templates.collection.get",
+    "displayName" : "Templates - get Templates collection",
+    "description" : "Get Templates collection"
+  }, {
+    "permissionName" : "templates.item.get",
+    "displayName" : "Templates - get individual tag from storage",
+    "description" : "Get individual tag"
+  }, {
+    "permissionName" : "templates.item.post",
+    "displayName" : "Templates - create tag",
+    "description" : "Create tag"
+  }, {
+    "permissionName" : "templates.item.put",
+    "displayName" : "Templates - modify tag",
+    "description" : "Modify tag"
+  }, {
+    "permissionName" : "templates.item.delete",
+    "displayName" : "Templates - delete tag",
+    "description" : "Delete tag"
+  }, {
+    "permissionName" : "template-request.post",
+    "displayName" : "Template request",
+    "description" : "Request for template compilation"
+  }, {
+    "permissionName" : "templates.all",
+    "displayName" : "Templates module - all permissions",
+    "description" : "Entire set of permissions needed to use the Templates module",
+    "subPermissions" : [ "templates.collection.get", "templates.item.get", "templates.item.post", "templates.item.put", "templates.item.delete", "template-request.post" ],
+    "visible" : false
+  } ],
+  "launchDescriptor" : {
+    "dockerImage" : "folioorg/mod-template-engine:1.0.1",
+    "dockerPull" : true,
+    "dockerCMD" : [ "verify.user=true" ],
+    "env" : [ {
+      "name" : "JAVA_OPTIONS",
+      "value" : "-Xmx256m"
+    } ],
+    "dockerArgs" : {
+      "HostConfig" : {
+        "PortBindings" : {
+          "8081/tcp" : [ {
+            "HostPort" : "%p"
+          } ]
+        }
+      }
+    }
+  }
+}

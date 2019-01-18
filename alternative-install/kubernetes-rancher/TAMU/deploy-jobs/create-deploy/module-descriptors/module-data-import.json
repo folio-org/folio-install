@@ -1,0 +1,105 @@
+{
+  "id" : "mod-data-import-1.0.0",
+  "name" : "Data Import Module",
+  "requires" : [ {
+    "id" : "source-record-manager",
+    "version" : "1.0"
+  } ],
+  "provides" : [ {
+    "id" : "data-import",
+    "version" : "1.1",
+    "handlers" : [ {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/data-import/upload/definition",
+      "permissionsRequired" : [ "data-import.upload.definition.post" ],
+      "modulePermissions" : [ "configuration.entries.collection.get", "change-manager.jobexecution.post" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/data-import/upload/definition",
+      "permissionsRequired" : [ "data-import.upload.definition.get" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/data-import/upload/definition/{uploadDefinitionId}",
+      "permissionsRequired" : [ "data-import.upload.definition.get" ]
+    }, {
+      "methods" : [ "PUT" ],
+      "pathPattern" : "/data-import/upload/definition/{uploadDefinitionId}",
+      "permissionsRequired" : [ "data-import.upload.definition.put" ],
+      "modulePermissions" : [ "configuration.entries.collection.get" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/data-import/upload/file",
+      "permissionsRequired" : [ "data-import.upload.file.post" ],
+      "modulePermissions" : [ "configuration.entries.collection.get", "change-manager.jobexecution.post" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/data-import/upload/definition/file",
+      "permissionsRequired" : [ "data-import.upload.definition.file.post" ],
+      "modulePermissions" : [ "configuration.entries.collection.get", "change-manager.jobexecution.post" ]
+    }, {
+      "methods" : [ "DELETE" ],
+      "pathPattern" : "/data-import/upload/definition/file/{fileId}",
+      "permissionsRequired" : [ "data-import.upload.definition.file.delete" ],
+      "modulePermissions" : [ "configuration.entries.collection.get" ]
+    } ]
+  }, {
+    "id" : "_tenant",
+    "version" : "1.0",
+    "interfaceType" : "system",
+    "handlers" : [ {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/_/tenant"
+    }, {
+      "methods" : [ "DELETE" ],
+      "pathPattern" : "/_/tenant"
+    } ]
+  } ],
+  "permissionSets" : [ {
+    "permissionName" : "data-import.upload.definition.post",
+    "displayName" : "Data Import - create new upload definition",
+    "description" : "Post Upload Definition"
+  }, {
+    "permissionName" : "data-import.upload.definition.get",
+    "displayName" : "Data Import - get upload definition",
+    "description" : "Get Upload Definition"
+  }, {
+    "permissionName" : "data-import.upload.definition.put",
+    "displayName" : "Data Import - update upload definition",
+    "description" : "Put Upload Definition"
+  }, {
+    "permissionName" : "data-import.upload.file.post",
+    "displayName" : "Data Import - upload file into the storage",
+    "description" : "Upload file"
+  }, {
+    "permissionName" : "data-import.upload.definition.file.delete",
+    "displayName" : "Data Import - delete file from upload definition and storage",
+    "description" : "Delete file"
+  }, {
+    "permissionName" : "data-import.upload.definition.file.post",
+    "displayName" : "Data Import - Create new File Definition",
+    "description" : "Create file Definition"
+  }, {
+    "permissionName" : "data-import.upload.all",
+    "displayName" : "Data Import File Upload - all permissions",
+    "description" : "Entire set of permissions needed to use file uploads",
+    "subPermissions" : [ "data-import.upload.file.post", "data-import.upload.definition.post", "data-import.upload.definition.get", "data-import.upload.definition.put", "data-import.upload.definition.file.delete", "data-import.upload.definition.file.post" ],
+    "visible" : false
+  } ],
+  "launchDescriptor" : {
+    "dockerImage" : "folioorg/mod-data-import:1.0.0",
+    "dockerPull" : true,
+    "env" : [ {
+      "name" : "JAVA_OPTIONS",
+      "value" : "-Xmx256m"
+    } ],
+    "dockerArgs" : {
+      "HostConfig" : {
+        "PortBindings" : {
+          "8081/tcp" : [ {
+            "HostPort" : "%p"
+          } ]
+        }
+      }
+    }
+  }
+}

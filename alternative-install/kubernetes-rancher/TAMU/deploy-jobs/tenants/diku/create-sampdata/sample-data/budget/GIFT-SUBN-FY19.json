@@ -1,0 +1,16 @@
+{
+  "name": "GIFT-SUBN-FY19",
+  "code": "GIFT-SUBN-FY19",
+  "budget_status": "Active",
+  "limit_enc_percent": 100,
+  "limit_exp_percent": 100,
+  "allocation": 25000.00,
+  "awaiting_payment": 4800.00,
+  "available": 18600.00,
+  "encumbered": 250.00,
+  "expenditures": 1350.00,
+  "over_encumbrance": 0,
+  "fund_id": "e9f9bc2f-bad5-4613-9d6c-f55efa5805e7",
+  "fiscal_year_id": "684b5dc5-92f6-4db7-b996-b549d88f5e4e",
+  "tags": null
+}

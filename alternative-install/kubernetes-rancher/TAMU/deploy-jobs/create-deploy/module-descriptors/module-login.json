@@ -1,0 +1,129 @@
+{
+  "id" : "mod-login-4.6.0",
+  "name" : "login",
+  "provides" : [ {
+    "id" : "login",
+    "version" : "4.4",
+    "handlers" : [ {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/authn/login",
+      "modulePermissions" : [ "auth.signtoken", "auth.signrefreshtoken", "users.collection.get", "users.item.put", "configuration.entries.collection.get" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/authn/loginAttempts/{id}",
+      "permissionsRequired" : [ "login.attempts.item.get" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/authn/credentials",
+      "permissionsRequired" : [ "login.collection.get", "users.collection.get" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/authn/credentials/{id}",
+      "permissionsRequired" : [ "login.item.get" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/authn/credentials",
+      "permissionsRequired" : [ "login.item.post" ]
+    }, {
+      "methods" : [ "PUT" ],
+      "pathPattern" : "/authn/credentials/{id}",
+      "permissionsRequired" : [ "login.item.put" ]
+    }, {
+      "methods" : [ "DELETE" ],
+      "pathPattern" : "/authn/credentials/{id}",
+      "permissionsRequired" : [ "login.item.delete" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/authn/update",
+      "modulePermissions" : [ "users.collection.get" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/authn/password/repeatable",
+      "permissionsRequired" : [ "login.password.validate" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/authn/password-reset-action",
+      "permissionsRequired" : [ "login.password-reset-action.post" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/authn/password-reset-action/{actionId}",
+      "permissionsRequired" : [ "login.password-reset-action.get" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/authn/reset-password",
+      "permissionsRequired" : [ "login.password-reset.post" ]
+    } ]
+  }, {
+    "id" : "_tenant",
+    "version" : "1.0",
+    "interfaceType" : "system",
+    "handlers" : [ {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/_/tenant"
+    } ]
+  } ],
+  "permissionSets" : [ {
+    "permissionName" : "login.collection.get",
+    "displayName" : "login collection get",
+    "description" : "Get a list of logins"
+  }, {
+    "permissionName" : "login.item.get",
+    "displayName" : "login item get",
+    "description" : "Read a single login"
+  }, {
+    "permissionName" : "login.item.post",
+    "displayName" : "login item post",
+    "description" : "Add New Login"
+  }, {
+    "permissionName" : "login.item.put",
+    "displayName" : "login item put",
+    "description" : "Modify login info"
+  }, {
+    "permissionName" : "login.item.delete",
+    "displayName" : "login item delete",
+    "description" : "Remove existing login credentials"
+  }, {
+    "permissionName" : "login.attempts.item.get",
+    "displayName" : "login attempt item get",
+    "description" : "Read a login attempt entity for user"
+  }, {
+    "permissionName" : "login.password.validate",
+    "displayName" : "login password validate",
+    "description" : "Validate password for repeatability"
+  }, {
+    "permissionName" : "login.password-reset-action.post",
+    "displayName" : "login create a new action",
+    "description" : "Saves action to storage"
+  }, {
+    "permissionName" : "login.password-reset-action.get",
+    "displayName" : "login get the action by id",
+    "description" : "Retrieves action record by id"
+  }, {
+    "permissionName" : "login.password-reset.post",
+    "displayName" : "login password reset",
+    "description" : "Resets password for user in record and deletes action record"
+  }, {
+    "permissionName" : "login.all",
+    "displayName" : "login credentials",
+    "description" : "All permissions for login credentials",
+    "subPermissions" : [ "login.item.get", "login.collection.get", "login.item.post", "login.item.put", "login.item.delete", "login.attempts.item.get", "login.password.validate", "login.password-reset-action.get", "login.password-reset-action.post", "login.password-reset.post" ]
+  } ],
+  "launchDescriptor" : {
+    "dockerImage" : "folioorg/mod-login:4.6.0",
+    "dockerPull" : true,
+    "dockerCMD" : [ "verify.user=true" ],
+    "env" : [ {
+      "name" : "JAVA_OPTIONS",
+      "value" : "-Xmx256m"
+    } ],
+    "dockerArgs" : {
+      "HostConfig" : {
+        "PortBindings" : {
+          "8081/tcp" : [ {
+            "HostPort" : "%p"
+          } ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+   "username" : "walter",
+   "enrollmentDate" : "2015-02-04",
+   "id" : "b9561a04-e5a0-476d-9341-42089b607e7f",
+   "personal" : {
+      "mobilePhone" : "145-088-8677 x24804",
+      "preferredContactTypeId" : "002",
+      "addresses" : [
+         {
+            "city" : "Richmond",
+            "addressTypeId" : "ad2c4726-b397-4a0c-8e0e-c31dc5503296",
+            "countryId" : "US",
+            "region" : "MD",
+            "primaryAddress" : true,
+            "addressLine1" : "85131 Beier Pines",
+            "postalCode" : "89361"
+         }
+      ],
+      "email" : "tre@heller-dietrich.mc",
+      "dateOfBirth" : "1988-10-16",
+      "phone" : "(421)302-0858 x23232",
+      "firstName" : "Jadyn",
+      "lastName" : "O'Kon"
+   },
+   "barcode" : "386200011071299",
+   "patronGroup" : "cb73adc7-5554-47d1-a074-9d56020c1030",
+   "type" : "patron",
+   "active" : false,
+   "expirationDate" : "2019-02-04"
+}
+

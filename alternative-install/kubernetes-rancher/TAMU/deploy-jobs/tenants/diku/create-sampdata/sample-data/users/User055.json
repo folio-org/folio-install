@@ -1,0 +1,30 @@
+{
+   "enrollmentDate" : "2015-01-21",
+   "username" : "zelma",
+   "expirationDate" : "2019-11-17",
+   "active" : true,
+   "type" : "patron",
+   "patronGroup" : "1f53a184-d791-48d7-bf34-3fea3eed1ad7",
+   "barcode" : "146055422699198",
+   "personal" : {
+      "email" : "madilyn@turner-ondricka.no",
+      "phone" : "1-765-593-0065 x626",
+      "lastName" : "Stark",
+      "dateOfBirth" : "1973-10-13",
+      "firstName" : "Mozelle",
+      "addresses" : [
+         {
+            "primaryAddress" : true,
+            "region" : "WA",
+            "addressTypeId" : "ad2c4726-b397-4a0c-8e0e-c31dc5503296",
+            "countryId" : "US",
+            "city" : "Evansville",
+            "postalCode" : "72250-1936",
+            "addressLine1" : "01352 Orie Falls"
+         }
+      ],
+      "preferredContactTypeId" : "003"
+   },
+   "id" : "709ec164-f312-43b6-8474-c6eef4ccf9fa"
+}
+

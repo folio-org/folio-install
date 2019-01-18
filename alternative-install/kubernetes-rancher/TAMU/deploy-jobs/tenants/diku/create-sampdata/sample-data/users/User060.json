@@ -1,0 +1,31 @@
+{
+   "username" : "lauretta",
+   "enrollmentDate" : "2015-08-27",
+   "type" : "patron",
+   "active" : true,
+   "expirationDate" : "2019-09-06",
+   "personal" : {
+      "phone" : "(357)075-5906 x852",
+      "lastName" : "Dooley",
+      "firstName" : "Newton",
+      "middleName" : "Scarlett",
+      "addresses" : [
+         {
+            "postalCode" : "14540",
+            "addressLine1" : "29348 Afton Meadow Apt. 837",
+            "addressTypeId" : "ad2c4726-b397-4a0c-8e0e-c31dc5503296",
+            "countryId" : "US",
+            "city" : "Springfield",
+            "region" : "UT",
+            "primaryAddress" : true
+         }
+      ],
+      "preferredContactTypeId" : "004",
+      "email" : "marcelino@borer-koss-and-orn.pk",
+      "dateOfBirth" : "1949-03-21"
+   },
+   "id" : "13b10133-6be9-421d-a653-d616ff225ca2",
+   "barcode" : "403708804414844",
+   "patronGroup" : "cb73adc7-5554-47d1-a074-9d56020c1030"
+}
+

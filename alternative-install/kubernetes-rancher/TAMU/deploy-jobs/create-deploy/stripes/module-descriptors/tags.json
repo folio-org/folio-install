@@ -1,0 +1,17 @@
+{
+  "id" : "folio_tags-1.2.0",
+  "name" : "Tags manager",
+  "requires" : [ {
+    "id" : "tags",
+    "version" : "1.0"
+  } ],
+  "permissionSets" : [ {
+    "permissionName" : "module.tags.enabled",
+    "displayName" : "UI: Tags module is enabled"
+  }, {
+    "permissionName" : "settings.tags.enabled",
+    "displayName" : "Settings (Tags): display list of settings pages",
+    "subPermissions" : [ "settings.enabled" ],
+    "visible" : true
+  } ]
+}

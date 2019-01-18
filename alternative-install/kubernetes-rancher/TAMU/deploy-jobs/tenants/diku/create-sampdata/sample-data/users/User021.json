@@ -1,0 +1,32 @@
+{
+   "username" : "valentine",
+   "enrollmentDate" : "2016-10-01",
+   "personal" : {
+      "mobilePhone" : "507-298-9344",
+      "preferredContactTypeId" : "005",
+      "addresses" : [
+         {
+            "city" : "South Gate",
+            "addressTypeId" : "ad2c4726-b397-4a0c-8e0e-c31dc5503296",
+            "countryId" : "US",
+            "region" : "TN",
+            "primaryAddress" : true,
+            "postalCode" : "16277",
+            "addressLine1" : "34100 Elbert Junctions"
+         }
+      ],
+      "email" : "morgan@rempel-inc.ni",
+      "dateOfBirth" : "1950-07-09",
+      "phone" : "116.551.0889 x932",
+      "middleName" : "Scotty",
+      "firstName" : "Chloe",
+      "lastName" : "Walker"
+   },
+   "id" : "bab88e25-72e8-4a47-b087-55be08a1aaf7",
+   "barcode" : "834417741695521",
+   "patronGroup" : "1f53a184-d791-48d7-bf34-3fea3eed1ad7",
+   "type" : "patron",
+   "active" : true,
+   "expirationDate" : "2019-12-02"
+}
+

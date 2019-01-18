@@ -1,0 +1,30 @@
+{
+   "username" : "rashad",
+   "enrollmentDate" : "2016-08-17",
+   "id" : "7faa3b48-6bab-4179-89fb-8f0c2ac4754f",
+   "personal" : {
+      "lastName" : "Roberts",
+      "dateOfBirth" : "2001-04-07",
+      "firstName" : "Hiram",
+      "email" : "bartholome@pfeffer-bashirian.org",
+      "phone" : "(718)252-8333 x9006",
+      "addresses" : [
+         {
+            "postalCode" : "13971-0981",
+            "addressLine1" : "73980 Parker Cape",
+            "region" : "AE",
+            "primaryAddress" : true,
+            "countryId" : "US",
+            "addressTypeId" : "ad2c4726-b397-4a0c-8e0e-c31dc5503296",
+            "city" : "Concord"
+         }
+      ],
+      "preferredContactTypeId" : "005"
+   },
+   "barcode" : "94262911544209",
+   "patronGroup" : "97a31a9d-52bf-4a80-98ca-39df96520abb",
+   "type" : "patron",
+   "active" : true,
+   "expirationDate" : "2019-06-28"
+}
+

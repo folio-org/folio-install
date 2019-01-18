@@ -1,0 +1,387 @@
+{
+  "id" : "mod-circulation-storage-6.2.0",
+  "name" : "Circulation Storage Module",
+  "provides" : [ {
+    "id" : "loan-storage",
+    "version" : "5.2",
+    "handlers" : [ {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/loan-storage/loans",
+      "permissionsRequired" : [ "circulation-storage.loans.collection.get" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/loan-storage/loans/{id}",
+      "permissionsRequired" : [ "circulation-storage.loans.item.get" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/loan-storage/loans",
+      "permissionsRequired" : [ "circulation-storage.loans.item.post" ]
+    }, {
+      "methods" : [ "PUT" ],
+      "pathPattern" : "/loan-storage/loans/{id}",
+      "permissionsRequired" : [ "circulation-storage.loans.item.put" ]
+    }, {
+      "methods" : [ "DELETE" ],
+      "pathPattern" : "/loan-storage/loans/{id}",
+      "permissionsRequired" : [ "circulation-storage.loans.item.delete" ]
+    }, {
+      "methods" : [ "DELETE" ],
+      "pathPattern" : "/loan-storage/loans",
+      "permissionsRequired" : [ "circulation-storage.loans.collection.delete" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/loan-storage/loan-history",
+      "permissionsRequired" : [ "circulation-storage.loans-history.collection.get" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/loan-storage/loans/anonymize/{userId}",
+      "permissionsRequired" : [ "circulation-storage.loans.collection.anonymize.user.post" ]
+    } ]
+  }, {
+    "id" : "loan-rules-storage",
+    "version" : "1.0",
+    "handlers" : [ {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/loan-rules-storage",
+      "permissionsRequired" : [ "circulation-storage.loan-rules.get" ]
+    }, {
+      "methods" : [ "PUT" ],
+      "pathPattern" : "/loan-rules-storage",
+      "permissionsRequired" : [ "circulation-storage.loan-rules.put" ]
+    } ]
+  }, {
+    "id" : "loan-policy-storage",
+    "version" : "1.3",
+    "handlers" : [ {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/loan-policy-storage/loan-policies",
+      "permissionsRequired" : [ "circulation-storage.loan-policies.collection.get" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/loan-policy-storage/loan-policies/{id}",
+      "permissionsRequired" : [ "circulation-storage.loan-policies.item.get" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/loan-policy-storage/loan-policies",
+      "permissionsRequired" : [ "circulation-storage.loan-policies.item.post" ]
+    }, {
+      "methods" : [ "PUT" ],
+      "pathPattern" : "/loan-policy-storage/loan-policies/{id}",
+      "permissionsRequired" : [ "circulation-storage.loan-policies.item.put" ]
+    }, {
+      "methods" : [ "DELETE" ],
+      "pathPattern" : "/loan-policy-storage/loan-policies/{id}",
+      "permissionsRequired" : [ "circulation-storage.loan-policies.item.delete" ]
+    }, {
+      "methods" : [ "DELETE" ],
+      "pathPattern" : "/loan-policy-storage/loan-policies",
+      "permissionsRequired" : [ "circulation-storage.loan-policies.collection.delete" ]
+    } ]
+  }, {
+    "id" : "request-storage",
+    "version" : "2.3",
+    "handlers" : [ {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/request-storage/requests",
+      "permissionsRequired" : [ "circulation-storage.requests.collection.get" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/request-storage/requests/{id}",
+      "permissionsRequired" : [ "circulation-storage.requests.item.get" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/request-storage/requests",
+      "permissionsRequired" : [ "circulation-storage.requests.item.post" ]
+    }, {
+      "methods" : [ "PUT" ],
+      "pathPattern" : "/request-storage/requests/{id}",
+      "permissionsRequired" : [ "circulation-storage.requests.item.put" ]
+    }, {
+      "methods" : [ "DELETE" ],
+      "pathPattern" : "/request-storage/requests/{id}",
+      "permissionsRequired" : [ "circulation-storage.requests.item.delete" ]
+    }, {
+      "methods" : [ "DELETE" ],
+      "pathPattern" : "/request-storage/requests",
+      "permissionsRequired" : [ "circulation-storage.requests.collection.delete" ]
+    } ]
+  }, {
+    "id" : "fixed-due-date-schedules-storage",
+    "version" : "2.0",
+    "handlers" : [ {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/fixed-due-date-schedule-storage/fixed-due-date-schedules",
+      "permissionsRequired" : [ "circulation-storage.fixed-due-date-schedules.collection.get" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/fixed-due-date-schedule-storage/fixed-due-date-schedules/{id}",
+      "permissionsRequired" : [ "circulation-storage.fixed-due-date-schedules.item.get" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/fixed-due-date-schedule-storage/fixed-due-date-schedules",
+      "permissionsRequired" : [ "circulation-storage.fixed-due-date-schedules.item.post" ]
+    }, {
+      "methods" : [ "PUT" ],
+      "pathPattern" : "/fixed-due-date-schedule-storage/fixed-due-date-schedules/{id}",
+      "permissionsRequired" : [ "circulation-storage.fixed-due-date-schedules.item.put" ]
+    }, {
+      "methods" : [ "DELETE" ],
+      "pathPattern" : "/fixed-due-date-schedule-storage/fixed-due-date-schedules/{id}",
+      "permissionsRequired" : [ "circulation-storage.fixed-due-date-schedules.item.delete" ]
+    }, {
+      "methods" : [ "DELETE" ],
+      "pathPattern" : "/fixed-due-date-schedule-storage/fixed-due-date-schedules",
+      "permissionsRequired" : [ "circulation-storage.fixed-due-date-schedules.collection.delete" ]
+    } ]
+  }, {
+    "id" : "staff-slips-storage",
+    "version" : "1.0",
+    "handlers" : [ {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/staff-slips-storage/staff-slips",
+      "permissionsRequired" : [ "circulation-storage.staff-slips.collection.get" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/staff-slips-storage/staff-slips",
+      "permissionsRequired" : [ "circulation-storage.staff-slips.item.post" ]
+    }, {
+      "methods" : [ "DELETE" ],
+      "pathPattern" : "/staff-slips-storage/staff-slips",
+      "permissionsRequired" : [ "circulation-storage.staff-slips.collection.delete" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/staff-slips-storage/staff-slips/{id}",
+      "permissionsRequired" : [ "circulation-storage.staff-slips.item.get" ]
+    }, {
+      "methods" : [ "PUT" ],
+      "pathPattern" : "/staff-slips-storage/staff-slips/{id}",
+      "permissionsRequired" : [ "circulation-storage.staff-slips.item.put" ]
+    }, {
+      "methods" : [ "DELETE" ],
+      "pathPattern" : "/staff-slips-storage/staff-slips/{id}",
+      "permissionsRequired" : [ "circulation-storage.staff-slips.item.delete" ]
+    } ]
+  }, {
+    "id" : "cancellation-reason-storage",
+    "version" : "1.1",
+    "handlers" : [ {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/cancellation-reason-storage/cancellation-reasons",
+      "permissionsRequired" : [ "circulation-storage.cancellation-reasons.collection.get" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/cancellation-reason-storage/cancellation-reasons/{id}",
+      "permissionsRequired" : [ "circulation-storage.cancellation-reasons.item.get" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/cancellation-reason-storage/cancellation-reasons",
+      "permissionsRequired" : [ "circulation-storage.cancellation-reasons.item.post" ]
+    }, {
+      "methods" : [ "PUT" ],
+      "pathPattern" : "/cancellation-reason-storage/cancellation-reasons/{id}",
+      "permissionsRequired" : [ "circulation-storage.cancellation-reasons.item.put" ]
+    }, {
+      "methods" : [ "DELETE" ],
+      "pathPattern" : "/cancellation-reason-storage/cancellation-reasons",
+      "permissionsRequired" : [ "circulation-storage.cancellation-reasons.collection.delete" ]
+    }, {
+      "methods" : [ "DELETE" ],
+      "pathPattern" : "/cancellation-reason-storage/cancellation-reasons/{id}",
+      "permissionsRequired" : [ "circulation-storage.cancellation-reasons.item.delete" ]
+    } ]
+  }, {
+    "id" : "_tenant",
+    "version" : "1.0",
+    "interfaceType" : "system",
+    "handlers" : [ {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/_/tenant"
+    }, {
+      "methods" : [ "DELETE" ],
+      "pathPattern" : "/_/tenant"
+    } ]
+  } ],
+  "permissionSets" : [ {
+    "permissionName" : "circulation-storage.loans.collection.get",
+    "displayName" : "Circulation storage - get loan collection",
+    "description" : "Get loan collection from storage"
+  }, {
+    "permissionName" : "circulation-storage.loans.collection.delete",
+    "displayName" : "Circulation storage - delete entire loan collection",
+    "description" : "Delete entire loan collection from storage"
+  }, {
+    "permissionName" : "circulation-storage.loans.item.get",
+    "displayName" : "Circulation storage - get individual loan",
+    "description" : "Get individual loan from storage"
+  }, {
+    "permissionName" : "circulation-storage.loans.item.post",
+    "displayName" : "Circulation storage - create individual loan",
+    "description" : "Create individual loan in storage"
+  }, {
+    "permissionName" : "circulation-storage.loans.item.put",
+    "displayName" : "Circulation storage - modify loan",
+    "description" : "Modify loan in storage"
+  }, {
+    "permissionName" : "circulation-storage.loans.item.delete",
+    "displayName" : "Circulation storage - delete individual loan",
+    "description" : "Delete individual loan from storage"
+  }, {
+    "permissionName" : "circulation-storage.loans.collection.anonymize.user.post",
+    "displayName" : "Circulation storage - anonymize loans for a user",
+    "description" : "Anonymize closed loans for a single user"
+  }, {
+    "permissionName" : "circulation-storage.loan-rules.get",
+    "displayName" : "Circulation storage - get loan rules",
+    "description" : "Get loan rules from storage"
+  }, {
+    "permissionName" : "circulation-storage.loan-rules.put",
+    "displayName" : "Circulation storage - modify loan rules",
+    "description" : "Modify loan rules in storage"
+  }, {
+    "permissionName" : "circulation-storage.loan-policies.collection.get",
+    "displayName" : "Circulation storage - get loan policy collection",
+    "description" : "Get loan policy collection from storage"
+  }, {
+    "permissionName" : "circulation-storage.loan-policies.collection.delete",
+    "displayName" : "Circulation storage - delete entire loan collection",
+    "description" : "Delete entire loan collection from storage"
+  }, {
+    "permissionName" : "circulation-storage.loan-policies.item.get",
+    "displayName" : "Circulation storage - get individual loan policy",
+    "description" : "Get individual loan policy from storage"
+  }, {
+    "permissionName" : "circulation-storage.loan-policies.item.post",
+    "displayName" : "Circulation storage - create individual loan policy",
+    "description" : "Create individual loan policy in storage"
+  }, {
+    "permissionName" : "circulation-storage.loan-policies.item.put",
+    "displayName" : "Circulation storage - modify loan policy",
+    "description" : "Modify loan policy in storage"
+  }, {
+    "permissionName" : "circulation-storage.loan-policies.item.delete",
+    "displayName" : "Circulation storage - delete individual loan policy",
+    "description" : "Delete individual loan policy from storage"
+  }, {
+    "permissionName" : "circulation-storage.loans-history.collection.get",
+    "displayName" : "Circulation storage - get loan history collection",
+    "description" : "Get loan history collection from storage"
+  }, {
+    "permissionName" : "circulation-storage.requests.collection.get",
+    "displayName" : "Circulation storage - get request collection",
+    "description" : "Get request collection from storage"
+  }, {
+    "permissionName" : "circulation-storage.requests.collection.delete",
+    "displayName" : "Circulation storage - delete entire request collection",
+    "description" : "Delete entire request collection from storage"
+  }, {
+    "permissionName" : "circulation-storage.requests.item.get",
+    "displayName" : "Circulation storage - get individual request",
+    "description" : "Get individual request from storage"
+  }, {
+    "permissionName" : "circulation-storage.requests.item.post",
+    "displayName" : "Circulation storage - create individual request",
+    "description" : "Create individual request in storage"
+  }, {
+    "permissionName" : "circulation-storage.requests.item.put",
+    "displayName" : "Circulation storage - modify request",
+    "description" : "Modify request in storage"
+  }, {
+    "permissionName" : "circulation-storage.requests.item.delete",
+    "displayName" : "Circulation storage - delete individual request",
+    "description" : "Delete individual request from storage"
+  }, {
+    "permissionName" : "circulation-storage.fixed-due-date-schedules.collection.get",
+    "displayName" : "Circulation storage - get fixed due date collection",
+    "description" : "Get fixed due date collection from storage"
+  }, {
+    "permissionName" : "circulation-storage.fixed-due-date-schedules.item.get",
+    "displayName" : "Circulation storage - get individual fixed due date",
+    "description" : "Get individual fixed due date from storage"
+  }, {
+    "permissionName" : "circulation-storage.fixed-due-date-schedules.item.post",
+    "displayName" : "Circulation storage - create individual fixed due date",
+    "description" : "Create individual fixed due date from storage"
+  }, {
+    "permissionName" : "circulation-storage.fixed-due-date-schedules.item.put",
+    "displayName" : "Circulation storage - modify individual fixed due date",
+    "description" : "Modify individual fixed due date from storage"
+  }, {
+    "permissionName" : "circulation-storage.fixed-due-date-schedules.item.delete",
+    "displayName" : "Circulation storage - delete individual fixed due date",
+    "description" : "Delete individual fixed due date from storage"
+  }, {
+    "permissionName" : "circulation-storage.fixed-due-date-schedules.collection.delete",
+    "displayName" : "Circulation storage - delete collection of fixed due date",
+    "description" : "Delete collection of fixed due date from storage"
+  }, {
+    "permissionName" : "circulation-storage.staff-slips.collection.get",
+    "displayName" : "Circulation storage - get staff slip collection from storage",
+    "description" : "Get staff slip collection from storage"
+  }, {
+    "permissionName" : "circulation-storage.staff-slips.collection.delete",
+    "displayName" : "Circulation storage - delete entire staff slipp collection",
+    "description" : "Delete entire staff slip collection"
+  }, {
+    "permissionName" : "circulation-storage.staff-slips.item.post",
+    "displayName" : "Circulation storage - create indavidual staff slip in storage",
+    "description" : "Create individual staff slip in storage"
+  }, {
+    "permissionName" : "circulation-storage.staff-slips.item.get",
+    "displayName" : "Circulation storage - get indavidual staff slip from storage",
+    "description" : "Get individual staff slip from storage"
+  }, {
+    "permissionName" : "circulation-storage.staff-slips.item.delete",
+    "displayName" : "Circulation storage - delete indavidual staff slip from storage",
+    "description" : "Delete individual staff slip from storage"
+  }, {
+    "permissionName" : "circulation-storage.staff-slips.item.put",
+    "displayName" : "Circulation storage - modify indavidual staff slip in storage",
+    "description" : "Modify individual staff slip in storage"
+  }, {
+    "permissionName" : "circulation-storage.cancellation-reasons.collection.get",
+    "displayName" : "Circulation storage - get cancellation reasons collection",
+    "description" : "Get cancellation reasons from storage"
+  }, {
+    "permissionName" : "circulation-storage.cancellation-reasons.item.get",
+    "displayName" : "Circulation storage - get individual cancellation reason",
+    "description" : "Get individual cancellation reason by id"
+  }, {
+    "permissionName" : "circulation-storage.cancellation-reasons.item.post",
+    "displayName" : "Circulation storage - create individual cancellation reason",
+    "description" : "Create individual cancellation reason"
+  }, {
+    "permissionName" : "circulation-storage.cancellation-reasons.item.put",
+    "displayName" : "Circulation storage - put individual cancellation reason",
+    "description" : "Modify individual cancellation reason by id"
+  }, {
+    "permissionName" : "circulation-storage.cancellation-reasons.collection.delete",
+    "displayName" : "Circulation storage - delete cancellation reasons",
+    "description" : "Delete entire cancellation reasons collection"
+  }, {
+    "permissionName" : "circulation-storage.cancellation-reasons.item.delete",
+    "displayName" : "Circulation storage - delete individual cancellation reason",
+    "description" : "Delete individual cancellation reason by id"
+  }, {
+    "permissionName" : "circulation-storage.all",
+    "displayName" : "Circulation storage module - all permissions",
+    "description" : "Entire set of permissions needed to use the circulation storage module",
+    "subPermissions" : [ "circulation-storage.loans.collection.get", "circulation-storage.loans.item.get", "circulation-storage.loans.item.post", "circulation-storage.loans.item.put", "circulation-storage.loans.item.delete", "circulation-storage.loans.collection.delete", "circulation-storage.loans.collection.anonymize.user.post", "circulation-storage.loans-history.collection.get", "circulation-storage.loan-rules.get", "circulation-storage.loan-rules.put", "circulation-storage.loan-policies.collection.get", "circulation-storage.loan-policies.item.get", "circulation-storage.loan-policies.item.post", "circulation-storage.loan-policies.item.put", "circulation-storage.loan-policies.item.delete", "circulation-storage.loan-policies.collection.delete", "circulation-storage.requests.collection.get", "circulation-storage.requests.item.get", "circulation-storage.requests.item.post", "circulation-storage.requests.item.put", "circulation-storage.requests.item.delete", "circulation-storage.requests.collection.delete", "circulation-storage.fixed-due-date-schedules.collection.delete", "circulation-storage.fixed-due-date-schedules.item.delete", "circulation-storage.fixed-due-date-schedules.item.put", "circulation-storage.fixed-due-date-schedules.item.post", "circulation-storage.fixed-due-date-schedules.item.get", "circulation-storage.fixed-due-date-schedules.collection.get", "circulation-storage.staff-slips.item.delete", "circulation-storage.staff-slips.collection.delete", "circulation-storage.staff-slips.collection.get", "circulation-storage.staff-slips.item.post", "circulation-storage.staff-slips.item.put", "circulation-storage.staff-slips.item.get", "circulation-storage.cancellation-reasons.collection.get", "circulation-storage.cancellation-reasons.item.get", "circulation-storage.cancellation-reasons.item.post", "circulation-storage.cancellation-reasons.item.put", "circulation-storage.cancellation-reasons.collection.delete", "circulation-storage.cancellation-reasons.item.delete" ]
+  } ],
+  "launchDescriptor" : {
+    "dockerImage" : "folioorg/mod-circulation-storage:6.2.0",
+    "dockerPull" : true,
+    "env" : [ {
+      "name" : "JAVA_OPTIONS",
+      "value" : "-Xmx256m"
+    } ],
+    "dockerArgs" : {
+      "HostConfig" : {
+        "PortBindings" : {
+          "8081/tcp" : [ {
+            "HostPort" : "%p"
+          } ]
+        }
+      }
+    }
+  }
+}

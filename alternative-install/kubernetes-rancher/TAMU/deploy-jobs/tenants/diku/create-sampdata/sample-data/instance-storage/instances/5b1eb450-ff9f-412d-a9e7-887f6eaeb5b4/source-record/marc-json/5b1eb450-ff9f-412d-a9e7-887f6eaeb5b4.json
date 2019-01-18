@@ -1,0 +1,273 @@
+{
+  "leader": "01107nam a2200253 ca4500",
+  "fields": [
+    {
+      "001": "1008673218"
+    },
+    {
+      "003": "DE-601"
+    },
+    {
+      "005": "20180615212835.0"
+    },
+    {
+      "007": "hu\\uuu\\\\\\uuuu"
+    },
+    {
+      "008": "171211s1993\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\000\\0\\eng\\d"
+    },
+    {
+      "035": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "(DE-599)GBV1008673218"
+          }
+        ]
+      }
+    },
+    {
+      "040": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "b": "ger"
+          },
+          {
+            "c": "GBVCP"
+          },
+          {
+            "e": "rda"
+          }
+        ]
+      }
+    },
+    {
+      "041": {
+        "ind1": "0",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "eng"
+          }
+        ]
+      }
+    },
+    {
+      "100": {
+        "ind1": "1",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "Matwiejczyk-Montgomery, Marian Ann J."
+          },
+          {
+            "e": "VerfasserIn"
+          },
+          {
+            "4": "aut"
+          }
+        ]
+      }
+    },
+    {
+      "245": {
+        "ind1": "1",
+        "ind2": "0",
+        "subfields": [
+          {
+            "a": "Concepts of fashion 1921 - 1987"
+          },
+          {
+            "h": "microform"
+          },
+          {
+            "b": "a study of garments worn by selected winners of the Miss America Pageant"
+          },
+          {
+            "c": "Marian Ann J. Matwiejczyk-Montgomery"
+          }
+        ]
+      }
+    },
+    {
+      "264": {
+        "ind1": "3",
+        "ind2": "1",
+        "subfields": [
+          {
+            "a": "Ann Arbor, MI"
+          },
+          {
+            "b": "University Microfims International"
+          },
+          {
+            "c": "1993"
+          }
+        ]
+      }
+    },
+    {
+      "336": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "Text"
+          },
+          {
+            "b": "txt"
+          },
+          {
+            "2": "rdacontent"
+          }
+        ]
+      }
+    },
+    {
+      "337": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "Mikroform"
+          },
+          {
+            "b": "h"
+          },
+          {
+            "2": "rdamedia"
+          }
+        ]
+      }
+    },
+    {
+      "338": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "Mikrofiche"
+          },
+          {
+            "b": "he"
+          },
+          {
+            "2": "rdacarrier"
+          }
+        ]
+      }
+    },
+    {
+      "502": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "b": "Dissertation"
+          },
+          {
+            "c": "New York University"
+          },
+          {
+            "d": "1993"
+          }
+        ]
+      }
+    },
+    {
+      "533": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "Mikrofiche-Ausgabe"
+          }
+        ]
+      }
+    },
+    {
+      "655": {
+        "ind1": "0",
+        "ind2": "7",
+        "subfields": [
+          {
+            "0": "(DE-588)4113937-9"
+          },
+          {
+            "a": "Hochschulschrift"
+          },
+          {
+            "2": "gnd-content"
+          }
+        ]
+      }
+    },
+    {
+      "900": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "GBV"
+          },
+          {
+            "b": "PKB (Museen) Berlin"
+          },
+          {
+            "d": "!KB LIPP RARA! R-MF-Lipp Mc 101 f kl"
+          },
+          {
+            "x": "N"
+          },
+          {
+            "z": "N"
+          },
+          {
+            "s": "3181\/011"
+          },
+          {
+            "g": "R-MF-Lipp:Mc:101:f:kl:"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "PKB (Museen) Berlin"
+          },
+          {
+            "a": "181"
+          },
+          {
+            "b": "1729698859"
+          },
+          {
+            "c": "10"
+          },
+          {
+            "f": "KB LIPP RARA"
+          },
+          {
+            "d": "R-MF-Lipp Mc 101 f kl"
+          },
+          {
+            "e": "i"
+          },
+          {
+            "d": "R-MF-Lipp:Mc:101:f:kl:"
+          },
+          {
+            "x": "3181\/011"
+          }
+        ]
+      }
+    }
+  ]
+}

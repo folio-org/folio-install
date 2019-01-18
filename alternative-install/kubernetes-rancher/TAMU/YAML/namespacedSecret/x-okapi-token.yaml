@@ -1,0 +1,14 @@
+apiVersion: v1
+data:
+  X_OKAPI_TOKEN: foobar
+kind: Secret
+metadata:
+  annotations:
+    field.cattle.io/creatorId: u-foo
+    field.cattle.io/projectId: c-f00:p-foo
+  creationTimestamp: null
+  labels:
+    cattle.io/creator: norman
+  name: x-okapi-token
+  selfLink: /api/v1/namespaces/folio-q4/secrets/x-okapi-token
+type: Opaque

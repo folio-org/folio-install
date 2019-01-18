@@ -1,0 +1,22 @@
+{
+  "id" : "folio_data-import-1.0.0",
+  "name" : "Data Import manager",
+  "requires" : [ {
+    "id" : "data-import",
+    "version" : "1.0"
+  }, {
+    "id" : "source-record-manager",
+    "version" : "1.0"
+  } ],
+  "permissionSets" : [ {
+    "permissionName" : "module.data-import.enabled",
+    "displayName" : "UI: ui-data-import module is enabled",
+    "subPermissions" : [ "data-import.upload.definition.post", "data-import.upload.definition.get", "data-import.upload.file.post" ],
+    "visible" : true
+  }, {
+    "permissionName" : "settings.data-import.enabled",
+    "displayName" : "Settings (data-import): display list of settings pages",
+    "subPermissions" : [ "settings.enabled", "metadata-provider.log.get", "metadata-provider.jobexecution.get" ],
+    "visible" : true
+  } ]
+}

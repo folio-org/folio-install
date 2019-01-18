@@ -1,0 +1,32 @@
+{
+   "barcode" : "997310602019048",
+   "personal" : {
+      "lastName" : "Mueller",
+      "middleName" : "Cole",
+      "firstName" : "Alivia",
+      "phone" : "804.423.2014 x85734",
+      "dateOfBirth" : "1959-02-13",
+      "email" : "trenton@vonrueden-ebert.hr",
+      "addresses" : [
+         {
+            "postalCode" : "69971",
+            "addressLine1" : "61126 Julia Village",
+            "region" : "PW",
+            "primaryAddress" : true,
+            "addressTypeId" : "ad2c4726-b397-4a0c-8e0e-c31dc5503296",
+            "city" : "Hayward",
+            "countryId" : "US"
+         }
+      ],
+      "preferredContactTypeId" : "001",
+      "mobilePhone" : "621.888.4090"
+   },
+   "id" : "e988a193-6ee3-4dfe-b131-96fa576fb2e8",
+   "patronGroup" : "cb73adc7-5554-47d1-a074-9d56020c1030",
+   "type" : "patron",
+   "expirationDate" : "2018-10-26",
+   "active" : true,
+   "enrollmentDate" : "2017-06-17",
+   "username" : "tito"
+}
+

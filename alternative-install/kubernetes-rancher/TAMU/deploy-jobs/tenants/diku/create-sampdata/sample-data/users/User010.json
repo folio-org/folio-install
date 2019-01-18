@@ -1,0 +1,31 @@
+{
+   "enrollmentDate" : "2017-04-21",
+   "username" : "annabel",
+   "barcode" : "99334422276584",
+   "id" : "6964645e-0142-4bd9-bea6-fb7721dfc905",
+   "personal" : {
+      "dateOfBirth" : "1995-01-22",
+      "email" : "henriette@connelly-wunsch.coop",
+      "addresses" : [
+         {
+            "region" : "IL",
+            "primaryAddress" : true,
+            "addressTypeId" : "f6a96d06-618c-4697-9bf1-984cd8229831",
+            "city" : "Glendale",
+            "countryId" : "US",
+            "postalCode" : "56947-9246",
+            "addressLine1" : "35882 Quitzon Ramp"
+         }
+      ],
+      "preferredContactTypeId" : "001",
+      "lastName" : "Nolan",
+      "middleName" : "Caterina",
+      "firstName" : "Donald",
+      "phone" : "(624)496-0969"
+   },
+   "patronGroup" : "1f53a184-d791-48d7-bf34-3fea3eed1ad7",
+   "type" : "patron",
+   "expirationDate" : "2019-05-07",
+   "active" : false
+}
+

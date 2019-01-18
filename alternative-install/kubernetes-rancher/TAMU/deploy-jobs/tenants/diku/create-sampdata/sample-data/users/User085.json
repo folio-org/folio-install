@@ -1,0 +1,32 @@
+{
+   "username" : "lolita",
+   "enrollmentDate" : "2016-02-21",
+   "active" : true,
+   "expirationDate" : "2020-05-21",
+   "type" : "patron",
+   "patronGroup" : "1f53a184-d791-48d7-bf34-3fea3eed1ad7",
+   "id" : "7f332af9-9242-4e61-a588-93d05ca3da87",
+   "personal" : {
+      "phone" : "057.219.2889 x6873",
+      "firstName" : "Markus",
+      "middleName" : "Paul",
+      "lastName" : "Collier",
+      "email" : "lucio@kunze-connelly-and-raynor.bf",
+      "dateOfBirth" : "1990-04-20",
+      "mobilePhone" : "026.149.6484 x6687",
+      "preferredContactTypeId" : "004",
+      "addresses" : [
+         {
+            "addressLine1" : "70720 Hayes Inlet #008",
+            "postalCode" : "67643",
+            "city" : "Lakewood",
+            "addressTypeId" : "ad2c4726-b397-4a0c-8e0e-c31dc5503296",
+            "countryId" : "US",
+            "region" : "TN",
+            "primaryAddress" : true
+         }
+      ]
+   },
+   "barcode" : "588195913950968"
+}
+

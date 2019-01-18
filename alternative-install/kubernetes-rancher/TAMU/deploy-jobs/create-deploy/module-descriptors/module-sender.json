@@ -1,0 +1,51 @@
+{
+  "id" : "mod-sender-1.0.0",
+  "name" : "Mod sender",
+  "requires" : [ {
+    "id" : "users",
+    "version" : "15.0"
+  }, {
+    "id" : "email",
+    "version" : "1.0"
+  } ],
+  "provides" : [ {
+    "id" : "message-delivery",
+    "version" : "1.0",
+    "handlers" : [ {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/message-delivery",
+      "permissionsRequired" : [ "sender.message-delivery" ],
+      "modulePermissions" : [ "email.message.post", "users.item.get" ]
+    } ]
+  }, {
+    "id" : "_tenant",
+    "version" : "1.0",
+    "interfaceType" : "system",
+    "handlers" : [ {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/_/tenant"
+    } ]
+  } ],
+  "permissionSets" : [ {
+    "permissionName" : "sender.message-delivery",
+    "displayName" : "Message delivery",
+    "description" : "Send message"
+  } ],
+  "launchDescriptor" : {
+    "dockerImage" : "folioorg/mod-sender:1.0.0",
+    "dockerPull" : true,
+    "env" : [ {
+      "name" : "JAVA_OPTIONS",
+      "value" : "-Xmx256m"
+    } ],
+    "dockerArgs" : {
+      "HostConfig" : {
+        "PortBindings" : {
+          "8081/tcp" : [ {
+            "HostPort" : "%p"
+          } ]
+        }
+      }
+    }
+  }
+}

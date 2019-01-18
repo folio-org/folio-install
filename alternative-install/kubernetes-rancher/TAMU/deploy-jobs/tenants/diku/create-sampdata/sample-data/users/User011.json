@@ -1,0 +1,32 @@
+{
+   "active" : true,
+   "expirationDate" : "2018-12-13",
+   "type" : "patron",
+   "patronGroup" : "97a31a9d-52bf-4a80-98ca-39df96520abb",
+   "personal" : {
+      "phone" : "1-893-761-9943 x914",
+      "lastName" : "Wolf",
+      "middleName" : "Helen",
+      "firstName" : "Deanna",
+      "mobilePhone" : "472-549-7137",
+      "addresses" : [
+         {
+            "region" : "IN",
+            "primaryAddress" : true,
+            "city" : "Glendale",
+            "addressTypeId" : "ad2c4726-b397-4a0c-8e0e-c31dc5503296",
+            "countryId" : "US",
+            "postalCode" : "99469-8517",
+            "addressLine1" : "45067 Lang Spur Apt. 737"
+         }
+      ],
+      "preferredContactTypeId" : "004",
+      "email" : "abdullah@kassulke-larson-and-rogahn.ag",
+      "dateOfBirth" : "1970-12-15"
+   },
+   "id" : "6925350c-f54e-4b36-8122-811936d6be68",
+   "barcode" : "922551127385844",
+   "username" : "eldridge",
+   "enrollmentDate" : "2016-07-04"
+}
+

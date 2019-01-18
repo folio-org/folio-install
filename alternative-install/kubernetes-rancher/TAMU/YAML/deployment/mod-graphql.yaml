@@ -1,0 +1,77 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "10"
+    field.cattle.io/creatorId: u-foo
+    field.cattle.io/publicEndpoints: '[{"addresses":["XX.XX.XXX.XXX"],"port":30341,"protocol":"TCP","serviceName":"folio-q4:mod-graphql-nodeport","allNodes":true}]'
+  creationTimestamp: null
+  generation: 1
+  labels:
+    cattle.io/creator: norman
+    workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-graphql
+  name: mod-graphql
+  selfLink: /apis/apps/v1beta2/namespaces/folio-q4/deployments/mod-graphql
+spec:
+  minReadySeconds: 30
+  progressDeadlineSeconds: 300
+  replicas: 2
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-graphql
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        cattle.io/timestamp:
+        field.cattle.io/ports: '[[{"containerPort":3000,"dnsName":"mod-graphql-nodeport","kind":"NodePort","name":"3000tcp01","protocol":"TCP","sourcePort":0}]]'
+      creationTimestamp: null
+      labels:
+        workload: folio_module
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-graphql
+    spec:
+      containers:
+      - args:
+        - yarn
+        - start
+        - tests/input/mod-inventory-storage/ramls/instance-storage.raml
+        env:
+        - name: LOGGING_CATEGORIES
+          value: ramlpath
+        - name: OKAPI_TENANT
+          value: diku
+        - name: OKAPI_TOKEN
+          value: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkaWt1X2FkbWluIiwidXNlcl9pZCI6IjgwYjY2NzQ5LTMwMzQtNGEyMS1hY2RjLTc0OTA1ZmE2ZjY4YSIsImNhY2hlX2tleSI6ImI2OTVkYWM3LTdmYzAtNGMxNS05MTM0LWMyNjIyNzQ4NDM4NCIsImlhdCI6MTU0Nzc0NDMwMSwidGVuYW50IjoiZGlrdSJ9.Wo8j_QI2JACe13_XhP3R4oz9VX_aUrw1thUi7l5oaxM
+        - name: OKAPI_URL
+          value: http://okapi:9130
+        image: folioci/mod-graphql:latest
+        imagePullPolicy: Always
+        name: mod-graphql
+        ports:
+        - containerPort: 3000
+          name: 3000tcp01
+          protocol: TCP
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities: {}
+          privileged: false
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+        stdin: true
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        tty: true
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: dockerhub
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status: {}

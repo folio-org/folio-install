@@ -1,0 +1,32 @@
+{
+   "username" : "floy",
+   "enrollmentDate" : "2015-02-27",
+   "patronGroup" : "97a31a9d-52bf-4a80-98ca-39df96520abb",
+   "personal" : {
+      "phone" : "951-666-6909 x30998",
+      "middleName" : "Janis",
+      "firstName" : "Curtis",
+      "lastName" : "Flatley",
+      "mobilePhone" : "1-617-690-0185 x857",
+      "preferredContactTypeId" : "003",
+      "addresses" : [
+         {
+            "countryId" : "US",
+            "addressTypeId" : "f6a96d06-618c-4697-9bf1-984cd8229831",
+            "city" : "Maywood",
+            "region" : "MO",
+            "primaryAddress" : true,
+            "addressLine1" : "28031 Loyal Junction #945",
+            "postalCode" : "34626-9484"
+         }
+      ],
+      "email" : "jarvis@baumbach-fisher.th",
+      "dateOfBirth" : "1963-10-07"
+   },
+   "id" : "ac30c61e-2fa9-4d21-80ba-7e139dfe6fd1",
+   "barcode" : "871793220717798",
+   "active" : false,
+   "expirationDate" : "2019-03-25",
+   "type" : "patron"
+}
+

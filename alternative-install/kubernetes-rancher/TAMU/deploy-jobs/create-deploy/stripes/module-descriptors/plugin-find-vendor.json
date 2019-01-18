@@ -1,0 +1,6 @@
+{
+  "id" : "folio_plugin-find-vendor-1.2.0",
+  "name" : "Vendor-finder for Stripes",
+  "requires" : [ ],
+  "permissionSets" : [ ]
+}

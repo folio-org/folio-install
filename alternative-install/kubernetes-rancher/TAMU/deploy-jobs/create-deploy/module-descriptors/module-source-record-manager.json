@@ -1,0 +1,88 @@
+{
+  "id" : "mod-source-record-manager-0.1.0",
+  "name" : "Source Record Manager Module",
+  "requires" : [ {
+    "id" : "source-record-storage",
+    "version" : "1.0"
+  } ],
+  "provides" : [ {
+    "id" : "source-record-manager",
+    "version" : "1.0",
+    "handlers" : [ {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/metadata-provider/logs",
+      "permissionsRequired" : [ "metadata-provider.log.get" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/metadata-provider/jobExecutions",
+      "permissionsRequired" : [ "metadata-provider.jobexecution.get" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/change-manager/jobExecutions",
+      "permissionsRequired" : [ "change-manager.jobexecution.post" ]
+    }, {
+      "methods" : [ "PUT" ],
+      "pathPattern" : "/change-manager/jobExecution/{id}",
+      "permissionsRequired" : [ "change-manager.jobexecution.put" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/change-manager/records/{jobExecutionId}",
+      "permissionsRequired" : [ "change-manager.records.post" ]
+    } ]
+  }, {
+    "id" : "_tenant",
+    "version" : "1.0",
+    "interfaceType" : "system",
+    "handlers" : [ {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/_/tenant"
+    }, {
+      "methods" : [ "DELETE" ],
+      "pathPattern" : "/_/tenant"
+    } ]
+  } ],
+  "permissionSets" : [ {
+    "permissionName" : "metadata-provider.log.get",
+    "displayName" : "Metadata Provider - get logs",
+    "description" : "Get logs"
+  }, {
+    "permissionName" : "metadata-provider.jobexecution.get",
+    "displayName" : "Metadata Provider - get jobExecutions",
+    "description" : "Get JobExecutions"
+  }, {
+    "permissionName" : "change-manager.jobexecution.post",
+    "displayName" : "Change Manager - create jobExecution",
+    "description" : "Post JobExecution"
+  }, {
+    "permissionName" : "change-manager.jobexecution.put",
+    "displayName" : "Change Manager - update jobExecution",
+    "description" : "Put JobExecution"
+  }, {
+    "permissionName" : "change-manager.records.post",
+    "displayName" : "Change Manager - post chunk of raw records",
+    "description" : "Post chunk of raw records"
+  }, {
+    "permissionName" : "source-record-manager.all",
+    "displayName" : "Source Record Manager - all permissions",
+    "description" : "Entire set of permissions needed to manage jobExecutions",
+    "subPermissions" : [ "metadata-provider.log.get", "metadata-provider.jobexecution.get", "change-manager.jobexecution.post", "change-manager.jobexecution.put", "change-manager.records.post" ],
+    "visible" : false
+  } ],
+  "launchDescriptor" : {
+    "dockerImage" : "folioorg/mod-source-record-manager:0.1.0",
+    "dockerPull" : true,
+    "env" : [ {
+      "name" : "JAVA_OPTIONS",
+      "value" : "-Xmx256m"
+    } ],
+    "dockerArgs" : {
+      "HostConfig" : {
+        "PortBindings" : {
+          "8081/tcp" : [ {
+            "HostPort" : "%p"
+          } ]
+        }
+      }
+    }
+  }
+}

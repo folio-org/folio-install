@@ -1,0 +1,16 @@
+{
+  "name": "HIST-FY19",
+  "code": "HIST-FY19",
+  "budget_status": "Active",
+  "limit_enc_percent": 110,
+  "limit_exp_percent": 100,
+  "allocation": 200000.00,
+  "awaiting_payment": 0,
+  "available": 0,
+  "encumbered": 0,
+  "expenditures": 0,
+  "over_encumbrance": 0,
+  "fund_id": "fb7b70f1-b898-4924-a991-0e4b6312bb5f",
+  "fiscal_year_id": "684b5dc5-92f6-4db7-b996-b549d88f5e4e",
+  "tags": null
+}

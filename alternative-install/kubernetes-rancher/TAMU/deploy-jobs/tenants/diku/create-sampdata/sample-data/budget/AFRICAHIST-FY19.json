@@ -1,0 +1,16 @@
+{
+  "name": "AFRICAHIST-FY19",
+  "code": "AFRICAHIST-FY19",
+  "budget_status": "Active",
+  "limit_enc_percent": 110,
+  "limit_exp_percent": 100,
+  "allocation": 21000.00,
+  "awaiting_payment": 126.5,
+  "available": 12863.30,
+  "encumbered": 6138.22,
+  "expenditures": 1871.98,
+  "over_encumbrance": 0,
+  "fund_id": "7fbd5d84-62d1-44c6-9c45-6cb173998bbd",
+  "fiscal_year_id": "684b5dc5-92f6-4db7-b996-b549d88f5e4e",
+  "tags": null
+}

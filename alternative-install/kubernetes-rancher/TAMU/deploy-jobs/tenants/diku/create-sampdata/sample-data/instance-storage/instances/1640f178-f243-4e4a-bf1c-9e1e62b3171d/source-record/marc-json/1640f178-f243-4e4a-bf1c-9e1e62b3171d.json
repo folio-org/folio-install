@@ -1,0 +1,454 @@
+{
+  "leader": "01741nam a2200373 cb4500",
+  "fields": [
+    {
+      "001": "101073931X"
+    },
+    {
+      "003": "DE-601"
+    },
+    {
+      "005": "20180416162657.0"
+    },
+    {
+      "008": "180111s2018\\\\\\\\sz\\\\\\\\\\\\\\\\\\\\\\\\000\\0\\eng\\d"
+    },
+    {
+      "020": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "3319643991"
+          },
+          {
+            "9": "3-319-64399-1"
+          }
+        ]
+      }
+    },
+    {
+      "020": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "9783319643991"
+          },
+          {
+            "9": "978-3-319-64399-1"
+          }
+        ]
+      }
+    },
+    {
+      "020": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "9783319644004 (electronic)"
+          },
+          {
+            "9": "978-3-319-64400-4"
+          }
+        ]
+      }
+    },
+    {
+      "035": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "(OCoLC)ocn992783736"
+          }
+        ]
+      }
+    },
+    {
+      "035": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "(OCoLC)992783736"
+          }
+        ]
+      }
+    },
+    {
+      "035": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "(DE-599)GBV101073931X"
+          }
+        ]
+      }
+    },
+    {
+      "040": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "b": "ger"
+          },
+          {
+            "c": "GBVCP"
+          },
+          {
+            "e": "rda"
+          }
+        ]
+      }
+    },
+    {
+      "041": {
+        "ind1": "0",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "eng"
+          }
+        ]
+      }
+    },
+    {
+      "245": {
+        "ind1": "0",
+        "ind2": "0",
+        "subfields": [
+          {
+            "a": "Futures, biometrics and neuroscience research"
+          },
+          {
+            "c": "Luiz Moutinho, Mladen Sokele, editors"
+          }
+        ]
+      }
+    },
+    {
+      "264": {
+        "ind1": "3",
+        "ind2": "1",
+        "subfields": [
+          {
+            "a": "Cham"
+          },
+          {
+            "b": "Palgrave Macmillan"
+          },
+          {
+            "c": "[2018]"
+          }
+        ]
+      }
+    },
+    {
+      "300": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "xxix, 224 Seiten"
+          },
+          {
+            "b": "Illustrationen"
+          }
+        ]
+      }
+    },
+    {
+      "336": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "Text"
+          },
+          {
+            "b": "txt"
+          },
+          {
+            "2": "rdacontent"
+          }
+        ]
+      }
+    },
+    {
+      "337": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "ohne Hilfsmittel zu benutzen"
+          },
+          {
+            "b": "n"
+          },
+          {
+            "2": "rdamedia"
+          }
+        ]
+      }
+    },
+    {
+      "338": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "Band"
+          },
+          {
+            "b": "nc"
+          },
+          {
+            "2": "rdacarrier"
+          }
+        ]
+      }
+    },
+    {
+      "490": {
+        "ind1": "0",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "Innovative research methodologies in management"
+          },
+          {
+            "v": " \/ Luiz Moutinho, Mladen Sokele ; Volume 2"
+          }
+        ]
+      }
+    },
+    {
+      "500": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "Enthält 9 Beiträge"
+          }
+        ]
+      }
+    },
+    {
+      "650": {
+        "ind1": "\\",
+        "ind2": "7",
+        "subfields": [
+          {
+            "8": "1.1\\x"
+          },
+          {
+            "a": "Betriebswirtschaftslehre"
+          },
+          {
+            "0": "(DE-601)091351391"
+          },
+          {
+            "0": "(DE-STW)12041-5"
+          },
+          {
+            "2": "stw"
+          }
+        ]
+      }
+    },
+    {
+      "650": {
+        "ind1": "\\",
+        "ind2": "7",
+        "subfields": [
+          {
+            "8": "1.2\\x"
+          },
+          {
+            "a": "Management"
+          },
+          {
+            "0": "(DE-601)091376173"
+          },
+          {
+            "0": "(DE-STW)12085-6"
+          },
+          {
+            "2": "stw"
+          }
+        ]
+      }
+    },
+    {
+      "650": {
+        "ind1": "\\",
+        "ind2": "7",
+        "subfields": [
+          {
+            "8": "1.3\\x"
+          },
+          {
+            "a": "Wissenschaftliche Methode"
+          },
+          {
+            "0": "(DE-601)091401445"
+          },
+          {
+            "0": "(DE-STW)16727-0"
+          },
+          {
+            "2": "stw"
+          }
+        ]
+      }
+    },
+    {
+      "700": {
+        "ind1": "1",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "Moutinho, Luiz"
+          },
+          {
+            "e": "HerausgeberIn"
+          },
+          {
+            "4": "edt"
+          },
+          {
+            "0": "(DE-601)509450954"
+          },
+          {
+            "0": "(DE-588)131450204"
+          }
+        ]
+      }
+    },
+    {
+      "700": {
+        "ind1": "1",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "Sokele, Mladen"
+          },
+          {
+            "e": "HerausgeberIn"
+          },
+          {
+            "4": "edt"
+          }
+        ]
+      }
+    },
+    {
+      "830": {
+        "ind1": "\\",
+        "ind2": "0",
+        "subfields": [
+          {
+            "a": "Innovative research methodologies in management"
+          },
+          {
+            "b": " \/ Luiz Moutinho, Mladen Sokele"
+          },
+          {
+            "v": "Volume 2"
+          },
+          {
+            "9": "2.2018"
+          },
+          {
+            "w": "(DE-601)1011380293"
+          }
+        ]
+      }
+    },
+    {
+      "856": {
+        "ind1": "4",
+        "ind2": "2",
+        "subfields": [
+          {
+            "y": "Inhaltsverzeichnis"
+          },
+          {
+            "u": "http:\/\/www.gbv.de\/dms\/zbw\/101073931X.pdf"
+          },
+          {
+            "m": "V:DE-601;B:DE-206"
+          },
+          {
+            "q": "application\/pdf"
+          },
+          {
+            "3": "Inhaltsverzeichnis"
+          }
+        ]
+      }
+    },
+    {
+      "900": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "GBV"
+          },
+          {
+            "b": "ZBW Kiel <206>"
+          },
+          {
+            "d": "!H:! A18-1775"
+          },
+          {
+            "x": "L"
+          },
+          {
+            "z": "LC"
+          },
+          {
+            "s": "206\/1"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "ZBW Kiel <206>"
+          },
+          {
+            "a": "26"
+          },
+          {
+            "b": "1740761685"
+          },
+          {
+            "c": "01"
+          },
+          {
+            "f": "H:"
+          },
+          {
+            "d": "A18-1775"
+          },
+          {
+            "e": "u"
+          },
+          {
+            "x": "206\/1"
+          }
+        ]
+      }
+    }
+  ]
+}

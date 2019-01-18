@@ -1,0 +1,61 @@
+{
+  "id" : "mod-gobi-1.0.1",
+  "name" : "GOBI� Module",
+  "requires" : [ {
+    "id" : "orders",
+    "version" : "1.0"
+  }, {
+    "id" : "configuration",
+    "version" : "2.0"
+  }, {
+    "id" : "material-types",
+    "version" : "2.2"
+  }, {
+    "id" : "locations",
+    "version" : "2.1 3.0"
+  }, {
+    "id" : "vendor",
+    "version" : "1.0"
+  } ],
+  "provides" : [ {
+    "id" : "gobi",
+    "version" : "1.0",
+    "handlers" : [ {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/gobi/validate",
+      "permissionsRequired" : [ "gobi.item.post" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/gobi/orders",
+      "permissionsRequired" : [ "gobi.item.post" ],
+      "modulePermissions" : [ "orders.item.post", "inventory-storage.material-types.collection.get", "inventory-storage.locations.collection.get", "vendor.collection.get", "configuration.entries.collection.get" ]
+    } ]
+  } ],
+  "permissionSets" : [ {
+    "permissionName" : "gobi.item.post",
+    "displayName" : "gobi - post order",
+    "description" : "Creates an order"
+  }, {
+    "permissionName" : "gobi.all",
+    "displayName" : "gobi - all permissions",
+    "description" : "Entire set of permissions needed to use gobi",
+    "subPermissions" : [ "gobi.item.post" ]
+  } ],
+  "launchDescriptor" : {
+    "dockerImage" : "folioorg/mod-gobi:1.0.1",
+    "dockerPull" : true,
+    "env" : [ {
+      "name" : "JAVA_OPTIONS",
+      "value" : "-Xmx256m"
+    } ],
+    "dockerArgs" : {
+      "HostConfig" : {
+        "PortBindings" : {
+          "8081/tcp" : [ {
+            "HostPort" : "%p"
+          } ]
+        }
+      }
+    }
+  }
+}

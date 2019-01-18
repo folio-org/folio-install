@@ -1,0 +1,32 @@
+{
+   "enrollmentDate" : "2016-06-22",
+   "username" : "amy",
+   "expirationDate" : "2019-04-19",
+   "active" : true,
+   "type" : "patron",
+   "patronGroup" : "cb73adc7-5554-47d1-a074-9d56020c1030",
+   "barcode" : "864050292766467",
+   "id" : "5aaa79a6-3fe0-43d0-abca-251d77d61b3c",
+   "personal" : {
+      "phone" : "(751)946-5208 x75649",
+      "firstName" : "Alivia",
+      "middleName" : "Ivory",
+      "lastName" : "Legros",
+      "mobilePhone" : "(192)789-8493",
+      "preferredContactTypeId" : "003",
+      "addresses" : [
+         {
+            "region" : "AS",
+            "primaryAddress" : true,
+            "city" : "Garden Grove",
+            "addressTypeId" : "f6a96d06-618c-4697-9bf1-984cd8229831",
+            "countryId" : "US",
+            "postalCode" : "22005",
+            "addressLine1" : "79149 Lobby"
+         }
+      ],
+      "email" : "eryn@kunde-inc.kn",
+      "dateOfBirth" : "1997-09-25"
+   }
+}
+

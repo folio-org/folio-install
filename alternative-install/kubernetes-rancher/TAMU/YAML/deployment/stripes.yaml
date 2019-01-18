@@ -1,0 +1,84 @@
+apiVersion: apps/v1beta2
+kind: DaemonSet
+metadata:
+  annotations:
+    deprecated.daemonset.template.generation: "2"
+    field.cattle.io/creatorId: u-foo
+    field.cattle.io/publicEndpoints: '[{"addresses":["XX.XX.XXX.XXX"],"port":32200,"protocol":"TCP","serviceName":"folio-q4:stripes-nodeport","allNodes":true},{"addresses":["XX.XX.XXX.XXX"],"port":443,"protocol":"HTTPS","serviceName":"folio-q4:stripes","ingressName":"folio-q4:stripes","hostname":"folio-q4.org","allNodes":true},{"addresses":["XX.XX.XXX.XXX"],"port":443,"protocol":"HTTPS","serviceName":"folio-q4:stripes","ingressName":"folio-q4:stripes","hostname":"folio-q4.org","path":"/","allNodes":true}]'
+  creationTimestamp: null
+  generation: 1
+  labels:
+    cattle.io/creator: norman
+    workload.user.cattle.io/workloadselector: daemonSet-folio-q4-stripes
+  name: stripes
+  selfLink: /apis/apps/v1beta2/namespaces/folio-q4/daemonsets/stripes
+spec:
+  minReadySeconds: 30
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      workload.user.cattle.io/workloadselector: daemonSet-folio-q4-stripes
+  template:
+    metadata:
+      annotations:
+        cattle.io/timestamp:
+        field.cattle.io/ports: '[[{"containerPort":3000,"dnsName":"stripes-nodeport","kind":"NodePort","name":"3000tcp01","protocol":"TCP","sourcePort":0}]]'
+      creationTimestamp: null
+      labels:
+        workload.user.cattle.io/workloadselector: daemonSet-folio-q4-stripes
+    spec:
+      containers:
+      - image: 10.55.134.48/folio/stripes:q4
+        imagePullPolicy: Always
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /50x.html
+            port: 3000
+            scheme: HTTP
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 2
+        name: stripes
+        ports:
+        - containerPort: 3000
+          name: 3000tcp01
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /50x.html
+            port: 3000
+            scheme: HTTP
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 2
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities: {}
+          privileged: false
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+        stdin: true
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        tty: true
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: vic-teague
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+  updateStrategy:
+    rollingUpdate:
+      maxUnavailable: 1
+    type: RollingUpdate
+status:
+  currentNumberScheduled: 0
+  desiredNumberScheduled: 0
+  numberMisscheduled: 0
+  numberReady: 0

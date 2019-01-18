@@ -1,0 +1,75 @@
+{
+  "id" : "mod-marccat-1.2.0",
+  "name" : "MARCcat Module",
+  "requires" : [ {
+    "id" : "configuration",
+    "version" : "2.0"
+  } ],
+  "provides" : [ {
+    "id" : "marccat",
+    "version" : "1.0",
+    "handlers" : [ {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/search",
+      "permissionsRequired" : [ "marccat.records.collection.get" ],
+      "modulePermissions" : [ ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/mergedSearch",
+      "permissionsRequired" : [ "marccat.records.collection.get" ],
+      "modulePermissions" : [ ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/searchVertical",
+      "permissionsRequired" : [ "marccat.records.collection.get" ],
+      "modulePermissions" : [ ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/document-count-by-id",
+      "permissionsRequired" : [ "marccat.record.count.get" ],
+      "modulePermissions" : [ ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/browse",
+      "permissionsRequired" : [ "marccat.records.collection.get" ],
+      "modulePermissions" : [ ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/next-page",
+      "permissionsRequired" : [ "marccat.records.collection.get" ],
+      "modulePermissions" : [ ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/previous-page",
+      "permissionsRequired" : [ "marccat.records.collection.get" ],
+      "modulePermissions" : [ ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/headings-by-tag",
+      "permissionsRequired" : [ "marccat.records.collection.get" ],
+      "modulePermissions" : [ ]
+    } ]
+  } ],
+  "permissionSets" : [ {
+    "permissionName" : "marccat.records.collection.get",
+    "displayName" : "MARCcat - get marc records collection",
+    "description" : "Get marc records collection"
+  }, {
+    "permissionName" : "marccat.record.count.get",
+    "displayName" : "MARCcat - get count of document by id",
+    "description" : "Get count of MARC document by id"
+  } ],
+  "launchDescriptor" : {
+    "dockerImage" : "folioorg/mod-marccat:1.2.0",
+    "dockerPull" : true,
+    "dockerArgs" : {
+      "HostConfig" : {
+        "PortBindings" : {
+          "9403/tcp" : [ {
+            "HostPort" : "%p"
+          } ]
+        }
+      }
+    }
+  }
+}

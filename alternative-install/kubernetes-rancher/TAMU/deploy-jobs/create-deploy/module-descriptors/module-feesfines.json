@@ -1,0 +1,485 @@
+{
+  "id" : "mod-feesfines-15.1.0",
+  "name" : "feesfines",
+  "provides" : [ {
+    "id" : "feesfines",
+    "version" : "15.0",
+    "handlers" : [ {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/feefines",
+      "permissionsRequired" : [ "feefines.collection.get" ],
+      "permissionsDesired" : [ "feefines.read.basic", "feefines.read.restricted" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/feefines/{id}",
+      "permissionsRequired" : [ "feefines.item.get" ],
+      "permissionsDesired" : [ "feefines.read.basic", "feefines.read.restricted" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/feefines",
+      "permissionsRequired" : [ "feefines.item.post" ]
+    }, {
+      "methods" : [ "PUT" ],
+      "pathPattern" : "/feefines/{id}",
+      "permissionsRequired" : [ "feefines.item.put" ]
+    }, {
+      "methods" : [ "DELETE" ],
+      "pathPattern" : "/feefines/{id}",
+      "permissionsRequired" : [ "feefines.item.delete" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/owners",
+      "permissionsRequired" : [ "owners.collection.get" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/owners/{id}",
+      "permissionsRequired" : [ "owners.item.get" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/owners",
+      "permissionsRequired" : [ "owners.item.post" ]
+    }, {
+      "methods" : [ "PUT" ],
+      "pathPattern" : "/owners/{id}",
+      "permissionsRequired" : [ "owners.item.put" ]
+    }, {
+      "methods" : [ "DELETE" ],
+      "pathPattern" : "/owners/{id}",
+      "permissionsRequired" : [ "owners.item.delete" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/accounts",
+      "permissionsRequired" : [ "accounts.collection.get" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/accounts/{id}",
+      "permissionsRequired" : [ "accounts.item.get" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/accounts",
+      "permissionsRequired" : [ "accounts.item.post" ]
+    }, {
+      "methods" : [ "PUT" ],
+      "pathPattern" : "/accounts/{id}",
+      "permissionsRequired" : [ "accounts.item.put" ]
+    }, {
+      "methods" : [ "DELETE" ],
+      "pathPattern" : "/accounts/{id}",
+      "permissionsRequired" : [ "accounts.item.delete" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/feefineactions",
+      "permissionsRequired" : [ "feefineactions.collection.get" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/feefineactions/{id}",
+      "permissionsRequired" : [ "feefineactions.item.get" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/feefineactions",
+      "permissionsRequired" : [ "feefineactions.item.post" ]
+    }, {
+      "methods" : [ "PUT" ],
+      "pathPattern" : "/feefineactions/{id}",
+      "permissionsRequired" : [ "feefineactions.item.put" ]
+    }, {
+      "methods" : [ "DELETE" ],
+      "pathPattern" : "/feefineactions/{id}",
+      "permissionsRequired" : [ "feefineactions.item.delete" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/payments",
+      "permissionsRequired" : [ "payments.collection.get" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/payments/{id}",
+      "permissionsRequired" : [ "payments.item.get" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/payments",
+      "permissionsRequired" : [ "payments.item.post" ]
+    }, {
+      "methods" : [ "PUT" ],
+      "pathPattern" : "/payments/{id}",
+      "permissionsRequired" : [ "payments.item.put" ]
+    }, {
+      "methods" : [ "DELETE" ],
+      "pathPattern" : "/payments/{id}",
+      "permissionsRequired" : [ "payments.item.delete" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/waives",
+      "permissionsRequired" : [ "waives.collection.get" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/waives/{id}",
+      "permissionsRequired" : [ "waives.item.get" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/waives",
+      "permissionsRequired" : [ "waives.item.post" ]
+    }, {
+      "methods" : [ "PUT" ],
+      "pathPattern" : "/waives/{id}",
+      "permissionsRequired" : [ "waives.item.put" ]
+    }, {
+      "methods" : [ "DELETE" ],
+      "pathPattern" : "/waives/{id}",
+      "permissionsRequired" : [ "waives.item.delete" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/refunds",
+      "permissionsRequired" : [ "refunds.collection.get" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/refunds/{id}",
+      "permissionsRequired" : [ "refunds.item.get" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/refunds",
+      "permissionsRequired" : [ "refunds.item.post" ]
+    }, {
+      "methods" : [ "PUT" ],
+      "pathPattern" : "/refunds/{id}",
+      "permissionsRequired" : [ "refunds.item.put" ]
+    }, {
+      "methods" : [ "DELETE" ],
+      "pathPattern" : "/refunds/{id}",
+      "permissionsRequired" : [ "refunds.item.delete" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/transfers",
+      "permissionsRequired" : [ "transfers.collection.get" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/transfers/{id}",
+      "permissionsRequired" : [ "transfers.item.get" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/transfers",
+      "permissionsRequired" : [ "transfers.item.post" ]
+    }, {
+      "methods" : [ "PUT" ],
+      "pathPattern" : "/transfers/{id}",
+      "permissionsRequired" : [ "transfers.item.put" ]
+    }, {
+      "methods" : [ "DELETE" ],
+      "pathPattern" : "/transfers/{id}",
+      "permissionsRequired" : [ "transfers.item.delete" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/comments",
+      "permissionsRequired" : [ "comments.collection.get" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/comments/{id}",
+      "permissionsRequired" : [ "comments.item.get" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/comments",
+      "permissionsRequired" : [ "comments.item.post" ]
+    }, {
+      "methods" : [ "PUT" ],
+      "pathPattern" : "/comments/{id}",
+      "permissionsRequired" : [ "comments.item.put" ]
+    }, {
+      "methods" : [ "DELETE" ],
+      "pathPattern" : "/comments/{id}",
+      "permissionsRequired" : [ "comments.item.delete" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/transfertypes",
+      "permissionsRequired" : [ "transfertypes.collection.get" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/transfertypes/{id}",
+      "permissionsRequired" : [ "transfertypes.item.get" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/transfertypes",
+      "permissionsRequired" : [ "transfertypes.item.post" ]
+    }, {
+      "methods" : [ "PUT" ],
+      "pathPattern" : "/transfertypes/{id}",
+      "permissionsRequired" : [ "transfertypes.item.put" ]
+    }, {
+      "methods" : [ "DELETE" ],
+      "pathPattern" : "/transfertypes/{id}",
+      "permissionsRequired" : [ "transfertypes.item.delete" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/manualblocks",
+      "permissionsRequired" : [ "manualblocks.collection.get" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/manualblocks/{id}",
+      "permissionsRequired" : [ "manualblocks.item.get" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/manualblocks",
+      "permissionsRequired" : [ "manualblocks.item.post" ]
+    }, {
+      "methods" : [ "PUT" ],
+      "pathPattern" : "/manualblocks/{id}",
+      "permissionsRequired" : [ "manualblocks.item.put" ]
+    }, {
+      "methods" : [ "DELETE" ],
+      "pathPattern" : "/manualblocks/{id}",
+      "permissionsRequired" : [ "manualblocks.item.delete" ]
+    } ]
+  }, {
+    "id" : "_tenant",
+    "version" : "1.0",
+    "interfaceType" : "system",
+    "handlers" : [ {
+      "methods" : [ "POST", "DELETE" ],
+      "pathPattern" : "/_/tenant"
+    } ]
+  } ],
+  "permissionSets" : [ {
+    "permissionName" : "feefines.collection.get",
+    "displayName" : "feefines collection get",
+    "description" : "Get a collection of feefines records"
+  }, {
+    "permissionName" : "feefines.item.get",
+    "displayName" : "feefines item get",
+    "description" : "Read an individual record in the Feefine module"
+  }, {
+    "permissionName" : "feefines.read.basic",
+    "displayName" : "feefines read-basic",
+    "description" : "Read non-restricted Feefine data information"
+  }, {
+    "permissionName" : "feefines.read.restricted",
+    "displayName" : "feefines read-restricted",
+    "description" : "Read restricted Feefine data information"
+  }, {
+    "permissionName" : "feefines.item.post",
+    "displayName" : "feefines item post",
+    "description" : "Create new records in the Feefine module"
+  }, {
+    "permissionName" : "feefines.item.put",
+    "displayName" : "feefines item put",
+    "description" : "Edit existing records in the Feefine module"
+  }, {
+    "permissionName" : "feefines.item.delete",
+    "displayName" : "feefines item delete",
+    "description" : "Delete records from the Feefine module"
+  }, {
+    "permissionName" : "owners.collection.get",
+    "displayName" : "owners collection get",
+    "description" : "Get a list of owner records"
+  }, {
+    "permissionName" : "owners.item.get",
+    "displayName" : "owners item get",
+    "description" : "Get a single owner item"
+  }, {
+    "permissionName" : "owners.item.post",
+    "displayName" : "owners item post",
+    "description" : "Create new Owners"
+  }, {
+    "permissionName" : "owners.item.put",
+    "displayName" : "owners item put",
+    "description" : "Edit existing Owners"
+  }, {
+    "permissionName" : "owners.item.delete",
+    "displayName" : "owners item delete",
+    "description" : "Delete Owners"
+  }, {
+    "permissionName" : "accounts.collection.get",
+    "displayName" : "accounts collection get",
+    "description" : "Get a list of account records"
+  }, {
+    "permissionName" : "accounts.item.get",
+    "displayName" : "accounts item get",
+    "description" : "Get a single account record"
+  }, {
+    "permissionName" : "accounts.item.post",
+    "displayName" : "accounts item post",
+    "description" : "Create a new account record"
+  }, {
+    "permissionName" : "accounts.item.put",
+    "displayName" : "accounts item put",
+    "description" : "Edit an account record"
+  }, {
+    "permissionName" : "accounts.item.delete",
+    "displayName" : "accounts item delete",
+    "description" : "Delete an account record"
+  }, {
+    "permissionName" : "feefineactions.collection.get",
+    "displayName" : "feefineactions collection get",
+    "description" : "Get a list of feefineaction records"
+  }, {
+    "permissionName" : "feefineactions.item.get",
+    "displayName" : "feefineactions item get",
+    "description" : "Get a single feefineaction record"
+  }, {
+    "permissionName" : "feefineactions.item.post",
+    "displayName" : "feefineactions item post",
+    "description" : "Create a new feefineaction record"
+  }, {
+    "permissionName" : "feefineactions.item.put",
+    "displayName" : "feefineactions item put",
+    "description" : "Edit an feefineaction record"
+  }, {
+    "permissionName" : "feefineactions.item.delete",
+    "displayName" : "feefineactions item delete",
+    "description" : "Delete an feefineaction record"
+  }, {
+    "permissionName" : "payments.collection.get",
+    "displayName" : "payments collection get",
+    "description" : "Get a list of payment records"
+  }, {
+    "permissionName" : "payments.item.get",
+    "displayName" : "payments item get",
+    "description" : "Get a single payment record"
+  }, {
+    "permissionName" : "payments.item.post",
+    "displayName" : "payments item post",
+    "description" : "Create a new payment record"
+  }, {
+    "permissionName" : "payments.item.put",
+    "displayName" : "payments item put",
+    "description" : "Edit an payment record"
+  }, {
+    "permissionName" : "payments.item.delete",
+    "displayName" : "payments item delete",
+    "description" : "Delete an payment record"
+  }, {
+    "permissionName" : "waives.collection.get",
+    "displayName" : "waives collection get",
+    "description" : "Get a list of waive records"
+  }, {
+    "permissionName" : "waives.item.get",
+    "displayName" : "waives item get",
+    "description" : "Get a single waive record"
+  }, {
+    "permissionName" : "waives.item.post",
+    "displayName" : "waives item post",
+    "description" : "Create a new waive record"
+  }, {
+    "permissionName" : "waives.item.put",
+    "displayName" : "waives item put",
+    "description" : "Edit an waive record"
+  }, {
+    "permissionName" : "waives.item.delete",
+    "displayName" : "waives item delete",
+    "description" : "Delete an waive record"
+  }, {
+    "permissionName" : "refunds.collection.get",
+    "displayName" : "refunds collection get",
+    "description" : "Get a list of refund records"
+  }, {
+    "permissionName" : "refunds.item.get",
+    "displayName" : "refunds item get",
+    "description" : "Get a single refund record"
+  }, {
+    "permissionName" : "refunds.item.post",
+    "displayName" : "refunds item post",
+    "description" : "Create a new refund record"
+  }, {
+    "permissionName" : "refunds.item.put",
+    "displayName" : "refunds item put",
+    "description" : "Edit an refund record"
+  }, {
+    "permissionName" : "refunds.item.delete",
+    "displayName" : "refunds item delete",
+    "description" : "Delete an refund record"
+  }, {
+    "permissionName" : "transfers.collection.get",
+    "displayName" : "transfers collection get",
+    "description" : "Get a list of transfer records"
+  }, {
+    "permissionName" : "transfers.item.get",
+    "displayName" : "transfers item get",
+    "description" : "Get a single transfer record"
+  }, {
+    "permissionName" : "transfers.item.post",
+    "displayName" : "transfers item post",
+    "description" : "Create a new transfer record"
+  }, {
+    "permissionName" : "transfers.item.put",
+    "displayName" : "transfers item put",
+    "description" : "Edit an transfer record"
+  }, {
+    "permissionName" : "transfers.item.delete",
+    "displayName" : "transfers item delete",
+    "description" : "Delete an transfer record"
+  }, {
+    "permissionName" : "comments.collection.get",
+    "displayName" : "comments collection get",
+    "description" : "Get a list of comment records"
+  }, {
+    "permissionName" : "comments.item.get",
+    "displayName" : "comments item get",
+    "description" : "Get a single comment record"
+  }, {
+    "permissionName" : "comments.item.post",
+    "displayName" : "comments item post",
+    "description" : "Create a new comment record"
+  }, {
+    "permissionName" : "comments.item.put",
+    "displayName" : "comments item put",
+    "description" : "Edit an comment record"
+  }, {
+    "permissionName" : "comments.item.delete",
+    "displayName" : "comments item delete",
+    "description" : "Delete an comment record"
+  }, {
+    "permissionName" : "transfertypes.collection.get",
+    "displayName" : "transfertypes collection get",
+    "description" : "Get a list of transfertype records"
+  }, {
+    "permissionName" : "transfertypes.item.get",
+    "displayName" : "transfertypes item get",
+    "description" : "Get a single transfertype record"
+  }, {
+    "permissionName" : "transfertypes.item.post",
+    "displayName" : "transfertypes item post",
+    "description" : "Create a new transfertype record"
+  }, {
+    "permissionName" : "transfertypes.item.put",
+    "displayName" : "transfertypes item put",
+    "description" : "Edit an transfertype record"
+  }, {
+    "permissionName" : "transfertypes.item.delete",
+    "displayName" : "transfertypes item delete",
+    "description" : "Delete an transfertype record"
+  }, {
+    "permissionName" : "manualblocks.collection.get",
+    "displayName" : "manualblocks collection get",
+    "description" : "Get a list of manualblock records"
+  }, {
+    "permissionName" : "manualblocks.item.get",
+    "displayName" : "manualblocks item get",
+    "description" : "Get a single manualblock record"
+  }, {
+    "permissionName" : "manualblocks.item.post",
+    "displayName" : "manualblocks item post",
+    "description" : "Create a new manualblock record"
+  }, {
+    "permissionName" : "manualblocks.item.put",
+    "displayName" : "manualblocks item put",
+    "description" : "Edit an manualblock record"
+  }, {
+    "permissionName" : "manualblocks.item.delete",
+    "displayName" : "manualblocks item delete",
+    "description" : "Delete an manualblock record"
+  } ],
+  "launchDescriptor" : {
+    "dockerImage" : "folioorg/mod-feesfines:15.1.0",
+    "dockerPull" : true,
+    "env" : [ {
+      "name" : "JAVA_OPTIONS",
+      "value" : "-Xmx256m"
+    } ],
+    "dockerArgs" : {
+      "HostConfig" : {
+        "PortBindings" : {
+          "8081/tcp" : [ {
+            "HostPort" : "%p"
+          } ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "id" : "mod-codex-inventory-1.4.0",
+  "name" : "Codex wrapper for Inventory",
+  "requires" : [ {
+    "id" : "instance-storage",
+    "version" : "6.0"
+  }, {
+    "id" : "contributor-name-types",
+    "version" : "1.0"
+  }, {
+    "id" : "instance-types",
+    "version" : "1.0 2.0"
+  }, {
+    "id" : "instance-formats",
+    "version" : "1.0 2.0"
+  }, {
+    "id" : "identifier-types",
+    "version" : "1.0"
+  }, {
+    "id" : "locations",
+    "version" : "2.1 3.0"
+  } ],
+  "provides" : [ {
+    "id" : "codex",
+    "version" : "3.2",
+    "interfaceType" : "multiple",
+    "handlers" : [ {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/codex-instances"
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/codex-instances/{id}"
+    } ]
+  } ],
+  "permissionSets" : [ ],
+  "launchDescriptor" : {
+    "dockerImage" : "folioorg/mod-codex-inventory:1.4.0",
+    "dockerPull" : true,
+    "env" : [ {
+      "name" : "JAVA_OPTIONS",
+      "value" : "-Xmx256m"
+    } ],
+    "dockerArgs" : {
+      "HostConfig" : {
+        "PortBindings" : {
+          "8081/tcp" : [ {
+            "HostPort" : "%p"
+          } ]
+        }
+      }
+    }
+  }
+}

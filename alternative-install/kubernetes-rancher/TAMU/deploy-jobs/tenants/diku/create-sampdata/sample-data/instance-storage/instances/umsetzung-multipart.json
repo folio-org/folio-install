@@ -1,0 +1,32 @@
+{
+  "id": "a317b304-528c-424f-961c-39174933b454",
+  "hrid": "in000024",
+  "source": "MARC",
+  "title": "Umsetzung der DIN EN ISO 9001:2015 Harald Augustin (Hrsg.)",
+  "series": [
+    "Berichte aus der Betriebswirtschaft"
+  ],
+  "identifiers": [
+    {
+      "value": "(DE-599)GBV101484262X",
+      "identifierTypeId": "7e591197-f335-4afb-bc6d-a6d76ca3bace"
+    }
+  ],
+  "contributors": [
+    {
+      "contributorNameTypeId": "2b94c631-fca9-4892-a730-03ee529ffe2a",
+      "name": "Augustin, Harald"
+    }
+  ],
+  "publication": [
+    {
+      "publisher": "Shaker Verlag",
+      "place": "Aachen",
+      "dateOfPublication": "2017"
+    }
+  ],
+  "instanceTypeId": "6312d172-f0cf-40f6-b27d-9fa8feaf332f",
+  "languages": [
+    "ger"
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "id" : "mod-tags-0.2.0",
+  "name" : "Tags",
+  "requires" : [ ],
+  "provides" : [ {
+    "id" : "tags",
+    "version" : "1.0",
+    "handlers" : [ {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/tags",
+      "permissionsRequired" : [ "tags.collection.get" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/tags",
+      "permissionsRequired" : [ "tags.item.post" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/tags/{id}",
+      "permissionsRequired" : [ "tags.item.get" ]
+    }, {
+      "methods" : [ "PUT" ],
+      "pathPattern" : "/tags/{id}",
+      "permissionsRequired" : [ "tags.item.put" ]
+    }, {
+      "methods" : [ "DELETE" ],
+      "pathPattern" : "/tags/{id}",
+      "permissionsRequired" : [ "tags.item.delete" ]
+    } ]
+  }, {
+    "id" : "_tenant",
+    "version" : "1.0",
+    "interfaceType" : "system",
+    "handlers" : [ {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/_/tenant"
+    }, {
+      "methods" : [ "DELETE" ],
+      "pathPattern" : "/_/tenant"
+    } ]
+  } ],
+  "permissionSets" : [ {
+    "permissionName" : "tags.collection.get",
+    "displayName" : "Tags - get tags collection",
+    "description" : "Get tags collection"
+  }, {
+    "permissionName" : "tags.item.get",
+    "displayName" : "Tags - get individual tag from storage",
+    "description" : "Get individual tag"
+  }, {
+    "permissionName" : "tags.item.post",
+    "displayName" : "Tags - create tag",
+    "description" : "Create tag"
+  }, {
+    "permissionName" : "tags.item.put",
+    "displayName" : "Tags - modify tag",
+    "description" : "Modify tag"
+  }, {
+    "permissionName" : "tags.item.delete",
+    "displayName" : "Tags - delete tag",
+    "description" : "Delete tag"
+  }, {
+    "permissionName" : "tags.all",
+    "displayName" : "Tags module - all permissions",
+    "description" : "Entire set of permissions needed to use the tags module",
+    "subPermissions" : [ "tags.collection.get", "tags.item.get", "tags.item.post", "tags.item.put", "tags.item.delete" ],
+    "visible" : false
+  } ],
+  "launchDescriptor" : {
+    "dockerImage" : "folioorg/mod-tags:0.2.0",
+    "dockerPull" : true,
+    "env" : [ {
+      "name" : "JAVA_OPTIONS",
+      "value" : "-Xmx256m"
+    } ],
+    "dockerArgs" : {
+      "HostConfig" : {
+        "PortBindings" : {
+          "8081/tcp" : [ {
+            "HostPort" : "%p"
+          } ]
+        }
+      }
+    }
+  }
+}

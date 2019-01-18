@@ -1,0 +1,31 @@
+{
+   "active" : false,
+   "expirationDate" : "2019-05-11",
+   "type" : "patron",
+   "patronGroup" : "1f53a184-d791-48d7-bf34-3fea3eed1ad7",
+   "id" : "245bcb22-ad7c-48b5-9a28-6ed0d16043ba",
+   "personal" : {
+      "phone" : "672.039.8892",
+      "firstName" : "Charity",
+      "lastName" : "Price",
+      "email" : "drake@kshlerin-tremblay.ca.us",
+      "dateOfBirth" : "1999-03-27",
+      "mobilePhone" : "(255)227-4062 x2772",
+      "preferredContactTypeId" : "005",
+      "addresses" : [
+         {
+            "postalCode" : "37356",
+            "addressLine1" : "60619 Johnson Ville Apt. 349",
+            "countryId" : "US",
+            "addressTypeId" : "f6a96d06-618c-4697-9bf1-984cd8229831",
+            "city" : "City of Industry",
+            "region" : "MA",
+            "primaryAddress" : true
+         }
+      ]
+   },
+   "barcode" : "738143617038645",
+   "username" : "jaylan",
+   "enrollmentDate" : "2016-06-01"
+}
+

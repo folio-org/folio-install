@@ -1,0 +1,24 @@
+﻿apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  annotations:
+    field.cattle.io/creatorId: u-foo
+    pv.kubernetes.io/bind-completed: "yes"
+  creationTimestamp: null
+  finalizers:
+  - kubernetes.io/pvc-protection
+  labels:
+    cattle.io/creator: norman
+  name: folio-q4-claim
+  selfLink: /api/v1/namespaces/folio-q4/persistentvolumeclaims/folio-q4-claim
+spec:
+  accessModes:
+  - ReadWriteOnce
+  - ReadOnlyMany
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: ""
+  volumeName: folio-q4-volume
+status: {}

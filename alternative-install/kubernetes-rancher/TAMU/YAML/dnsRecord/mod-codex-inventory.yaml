@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    field.cattle.io/targetWorkloadIds: '["deployment:folio-q4:mod-codex-inventory"]'
+    workload.cattle.io/targetWorkloadIdNoop: "true"
+    workload.cattle.io/workloadPortBased: "true"
+  creationTimestamp: null
+  labels:
+    cattle.io/creator: norman
+  name: mod-codex-inventory
+  ownerReferences:
+  - apiVersion: apps/v1beta2
+    controller: true
+    kind: deployment
+    name: mod-codex-inventory
+    uid:
+  selfLink: /api/v1/namespaces/folio-q4/services/mod-codex-inventory
+spec:
+  clusterIP: None
+  ports:
+  - name: default
+    port: 42
+    protocol: TCP
+    targetPort: 42
+  selector:
+    workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-codex-inventory
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

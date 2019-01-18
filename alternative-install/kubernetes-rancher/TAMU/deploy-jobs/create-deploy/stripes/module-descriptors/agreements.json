@@ -1,0 +1,33 @@
+{
+  "id" : "folio_agreements-1.1.3",
+  "name" : "ERM functionality for Stripes",
+  "requires" : [ {
+    "id" : "erm",
+    "version" : "1.0"
+  } ],
+  "permissionSets" : [ {
+    "permissionName" : "module.agreements.enabled",
+    "displayName" : "UI: ui-agreements module is enabled",
+    "visible" : true
+  }, {
+    "permissionName" : "ui-agreements.agreements.view",
+    "displayName" : "ERM: Can view agreements",
+    "subPermissions" : [ "module.agreements.enabled" ],
+    "visible" : true
+  }, {
+    "permissionName" : "ui-agreements.agreements.edit",
+    "displayName" : "ERM: Can edit agreements",
+    "subPermissions" : [ "ui-agreements.agreements.view" ],
+    "visible" : true
+  }, {
+    "permissionName" : "ui-agreements.agreements.create",
+    "displayName" : "ERM: Can create and edit agreements",
+    "subPermissions" : [ "ui-agreements.agreements.edit" ],
+    "visible" : true
+  }, {
+    "permissionName" : "settings.agreements.enabled",
+    "displayName" : "Settings (agreements): display list of settings pages",
+    "subPermissions" : [ "settings.enabled" ],
+    "visible" : true
+  } ]
+}
