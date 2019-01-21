@@ -1,0 +1,175 @@
+#!/usr/bin/env /bin/bash
+
+set -o pipefail -o noclobber
+
+# keep for backward compatibility
+if [ "$MODULE_URL" != "" ]; then
+  SERVICE_URL=$MODULE_URL
+fi
+
+module_descriptor=''
+
+# wait for okapi coming up and ready
+wait_for_okapi() {
+  echo -ne "waiting for okapi at ${OKAPI_URL} to become ready ..."
+  while [ true ]; do
+    if [ $OKAPI_TRY_COUNT = 0 ]; then break; fi
+
+    result=`curl \
+      -s \
+      -w '%{http_code}' \
+      --connect-timeout ${CURL_CONNECT_TIMEOUT} \
+      -o /dev/null \
+      ${OKAPI_URL}/_/proxy/modules`
+
+    case "${result##*|}" in
+      200|201)
+        echo "done"
+        return 0
+        ;;
+    esac
+
+    let OKAPI_TRY_COUNT=$OKAPI_TRY_COUNT-1
+    sleep 1
+  done
+
+  echo "timed out waiting for okapi at ${OKAPI_URL}"
+  return 1
+}
+
+# tests against the configured okapi-url whether the module is already registered
+module_already_registered() {
+  echo -ne "testing whether module ${SERVICE_ID} is already registered to ${OKAPI_URL} ...";
+  result=`curl \
+    -s \
+    -w "%{http_code}" \
+    --connect-timeout ${CURL_CONNECT_TIMEOUT} \
+    -o /dev/null \
+    "${OKAPI_URL}/_/discovery/modules/${SERVICE_ID}"`;
+
+	case "${result##*|}" in
+		200)
+      echo "already registered. skipping okapi-setup"
+			return 0
+			;;
+		404)
+      echo "not found."
+      return 2
+      ;;
+		*)
+      echo "${result##*|} (${result%|*})"
+      return 3
+      ;;
+	esac
+}
+
+# fetches the module-descriptor from the public folio module-registry defined by env var FOLIO_REGISTRY
+fetch_module_descriptor() {
+	echo -ne "fetching module-descriptor from ${FOLIO_REGISTRY} for ${SERVICE_ID} ..."
+
+	result=`curl \
+    -w '|%{http_code}' \
+    -s \
+    --connect-timeout ${CURL_CONNECT_TIMEOUT} \
+    "${FOLIO_REGISTRY}${SERVICE_ID}"`
+
+	case "${result##*|}" in
+		200|201)
+			module_descriptor="${result%|*}"
+      echo "done"
+      return 0
+			;;
+		*)
+      echo "${result##*|} (${result%|*})"
+      return 4
+      ;;
+	esac
+}
+
+# registers the module in okapi
+register_module() {
+	echo -ne "registering module ${SERVICE_ID} to ${OKAPI_URL} ..."
+
+  if [ "$module_descriptor" == "" ]; then
+    echo "error. module_descriptor empty";
+    return 0;
+  fi;
+
+	result=`echo $module_descriptor | curl \
+		-s \
+		-w '|%{http_code}' -X POST \
+		-H "Content-type: application/json" \
+    --connect-timeout ${CURL_CONNECT_TIMEOUT} \
+		"${OKAPI_URL}/_/proxy/modules" \
+		-d @- 2>&1`
+
+	case "${result##*|}" in
+		200|201)
+			echo "done"
+			return 0
+			;;
+		*)
+			echo "${result##*|} ("${result%|*}")"
+			return 5
+			;;
+	esac
+}
+
+# enables the module in okapi
+enable_module() {
+	echo -ne "enabling module ${SERVICE_ID} to ${OKAPI_URL} ..."
+
+  local enable_descriptor="{\"srvcId\":\"${SERVICE_ID}\",\"instId\":\"${INSTALL_ID}\",\"url\":\"${SERVICE_URL}\"}"
+
+  while [ true ]; do
+    if [ $ENABLE_TRY_COUNT = 0 ]; then break; fi
+
+    result=`echo $enable_descriptor | curl \
+      -s \
+      -w "|%{http_code}" -X POST \
+      -H 'Content-type: application/json' \
+      --connect-timeout ${CURL_CONNECT_TIMEOUT} \
+      "$OKAPI_URL/_/discovery/modules" \
+      -d @- 2>&1`
+
+    case "${result##*|}" in
+      200|201)
+        echo "done"
+        return 0
+        ;;
+    esac
+
+    sleep 1
+    let ENABLE_TRY_COUNT=$ENABLE_TRY_COUNT-1
+  done
+
+  echo "${result##*|} ("${result%|*}")"
+  #timeout hit
+  return 5
+}
+
+# main entry
+main() {
+  wait_for_okapi && module_already_registered
+
+  case $? in
+    0)
+      ;;
+    2)
+      if [ "${SELF_DEPLOY}" == "true" ]; then
+        echo "=== performing okapi-setup ==="
+        fetch_module_descriptor && register_module || return $?
+      else
+        echo "okapi-setup skipped because of SELF_DEPLOY=false"
+      fi
+
+      enable_module || return $?
+      ;;
+    *)
+      return $?
+  esac
+
+  exec $START_CMD
+}
+
+main
