@@ -12,16 +12,16 @@ When you build the `stripes` image, you can adjust the configuration by passing 
 
 ### STRIPES_PLATFORM
 
-What Stripes platform to clone from Git. Defaults to https://github.com/folio-org/platform-complete.
+What Stripes platform to clone from Git. Defaults to `https://github.com/folio-org/platform-complete`.
 
 ### STRIPES_BRANCH
 
-What Stripes platform branch to checkout. Defaults to q4-2018.
+What Stripes platform branch to checkout. Defaults to `q4-2018`.
 
 ### TENANT_ID
 
-The short name of the Tenant. Defaults to mytenant.
+The short name of the Tenant. Defaults to `mytenant`.
 
 ### OKAPI_URL
 
-URL to the Okapi back-end to use. Defaults to http://localhost:9130.
+URL to the Okapi back-end to use. Defaults to `http://localhost:9130`.
