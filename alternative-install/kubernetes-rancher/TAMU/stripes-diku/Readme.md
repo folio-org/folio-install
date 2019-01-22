@@ -1,6 +1,6 @@
 ## Build Docker image
 
-`docker build --build-arg STRIPES_PLATFORM=https://github.com/folio-org/platform-complete --build-arg STRIPES_BRANCH=q4-2018 --build-arg TENANT_ID=mytenant --build-arg OKAPI_URL=http://localhost:9130 -t stripes .`
+`docker build --build-arg STRIPES_PLATFORM=https://github.com/folio-org/platform-complete --build-arg STRIPES_BRANCH=q4-2018 --build-arg TENANT_ID=diku --build-arg OKAPI_URL=http://localhost:9130 -t stripes .`
 
 ### Linux console run command ###
 
@@ -20,7 +20,7 @@ What Stripes platform branch to checkout. Defaults to `q4-2018`.
 
 ### TENANT_ID
 
-The short name of the Tenant. Defaults to `mytenant`.
+The short name of the Tenant. Defaults to `diku`.
 
 ### OKAPI_URL
 
