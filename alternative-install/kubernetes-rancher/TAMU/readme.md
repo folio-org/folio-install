@@ -17,12 +17,6 @@ Latest deployment procedure here: https://wiki.folio.org/pages/viewpage.action?p
 * [Module Metadata notes](module_metadata.md)
 * [Okapi Dockerfile Readme](https://github.com/folio-org/folio-install/blob/kube-rancher/alternative-install/kubernetes-rancher/TAMU/okapi/Readme.md)
 
-*Currently running at TAMU:<br/>
-Test cluster: Three pre-provisioned Oracle Linux VMs on VMware infrastructure (All roles for all nodes).<br/>
-RancherOS cluster: 11 node template provisioned RancherOS VMs on VMware infrastructure (6 Worker and 5 etcd/Control Plane nodes).*<br/>
-
-
-
 ## Prerequisites for Rancher Server
 
 #### In Oracle Linux, install correct version of Docker:
@@ -242,7 +236,7 @@ Paste in this code:<br/>
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: rancheros-cluster
+  name: hazelcast-rb-q4
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
