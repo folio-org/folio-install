@@ -452,6 +452,10 @@ Run instructions from here: https://gist.github.com/superseb/3a9c0d2e4a60afa3689
 
 ```kubectl get --all-namespaces rs -o json|jq -r '.items[] | select(.spec.replicas | contains(0)) | "kubectl delete rs --namespace=\(.metadata.namespace) \(.metadata.name)"'```
 
+#### Enabling Recurring etcd Snapshots on the cluster:
+
+RKE takes a snapshot of etcd running on each etcd node. The file is saved to /opt/rke/etcd-snapshots
+
 #### When spinning up containers from Dockerhub, be sure the Workload `Advanced Option - Command` *Auto Restart* setting is set to *Always*
 
 #### When creating Workloads, set min to 0 if you wish to scale your deployments to 0 - in Kubernetes Dashboard
