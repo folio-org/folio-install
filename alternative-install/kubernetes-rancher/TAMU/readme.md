@@ -160,7 +160,7 @@ https://your.private.registry.org
 
 1) Add a Cluster -> select vSphere -> enter a cluster name (rancheros-cluster) -> Next
 2) Set these cluster options:<br/>
-  a) Kubernetes Version - v1.11.2-rancher1-1<br/>
+  a) Kubernetes Version - v1.11.5-rancher1-1<br/>
   b) Network Provider - Canal<br/>
   c) Project Network Isolation - Disabled<br/>
   d) Nginx Ingress - Enabled<br/>
