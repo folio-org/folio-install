@@ -259,7 +259,7 @@ subjects:
 
 ### Rancher Secrets Notes:
 
--Each Rancher Secret should only be avbailable a single Namespace for security and separation. The Secrets below were made available to the folio-q4 Namespace.<br/>
+-Each Rancher Secret should only be available to a single Namespace for security and separation. The Secrets below were made available to the folio-q4 Namespace.<br/>
 
 #### db-config Secret key-value pairs:
 
@@ -408,7 +408,7 @@ Set for: *mod-users*
 -When setting up Load Balancing/Ingress, target the Service name instead of Workload name if you have specific ports you have set in the Workload.<br/>
 -For Okapi HA ingress, I have Okapi Service as the target at port 9130, with root path, `/` and `/_/` for the hostname folio-okapiq4.org<br/>
 
--To have default Rancher 2.0 Nginx ingress be a little more smart about DNS RR, add annotations in Rancher 2.0 GUI Service Discovery:<br/>
+-To have default Rancher 2.0 Nginx ingress be a little smarter about DNS RR, add annotations in Rancher 2.0 GUI Service Discovery:<br/>
 
 nginx.ingress.kubernetes.io/upstream-fail-timeout = 5<br/>
 nginx.ingress.kubernetes.io/upstream-max-fails = 2<br/>
