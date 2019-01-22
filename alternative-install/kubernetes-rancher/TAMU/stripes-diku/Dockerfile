@@ -29,7 +29,7 @@ COPY stripes.config.js /usr/local/bin/folio/stripes/
 RUN n lts
 
 #Set ARG defaults for Stripes build
-ARG TENANT_ID=mytenant
+ARG TENANT_ID=diku
 ARG OKAPI_URL=http://localhost:9130
 
 #Build Stripes
