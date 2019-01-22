@@ -8,16 +8,16 @@
 
 ## Environment variables
 
-When you deploy the `secure-okapi` image, you can adjust the configuration by passing one or more environment variables on the `docker run` command line. This assumes you have a Docker network 'folio-network' created.
+When you deploy the `secure-okapi` image, you can adjust the configuration by passing one or more environment variables on the `docker run` command line. This assumes you have a Docker network `folio-network` created.
 
 ### OKAPI_URL
 
-Internal OKAPI URL to use. Defaults to http://localhost:9130.
+Internal OKAPI URL to use. Defaults to `http://localhost:9130`.
 
 ### SUPER_USR
 
-Name of the Okapi superuser to create. Defaults to superuser.
+Name of the Okapi superuser to create. Defaults to `superuser`.
 
 ### SUPER_PSSWD
 
-Password to set for the Okapi superuser. Defaults to password.
+Password to set for the Okapi superuser. Defaults to `password`.
