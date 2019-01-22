@@ -218,7 +218,7 @@ ssh_agent_auth: false
 12) Deploy Stripes Workload *Run one pod on each node* – built from our custom Docker container
 13) Create diku-tenant-config and x-okapi-token Rancher Secrets under Folio-Project - Resources - Secrets
 14) Deploy create-tenant Workload *Job* – built from our custom Docker container with scripts - with diku-tenant-config Secret
-15) Deploy create-deploy Workload *Job* – built from our custom Docker container with scripts - with diku-tenant-config Secret
+15) Deploy create-deploy Workload *Job*, to enable modules for `/proxy/modules`, `/discovery/modules`, and diku tenant – built from our custom Docker container with scripts - with diku-tenant-config Secret
 16) Deploy bootstrap-superuser Workload *Job* – built from our custom Docker container with scripts - with diku-tenant-config Secret
 17) Deploy create-refdata Workload *Job* – built from our custom Docker container with scripts - with diku-tenant-config Secret
 18) Deploy create-sampdata Workload *Job* – built from our custom Docker container with scripts - with x-okapi-token Secret
