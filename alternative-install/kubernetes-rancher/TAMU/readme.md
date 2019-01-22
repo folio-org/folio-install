@@ -212,16 +212,16 @@ ssh_agent_auth: false
 6) Create db-config and db-connect Rancher Secrets under Folio-Project Resources - Secrets
 7) Deploy crunchy-postgres Workload *Stateful set* via Helm Package, edit the Workload to tweak environment variables for use with Folio - with db-config Secret
 8) Add Record under Service Discovery, named pg-folio, as type *Selector* with Label/Value: *statefulset.kubernetes.io/pod-name = pgset-0*
-9) Deploy create-db Workload *Job* - our custom Docker container with DB init scripts - with db-connect Secret
-10) Deploy Okapi Workload *Scalable deployment* of 1 and InitDB environment variable set to true - our custom Docker container
+9) Deploy create-db Workload *Job* - built from our custom Docker container with DB init scripts - with db-connect Secret
+10) Deploy Okapi Workload *Scalable deployment* of 1 and InitDB environment variable set to true - built from our custom Docker container
 11) Deploy Folio module Workloads *Scalable deployment* between 1 and 3 (one Workload per Folio module) - with db-connect Secret for those modules that need a connection to the database
-12) Deploy Stripes Workload *Run one pod on each node* – our custom Docker container
+12) Deploy Stripes Workload *Run one pod on each node* – built from our custom Docker container
 13) Create diku-tenant-config and x-okapi-token Rancher Secrets under Folio-Project - Resources - Secrets
-14) Deploy create-tenant Workload *Job* – our custom Docker container with scripts - with diku-tenant-config Secret
-15) Deploy create-deploy Workload *Job* – our custom Docker container with scripts - with diku-tenant-config Secret
-16) Deploy bootstrap-superuser Workload *Job* – our custom Docker container with scripts - with diku-tenant-config Secret
-17) Deploy create-refdata Workload *Job* – our custom Docker container with scripts - with diku-tenant-config Secret
-18) Deploy create-sampdata Workload *Job* – our custom Docker container with scripts - with x-okapi-token Secret
+14) Deploy create-tenant Workload *Job* – built from our custom Docker container with scripts - with diku-tenant-config Secret
+15) Deploy create-deploy Workload *Job* – built from our custom Docker container with scripts - with diku-tenant-config Secret
+16) Deploy bootstrap-superuser Workload *Job* – built from our custom Docker container with scripts - with diku-tenant-config Secret
+17) Deploy create-refdata Workload *Job* – built from our custom Docker container with scripts - with diku-tenant-config Secret
+18) Deploy create-sampdata Workload *Job* – built from our custom Docker container with scripts - with x-okapi-token Secret
 19) Edit Okapi Workload, set InitDB environment variable to false
 20) Scale up Okapi pods to 3 using Rancher 2.0 + button
 21) Add Ingress under Load Balancing for Okapi and Stripes using URLs for `/` and `/_/`
