@@ -8,20 +8,20 @@
 
 ## Environment variables
 
-When you deploy the `create-refdata` image, you can adjust the configuration by passing one or more environment variables on the `docker run` command line. This assumes you have a Docker network 'folio-network' created.
+When you deploy the `create-refdata` image, you can adjust the configuration by passing one or more environment variables on the `docker run` command line. This assumes you have a Docker network `folio-network` created.
 
 ### TENANT_ID
 
-The short name of the Tenant. Defaults to mytenant.
+The short name of the Tenant. Defaults to `mytenant`.
 
 ### ADMIN_USER
 
-Name of the superuser for Folio. Defaults to tenant_admin.
+Name of the superuser for Folio. Defaults to `tenant_admin`.
 
 ### ADMIN_PASSWORD
 
-Password of the superuser. Defaults to password.
+Password of the superuser. Defaults to `password`.
 
 ### OKAPI_URL
 
-Internal OKAPI URL to use. Defaults to http://localhost:9130.
+Internal OKAPI URL to use. Defaults to `http://localhost:9130`.
