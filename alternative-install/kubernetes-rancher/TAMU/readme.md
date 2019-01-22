@@ -16,6 +16,14 @@ Latest deployment procedure here: https://wiki.folio.org/pages/viewpage.action?p
 * [Minikube deployment notes](Folio_MiniKube_Notes.md)
 * [Module Metadata notes](module_metadata.md)
 * [Okapi Dockerfile Readme](https://github.com/folio-org/folio-install/blob/kube-rancher/alternative-install/kubernetes-rancher/TAMU/okapi/Readme.md)
+* [Stripes Dockerfile Readme](https://github.com/folio-org/folio-install/blob/kube-rancher/alternative-install/kubernetes-rancher/TAMU/stripes-diku/Readme.md)
+* [bootstrap-superuser Dockerfile Readme](https://github.com/folio-org/folio-install/blob/kube-rancher/alternative-install/kubernetes-rancher/TAMU/deploy-jobs/bootstrap-superuser/Readme.md)
+* [create-database Dockerfile Readme](https://github.com/folio-org/folio-install/blob/kube-rancher/alternative-install/kubernetes-rancher/TAMU/deploy-jobs/create-database/Readme.md)
+* [create-deploy Dockerfile Readme](https://github.com/folio-org/folio-install/blob/kube-rancher/alternative-install/kubernetes-rancher/TAMU/deploy-jobs/create-deploy/Readme.md)
+* [create-refdata Dockerfile Readme](https://github.com/folio-org/folio-install/blob/kube-rancher/alternative-install/kubernetes-rancher/TAMU/deploy-jobs/create-refdata/Readme.md)
+* [create-tenant Dockerfile Readme](https://github.com/folio-org/folio-install/blob/kube-rancher/alternative-install/kubernetes-rancher/TAMU/deploy-jobs/create-tenant/Readme.md)
+* [create-sampdata Dockerfile Readme](https://github.com/folio-org/folio-install/blob/kube-rancher/alternative-install/kubernetes-rancher/TAMU/deploy-jobs/tenants/diku/create-sampdata/Readme.md)
+* [secure-okapi Dockerfile Readme](https://github.com/folio-org/folio-install/blob/kube-rancher/alternative-install/kubernetes-rancher/TAMU/deploy-jobs/secure-okapi/Readme.md)
 
 ## Prerequisites for Rancher Server
 
