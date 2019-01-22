@@ -13,9 +13,13 @@ RUN apt-get update && apt-get install yarn
 #Create working directory
 RUN mkdir -p /usr/local/bin/folio/stripes
 
+#Set ARG defaults for Stripes platform URL and branch
+ARG STRIPES_PLATFORM=https://github.com/folio-org/platform-complete
+ARG STRIPES_BRANCH=q4-2018
+
 #Set working directory
 WORKDIR /usr/local/bin/folio/stripes
-RUN git clone --recursive https://github.com/folio-org/platform-complete . && git checkout q4-2018
+RUN git clone --recursive $STRIPES_PLATFORM . && git checkout $STRIPES_BRANCH
 
 #Copy in files at this build layer
 COPY yarn.lock /usr/local/bin/folio/stripes/
@@ -24,10 +28,14 @@ COPY stripes.config.js /usr/local/bin/folio/stripes/
 
 RUN n lts
 
+#Set ARG defaults for Stripes build
+ARG TENANT_ID=mytenant
+ARG OKAPI_URL=http://localhost:9130
+
 #Build Stripes
 RUN yarn config set @folio:registry https://repository.folio.org/repository/npm-folio/
 RUN yarn install
-RUN yarn build --okapi http://folio-okapiq4.org --tenant diku ./output
+RUN yarn build --okapi $OKAPI_URL --tenant $TENANT_ID ./output
 
 #Load balancer
 FROM nginx:stable-alpine
