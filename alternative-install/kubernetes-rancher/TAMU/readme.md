@@ -56,7 +56,7 @@ END``
 16GB of memory<br/>
 40GB disk<br/>
 
-#### In Oralce Linux, install correct version of Docker:
+#### In Oracle Linux, install correct version of Docker:
 
 ```yum install yum-utils```
 
