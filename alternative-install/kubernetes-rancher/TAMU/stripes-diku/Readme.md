@@ -8,7 +8,7 @@
 
 ## Ports and Environment variables
 
-When you build the `stripes` image, you can adjust the configuration by passing one or more Docker ARGs on the `docker build` command line. Running this Dockerfile assumes you have a Docker network 'folio-network' created, with container port 3000 exposed to port 80 on your machine.
+When you build the `stripes` image, you can adjust the configuration by passing one or more Docker ARGs on the `docker build` command line. Running this Dockerfile assumes you have a Docker network `folio-network` created, with container port 3000 exposed to port 80 on your machine.
 
 ### STRIPES_PLATFORM
 
