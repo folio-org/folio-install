@@ -8,27 +8,27 @@
 
 ## Environment variables
 
-When you deploy the `create-sampdata` image, you can adjust the configuration by passing one or more environment variables on the `docker run` command line. This assumes you have a Docker network 'folio-network' created.
+When you deploy the `create-sampdata` image, you can adjust the configuration by passing one or more environment variables on the `docker run` command line. This assumes you have a Docker network `folio-network` created.
 
 ### TENANT_ID
 
-The short name of the Tenant. Defaults to diku.
+The short name of the Tenant. Defaults to `diku`.
 
 ### ADMIN_USER
 
-Name of the superuser for Folio. Defaults to diku_admin.
+Name of the superuser for Folio. Defaults to `diku_admin`.
 
 ### ADMIN_PASSWORD
 
-Password of the superuser. Defaults to admin.
+Password of the superuser. Defaults to `admin`.
 
 ### OKAPI_URL
 
-Internal OKAPI URL to use. Defaults to http://localhost:9130.
+Internal OKAPI URL to use. Defaults to `http://localhost:9130`.
 
 ### X_OKAPI_TOKEN
 
-The Token for the Folio system located in the UI under Settings - Developer - Set Token. Defaults to default.
+The Token for the Folio system located in the UI under Settings - Developer - Set Token. Defaults to `default`.
 
 ## Additional Notes
 
