@@ -1,10 +1,10 @@
 ## Build Docker image
 
-docker build --build-arg STRIPES_PLATFORM=https://github.com/folio-org/platform-complete --build-arg STRIPES_BRANCH=q4-2018 --build-arg TENANT_ID=mytenant --build-arg OKAPI_URL=http://localhost:9130 -t stripes .
+`docker build --build-arg STRIPES_PLATFORM=https://github.com/folio-org/platform-complete --build-arg STRIPES_BRANCH=q4-2018 --build-arg TENANT_ID=mytenant --build-arg OKAPI_URL=http://localhost:9130 -t stripes .`
 
 ### Linux console run command ###
 
-docker run --rm -d --network folio-network -p 3000:80 --name stripes stripes
+`docker run --rm -d --network folio-network -p 3000:80 --name stripes stripes`
 
 ## Environment variables
 
