@@ -250,7 +250,7 @@ roleRef:
   kind: ClusterRole
   name: view
 subjects:
-  kind: ServiceAccount
+- kind: ServiceAccount
   name: default
   namespace: folio-q4
   ```
