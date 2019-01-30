@@ -424,16 +424,11 @@ nginx.ingress.kubernetes.io/proxy-body-size = 1g
 
 
 
-## Pro Tips
+## Kubernetes Pro Tips
 
 #### Config and launch Kubernetes Cluster Dashboard from your workstation (On OSX: Save files and token in /Users/UserName/.kube/):
 
 Run instructions from here: https://gist.github.com/superseb/3a9c0d2e4a60afa3689badb1297e2a44
-
-#### Build, tag and push docker images from within their respective folders:
-
-```docker build -t docker-private-registry/folio-project/containername:v1 .```<br/>
-```docker push docker-private-registry/folio-project/containername:v1```<br/>
 
 #### To clean existing Kubernetes cluster node for re-deployment run:
 
@@ -465,3 +460,66 @@ RKE takes a snapshot of etcd running on each etcd node. The file is saved to /op
 
 #### To avoid overloading your cluster, in case of node failure or Workload deployment - set resource limits! Do this under Workload - Show advanced options - Security & Host Config
 
+
+## Docker Pro Tips
+
+#### Build, tag and push docker images from within their respective folders:
+
+```docker build -t docker-private-registry/folio-project/containername:v1 .```<br/>
+```docker push docker-private-registry/folio-project/containername:v1```<br/>
+
+#### Logs:
+```docker logs -f <container name>```
+
+#### Run command on container:
+```docker exec -it <container name> <command>```
+
+
+
+## Folio Pro Tips
+
+#### Disable module for tenant:
+```curl -i -w '\n' -X DELETE http://okapi:9130/_/proxy/tenants/diku/modules/<module-id>```
+
+#### Delete proxy/module registration:
+```curl -i -w '\n' -X DELETE http://okapi:9130/_/proxy/modules/<Id>```
+
+#### Delete discovery/module registration:
+```curl -i -w '\n' -X DELETE http://okapi:9130/_/discovery/modules/<srvcId>/<instId>```
+
+#### List tenants:
+```curl -i -w '\n' -X GET http://okapi:9130/_/proxy/tenants```
+
+#### List registered modules:
+```curl -i -w '\n' -X GET http://okapi:9130/_/proxy/modules```
+
+#### List modules enabled for a specific tenant:
+```curl -i -w '\n' -X GET http://okapi:9130/_/proxy/tenants/diku/modules```
+
+#### List of discovered/deployed modules:
+```curl -i -w '\n' -X GET http://okapi:9130/_/discovery/modules```
+
+#### Tenant login:
+```
+curl -i -w '\n' -X POST -H 'X-Okapi-Tenant: diku' -d '{"username": "diku_admin", "password": "admin"}' \
+http://okapi:9130/authn/login
+```
+
+#### Pull all Okapi registration files from url to your Okapi:
+```
+curl -w '\n' -D - -X POST -H "Content-type: application/json" -d '{"urls":["http://folio-registry.aws.indexdata.com"]}' http://okapi:9130/_/proxy/pull/modules
+```
+
+#### Simulate an install:
+```
+curl -w '\n' -X POST -D - -H "Content-type: application/json" -d @enable-docker.json -o full-install-docker.json http://okapi:9130/_/proxy/tenants/diku/install?simulate=true
+```
+
+#### Front-end folioci repo:
+https://repository.folio.org/#browse/welcome
+
+#### Indexdata Okapi module registry:
+http://folio-registry.aws.indexdata.com/_/proxy/modules
+
+#### Database export example:
+```psql -U postgres -h pg-folio -w -d okapi_modules --command "SELECT * FROM diku_mod_inventory_storage.item;" > /pgdata/folio-q4/items```
