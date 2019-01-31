@@ -17,11 +17,11 @@ const platformComplete = {
   },
   branding: {
     logo: {
-      src: './tenant-assets/opentown-libraries-logo.png',
+      src: './tenant-assets/logo.png',
       alt: 'Opentown Libraries',
     },
     favicon: {
-      src: './tenant-assets/opentown-libraries-favicon.png',
+      src: './tenant-assets/favicon.png',
     },
   }
 };
