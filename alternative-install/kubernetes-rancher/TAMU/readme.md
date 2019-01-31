@@ -367,13 +367,14 @@ MAX_WAL_SENDERS = 2<br/>
 
 ### Workload Notes
 
-Please see this document for the required back-end module environemnet variables, database connection stipulation, Java heap memory setting, and port to start the module Workload:<br/>
+Please see this document for the required back-end module environment variables, database connection stipulation, Java heap memory setting, and port to start the module Workload:<br/>
 
 * [Module Metadata notes](module_metadata.md)
 
 #### Modules that require the db-connect Secret:
 
 *mod-agreements, mod-audit, mod-audit-filter, mod-calendar, mod-circulation-storage, mod-configuration, mod-data-import, mod-email, mod-erm-usage, mod-event-config, mod-feesfines, mod-finance-storage, mod-inventory-storage, mod-licenses, mod-login, mod-notes, mod-notify, mod-orders-storage, mod-password-validator, mod-permissions, mod-sender, mod-source-record-manager, mod-source-record-storage, mod-tags, mod-template-engine, mod-users, mod-vendors*
+
 
 ### Ingress Notes:
 
