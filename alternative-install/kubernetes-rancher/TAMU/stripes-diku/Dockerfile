@@ -25,7 +25,7 @@ COPY /tenant-assets/logo.png /usr/local/bin/folio/stripes/tenant-assets/
 COPY /tenant-assets/favicon.png /usr/local/bin/folio/stripes/tenant-assets/
 
 #Set ARG defaults for Stripes build
-ARG TENANT_ID=mytenant
+ARG TENANT_ID=diku
 ARG OKAPI_URL=http://localhost:9130
 
 #Build Stripes
