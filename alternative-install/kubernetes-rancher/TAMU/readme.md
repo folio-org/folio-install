@@ -367,7 +367,7 @@ MAX_WAL_SENDERS = 2<br/>
 
 ### Workload Notes
 
-Please see this document for the required back-end module environment variables, database connection stipulation, Java heap memory setting, and port to start the module Workload:<br/>
+-Please see this document for the required back-end module environment variables, database connection stipulation, Java heap memory setting, and port to start the module Workload:<br/>
 
 * [Module Metadata notes](module_metadata.md)
 
