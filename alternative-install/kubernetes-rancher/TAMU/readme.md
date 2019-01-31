@@ -367,41 +367,13 @@ MAX_WAL_SENDERS = 2<br/>
 
 ### Workload Notes
 
-#### Modules that require a database Workload environment variables:
+Please see this document for the required back-end module environemnet variables, database connection stipulation, Java heap memory setting, and port to start the module Workload:<br/>
 
-DB_USERNAME = folio_admin<br/>
-DB_PORT = 5432<br/>
-DB_PASSWORD = folio_admin<br/>
-DB_HOST = pg-folio<br/>
-DB_DATABASE = okapi_modules<br/>
-DB_MAXPOOLSIZE = 20<br/>
+* [Module Metadata notes](module_metadata.md)
 
-#### mod-authtoken Workload environment variable:
+#### Modules that require the db-connect Secret:
 
-JAVA_OPTIONS = -Djwt.signing.key=CorrectBatteryHorseStaple
-
-#### mod-inventory Workload environment variable:
-
-JAVA_OPTIONS = -Dorg.folio.metadata.inventory.storage.type=okapi
-
-#### mod-kb-ebsco Workload environment variable:
-
-EBSCO_RMAPI_BASE_URL = https://sandbox.ebsco.io
-
-#### Module Java heap Workload environment variables:
-
-JAVA_OPTIONS = -Xmx256m<br/>
-
-Set for: *mod-authtoken, mod-login, mod-configuration, mod-users-bl, mod-login-saml, mod-user-import, mod-inventory, mod-circulation-storage, mod-circulation, mod-notify, mod-notes, mod-codex-inventory, mod-codex-ekb, mod-codex-mux, mod-vendors, mod-calendar, mod-finance, mod-feesfines, mod-tags, mod-orders-storage, mod-rtac*<br/>
-
-JAVA_OPTIONS = -Xmx512m<br/>
-
-Set for: *mod-permissions*, *mod-inventory-storage*<br/>
-
-JAVA_OPTIONS = -Xmx384m<br/>
-
-Set for: *mod-users*
-
+*mod-agreements, mod-audit, mod-audit-filter, mod-calendar, mod-circulation-storage, mod-configuration, mod-data-import, mod-email, mod-erm-usage, mod-event-config, mod-feesfines, mod-finance-storage, mod-inventory-storage, mod-licenses, mod-login, mod-notes, mod-notify, mod-orders-storage, mod-password-validator, mod-permissions, mod-sender, mod-source-record-manager, mod-source-record-storage, mod-tags, mod-template-engine, mod-users, mod-vendors*
 
 ### Ingress Notes:
 
