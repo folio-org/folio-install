@@ -303,6 +303,17 @@ X_OKAPI_TOKEN = *Authentication token from Okapi*
 ### Okapi Notes:
 
 -Running in *clustered* mode.<br/>
+-Hazelcast in Kubernetes requires editing the hazelcast.xml file included with Okapi and setting your Folio namespace under:
+```
+<kubernetes enabled="true">
+                <namespace>folio-q4</namespace>
+                <service-name>okapi</service-name>
+                <!--
+                <service-label-name>MY-SERVICE-LABEL-NAME</service-label-name>
+                <service-label-value>MY-SERVICE-LABEL-VALUE</service-label-value>
+                -->
+            </kubernetes>
+```
 -Workload running as 3 pods that share database (Run as uneven numbers for quorum).<br/>
 -Initially spin up one Okapi pod, do the deployment jobs, then can scale out Okapi's pods for clustering and they will each pick up the tenants/discovery/proxy services.<br/>
 -After single Okapi pod has been initialized, set Workload environment variable for InitDB to false for future pod scalability.<br/>
