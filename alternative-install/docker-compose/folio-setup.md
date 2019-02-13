@@ -100,5 +100,7 @@ FOLIO installation will be deployed using the `libapps` cluster created within t
 
 ### Remaining Work
 
-1. Tenant/Multi-Tenant setup automation
-2. Stripes Automation using `folio-ansible`
+1. Timing issues with Okapi Cluster IP and update Configmap
+2. Tenant/Multi-Tenant setup
+3. Stripes automation using `folio-ansible` group vars
+4. AWS load balance and DNS
