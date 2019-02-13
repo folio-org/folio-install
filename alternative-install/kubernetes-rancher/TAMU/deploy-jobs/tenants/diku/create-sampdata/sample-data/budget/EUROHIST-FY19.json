@@ -1,0 +1,16 @@
+{
+  "name": "EUROHIST-FY19",
+  "code": "EUROHIST-FY19",
+  "budget_status": "Active",
+  "limit_enc_percent": 110,
+  "limit_exp_percent": 100,
+  "allocation": 25000.00,
+  "awaiting_payment": 150.60,
+  "available": 15313.45,
+  "encumbered": 7307.40,
+  "expenditures": 2228.55,
+  "over_encumbrance": 0,
+  "fund_id": "e9285a1c-1dfc-4380-868c-e74073003f43",
+  "fiscal_year_id": "684b5dc5-92f6-4db7-b996-b549d88f5e4e",
+  "tags": null
+}

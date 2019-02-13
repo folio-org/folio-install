@@ -1,0 +1,12 @@
+{
+  "id": "e9f9bc2f-bad5-4613-9d6c-f55efa5805e7",
+  "name": "One-time Gifts",
+  "code": "GIFT-SUBN",
+  "created_date": "2018-01-01T13:06:34.186Z",
+  "fund_status": "Active",
+  "currency": "USD",
+  "description": "use for any one-time gift funds; best used for backfile purchases",
+  "ledger_id": "65cb2bf0-d4c2-4886-8ad0-b76f1ba75d61",
+  "allocation_from": null,
+  "allocation_to": null
+}

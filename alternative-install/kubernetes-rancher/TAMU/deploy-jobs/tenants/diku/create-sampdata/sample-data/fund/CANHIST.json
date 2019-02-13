@@ -1,0 +1,17 @@
+{
+  "id": "68872d8a-bf16-420b-829f-206da38f6c10",
+  "name": "Canadian History",
+  "code": "CANHIST",
+  "created_date": "2018-07-05T13:06:34.186Z",
+  "fund_status": "Active",
+  "currency": "USD",
+  "description": "WAITING FOR ADMIN APPROVAL; use for Canada once CANLATHIST is inactivated",
+  "ledger_id": "133a7916-f05e-4df4-8f7f-09eb2a7076d1",
+  "allocation_from": [
+    "fb7b70f1-b898-4924-a991-0e4b6312bb5f",
+    "67cd0046-e4f1-4e4f-9024-adf0b0039d09"
+  ],
+  "allocation_to": [
+    "cf23adf0-61ba-4887-bf82-956c4aae2260"
+  ]
+}

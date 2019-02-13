@@ -1,0 +1,55 @@
+{
+  "id" : "mod-codex-ekb-1.1.0",
+  "name" : "EBSCO Knowledge Base Codex",
+  "requires" : [ {
+    "id" : "configuration",
+    "version" : "2.0"
+  } ],
+  "provides" : [ {
+    "id" : "codex",
+    "version" : "3.0",
+    "interfaceType" : "multiple",
+    "handlers" : [ {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/codex-instances",
+      "permissionsRequired" : [ "codex.collection.get" ],
+      "modulePermissions" : [ "configuration.entries.collection.get" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/codex-instances/{id}",
+      "permissionsRequired" : [ "codex.item.get" ],
+      "modulePermissions" : [ "configuration.entries.collection.get" ]
+    } ]
+  } ],
+  "permissionSets" : [ {
+    "permissionName" : "codex.collection.get",
+    "displayName" : "Codex - get instances",
+    "description" : "Get instance collection"
+  }, {
+    "permissionName" : "codex.item.get",
+    "displayName" : "Codex - get individual instance",
+    "description" : "Get individual instance"
+  }, {
+    "permissionName" : "codex.all",
+    "displayName" : "Codex - all permissions",
+    "description" : "Entire set of permissions needed to use the codex module",
+    "subPermissions" : [ "codex.collection.get", "codex.item.get" ]
+  } ],
+  "launchDescriptor" : {
+    "dockerImage" : "folioorg/mod-codex-ekb:1.1.0",
+    "dockerPull" : true,
+    "env" : [ {
+      "name" : "JAVA_OPTIONS",
+      "value" : "-Xmx256m"
+    } ],
+    "dockerArgs" : {
+      "HostConfig" : {
+        "PortBindings" : {
+          "8081/tcp" : [ {
+            "HostPort" : "%p"
+          } ]
+        }
+      }
+    }
+  }
+}

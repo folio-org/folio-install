@@ -1,0 +1,32 @@
+{
+   "username" : "winifred",
+   "enrollmentDate" : "2015-11-28",
+   "active" : true,
+   "expirationDate" : "2020-01-10",
+   "type" : "patron",
+   "patronGroup" : "cb73adc7-5554-47d1-a074-9d56020c1030",
+   "id" : "1253f8f2-ec4c-4511-bc08-8af5cc0b5fbb",
+   "personal" : {
+      "mobilePhone" : "1-520-591-7593",
+      "addresses" : [
+         {
+            "postalCode" : "47543",
+            "addressLine1" : "27577 Sigrid Trail #141",
+            "primaryAddress" : true,
+            "region" : "NE",
+            "countryId" : "US",
+            "addressTypeId" : "ad2c4726-b397-4a0c-8e0e-c31dc5503296",
+            "city" : "Montebello"
+         }
+      ],
+      "preferredContactTypeId" : "001",
+      "email" : "hope@friesen-rippin.nt",
+      "dateOfBirth" : "1952-06-01",
+      "phone" : "171-688-2993 x357",
+      "lastName" : "Kessler",
+      "firstName" : "Cade",
+      "middleName" : "Treva"
+   },
+   "barcode" : "831099341670498"
+}
+

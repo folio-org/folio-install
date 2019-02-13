@@ -1,0 +1,31 @@
+{
+   "username" : "rhoda",
+   "enrollmentDate" : "2015-11-14",
+   "type" : "patron",
+   "active" : false,
+   "expirationDate" : "2020-07-13",
+   "personal" : {
+      "dateOfBirth" : "1975-11-24",
+      "email" : "lew@blick-sporer-and-altenwerth.cl",
+      "addresses" : [
+         {
+            "region" : "AL",
+            "primaryAddress" : true,
+            "countryId" : "US",
+            "addressTypeId" : "f6a96d06-618c-4697-9bf1-984cd8229831",
+            "city" : "West Lafayette",
+            "postalCode" : "67687-6534",
+            "addressLine1" : "94684 Bashirian Flats Apt. 274"
+         }
+      ],
+      "preferredContactTypeId" : "003",
+      "lastName" : "Leffler",
+      "firstName" : "Beulah",
+      "middleName" : "Neil",
+      "phone" : "428.690.8694 x12751"
+   },
+   "id" : "b5f5fd70-89aa-4ba3-a940-c07d598d77ac",
+   "barcode" : "384898992304712",
+   "patronGroup" : "1f53a184-d791-48d7-bf34-3fea3eed1ad7"
+}
+

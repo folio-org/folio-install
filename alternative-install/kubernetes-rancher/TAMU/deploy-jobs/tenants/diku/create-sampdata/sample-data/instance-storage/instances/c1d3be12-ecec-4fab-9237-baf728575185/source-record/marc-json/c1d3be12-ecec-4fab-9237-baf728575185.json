@@ -1,0 +1,385 @@
+{
+  "leader": "01860nam a2200337 ca4500",
+  "fields": [
+    {
+      "001": "1010770160"
+    },
+    {
+      "003": "DE-601"
+    },
+    {
+      "005": "20180214103458.0"
+    },
+    {
+      "008": "180111s2018\\\\\\\\xxu\\\\\\\\\\\\\\\\\\\\\\000\\0\\eng\\d"
+    },
+    {
+      "020": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "9781473937703"
+          },
+          {
+            "c": "set"
+          },
+          {
+            "9": "978-1-4739-3770-3"
+          }
+        ]
+      }
+    },
+    {
+      "035": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "(DE-599)GBV1010770160"
+          }
+        ]
+      }
+    },
+    {
+      "040": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "b": "ger"
+          },
+          {
+            "c": "GBVCP"
+          },
+          {
+            "e": "rda"
+          }
+        ]
+      }
+    },
+    {
+      "041": {
+        "ind1": "0",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "eng"
+          }
+        ]
+      }
+    },
+    {
+      "044": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "xxu"
+          },
+          {
+            "a": "xxk"
+          },
+          {
+            "a": "ii"
+          }
+        ]
+      }
+    },
+    {
+      "050": {
+        "ind1": "\\",
+        "ind2": "0",
+        "subfields": [
+          {
+            "a": "H"
+          }
+        ]
+      }
+    },
+    {
+      "082": {
+        "ind1": "0",
+        "ind2": "0",
+        "subfields": [
+          {
+            "a": "300"
+          }
+        ]
+      }
+    },
+    {
+      "084": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "74.72"
+          },
+          {
+            "9": "Stadtplanung"
+          },
+          {
+            "9": "kommunale Planung"
+          },
+          {
+            "2": "bkl"
+          }
+        ]
+      }
+    },
+    {
+      "084": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "74.12"
+          },
+          {
+            "9": "Stadtgeographie"
+          },
+          {
+            "9": "Siedlungsgeographie"
+          },
+          {
+            "2": "bkl"
+          }
+        ]
+      }
+    },
+    {
+      "245": {
+        "ind1": "0",
+        "ind2": "4",
+        "subfields": [
+          {
+            "a": "The city"
+          },
+          {
+            "b": "post-modernity"
+          },
+          {
+            "c": "edited by Alan Latham"
+          }
+        ]
+      }
+    },
+    {
+      "264": {
+        "ind1": "3",
+        "ind2": "1",
+        "subfields": [
+          {
+            "a": "Los Angeles"
+          },
+          {
+            "a": "London"
+          },
+          {
+            "a": "New Delhi"
+          },
+          {
+            "a": "Singapore"
+          },
+          {
+            "a": "Washington DC"
+          },
+          {
+            "a": "Melbourne"
+          },
+          {
+            "b": "SAGE"
+          },
+          {
+            "c": "2018"
+          }
+        ]
+      }
+    },
+    {
+      "336": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "Text"
+          },
+          {
+            "b": "txt"
+          },
+          {
+            "2": "rdacontent"
+          }
+        ]
+      }
+    },
+    {
+      "337": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "ohne Hilfsmittel zu benutzen"
+          },
+          {
+            "b": "n"
+          },
+          {
+            "2": "rdamedia"
+          }
+        ]
+      }
+    },
+    {
+      "338": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "Band"
+          },
+          {
+            "b": "nc"
+          },
+          {
+            "2": "rdacarrier"
+          }
+        ]
+      }
+    },
+    {
+      "490": {
+        "ind1": "0",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "SAGE benchmarks in culture and society"
+          }
+        ]
+      }
+    },
+    {
+      "520": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "Cities are sites of great wealth and poverty, of hope and despair, of social and economic dynamism, as well as tradition and established power. Social scientists and humanities scholars have over the past three decades generated an impressive range of perspectives for making sense of the vast complexities of cities. These perspectives tell both of the economic, social and political dynamism cities generate, and point to possible lines of future development. The four volumes, The City: Post-Modernity, will focus more exclusively on the contemporary city, looking at the subject through the lenses of globalization and post-colonialism, amongst others"
+          }
+        ]
+      }
+    },
+    {
+      "650": {
+        "ind1": "\\",
+        "ind2": "7",
+        "subfields": [
+          {
+            "0": "(DE-601)106153919"
+          },
+          {
+            "0": "(DE-588)4056723-0"
+          },
+          {
+            "a": "Stadt"
+          },
+          {
+            "2": "gnd"
+          }
+        ]
+      }
+    },
+    {
+      "650": {
+        "ind1": "\\",
+        "ind2": "7",
+        "subfields": [
+          {
+            "0": "(DE-601)104288515"
+          },
+          {
+            "0": "(DE-588)4115604-3"
+          },
+          {
+            "a": "Postmoderne"
+          },
+          {
+            "2": "gnd"
+          }
+        ]
+      }
+    },
+    {
+      "655": {
+        "ind1": "0",
+        "ind2": "7",
+        "subfields": [
+          {
+            "0": "(DE-588)4143413-4"
+          },
+          {
+            "a": "Aufsatzsammlung"
+          },
+          {
+            "2": "gnd-content"
+          }
+        ]
+      }
+    },
+    {
+      "700": {
+        "ind1": "1",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "Latham, Alan"
+          },
+          {
+            "e": "HerausgeberIn"
+          },
+          {
+            "4": "edt"
+          }
+        ]
+      }
+    },
+    {
+      "900": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "a": "GBV"
+          },
+          {
+            "b": "SUB+Uni Hamburg <18>"
+          }
+        ]
+      }
+    },
+    {
+      "954": {
+        "ind1": "\\",
+        "ind2": "\\",
+        "subfields": [
+          {
+            "0": "SUB+Uni Hamburg <18>"
+          },
+          {
+            "a": "22"
+          },
+          {
+            "b": "1740834291"
+          },
+          {
+            "c": "01"
+          },
+          {
+            "x": "0018"
+          }
+        ]
+      }
+    }
+  ]
+}

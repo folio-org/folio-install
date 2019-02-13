@@ -1,0 +1,16 @@
+{
+  "name": "MIDEASTHIS-FY19",
+  "code": "MIDEASTHIS-FY19",
+  "budget_status": "Active",
+  "limit_enc_percent": 110,
+  "limit_exp_percent": 100,
+  "allocation": 24000.00,
+  "awaiting_payment": 144.58,
+  "available": 14700.91,
+  "encumbered": 7015.1,
+  "expenditures": 2139.41,
+  "over_encumbrance": 0,
+  "fund_id": "30fcc8e7-a019-43f4-b642-2edc389f4501",
+  "fiscal_year_id": "684b5dc5-92f6-4db7-b996-b549d88f5e4e",
+  "tags": null
+}

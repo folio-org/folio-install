@@ -1,0 +1,5940 @@
+﻿apiVersion: v1
+items:
+- apiVersion: v1
+  data:
+    release:
+  kind: ConfigMap
+  metadata:
+    creationTimestamp: null
+    labels:
+      MODIFIED_AT: "1546970842"
+      NAME: pg-set-q4
+      OWNER: TILLER
+      STATUS: DEPLOYED
+      VERSION: "1"
+    name: pg-set-q4.v1
+    namespace: folio-q4
+    resourceVersion: "30175719"
+    selfLink: /api/v1/namespaces/folio-q4/configmaps/pg-set-q4.v1
+    uid:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: u-foo
+      field.cattle.io/description: Pointer to pg-set primary pod.
+      field.cattle.io/ipAddresses: "null"
+      field.cattle.io/targetDnsRecordIds: "null"
+      field.cattle.io/targetWorkloadIds: "null"
+    creationTimestamp: 2019-01-08T17:40:08Z
+    labels:
+      cattle.io/creator: norman
+    name: pg-folio
+    namespace: folio-q4
+    resourceVersion: "30169005"
+    selfLink: /api/v1/namespaces/folio-q4/services/pg-folio
+    uid:
+  spec:
+    clusterIP: None
+    ports:
+    - name: default
+      port: 42
+      protocol: TCP
+      targetPort: 42
+    selector:
+      statefulset.kubernetes.io/pod-name: pgset-0
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: 2019-01-08T18:07:22Z
+    labels:
+      chart: statefulset-1
+      heritage: Tiller
+      io.cattle.field/appId: pg-set-q4
+      name: pgset
+      release: pg-set-q4
+    name: pgset
+    namespace: folio-q4
+    resourceVersion: "30175715"
+    selfLink: /api/v1/namespaces/folio-q4/services/pgset
+    uid:
+  spec:
+    clusterIP: None
+    ports:
+    - name: web
+      port: 5432
+      protocol: TCP
+      targetPort: 5432
+    selector:
+      app: pgset
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: 2019-01-08T18:07:21Z
+    labels:
+      chart: statefulset-1
+      heritage: Tiller
+      io.cattle.field/appId: pg-set-q4
+      name: pgset-primary
+      release: pg-set-q4
+    name: pgset-primary
+    namespace: folio-q4
+    resourceVersion: "30175710"
+    selfLink: /api/v1/namespaces/folio-q4/services/pgset-primary
+    uid:
+  spec:
+    clusterIP: XX.XX.XXX.XXX
+    ports:
+    - port: 5432
+      protocol: TCP
+      targetPort: 5432
+    selector:
+      name: pgset-primary
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: 2019-01-08T18:07:22Z
+    labels:
+      chart: statefulset-1
+      heritage: Tiller
+      io.cattle.field/appId: pg-set-q4
+      name: pgset-replica
+      release: pg-set-q4
+    name: pgset-replica
+    namespace: folio-q4
+    resourceVersion: "30175713"
+    selfLink: /api/v1/namespaces/folio-q4/services/pgset-replica
+    uid:
+  spec:
+    clusterIP: XX.XX.XXX.XXX
+    ports:
+    - port: 5432
+      protocol: TCP
+      targetPort: 5432
+    selector:
+      name: pgset-replica
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "19"
+      field.cattle.io/creatorId: u-foo
+      field.cattle.io/publicEndpoints: '[{"addresses":["XX.XX.XXX.XXX"],"port":30885,"protocol":"TCP","serviceName":"folio-q4:mod-agreements-nodeport","allNodes":true}]'
+    creationTimestamp: 2019-01-09T19:55:59Z
+    generation: 51
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-agreements
+    name: mod-agreements
+    namespace: folio-q4
+    resourceVersion: "32897612"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-agreements
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-agreements
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+          field.cattle.io/ports: '[[{"containerPort":8080,"dnsName":"mod-agreements-nodeport","kind":"NodePort","name":"8080tcp01","protocol":"TCP","sourcePort":0}]]'
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-agreements
+      spec:
+        containers:
+        - env:
+          - name: GRAILS_SERVER_HOST
+            value: mod-agreements
+          - name: GRAILS_SERVER_PORT
+            value: "8080"
+          - name: JAVA_OPTIONS
+            value: -Xmx256m
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: false
+          image: folioorg/mod-agreements:1.0.2
+          imagePullPolicy: Always
+          name: mod-agreements
+          ports:
+          - containerPort: 8080
+            name: 8080tcp01
+            protocol: TCP
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-09T20:05:25Z
+      lastUpdateTime: 2019-01-16T19:04:20Z
+      message: ReplicaSet "mod-agreements-5864855c8b" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:36:36Z
+      lastUpdateTime: 2019-01-16T21:36:36Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 51
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "8"
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-09T20:47:31Z
+    generation: 9
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-audit
+    name: mod-audit
+    namespace: folio-q4
+    resourceVersion: "32898162"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-audit
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-audit
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-audit
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -Xmx256m
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: false
+          image: folioorg/mod-audit:0.0.3
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-audit
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-09T20:47:31Z
+      lastUpdateTime: 2019-01-16T19:02:14Z
+      message: ReplicaSet "mod-audit-5b6cf48587" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:37:21Z
+      lastUpdateTime: 2019-01-16T21:37:21Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 9
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "7"
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-09T20:48:58Z
+    generation: 8
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-audit-filter
+    name: mod-audit-filter
+    namespace: folio-q4
+    resourceVersion: "32898141"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-audit-filter
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-audit-filter
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-audit-filter
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -Xmx256m
+          image: folioorg/mod-audit-filter:0.0.3
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-audit-filter
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-09T20:48:58Z
+      lastUpdateTime: 2019-01-16T19:02:33Z
+      message: ReplicaSet "mod-audit-filter-fcf6cb846" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:37:19Z
+      lastUpdateTime: 2019-01-16T21:37:19Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 8
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "8"
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-08T21:43:08Z
+    generation: 9
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-authtoken
+    name: mod-authtoken
+    namespace: folio-q4
+    resourceVersion: "32897656"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-authtoken
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-authtoken
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-authtoken
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -Djwt.signing.key=CorrectBatteryHorseStaple -Xmx256m
+          image: folioorg/mod-authtoken:2.0.4
+          imagePullPolicy: Always
+          name: mod-authtoken
+          resources:
+            limits:
+              memory: 1Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-08T21:43:08Z
+      lastUpdateTime: 2019-01-16T19:01:15Z
+      message: ReplicaSet "mod-authtoken-bb559bf5f" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:36:42Z
+      lastUpdateTime: 2019-01-16T21:36:42Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 9
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "7"
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-08T22:25:34Z
+    generation: 8
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-calendar
+    name: mod-calendar
+    namespace: folio-q4
+    resourceVersion: "32898283"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-calendar
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-calendar
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-calendar
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -Xmx256m
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: false
+          image: folioorg/mod-calendar:1.2.0
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-calendar
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 200m
+              memory: 1Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-08T22:25:34Z
+      lastUpdateTime: 2019-01-16T19:01:57Z
+      message: ReplicaSet "mod-calendar-6459fbc9c5" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:37:32Z
+      lastUpdateTime: 2019-01-16T21:37:32Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 8
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "9"
+      field.cattle.io/creatorId: u-foo
+      field.cattle.io/publicEndpoints: '[{"addresses":["XX.XX.XXX.XXX"],"port":30029,"protocol":"TCP","serviceName":"folio-q4:mod-circulation-nodeport","allNodes":true}]'
+    creationTimestamp: 2019-01-08T21:43:57Z
+    generation: 11
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-circulation
+    name: mod-circulation
+    namespace: folio-q4
+    resourceVersion: "32897644"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-circulation
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-circulation
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+          field.cattle.io/ports: '[[{"containerPort":9801,"dnsName":"mod-circulation-nodeport","kind":"NodePort","name":"9801tcp01","protocol":"TCP","sourcePort":0}]]'
+          workload.cattle.io/state: '{"foo==":"c-f00:m-foo"}'
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-circulation
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -Xmx256m
+          image: folioorg/mod-circulation:14.1.0
+          imagePullPolicy: Always
+          name: mod-circulation
+          ports:
+          - containerPort: 9801
+            name: 9801tcp01
+            protocol: TCP
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-08T21:43:57Z
+      lastUpdateTime: 2019-01-16T19:02:49Z
+      message: ReplicaSet "mod-circulation-6b7895b494" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:36:41Z
+      lastUpdateTime: 2019-01-16T21:36:41Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 11
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "7"
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-08T21:43:37Z
+    generation: 8
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-circulation-storage
+    name: mod-circulation-storage
+    namespace: folio-q4
+    resourceVersion: "32898362"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-circulation-storage
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-circulation-storage
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-circulation-storage
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -Xmx256m
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: false
+          image: folioorg/mod-circulation-storage:6.2.0
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-circulation-storage
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-08T21:43:37Z
+      lastUpdateTime: 2019-01-16T19:03:40Z
+      message: ReplicaSet "mod-circulation-storage-5dbcbc97d6" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:37:42Z
+      lastUpdateTime: 2019-01-16T21:37:42Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 8
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "7"
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-08T22:23:43Z
+    generation: 8
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-codex-ekb
+    name: mod-codex-ekb
+    namespace: folio-q4
+    resourceVersion: "32898379"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-codex-ekb
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-codex-ekb
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-codex-ekb
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -Xmx256m
+          image: folioorg/mod-codex-ekb:1.1.0
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-codex-ekb
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 250m
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-08T22:23:43Z
+      lastUpdateTime: 2019-01-16T19:02:31Z
+      message: ReplicaSet "mod-codex-ekb-964b6d8c" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:37:43Z
+      lastUpdateTime: 2019-01-16T21:37:43Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 8
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "7"
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-08T21:45:13Z
+    generation: 8
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-codex-inventory
+    name: mod-codex-inventory
+    namespace: folio-q4
+    resourceVersion: "32898373"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-codex-inventory
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-codex-inventory
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-codex-inventory
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -Xmx256m
+          image: folioorg/mod-codex-inventory:1.4.0
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-codex-inventory
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              memory: 1Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-08T21:45:13Z
+      lastUpdateTime: 2019-01-16T19:02:46Z
+      message: ReplicaSet "mod-codex-inventory-755b597c9c" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:37:42Z
+      lastUpdateTime: 2019-01-16T21:37:42Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 8
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "7"
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-08T21:44:40Z
+    generation: 8
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-codex-mux
+    name: mod-codex-mux
+    namespace: folio-q4
+    resourceVersion: "32898396"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-codex-mux
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-codex-mux
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-codex-mux
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -Xmx256m
+          image: folioorg/mod-codex-mux:2.3.0
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-codex-mux
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 250m
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-08T21:44:40Z
+      lastUpdateTime: 2019-01-16T19:02:40Z
+      message: ReplicaSet "mod-codex-mux-9ff5cc65b" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:37:46Z
+      lastUpdateTime: 2019-01-16T21:37:46Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 8
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "7"
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-08T21:42:49Z
+    generation: 8
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-configuration
+    name: mod-configuration
+    namespace: folio-q4
+    resourceVersion: "32898483"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-configuration
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-configuration
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-configuration
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -Xmx256m
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: false
+          image: folioorg/mod-configuration:5.0.1
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-configuration
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 200m
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-08T21:42:49Z
+      lastUpdateTime: 2019-01-16T19:02:08Z
+      message: ReplicaSet "mod-configuration-7c667dc5c" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:38:01Z
+      lastUpdateTime: 2019-01-16T21:38:01Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 8
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "8"
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-09T20:40:46Z
+    generation: 10
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-data-import
+    name: mod-data-import
+    namespace: folio-q4
+    resourceVersion: "32897630"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-data-import
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-data-import
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-data-import
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -Xmx256m
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: false
+          image: folioorg/mod-data-import:1.0.0
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-data-import
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: 2019-01-09T20:40:46Z
+      lastUpdateTime: 2019-01-16T19:02:41Z
+      message: ReplicaSet "mod-data-import-65c5f54886" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:36:38Z
+      lastUpdateTime: 2019-01-16T21:36:38Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 10
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "7"
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-14T16:44:50Z
+    generation: 7
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-data-loader
+    name: mod-data-loader
+    namespace: folio-q4
+    resourceVersion: "32860870"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-data-loader
+    uid:
+  spec:
+    minReadySeconds: 45
+    progressDeadlineSeconds: 120
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-data-loader
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-data-loader
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -Xmx256m
+          image: folioorg/mod-data-loader:latest
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-data-loader
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: 2019-01-14T16:46:52Z
+      lastUpdateTime: 2019-01-14T16:46:52Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: 2019-01-14T16:44:50Z
+      lastUpdateTime: 2019-01-16T19:02:46Z
+      message: ReplicaSet "mod-data-loader-75cccf8546" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 7
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "8"
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-09T20:44:35Z
+    generation: 9
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-email
+    name: mod-email
+    namespace: folio-q4
+    resourceVersion: "32898464"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-email
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-email
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-email
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -Xmx256m
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: false
+          image: folioorg/mod-email:1.0.0
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-email
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-09T20:44:35Z
+      lastUpdateTime: 2019-01-16T19:02:18Z
+      message: ReplicaSet "mod-email-5dd448f46d" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:37:57Z
+      lastUpdateTime: 2019-01-16T21:37:57Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 9
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "9"
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-09T20:21:18Z
+    generation: 10
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-erm-usage
+    name: mod-erm-usage
+    namespace: folio-q4
+    resourceVersion: "32898469"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-erm-usage
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-erm-usage
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-erm-usage
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -Xmx256m
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: false
+          image: folioorg/mod-erm-usage:1.0.0
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-erm-usage
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-09T20:21:18Z
+      lastUpdateTime: 2019-01-16T19:03:02Z
+      message: ReplicaSet "mod-erm-usage-84457d7fb4" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:37:59Z
+      lastUpdateTime: 2019-01-16T21:37:59Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 10
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "11"
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-09T20:22:12Z
+    generation: 16
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-erm-usage-harvester
+    name: mod-erm-usage-harvester
+    namespace: folio-q4
+    resourceVersion: "32898100"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-erm-usage-harvester
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-erm-usage-harvester
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-erm-usage-harvester
+      spec:
+        containers:
+        - env:
+          - name: CONFIG
+            value: '{"okapiUrl": "http://okapi:9130"}'
+          - name: JAVA_OPTIONS
+            value: -Xmx256m
+          image: folioorg/mod-erm-usage-harvester:1.0.0
+          imagePullPolicy: Always
+          name: mod-erm-usage-harvester
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-09T20:22:12Z
+      lastUpdateTime: 2019-01-16T19:02:03Z
+      message: ReplicaSet "mod-erm-usage-harvester-c6b77d8cd" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:37:16Z
+      lastUpdateTime: 2019-01-16T21:37:16Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 16
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "9"
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-09T20:19:24Z
+    generation: 10
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-event-config
+    name: mod-event-config
+    namespace: folio-q4
+    resourceVersion: "32898712"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-event-config
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-event-config
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-event-config
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -Xmx256m
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: false
+          image: folioorg/mod-event-config:1.0.0
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-event-config
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-09T20:19:24Z
+      lastUpdateTime: 2019-01-16T19:02:33Z
+      message: ReplicaSet "mod-event-config-797b5d7b95" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:38:19Z
+      lastUpdateTime: 2019-01-16T21:38:19Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 10
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "7"
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-08T21:40:38Z
+    generation: 8
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-feesfines
+    name: mod-feesfines
+    namespace: folio-q4
+    resourceVersion: "32898780"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-feesfines
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-feesfines
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-feesfines
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -Xmx256m
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: false
+          image: folioorg/mod-feesfines:15.1.0
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-feesfines
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 150m
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-08T21:40:38Z
+      lastUpdateTime: 2019-01-16T19:02:35Z
+      message: ReplicaSet "mod-feesfines-684ffbd444" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:38:30Z
+      lastUpdateTime: 2019-01-16T21:38:30Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 8
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "7"
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-09T20:09:46Z
+    generation: 8
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-finance-storage
+    name: mod-finance-storage
+    namespace: folio-q4
+    resourceVersion: "32898720"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-finance-storage
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-finance-storage
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-finance-storage
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -Xmx256m
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: false
+          image: folioorg/mod-finance-storage:1.0.1
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-finance-storage
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 250m
+              memory: 1Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-09T20:09:46Z
+      lastUpdateTime: 2019-01-16T19:02:00Z
+      message: ReplicaSet "mod-finance-storage-945f557db" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:38:21Z
+      lastUpdateTime: 2019-01-16T21:38:21Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 8
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "7"
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-09T20:39:47Z
+    generation: 8
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-gobi
+    name: mod-gobi
+    namespace: folio-q4
+    resourceVersion: "32898682"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-gobi
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-gobi
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-gobi
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -Xmx256m
+          image: folioorg/mod-gobi:1.0.1
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-gobi
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-09T20:39:47Z
+      lastUpdateTime: 2019-01-16T19:03:56Z
+      message: ReplicaSet "mod-gobi-68fd894cb4" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:38:17Z
+      lastUpdateTime: 2019-01-16T21:38:17Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 8
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "10"
+      field.cattle.io/creatorId: u-foo
+      field.cattle.io/publicEndpoints: '[{"addresses":["XX.XX.XXX.XXX"],"port":30341,"protocol":"TCP","serviceName":"folio-q4:mod-graphql-nodeport","allNodes":true}]'
+    creationTimestamp: 2019-01-14T16:46:42Z
+    generation: 12
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-graphql
+    name: mod-graphql
+    namespace: folio-q4
+    resourceVersion: "33166713"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-graphql
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-graphql
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+          field.cattle.io/ports: '[[{"containerPort":3000,"dnsName":"mod-graphql-nodeport","kind":"NodePort","name":"3000tcp01","protocol":"TCP","sourcePort":0}]]'
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-graphql
+      spec:
+        containers:
+        - args:
+          - yarn
+          - start
+          - tests/input/mod-inventory-storage/ramls/instance-storage.raml
+          env:
+          - name: LOGGING_CATEGORIES
+            value: ramlpath
+          - name: OKAPI_TENANT
+            value: diku
+          - name: OKAPI_TOKEN
+            value: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkaWt1X2FkbWluIiwidXNlcl9pZCI6IjgwYjY2NzQ5LTMwMzQtNGEyMS1hY2RjLTc0OTA1ZmE2ZjY4YSIsImNhY2hlX2tleSI6ImI2OTVkYWM3LTdmYzAtNGMxNS05MTM0LWMyNjIyNzQ4NDM4NCIsImlhdCI6MTU0Nzc0NDMwMSwidGVuYW50IjoiZGlrdSJ9.Wo8j_QI2JACe13_XhP3R4oz9VX_aUrw1thUi7l5oaxM
+          - name: OKAPI_URL
+            value: http://okapi:9130
+          image: folioci/mod-graphql:latest
+          imagePullPolicy: Always
+          name: mod-graphql
+          ports:
+          - containerPort: 3000
+            name: 3000tcp01
+            protocol: TCP
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities: {}
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-16T21:38:07Z
+      lastUpdateTime: 2019-01-16T21:38:07Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: 2019-01-14T16:46:42Z
+      lastUpdateTime: 2019-01-17T17:01:28Z
+      message: ReplicaSet "mod-graphql-69f8f9bd" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 12
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "8"
+      field.cattle.io/creatorId: u-foo
+      field.cattle.io/publicEndpoints: '[{"addresses":["XX.XX.XXX.XXX"],"port":30588,"protocol":"TCP","serviceName":"folio-q4:mod-inventory-nodeport","allNodes":true}]'
+    creationTimestamp: 2019-01-08T21:44:19Z
+    generation: 10
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-inventory
+    name: mod-inventory
+    namespace: folio-q4
+    resourceVersion: "32898290"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-inventory
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-inventory
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+          field.cattle.io/ports: '[[{"containerPort":9403,"dnsName":"mod-inventory-nodeport","kind":"NodePort","name":"9403tcp01","protocol":"TCP","sourcePort":0}]]'
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-inventory
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -Dorg.folio.metadata.inventory.storage.type=okapi
+          image: folioorg/mod-inventory:11.0.0
+          imagePullPolicy: Always
+          name: mod-inventory
+          ports:
+          - containerPort: 9403
+            name: 9403tcp01
+            protocol: TCP
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-08T22:21:33Z
+      lastUpdateTime: 2019-01-16T19:02:12Z
+      message: ReplicaSet "mod-inventory-8469b4b8d5" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:37:33Z
+      lastUpdateTime: 2019-01-16T21:37:33Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 10
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "7"
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-08T21:42:25Z
+    generation: 8
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-inventory-storage
+    name: mod-inventory-storage
+    namespace: folio-q4
+    resourceVersion: "32898757"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-inventory-storage
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-inventory-storage
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-inventory-storage
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -Xmx1024m
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: false
+          image: folioorg/mod-inventory-storage:14.0.0
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-inventory-storage
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-08T21:42:25Z
+      lastUpdateTime: 2019-01-16T19:02:40Z
+      message: ReplicaSet "mod-inventory-storage-649f7c5f44" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:38:25Z
+      lastUpdateTime: 2019-01-16T21:38:25Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 8
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "7"
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-08T22:24:14Z
+    generation: 8
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-kb-ebsco
+    name: mod-kb-ebsco
+    namespace: folio-q4
+    resourceVersion: "32898944"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-kb-ebsco
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-kb-ebsco
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-kb-ebsco
+      spec:
+        containers:
+        - env:
+          - name: EBSCO_RMAPI_BASE_URL
+            value: https://sandbox.ebsco.io
+          - name: JAVA_OPTIONS
+            value: -Xmx256m
+          image: folioorg/mod-kb-ebsco:1.1.0
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-kb-ebsco
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 150m
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-08T22:24:14Z
+      lastUpdateTime: 2019-01-16T19:02:41Z
+      message: ReplicaSet "mod-kb-ebsco-7d5465495b" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:39:00Z
+      lastUpdateTime: 2019-01-16T21:39:00Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 8
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "13"
+      field.cattle.io/creatorId: u-foo
+      field.cattle.io/publicEndpoints: '[{"addresses":["XX.XX.XXX.XXX"],"port":30701,"protocol":"TCP","serviceName":"folio-q4:mod-licenses-nodeport","allNodes":true}]'
+    creationTimestamp: 2019-01-09T20:49:55Z
+    generation: 27
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-licenses
+    name: mod-licenses
+    namespace: folio-q4
+    resourceVersion: "32898533"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-licenses
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-licenses
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+          field.cattle.io/ports: '[[{"containerPort":8080,"dnsName":"mod-licenses-nodeport","kind":"NodePort","name":"8080tcp01","protocol":"TCP","sourcePort":0}]]'
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-licenses
+      spec:
+        containers:
+        - env:
+          - name: GRAILS_SERVER_HOST
+            value: mod-licenses
+          - name: GRAILS_SERVER_PORT
+            value: "8080"
+          - name: JAVA_OPTIONS
+            value: -Xmx256m
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: false
+          image: folioorg/mod-licenses:1.0.2
+          imagePullPolicy: Always
+          name: mod-licenses
+          ports:
+          - containerPort: 8080
+            name: 8080tcp01
+            protocol: TCP
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-09T20:49:55Z
+      lastUpdateTime: 2019-01-16T19:04:16Z
+      message: ReplicaSet "mod-licenses-78857d7499" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:38:07Z
+      lastUpdateTime: 2019-01-16T21:38:07Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 27
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "7"
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-08T21:41:49Z
+    generation: 8
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-login
+    name: mod-login
+    namespace: folio-q4
+    resourceVersion: "32898799"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-login
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-login
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-login
+      spec:
+        containers:
+        - args:
+          - verify.user=true
+          env:
+          - name: JAVA_OPTIONS
+            value: -Xmx256m
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: false
+          image: folioorg/mod-login:4.6.0
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-login
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-08T21:41:49Z
+      lastUpdateTime: 2019-01-16T19:02:11Z
+      message: ReplicaSet "mod-login-5f7bf9b998" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:38:32Z
+      lastUpdateTime: 2019-01-16T21:38:32Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 8
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "7"
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-08T21:46:11Z
+    generation: 8
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-login-saml
+    name: mod-login-saml
+    namespace: folio-q4
+    resourceVersion: "32898878"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-login-saml
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-login-saml
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-login-saml
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -Xmx256m
+          image: folioorg/mod-login-saml:1.2.1
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-login-saml
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 250m
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-08T21:46:11Z
+      lastUpdateTime: 2019-01-16T19:02:14Z
+      message: ReplicaSet "mod-login-saml-6f9dd664d6" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:38:45Z
+      lastUpdateTime: 2019-01-16T21:38:45Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 8
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "7"
+      field.cattle.io/creatorId: u-foo
+      field.cattle.io/publicEndpoints: '[{"addresses":["XX.XX.XXX.XXX"],"port":31332,"protocol":"TCP","serviceName":"folio-q4:mod-marccat-nodeport","allNodes":true}]'
+    creationTimestamp: 2019-01-14T16:38:17Z
+    generation: 9
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-marccat
+    name: mod-marccat
+    namespace: folio-q4
+    resourceVersion: "32898408"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-marccat
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-marccat
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+          field.cattle.io/ports: '[[{"containerPort":9403,"dnsName":"mod-marccat-nodeport","kind":"NodePort","name":"9403tcp01","protocol":"TCP","sourcePort":0}]]'
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-marccat
+      spec:
+        containers:
+        - image: folioorg/mod-marccat:1.2.0
+          imagePullPolicy: Always
+          name: mod-marccat
+          ports:
+          - containerPort: 9403
+            name: 9403tcp01
+            protocol: TCP
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-14T16:38:17Z
+      lastUpdateTime: 2019-01-16T19:03:00Z
+      message: ReplicaSet "mod-marccat-67c85b9c96" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:37:48Z
+      lastUpdateTime: 2019-01-16T21:37:48Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 9
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "7"
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-08T22:22:33Z
+    generation: 8
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-notes
+    name: mod-notes
+    namespace: folio-q4
+    resourceVersion: "32898893"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-notes
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-notes
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-notes
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -Xmx256m
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: false
+          image: folioorg/mod-notes:2.2.0
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-notes
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 200m
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-08T22:22:33Z
+      lastUpdateTime: 2019-01-16T19:02:15Z
+      message: ReplicaSet "mod-notes-6d667f754d" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:38:48Z
+      lastUpdateTime: 2019-01-16T21:38:48Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 8
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "7"
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-08T22:22:10Z
+    generation: 8
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-notify
+    name: mod-notify
+    namespace: folio-q4
+    resourceVersion: "32898964"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-notify
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-notify
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-notify
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -Xmx256m
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: false
+          image: folioorg/mod-notify:2.1.0
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-notify
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 150m
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-08T22:22:10Z
+      lastUpdateTime: 2019-01-16T19:02:47Z
+      message: ReplicaSet "mod-notify-5db755c9bf" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:39:03Z
+      lastUpdateTime: 2019-01-16T21:39:03Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 8
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "7"
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-09T20:57:14Z
+    generation: 8
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-oai-pmh
+    name: mod-oai-pmh
+    namespace: folio-q4
+    resourceVersion: "32898862"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-oai-pmh
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-oai-pmh
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-oai-pmh
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -Xmx256m
+          image: folioorg/mod-oai-pmh:1.0.1
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-oai-pmh
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-09T20:57:14Z
+      lastUpdateTime: 2019-01-16T19:02:23Z
+      message: ReplicaSet "mod-oai-pmh-66c66fdfb" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:38:41Z
+      lastUpdateTime: 2019-01-16T21:38:41Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 8
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "8"
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-09T20:20:12Z
+    generation: 9
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-orders
+    name: mod-orders
+    namespace: folio-q4
+    resourceVersion: "32898968"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-orders
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-orders
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-orders
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -Xmx256m
+          image: folioorg/mod-orders:1.0.2
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-orders
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-09T20:20:12Z
+      lastUpdateTime: 2019-01-16T19:03:02Z
+      message: ReplicaSet "mod-orders-6dfddf9d55" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:39:05Z
+      lastUpdateTime: 2019-01-16T21:39:05Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 9
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "8"
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-09T20:11:41Z
+    generation: 9
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-orders-storage
+    name: mod-orders-storage
+    namespace: folio-q4
+    resourceVersion: "32898923"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-orders-storage
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-orders-storage
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-orders-storage
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -Xmx256m
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: false
+          image: folioorg/mod-orders-storage:1.0.2
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-orders-storage
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-09T20:11:41Z
+      lastUpdateTime: 2019-01-16T19:02:30Z
+      message: ReplicaSet "mod-orders-storage-cf846d7f7" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:38:56Z
+      lastUpdateTime: 2019-01-16T21:38:56Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 9
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "8"
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-14T16:20:32Z
+    generation: 9
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-password-validator
+    name: mod-password-validator
+    namespace: folio-q4
+    resourceVersion: "32898970"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-password-validator
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-password-validator
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-password-validator
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -Xmx256m
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: false
+          image: folioorg/mod-password-validator:1.0.1
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-password-validator
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-14T16:20:32Z
+      lastUpdateTime: 2019-01-16T19:02:51Z
+      message: ReplicaSet "mod-password-validator-756f7fbd9f" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:39:05Z
+      lastUpdateTime: 2019-01-16T21:39:05Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 9
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "7"
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-09T20:41:51Z
+    generation: 8
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-patron
+    name: mod-patron
+    namespace: folio-q4
+    resourceVersion: "32902965"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-patron
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-patron
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-patron
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -Xmx256m
+          image: folioorg/mod-patron:1.2.0
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-patron
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-09T20:41:51Z
+      lastUpdateTime: 2019-01-16T19:02:10Z
+      message: ReplicaSet "mod-patron-84b5cc4cf8" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:55:56Z
+      lastUpdateTime: 2019-01-16T21:55:56Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 8
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "8"
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-08T21:41:27Z
+    generation: 9
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-permissions
+    name: mod-permissions
+    namespace: folio-q4
+    resourceVersion: "32898929"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-permissions
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-permissions
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-permissions
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -Xmx512m
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: false
+          image: folioorg/mod-permissions:5.4.0
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-permissions
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              memory: 2Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-08T21:41:27Z
+      lastUpdateTime: 2019-01-16T19:02:51Z
+      message: ReplicaSet "mod-permissions-5f674db7dc" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:38:57Z
+      lastUpdateTime: 2019-01-16T21:38:57Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 9
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "7"
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-08T22:27:42Z
+    generation: 8
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-rtac
+    name: mod-rtac
+    namespace: folio-q4
+    resourceVersion: "32898998"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-rtac
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-rtac
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-rtac
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -Xmx256m
+          image: folioorg/mod-rtac:1.2.1
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-rtac
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 250m
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-08T22:27:42Z
+      lastUpdateTime: 2019-01-16T19:03:07Z
+      message: ReplicaSet "mod-rtac-749779959c" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:39:10Z
+      lastUpdateTime: 2019-01-16T21:39:10Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 8
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "8"
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-09T20:45:14Z
+    generation: 9
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-sender
+    name: mod-sender
+    namespace: folio-q4
+    resourceVersion: "32899111"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-sender
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-sender
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-sender
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -Xmx256m
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: false
+          image: folioorg/mod-sender:1.0.0
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-sender
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-09T20:45:14Z
+      lastUpdateTime: 2019-01-16T19:02:20Z
+      message: ReplicaSet "mod-sender-bd4d7cfd7" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:39:30Z
+      lastUpdateTime: 2019-01-16T21:39:30Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 9
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "9"
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-09T20:16:02Z
+    generation: 10
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-source-record-manager
+    name: mod-source-record-manager
+    namespace: folio-q4
+    resourceVersion: "32899156"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-source-record-manager
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-source-record-manager
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-source-record-manager
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -Xmx256m
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: false
+          image: folioorg/mod-source-record-manager:0.1.0
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-source-record-manager
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-09T20:16:02Z
+      lastUpdateTime: 2019-01-16T19:02:17Z
+      message: ReplicaSet "mod-source-record-manager-65bd866fcc" has successfully
+        progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:39:39Z
+      lastUpdateTime: 2019-01-16T21:39:39Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 10
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "8"
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-09T20:12:28Z
+    generation: 9
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-source-record-storage
+    name: mod-source-record-storage
+    namespace: folio-q4
+    resourceVersion: "32899158"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-source-record-storage
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-source-record-storage
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-source-record-storage
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -Xmx256m
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: false
+          image: folioorg/mod-source-record-storage:1.0.0
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-source-record-storage
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-09T20:12:28Z
+      lastUpdateTime: 2019-01-16T19:02:28Z
+      message: ReplicaSet "mod-source-record-storage-6c9c87ddb7" has successfully
+        progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:39:39Z
+      lastUpdateTime: 2019-01-16T21:39:39Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 9
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "7"
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-08T22:23:12Z
+    generation: 8
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-tags
+    name: mod-tags
+    namespace: folio-q4
+    resourceVersion: "32899186"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-tags
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-tags
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-tags
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -Xmx256m
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: false
+          image: folioorg/mod-tags:0.2.0
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-tags
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 200m
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-08T22:23:12Z
+      lastUpdateTime: 2019-01-16T19:03:12Z
+      message: ReplicaSet "mod-tags-7c46b5c666" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:39:45Z
+      lastUpdateTime: 2019-01-16T21:39:45Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 8
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "9"
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-09T19:56:49Z
+    generation: 10
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-template-engine
+    name: mod-template-engine
+    namespace: folio-q4
+    resourceVersion: "32899201"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-template-engine
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-template-engine
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-template-engine
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -Xmx256m
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: false
+          image: folioorg/mod-template-engine:1.0.1
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-template-engine
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-09T19:56:49Z
+      lastUpdateTime: 2019-01-16T19:02:30Z
+      message: ReplicaSet "mod-template-engine-597ff8f49d" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:39:48Z
+      lastUpdateTime: 2019-01-16T21:39:48Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 10
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "7"
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-14T16:43:58Z
+    generation: 7
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-user-import
+    name: mod-user-import
+    namespace: folio-q4
+    resourceVersion: "32860282"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-user-import
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-user-import
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-user-import
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -Xmx256m
+          image: folioorg/mod-user-import:3.1.0
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-user-import
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: 2019-01-14T16:45:23Z
+      lastUpdateTime: 2019-01-14T16:45:23Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: 2019-01-14T16:43:58Z
+      lastUpdateTime: 2019-01-16T19:02:05Z
+      message: ReplicaSet "mod-user-import-6547565cfd" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 7
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "7"
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-08T21:41:02Z
+    generation: 8
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-users
+    name: mod-users
+    namespace: folio-q4
+    resourceVersion: "32899263"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-users
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-users
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-users
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -Xmx384m
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: false
+          image: folioorg/mod-users:15.3.0
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-users
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-08T21:41:02Z
+      lastUpdateTime: 2019-01-16T19:02:59Z
+      message: ReplicaSet "mod-users-8469fc9bd" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:40:02Z
+      lastUpdateTime: 2019-01-16T21:40:02Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 8
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "7"
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-08T22:22:53Z
+    generation: 8
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-users-bl
+    name: mod-users-bl
+    namespace: folio-q4
+    resourceVersion: "32899164"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-users-bl
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-users-bl
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-users-bl
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -Xmx512m
+          image: folioorg/mod-users-bl:4.3.2
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-users-bl
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-08T22:22:53Z
+      lastUpdateTime: 2019-01-16T19:03:24Z
+      message: ReplicaSet "mod-users-bl-65fd5cb8b4" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:39:41Z
+      lastUpdateTime: 2019-01-16T21:39:41Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 8
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "7"
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-08T22:26:01Z
+    generation: 8
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-vendors
+    name: mod-vendors
+    namespace: folio-q4
+    resourceVersion: "32899211"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/mod-vendors
+    uid:
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-vendors
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-vendors
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -Xmx384m
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: false
+          image: folioorg/mod-vendors:1.0.3
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-vendors
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 250m
+              memory: 1Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2019-01-08T22:26:01Z
+      lastUpdateTime: 2019-01-16T19:03:02Z
+      message: ReplicaSet "mod-vendors-79c6bddd6c" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:39:51Z
+      lastUpdateTime: 2019-01-16T21:39:51Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 8
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "7"
+      field.cattle.io/creatorId: u-foo
+      field.cattle.io/publicEndpoints: '[{"addresses":["XX.XX.XXX.XXX"],"port":443,"protocol":"HTTPS","serviceName":"folio-q4:okapi","ingressName":"folio-q4:okapi","hostname":"folio-okapiq4.org","allNodes":true},{"addresses":["XX.XX.XXX.XXX"],"port":443,"protocol":"HTTPS","serviceName":"folio-q4:okapi","ingressName":"folio-q4:okapi","hostname":"folio-okapiq4.org","path":"/","allNodes":true},{"addresses":["XX.XX.XXX.XXX"],"port":443,"protocol":"HTTPS","serviceName":"folio-q4:okapi","ingressName":"folio-q4:okapi","hostname":"folio-okapiq4.org","path":"/_/","allNodes":true}]'
+    creationTimestamp: 2019-01-08T20:33:04Z
+    generation: 39
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-q4-okapi
+    name: okapi
+    namespace: folio-q4
+    resourceVersion: "32899244"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/deployments/okapi
+    uid:
+  spec:
+    minReadySeconds: 5
+    progressDeadlineSeconds: 120
+    replicas: 3
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-q4-okapi
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+          field.cattle.io/ports: '[[{"containerPort":9130,"dnsName":"okapi","kind":"ClusterIP","name":"9130tcp02","protocol":"TCP","sourcePort":0},{"containerPort":5701,"dnsName":"okapi","kind":"ClusterIP","name":"5701tcp02","protocol":"TCP","sourcePort":0},{"containerPort":5702,"dnsName":"okapi","kind":"ClusterIP","name":"5702tcp02","protocol":"TCP","sourcePort":0},{"containerPort":5703,"dnsName":"okapi","kind":"ClusterIP","name":"5703tcp02","protocol":"TCP","sourcePort":0},{"containerPort":54327,"dnsName":"okapi","kind":"ClusterIP","name":"54327udp02","protocol":"UDP","sourcePort":0},{"containerPort":5704,"dnsName":"okapi","kind":"ClusterIP","name":"5704tcp02","protocol":"TCP","sourcePort":0}]]'
+        creationTimestamp: null
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-q4-okapi
+      spec:
+        containers:
+        - env:
+          - name: HAZELCAST_IP
+            value: XX.XX.XXX.XXX
+          - name: HAZELCAST_PORT
+            value: "5701"
+          - name: HAZELCAST_VERTX_PORT
+            value: "5702"
+          - name: INITDB
+            value: "false"
+          - name: OKAPI_CLUSTERHOST
+            value: XX.XX.XXX.XXX
+          - name: OKAPI_HOST
+            value: okapi
+          - name: OKAPI_LOGLEVEL
+            value: INFO
+          - name: OKAPI_PORT
+            value: "9130"
+          - name: OKAPI_URL
+            value: http://okapi:9130
+          - name: PG_HOST
+            value: pg-folio
+          image: 10.55.134.48/folio/okapi:q4
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 2
+            httpGet:
+              path: /_/proxy/health
+              port: 9130
+              scheme: HTTP
+            initialDelaySeconds: 15
+            periodSeconds: 15
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: okapi
+          ports:
+          - containerPort: 9130
+            name: 9130tcp02
+            protocol: TCP
+          - containerPort: 5701
+            name: 5701tcp02
+            protocol: TCP
+          - containerPort: 5702
+            name: 5702tcp02
+            protocol: TCP
+          - containerPort: 5703
+            name: 5703tcp02
+            protocol: TCP
+          - containerPort: 54327
+            name: 54327udp02
+            protocol: UDP
+          - containerPort: 5704
+            name: 5704tcp02
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 2
+            httpGet:
+              path: /_/proxy/health
+              port: 9130
+              scheme: HTTP
+            initialDelaySeconds: 15
+            periodSeconds: 15
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities: {}
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: vic-teague
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 3
+    conditions:
+    - lastTransitionTime: 2019-01-08T20:33:04Z
+      lastUpdateTime: 2019-01-16T21:33:11Z
+      message: ReplicaSet "okapi-767fc494c7" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2019-01-16T21:39:57Z
+      lastUpdateTime: 2019-01-16T21:39:57Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 39
+    readyReplicas: 3
+    replicas: 3
+    updatedReplicas: 3
+- apiVersion: batch/v1
+  kind: Job
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-16T19:44:43Z
+    labels:
+      cattle.io/creator: norman
+    name: bootstrap-superuser-diku
+    namespace: folio-q4
+    resourceVersion: "32871343"
+    selfLink: /apis/batch/v1/namespaces/folio-q4/jobs/bootstrap-superuser-diku
+    uid:
+  spec:
+    backoffLimit: 2
+    completions: 1
+    parallelism: 1
+    selector:
+      matchLabels:
+        controller-uid:
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          controller-uid:
+          job-name: bootstrap-superuser-diku
+      spec:
+        containers:
+        - envFrom:
+          - secretRef:
+              name: diku-tenant-config
+              optional: false
+          image: 10.55.134.48/folio/bootstrap-superuser:v1
+          imagePullPolicy: Always
+          name: bootstrap-superuser-diku
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities: {}
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: vic-teague
+        restartPolicy: Never
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    completionTime: 2019-01-16T19:44:59Z
+    conditions:
+    - lastProbeTime: 2019-01-16T19:44:59Z
+      lastTransitionTime: 2019-01-16T19:44:59Z
+      status: "True"
+      type: Complete
+    startTime: 2019-01-16T19:44:43Z
+    succeeded: 1
+- apiVersion: batch/v1
+  kind: Job
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-16T19:58:06Z
+    labels:
+      cattle.io/creator: norman
+    name: bootstrap-superuser-tamu
+    namespace: folio-q4
+    resourceVersion: "32874493"
+    selfLink: /apis/batch/v1/namespaces/folio-q4/jobs/bootstrap-superuser-tamu
+    uid:
+  spec:
+    backoffLimit: 2
+    completions: 1
+    parallelism: 1
+    selector:
+      matchLabels:
+        controller-uid:
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          controller-uid:
+          job-name: bootstrap-superuser-tamu
+      spec:
+        containers:
+        - envFrom:
+          - secretRef:
+              name: tamu-tenant-config
+              optional: false
+          image: 10.55.134.48/folio/bootstrap-superuser:v1
+          imagePullPolicy: Always
+          name: bootstrap-superuser-tamu
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities: {}
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: vic-teague
+        restartPolicy: Never
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    completionTime: 2019-01-16T19:58:17Z
+    conditions:
+    - lastProbeTime: 2019-01-16T19:58:17Z
+      lastTransitionTime: 2019-01-16T19:58:17Z
+      status: "True"
+      type: Complete
+    startTime: 2019-01-16T19:58:06Z
+    succeeded: 1
+- apiVersion: batch/v1
+  kind: Job
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-16T19:28:54Z
+    labels:
+      cattle.io/creator: norman
+    name: create-db
+    namespace: folio-q4
+    resourceVersion: "32867513"
+    selfLink: /apis/batch/v1/namespaces/folio-q4/jobs/create-db
+    uid:
+  spec:
+    backoffLimit: 2
+    completions: 1
+    parallelism: 1
+    selector:
+      matchLabels:
+        controller-uid:
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          controller-uid:
+          job-name: create-db
+      spec:
+        containers:
+        - envFrom:
+          - secretRef:
+              name: db-connect
+              optional: false
+          image: 10.55.134.48/folio/create-db:q4
+          imagePullPolicy: Always
+          name: create-db
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities: {}
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: vic-teague
+        restartPolicy: Never
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    completionTime: 2019-01-16T19:29:02Z
+    conditions:
+    - lastProbeTime: 2019-01-16T19:29:02Z
+      lastTransitionTime: 2019-01-16T19:29:02Z
+      status: "True"
+      type: Complete
+    startTime: 2019-01-16T19:28:54Z
+    succeeded: 1
+- apiVersion: batch/v1
+  kind: Job
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-16T19:37:38Z
+    labels:
+      cattle.io/creator: norman
+    name: create-deploy-diku
+    namespace: folio-q4
+    resourceVersion: "32870437"
+    selfLink: /apis/batch/v1/namespaces/folio-q4/jobs/create-deploy-diku
+    uid:
+  spec:
+    backoffLimit: 2
+    completions: 1
+    parallelism: 1
+    selector:
+      matchLabels:
+        controller-uid:
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          controller-uid:
+          job-name: create-deploy-diku
+      spec:
+        containers:
+        - envFrom:
+          - secretRef:
+              name: diku-tenant-config
+              optional: false
+          image: 10.55.134.48/folio/create-deploy:q4
+          imagePullPolicy: Always
+          name: create-deploy-diku
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities: {}
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: vic-teague
+        restartPolicy: Never
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    completionTime: 2019-01-16T19:41:14Z
+    conditions:
+    - lastProbeTime: 2019-01-16T19:41:14Z
+      lastTransitionTime: 2019-01-16T19:41:14Z
+      status: "True"
+      type: Complete
+    startTime: 2019-01-16T19:37:38Z
+    succeeded: 1
+- apiVersion: batch/v1
+  kind: Job
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-16T19:50:01Z
+    labels:
+      cattle.io/creator: norman
+    name: create-deploy-tamu
+    namespace: folio-q4
+    resourceVersion: "32872645"
+    selfLink: /apis/batch/v1/namespaces/folio-q4/jobs/create-deploy-tamu
+    uid:
+  spec:
+    backoffLimit: 2
+    completions: 1
+    parallelism: 1
+    selector:
+      matchLabels:
+        controller-uid:
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          controller-uid:
+          job-name: create-deploy-tamu
+      spec:
+        containers:
+        - envFrom:
+          - secretRef:
+              name: tamu-tenant-config
+              optional: false
+          image: 10.55.134.48/folio/create-deploy:q4
+          imagePullPolicy: Always
+          name: create-deploy-tamu
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities: {}
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: vic-teague
+        restartPolicy: Never
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    completionTime: 2019-01-16T19:50:21Z
+    conditions:
+    - lastProbeTime: 2019-01-16T19:50:21Z
+      lastTransitionTime: 2019-01-16T19:50:21Z
+      status: "True"
+      type: Complete
+    startTime: 2019-01-16T19:50:01Z
+    succeeded: 1
+- apiVersion: batch/v1
+  kind: Job
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-16T19:59:21Z
+    labels:
+      cattle.io/creator: norman
+    name: create-refdata-diku
+    namespace: folio-q4
+    resourceVersion: "32874846"
+    selfLink: /apis/batch/v1/namespaces/folio-q4/jobs/create-refdata-diku
+    uid:
+  spec:
+    backoffLimit: 2
+    completions: 1
+    parallelism: 1
+    selector:
+      matchLabels:
+        controller-uid:
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          controller-uid:
+          job-name: create-refdata-diku
+      spec:
+        containers:
+        - envFrom:
+          - secretRef:
+              name: diku-tenant-config
+              optional: false
+          image: 10.55.134.48/folio/create-refdata:q4
+          imagePullPolicy: Always
+          name: create-refdata-diku
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities: {}
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: vic-teague
+        restartPolicy: Never
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    completionTime: 2019-01-16T19:59:45Z
+    conditions:
+    - lastProbeTime: 2019-01-16T19:59:45Z
+      lastTransitionTime: 2019-01-16T19:59:45Z
+      status: "True"
+      type: Complete
+    startTime: 2019-01-16T19:59:21Z
+    succeeded: 1
+- apiVersion: batch/v1
+  kind: Job
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-16T19:59:55Z
+    labels:
+      cattle.io/creator: norman
+    name: create-refdata-tamu
+    namespace: folio-q4
+    resourceVersion: "32874979"
+    selfLink: /apis/batch/v1/namespaces/folio-q4/jobs/create-refdata-tamu
+    uid:
+  spec:
+    backoffLimit: 2
+    completions: 1
+    parallelism: 1
+    selector:
+      matchLabels:
+        controller-uid:
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          controller-uid:
+          job-name: create-refdata-tamu
+      spec:
+        containers:
+        - envFrom:
+          - secretRef:
+              name: tamu-tenant-config
+              optional: false
+          image: 10.55.134.48/folio/create-refdata:q4
+          imagePullPolicy: Always
+          name: create-refdata-tamu
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities: {}
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: vic-teague
+        restartPolicy: Never
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    completionTime: 2019-01-16T20:00:16Z
+    conditions:
+    - lastProbeTime: 2019-01-16T20:00:16Z
+      lastTransitionTime: 2019-01-16T20:00:16Z
+      status: "True"
+      type: Complete
+    startTime: 2019-01-16T19:59:55Z
+    succeeded: 1
+- apiVersion: batch/v1
+  kind: Job
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-16T21:28:12Z
+    labels:
+      cattle.io/creator: norman
+    name: create-sampdata-diku
+    namespace: folio-q4
+    resourceVersion: "32895503"
+    selfLink: /apis/batch/v1/namespaces/folio-q4/jobs/create-sampdata-diku
+    uid:
+  spec:
+    backoffLimit: 2
+    completions: 1
+    parallelism: 1
+    selector:
+      matchLabels:
+        controller-uid:
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          controller-uid:
+          job-name: create-sampdata-diku
+      spec:
+        containers:
+        - envFrom:
+          - secretRef:
+              name: x-okapi-token
+              optional: false
+          image: 10.55.134.48/folio/create-sampdata-diku:q4
+          imagePullPolicy: Always
+          name: create-sampdata-diku
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities: {}
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: vic-teague
+        restartPolicy: Never
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    completionTime: 2019-01-16T21:28:58Z
+    conditions:
+    - lastProbeTime: 2019-01-16T21:28:58Z
+      lastTransitionTime: 2019-01-16T21:28:58Z
+      status: "True"
+      type: Complete
+    startTime: 2019-01-16T21:28:12Z
+    succeeded: 1
+- apiVersion: batch/v1
+  kind: Job
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-16T19:34:39Z
+    labels:
+      cattle.io/creator: norman
+    name: create-tenant
+    namespace: folio-q4
+    resourceVersion: "32868900"
+    selfLink: /apis/batch/v1/namespaces/folio-q4/jobs/create-tenant
+    uid:
+  spec:
+    backoffLimit: 2
+    completions: 1
+    parallelism: 1
+    selector:
+      matchLabels:
+        controller-uid:
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          controller-uid:
+          job-name: create-tenant
+      spec:
+        containers:
+        - envFrom:
+          - secretRef:
+              name: diku-tenant-config
+              optional: false
+          image: 10.55.134.48/folio/create-tenant:q4
+          imagePullPolicy: Always
+          name: create-tenant
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities: {}
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: vic-teague
+        restartPolicy: Never
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    completionTime: 2019-01-16T19:34:41Z
+    conditions:
+    - lastProbeTime: 2019-01-16T19:34:41Z
+      lastTransitionTime: 2019-01-16T19:34:41Z
+      status: "True"
+      type: Complete
+    startTime: 2019-01-16T19:34:39Z
+    succeeded: 1
+- apiVersion: batch/v1
+  kind: Job
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: u-foo
+    creationTimestamp: 2019-01-16T19:35:45Z
+    labels:
+      cattle.io/creator: norman
+    name: create-tenant-tamu
+    namespace: folio-q4
+    resourceVersion: "32869168"
+    selfLink: /apis/batch/v1/namespaces/folio-q4/jobs/create-tenant-tamu
+    uid:
+  spec:
+    backoffLimit: 2
+    completions: 1
+    parallelism: 1
+    selector:
+      matchLabels:
+        controller-uid:
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+        creationTimestamp: null
+        labels:
+          controller-uid:
+          job-name: create-tenant-tamu
+      spec:
+        containers:
+        - envFrom:
+          - secretRef:
+              name: tamu-tenant-config
+              optional: false
+          image: 10.55.134.48/folio/create-tenant-tamu:q4
+          imagePullPolicy: Always
+          name: create-tenant-tamu
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities: {}
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: vic-teague
+        restartPolicy: Never
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    completionTime: 2019-01-16T19:35:47Z
+    conditions:
+    - lastProbeTime: 2019-01-16T19:35:47Z
+      lastTransitionTime: 2019-01-16T19:35:47Z
+      status: "True"
+      type: Complete
+    startTime: 2019-01-16T19:35:45Z
+    succeeded: 1
+- apiVersion: extensions/v1beta1
+  kind: DaemonSet
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: u-foo
+      field.cattle.io/publicEndpoints: '[{"addresses":["XX.XX.XXX.XXX"],"port":32200,"protocol":"TCP","serviceName":"folio-q4:stripes-nodeport","allNodes":true},{"addresses":["XX.XX.XXX.XXX"],"port":443,"protocol":"HTTPS","serviceName":"folio-q4:stripes","ingressName":"folio-q4:stripes","hostname":"folio-q4.org","allNodes":true},{"addresses":["XX.XX.XXX.XXX"],"port":443,"protocol":"HTTPS","serviceName":"folio-q4:stripes","ingressName":"folio-q4:stripes","hostname":"folio-q4.org","path":"/","allNodes":true}]'
+    creationTimestamp: 2019-01-08T20:24:35Z
+    generation: 2
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: daemonSet-folio-q4-stripes
+    name: stripes
+    namespace: folio-q4
+    resourceVersion: "32211540"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/daemonsets/stripes
+    uid:
+  spec:
+    minReadySeconds: 30
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: daemonSet-folio-q4-stripes
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+          field.cattle.io/ports: '[[{"containerPort":3000,"dnsName":"stripes-nodeport","kind":"NodePort","name":"3000tcp01","protocol":"TCP","sourcePort":0}]]'
+        creationTimestamp: null
+        labels:
+          workload.user.cattle.io/workloadselector: daemonSet-folio-q4-stripes
+      spec:
+        containers:
+        - image: 10.55.134.48/folio/stripes:q4
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /50x.html
+              port: 3000
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 2
+          name: stripes
+          ports:
+          - containerPort: 3000
+            name: 3000tcp01
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /50x.html
+              port: 3000
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 2
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities: {}
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: vic-teague
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+    templateGeneration: 2
+    updateStrategy:
+      rollingUpdate:
+        maxUnavailable: 1
+      type: RollingUpdate
+  status:
+    currentNumberScheduled: 6
+    desiredNumberScheduled: 6
+    numberAvailable: 6
+    numberMisscheduled: 0
+    numberReady: 6
+    observedGeneration: 2
+    updatedNumberScheduled: 6
+- apiVersion: extensions/v1beta1
+  kind: DaemonSet
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: u-foo
+      field.cattle.io/publicEndpoints: '[{"addresses":["XX.XX.XXX.XXX"],"port":443,"protocol":"HTTPS","serviceName":"folio-q4:stripes-tamu","ingressName":"folio-q4:stripes","hostname":"folio-testing.org","allNodes":true},{"addresses":["XX.XX.XXX.XXX"],"port":443,"protocol":"HTTPS","serviceName":"folio-q4:stripes-tamu","ingressName":"folio-q4:stripes","hostname":"folio-testing.org","path":"/","allNodes":true},{"addresses":["XX.XX.XXX.XXX"],"port":30004,"protocol":"TCP","serviceName":"folio-q4:stripes-tamu-nodeport","allNodes":true}]'
+    creationTimestamp: 2019-01-09T21:55:43Z
+    generation: 3
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: daemonSet-folio-q4-stripes-tamu
+    name: stripes-tamu
+    namespace: folio-q4
+    resourceVersion: "32212503"
+    selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/daemonsets/stripes-tamu
+    uid:
+  spec:
+    minReadySeconds: 30
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: daemonSet-folio-q4-stripes-tamu
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+          field.cattle.io/ports: '[[{"containerPort":3000,"dnsName":"stripes-tamu-nodeport","kind":"NodePort","name":"3000tcp01","protocol":"TCP","sourcePort":0}]]'
+        creationTimestamp: null
+        labels:
+          workload.user.cattle.io/workloadselector: daemonSet-folio-q4-stripes-tamu
+      spec:
+        containers:
+        - image: 10.55.134.48/folio/stripes:t1
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /50x.html
+              port: 3000
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 2
+          name: stripes-tamu
+          ports:
+          - containerPort: 3000
+            name: 3000tcp01
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /50x.html
+              port: 3000
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 2
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities: {}
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: vic-teague
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+    templateGeneration: 3
+    updateStrategy:
+      rollingUpdate:
+        maxUnavailable: 1
+      type: RollingUpdate
+  status:
+    currentNumberScheduled: 6
+    desiredNumberScheduled: 6
+    numberAvailable: 6
+    numberMisscheduled: 0
+    numberReady: 6
+    observedGeneration: 3
+    updatedNumberScheduled: 6
+- apiVersion: apps/v1beta1
+  kind: StatefulSet
+  metadata:
+    annotations:
+      helm.sh/created: "1546970841"
+    creationTimestamp: 2019-01-08T18:07:22Z
+    generation: 34
+    labels:
+      app: pgset
+      chart: statefulset-1
+      io.cattle.field/appId: pg-set-q4
+      name: pgset
+    name: pgset
+    namespace: folio-q4
+    resourceVersion: "32866692"
+    selfLink: /apis/apps/v1beta1/namespaces/folio-q4/statefulsets/pgset
+    uid:
+  spec:
+    podManagementPolicy: OrderedReady
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: pgset
+    serviceName: pgset
+    template:
+      metadata:
+        annotations:
+          cattle.io/timestamp:
+          field.cattle.io/ports: '[[{"containerPort":5432,"dnsName":"pgset-nodeport","kind":"NodePort","name":"postgres","protocol":"TCP","sourcePort":0}]]'
+        creationTimestamp: null
+        labels:
+          app: pgset
+      spec:
+        affinity:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: kubernetes.io/hostname
+                  operator: In
+                  values:
+                  - srv-kubenode6
+              - matchExpressions:
+                - key: kubernetes.io/hostname
+                  operator: In
+                  values:
+                  - srv-kubenode7
+              - matchExpressions:
+                - key: kubernetes.io/hostname
+                  operator: In
+                  values:
+                  - srv-kubenode8
+              - matchExpressions:
+                - key: kubernetes.io/hostname
+                  operator: In
+                  values:
+                  - srv-kubenode9
+        containers:
+        - env:
+          - name: ARCHIVE_MODE
+            value: "Off"
+          - name: MAX_CONNECTIONS
+            value: "500"
+          - name: MAX_WAL_SENDERS
+            value: "2"
+          - name: PGDATA_PATH_OVERRIDE
+            value: folio-q4
+          - name: PGHOST
+            value: /tmp
+          - name: PG_LOCALE
+            value: en_US.UTF-8
+          - name: PG_MODE
+            value: set
+          - name: PG_PRIMARY_HOST
+            value: pgset-primary
+          - name: PG_REPLICA_HOST
+            value: pgset-replica
+          - name: SHARED_BUFFERS
+            value: 128MB
+          - name: TEMP_BUFFERS
+            value: 16MB
+          - name: WORK_MEM
+            value: 4MB
+          - name: CCP_NAMESPACE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+          envFrom:
+          - secretRef:
+              name: db-config
+              optional: false
+          image: crunchydata/crunchy-postgres:centos7-10.6-2.2.0
+          imagePullPolicy: IfNotPresent
+          name: pgset
+          ports:
+          - containerPort: 5432
+            name: postgres
+            protocol: TCP
+          resources:
+            requests:
+              cpu: 200m
+              memory: 512Mi
+          securityContext:
+            capabilities: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /pgdata
+            name: pgdata
+          - mountPath: /pgdata/folio-q4
+            name: folio-q4
+            subPath: data
+          - mountPath: /okapimods
+            name: folio-q4
+            subPath: okapimods
+          - mountPath: /backup
+            name: folio-q4
+            subPath: backup
+          - mountPath: /pgconf
+            name: folio-q4
+            subPath: pgconf
+          - mountPath: /pgwal
+            name: folio-q4
+            subPath: pgwal
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: pgset-sa
+        serviceAccountName: pgset-sa
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - emptyDir: {}
+          name: pgdata
+        - name: folio-q4
+          persistentVolumeClaim:
+            claimName: folio-q4-claim
+    updateStrategy:
+      type: OnDelete
+  status:
+    collisionCount: 0
+    currentRevision: pgset-7cc9f7d6bc
+    observedGeneration: 34
+    readyReplicas: 1
+    replicas: 1
+    updateRevision: pgset-865d48589c
+    updatedReplicas: 1
+kind: List

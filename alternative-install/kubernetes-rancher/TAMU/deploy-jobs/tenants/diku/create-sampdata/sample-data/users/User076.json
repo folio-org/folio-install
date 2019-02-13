@@ -1,0 +1,32 @@
+{
+   "enrollmentDate" : "2017-09-03",
+   "username" : "lesley",
+   "barcode" : "78722241329817",
+   "id" : "bfdb7da9-fed6-4a09-a395-dba64ee36f67",
+   "personal" : {
+      "mobilePhone" : "1-243-893-7871",
+      "addresses" : [
+         {
+            "addressLine1" : "54048 Paige Rapid Apt. 825",
+            "postalCode" : "84385-7437",
+            "city" : "Bellflower",
+            "addressTypeId" : "f6a96d06-618c-4697-9bf1-984cd8229831",
+            "countryId" : "US",
+            "region" : "CT",
+            "primaryAddress" : true
+         }
+      ],
+      "preferredContactTypeId" : "005",
+      "email" : "emmitt@schumm-llc.cv",
+      "dateOfBirth" : "1975-02-21",
+      "phone" : "829.157.7596",
+      "lastName" : "Lakin",
+      "middleName" : "Clinton",
+      "firstName" : "Berta"
+   },
+   "patronGroup" : "f2bf7b08-6ead-4498-9227-b379b72d4a4d",
+   "type" : "patron",
+   "expirationDate" : "2019-02-22",
+   "active" : false
+}
+

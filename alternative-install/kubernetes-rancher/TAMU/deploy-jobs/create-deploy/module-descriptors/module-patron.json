@@ -1,0 +1,93 @@
+{
+  "id" : "mod-patron-1.2.0",
+  "name" : "Patron Services Module",
+  "requires" : [ {
+    "id" : "users",
+    "version" : "15.0"
+  }, {
+    "id" : "circulation",
+    "version" : "3.3 4.0 5.0"
+  }, {
+    "id" : "feesfines",
+    "version" : "14.0 15.0"
+  }, {
+    "id" : "inventory",
+    "version" : "5.2 6.0 7.0 8.0"
+  }, {
+    "id" : "holdings-storage",
+    "version" : "1.2 2.0 3.0"
+  } ],
+  "provides" : [ {
+    "id" : "patron",
+    "version" : "1.1",
+    "handlers" : [ {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/patron/account/{accountId}",
+      "permissionsRequired" : [ "patron.account.item.get" ],
+      "modulePermissions" : [ "users.item.get", "circulation.loans.collection.get", "circulation.requests.collection.get", "accounts.collection.get", "inventory.items.item.get", "inventory-storage.items.collection.get", "inventory-storage.holdings.item.get", "inventory.instances.item.get", "feefines.item.get" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/patron/account/{accountId}/item/{itemId}/renew",
+      "permissionsRequired" : [ "patron.renew.item.post" ],
+      "modulePermissions" : [ "circulation.renew-by-id.post" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/patron/account/{accountId}/item/{itemId}/hold",
+      "permissionsRequired" : [ "patron.hold.item.post" ],
+      "modulePermissions" : [ "circulation.requests.item.post" ]
+    }, {
+      "methods" : [ "PUT" ],
+      "pathPattern" : "/patron/account/{accountId}/item/{itemId}/hold/{holdId}",
+      "permissionsRequired" : [ "patron.hold.item.put" ],
+      "modulePermissions" : [ "circulation.requests.item.put" ]
+    }, {
+      "methods" : [ "DELETE" ],
+      "pathPattern" : "/patron/account/{accountId}/item/{itemId}/hold/{holdId}",
+      "permissionsRequired" : [ "patron.hold.item.delete" ],
+      "modulePermissions" : [ "circulation.requests.item.delete" ]
+    } ]
+  } ],
+  "permissionSets" : [ {
+    "permissionName" : "patron.account.item.get",
+    "displayName" : "patron - get account details",
+    "description" : "Get user account details"
+  }, {
+    "permissionName" : "patron.renew.item.post",
+    "displayName" : "patron - renew a loan",
+    "description" : "Renew a loan for this patron"
+  }, {
+    "permissionName" : "patron.hold.item.post",
+    "displayName" : "patron - create a hold",
+    "description" : "Creates a hold on the specified item for this patron"
+  }, {
+    "permissionName" : "patron.hold.item.put",
+    "displayName" : "patron - update a hold",
+    "description" : "Updates the specified hold"
+  }, {
+    "permissionName" : "patron.hold.item.delete",
+    "displayName" : "patron - remove a hold",
+    "description" : "Removes the specified hold"
+  }, {
+    "permissionName" : "patron.all",
+    "displayName" : "patron - all permissions",
+    "description" : "Entire set of permissions needed to use patron",
+    "subPermissions" : [ "patron.account.item.get", "patron.renew.item.post", "patron.hold.item.post", "patron.hold.item.put", "patron.hold.item.delete" ]
+  } ],
+  "launchDescriptor" : {
+    "dockerImage" : "folioorg/mod-patron:1.2.0",
+    "dockerPull" : true,
+    "env" : [ {
+      "name" : "JAVA_OPTIONS",
+      "value" : "-Xmx256m"
+    } ],
+    "dockerArgs" : {
+      "HostConfig" : {
+        "PortBindings" : {
+          "8081/tcp" : [ {
+            "HostPort" : "%p"
+          } ]
+        }
+      }
+    }
+  }
+}

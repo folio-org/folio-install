@@ -1,0 +1,15 @@
+{
+  "id": "d6f7c1ba-a237-465e-94ed-f37e91bc64bd",
+  "name": "Exchanges",
+  "code": "EXCH-SUBN",
+  "created_date": "2018-01-01T13:06:34.186Z",
+  "fund_status": "Active",
+  "currency": "USD",
+  "description": "special funds allocated to fund subscriptions sent to exchange partner libraries",
+  "ledger_id": "65cb2bf0-d4c2-4886-8ad0-b76f1ba75d61",
+  "allocation_from": [
+    "e54b1f4d-7d05-4b1a-9368-3c36b75d8ac6",
+    "4428a37c-8bae-4f0d-865d-970d83d5ad55"
+  ],
+  "allocation_to": null
+}

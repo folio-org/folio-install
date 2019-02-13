@@ -1,0 +1,32 @@
+{
+   "username" : "kylee",
+   "enrollmentDate" : "2016-05-07",
+   "type" : "patron",
+   "active" : true,
+   "expirationDate" : "2019-01-01",
+   "personal" : {
+      "middleName" : "Buford",
+      "firstName" : "Lea",
+      "lastName" : "Brakus",
+      "phone" : "246.838.6225",
+      "preferredContactTypeId" : "002",
+      "addresses" : [
+         {
+            "countryId" : "US",
+            "addressTypeId" : "f6a96d06-618c-4697-9bf1-984cd8229831",
+            "city" : "Huntington Park",
+            "primaryAddress" : true,
+            "region" : "MH",
+            "addressLine1" : "14856 Mraz Lodge",
+            "postalCode" : "38098-7004"
+         }
+      ],
+      "mobilePhone" : "394-284-0858 x5385",
+      "dateOfBirth" : "1990-05-06",
+      "email" : "katrine@dibbert-inc.ye"
+   },
+   "id" : "082ff131-d675-4560-a19d-46fcd2b6702e",
+   "barcode" : "55981004656615",
+   "patronGroup" : "f2bf7b08-6ead-4498-9227-b379b72d4a4d"
+}
+

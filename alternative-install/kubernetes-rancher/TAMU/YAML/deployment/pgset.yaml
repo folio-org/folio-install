@@ -1,0 +1,140 @@
+apiVersion: apps/v1beta2
+kind: StatefulSet
+metadata:
+  annotations:
+    helm.sh/created: "1546970841"
+  creationTimestamp: null
+  generation: 1
+  labels:
+    app: pgset
+    chart: statefulset-1
+    io.cattle.field/appId: pg-set-q4
+    name: pgset
+  name: pgset
+  selfLink: /apis/apps/v1beta2/namespaces/folio-q4/statefulsets/pgset
+spec:
+  podManagementPolicy: OrderedReady
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: pgset
+  serviceName: pgset
+  template:
+    metadata:
+      annotations:
+        cattle.io/timestamp:
+        field.cattle.io/ports: '[[{"containerPort":5432,"dnsName":"pgset-nodeport","kind":"NodePort","name":"postgres","protocol":"TCP","sourcePort":0}]]'
+      creationTimestamp: null
+      labels:
+        app: pgset
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - srv-kubenode6
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - srv-kubenode7
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - srv-kubenode8
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - srv-kubenode9
+      containers:
+      - env:
+        - name: ARCHIVE_MODE
+          value: "Off"
+        - name: MAX_CONNECTIONS
+          value: "500"
+        - name: MAX_WAL_SENDERS
+          value: "2"
+        - name: PGDATA_PATH_OVERRIDE
+          value: folio-q4
+        - name: PGHOST
+          value: /tmp
+        - name: PG_LOCALE
+          value: en_US.UTF-8
+        - name: PG_MODE
+          value: set
+        - name: PG_PRIMARY_HOST
+          value: pgset-primary
+        - name: PG_REPLICA_HOST
+          value: pgset-replica
+        - name: SHARED_BUFFERS
+          value: 128MB
+        - name: TEMP_BUFFERS
+          value: 16MB
+        - name: WORK_MEM
+          value: 4MB
+        - name: CCP_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        envFrom:
+        - secretRef:
+            name: db-config
+            optional: false
+        image: crunchydata/crunchy-postgres:centos7-10.6-2.2.0
+        imagePullPolicy: IfNotPresent
+        name: pgset
+        ports:
+        - containerPort: 5432
+          name: postgres
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 200m
+            memory: 512Mi
+        securityContext:
+          capabilities: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /pgdata
+          name: pgdata
+        - mountPath: /pgdata/folio-q4
+          name: folio-q4
+          subPath: data
+        - mountPath: /okapimods
+          name: folio-q4
+          subPath: okapimods
+        - mountPath: /backup
+          name: folio-q4
+          subPath: backup
+        - mountPath: /pgconf
+          name: folio-q4
+          subPath: pgconf
+        - mountPath: /pgwal
+          name: folio-q4
+          subPath: pgwal
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      serviceAccount: pgset-sa
+      serviceAccountName: pgset-sa
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - emptyDir: {}
+        name: pgdata
+      - name: folio-q4
+        persistentVolumeClaim:
+          claimName: folio-q4-claim
+  updateStrategy:
+    type: OnDelete
+status:
+  replicas: 0

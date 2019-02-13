@@ -1,0 +1,6 @@
+{
+  "id" : "folio_plugin-find-user-1.4.0",
+  "name" : "User-finder for Stripes",
+  "requires" : [ ],
+  "permissionSets" : [ ]
+}

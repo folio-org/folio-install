@@ -12,4 +12,3 @@ for dir in $DLIST; do
   echo "Removing $dir"
   rm -rf $dir
 done
-

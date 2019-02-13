@@ -1,0 +1,16 @@
+{
+  "id": "69640328-788e-43fc-9c3c-af39e243f3b7",
+  "name": "Oceania History",
+  "code": "ANZHIST",
+  "created_date": "2018-01-01T13:06:34.186Z",
+  "fund_status": "Active",
+  "currency": "USD",
+  "description": "use for all Oceanic countries",
+  "ledger_id": "133a7916-f05e-4df4-8f7f-09eb2a7076d1",
+  "allocation_from": [
+    "fb7b70f1-b898-4924-a991-0e4b6312bb5f"
+  ],
+  "allocation_to": [
+    "cf23adf0-61ba-4887-bf82-956c4aae2260"
+  ]
+}

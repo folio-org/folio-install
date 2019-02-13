@@ -1,0 +1,81 @@
+{
+  "id": "8be05cf5-fb4f-4752-8094-8e179d08fb99",
+  "hrid": "in000003",
+  "source": "MARC",
+  "title": "Anglo-Saxon manuscripts in microfiche facsimile Volume 25 Corpus Christi College, Cambridge II, MSS 12, 144, 162, 178, 188, 198, 265, 285, 322, 326, 449 microform A. N. Doane (editor and director), Matthew T. Hussey (associate editor), Phillip Pulsiano (founding editor)",
+  "alternativeTitles": [],
+  "series": [
+    "Medieval and Renaissance Texts and Studies volume 497",
+    "volume 497"
+  ],
+  "identifiers": [
+    {
+      "value": "880391235",
+      "identifierTypeId": "5d164f4b-0b15-4e42-ae75-cfcf85318ad9"
+    },
+    {
+      "value": "9780866989732",
+      "identifierTypeId": "8261054f-be78-422d-bd51-4ed9f33c3422"
+    },
+    {
+      "value": "0866989730",
+      "identifierTypeId": "8261054f-be78-422d-bd51-4ed9f33c3422"
+    },
+    {
+      "value": "9780866985529",
+      "identifierTypeId": "8261054f-be78-422d-bd51-4ed9f33c3422"
+    },
+    {
+      "value": "0866985522",
+      "identifierTypeId": "8261054f-be78-422d-bd51-4ed9f33c3422"
+    },
+    {
+      "value": "(OCoLC)962073864",
+      "identifierTypeId": "7e591197-f335-4afb-bc6d-a6d76ca3bace"
+    },
+    {
+      "value": "(OCoLC)ocn962073864",
+      "identifierTypeId": "7e591197-f335-4afb-bc6d-a6d76ca3bace"
+    },
+    {
+      "value": "(OCoLC)962073864",
+      "identifierTypeId": "7e591197-f335-4afb-bc6d-a6d76ca3bace"
+    },
+    {
+      "value": "(DE-599)GBV880391235",
+      "identifierTypeId": "7e591197-f335-4afb-bc6d-a6d76ca3bace"
+    }
+  ],
+  "contributors": [
+    {
+      "contributorNameTypeId": "2b94c631-fca9-4892-a730-03ee529ffe2a",
+      "name": "Lucas, Peter J"
+    },
+    {
+      "contributorNameTypeId": "2e48e713-17f3-4c13-a9f8-23845bb210aa",
+      "name": "Arizona Center for Medieval and Renaissance Studies"
+    }
+  ],
+  "subjects": [],
+  "classifications": [],
+  "publication": [
+    {
+      "publisher": "ACMRS, Arizona Center for Medieval and Renaissance Studies",
+      "place": "Tempe, Arizona",
+      "dateOfPublication": "2016"
+    }
+  ],
+  "instanceTypeId": "6312d172-f0cf-40f6-b27d-9fa8feaf332f",
+  "physicalDescriptions": [
+    "69 Mikrofiches 1 Begleitbuch (XII, 167 Seiten)"
+  ],
+  "languages": [
+    "eng",
+    "ang",
+    "lat"
+  ],
+  "notes": [
+    "Titel und Angaben zu beteiligter Person vom Begleitheft",
+    "In English with segments in Anglo-Saxon and Latin"
+  ]
+}

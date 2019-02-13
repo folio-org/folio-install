@@ -1,0 +1,19 @@
+apiVersion: v1
+data:
+  ADMIN_PASSWORD: foobar
+  ADMIN_USER: foobar
+  OKAPI_URL: foobar
+  TENANT_DESC: foobar
+  TENANT_ID: foobar
+  TENANT_NAME: foobar
+kind: Secret
+metadata:
+  annotations:
+    field.cattle.io/creatorId: u-foo
+    field.cattle.io/projectId: c-f00:p-foo
+  creationTimestamp: null
+  labels:
+    cattle.io/creator: norman
+  name: diku-tenant-config
+  selfLink: /api/v1/namespaces/folio-q4/secrets/diku-tenant-config
+type: Opaque

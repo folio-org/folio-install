@@ -2,16 +2,24 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   annotations:
-    field.cattle.io/creatorId: u-d8jfk
-    field.cattle.io/ingressState: '{}'
-    field.cattle.io/publicEndpoints: '[{"addresses":["<xxx.xxx.xxx.xxx>"],"port":443,"protocol":"HTTPS","serviceName":"folio-q2:stripes","ingressName":"folio-q2:stripes","hostname":"folio-stripes-arecord.org","path":"/","allNodes":true},{"addresses":["<xxx.xxx.xxx.xxx>"],"port":443,"protocol":"HTTPS","serviceName":"folio-q2:stripes","ingressName":"folio-q2:stripes","hostname":"folio-stripes-arecord.org","allNodes":true}]'
+    field.cattle.io/creatorId: u-foo
+    field.cattle.io/description: Ingress for Folio front-end services.
+    field.cattle.io/ingressState: '{"foo==":"p-foo:folio-wildcard-2018","foo":"","foo=":"","foo==":"","foo":""}'
+    field.cattle.io/publicEndpoints: '[{"addresses":["XX.XX.XXX.XXX"],"port":443,"protocol":"HTTPS","serviceName":"folio-q4:stripes","ingressName":"folio-q4:stripes","hostname":"folio-q4.org","allNodes":true},{"addresses":["XX.XX.XXX.XXX"],"port":443,"protocol":"HTTPS","serviceName":"folio-q4:stripes","ingressName":"folio-q4:stripes","hostname":"folio-q4.org","path":"/","allNodes":true},{"addresses":["XX.XX.XXX.XXX"],"port":443,"protocol":"HTTPS","serviceName":"folio-q4:stripes-tamu","ingressName":"folio-q4:stripes","hostname":"folio-testing.org","allNodes":true},{"addresses":["XX.XX.XXX.XXX"],"port":443,"protocol":"HTTPS","serviceName":"folio-q4:stripes-tamu","ingressName":"folio-q4:stripes","hostname":"folio-testing.org","path":"/","allNodes":true}]'
+    nginx.ingress.kubernetes.io/client-body-buffer-size: 2M
+    nginx.ingress.kubernetes.io/proxy-body-size: 1g
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "2"
+    nginx.ingress.kubernetes.io/upstream-fail-timeout: "2"
+    nginx.ingress.kubernetes.io/upstream-max-fails: "1"
   creationTimestamp: null
   generation: 1
+  labels:
+    cattle.io/creator: norman
   name: stripes
-  selfLink: /apis/extensions/v1beta1/namespaces/folio-q2/ingresses/stripes
+  selfLink: /apis/extensions/v1beta1/namespaces/folio-q4/ingresses/stripes
 spec:
   rules:
-  - host: folio-stripes-arecord.org
+  - host: folio-q4.org
     http:
       paths:
       - backend:
@@ -23,7 +31,7 @@ spec:
         path: /
   tls:
   - hosts:
-    - folio-stripes-arecord.org
-    secretName: my-secret-name
+    - folio-q4.org
+    secretName: folio-wildcard-2018
 status:
   loadBalancer: {}

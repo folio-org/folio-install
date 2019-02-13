@@ -1,0 +1,31 @@
+{
+   "username" : "myra",
+   "enrollmentDate" : "2015-06-29",
+   "type" : "patron",
+   "active" : true,
+   "expirationDate" : "2018-11-15",
+   "personal" : {
+      "phone" : "1-807-977-6625 x8923",
+      "middleName" : "Douglas",
+      "firstName" : "Spencer",
+      "lastName" : "Marvin",
+      "preferredContactTypeId" : "004",
+      "addresses" : [
+         {
+            "postalCode" : "39137",
+            "addressLine1" : "75394 Rolfson Island",
+            "countryId" : "US",
+            "addressTypeId" : "f6a96d06-618c-4697-9bf1-984cd8229831",
+            "city" : "Hermosa Beach",
+            "region" : "SD",
+            "primaryAddress" : true
+         }
+      ],
+      "email" : "cristian@rath-kunde.jm",
+      "dateOfBirth" : "2000-05-22"
+   },
+   "id" : "22e60755-eebe-4f53-9c3a-10040299b30e",
+   "barcode" : "124162811768517",
+   "patronGroup" : "f2bf7b08-6ead-4498-9227-b379b72d4a4d"
+}
+

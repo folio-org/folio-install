@@ -1,0 +1,31 @@
+{
+   "enrollmentDate" : "2017-07-12",
+   "username" : "shaina",
+   "barcode" : "32956407727503",
+   "id" : "bac7ed16-59f0-41dd-8bed-757adacbb9e7",
+   "personal" : {
+      "preferredContactTypeId" : "005",
+      "addresses" : [
+         {
+            "primaryAddress" : true,
+            "region" : "NC",
+            "countryId" : "US",
+            "addressTypeId" : "f6a96d06-618c-4697-9bf1-984cd8229831",
+            "city" : "Culver City",
+            "addressLine1" : "00711 Dare Wall",
+            "postalCode" : "19818-8418"
+         }
+      ],
+      "email" : "dena@pacocha-corkery-and-durgan.gd",
+      "dateOfBirth" : "1962-02-01",
+      "phone" : "(355)057-2270",
+      "firstName" : "Markus",
+      "middleName" : "Merle",
+      "lastName" : "Schumm"
+   },
+   "patronGroup" : "f2bf7b08-6ead-4498-9227-b379b72d4a4d",
+   "type" : "patron",
+   "expirationDate" : "2019-11-19",
+   "active" : true
+}
+

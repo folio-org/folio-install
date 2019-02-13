@@ -1,0 +1,32 @@
+{
+   "username" : "jessika",
+   "enrollmentDate" : "2017-11-15",
+   "id" : "2d91cd6d-8088-40a4-8138-2c1d95679892",
+   "personal" : {
+      "lastName" : "Becker",
+      "middleName" : "Randal",
+      "firstName" : "Xavier",
+      "phone" : "094.580.8750 x08591",
+      "dateOfBirth" : "1953-07-27",
+      "email" : "jalon@carter-wilderman-and-daugherty.om",
+      "addresses" : [
+         {
+            "postalCode" : "17055-7618",
+            "addressLine1" : "98441 Titus Centers",
+            "addressTypeId" : "f6a96d06-618c-4697-9bf1-984cd8229831",
+            "city" : "Vincennes",
+            "countryId" : "US",
+            "primaryAddress" : true,
+            "region" : "HI"
+         }
+      ],
+      "preferredContactTypeId" : "003",
+      "mobilePhone" : "(661)696-2683 x920"
+   },
+   "barcode" : "447900165568253",
+   "patronGroup" : "1f53a184-d791-48d7-bf34-3fea3eed1ad7",
+   "type" : "patron",
+   "active" : true,
+   "expirationDate" : "2019-12-21"
+}
+

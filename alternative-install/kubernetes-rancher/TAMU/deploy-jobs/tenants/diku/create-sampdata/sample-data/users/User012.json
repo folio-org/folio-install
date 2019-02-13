@@ -1,0 +1,31 @@
+{
+   "expirationDate" : "2019-07-26",
+   "active" : true,
+   "type" : "patron",
+   "patronGroup" : "cb73adc7-5554-47d1-a074-9d56020c1030",
+   "barcode" : "676192847198080",
+   "personal" : {
+      "firstName" : "Khalid",
+      "lastName" : "Bailey",
+      "phone" : "390-798-2055",
+      "dateOfBirth" : "1973-12-22",
+      "email" : "teresa@abernathy-conroy-and-fahey.il",
+      "preferredContactTypeId" : "001",
+      "addresses" : [
+         {
+            "addressLine1" : "37338 Alison Port",
+            "postalCode" : "73184-5023",
+            "region" : "PW",
+            "primaryAddress" : true,
+            "countryId" : "US",
+            "addressTypeId" : "ad2c4726-b397-4a0c-8e0e-c31dc5503296",
+            "city" : "Mentor"
+         }
+      ],
+      "mobilePhone" : "1-183-065-6195"
+   },
+   "id" : "c33d5d17-623a-494e-9f54-6b93c454dff7",
+   "enrollmentDate" : "2016-11-15",
+   "username" : "nathanial"
+}
+

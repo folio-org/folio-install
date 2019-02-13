@@ -1,0 +1,16 @@
+{
+  "id": "e54b1f4d-7d05-4b1a-9368-3c36b75d8ac6",
+  "name": "State-Subscriptions",
+  "code": "STATE-SUBN",
+  "created_date": "2018-01-01T13:06:34.186Z",
+  "fund_status": "Active",
+  "currency": "USD",
+  "description": "state funds used for ongoing subscriptions",
+  "ledger_id": "65cb2bf0-d4c2-4886-8ad0-b76f1ba75d61",
+  "allocation_from": [
+    "bbd4a5e1-c9f3-44b9-bfdf-d184e04f0ba0"
+  ],
+  "allocation_to": [
+    "bbd4a5e1-c9f3-44b9-bfdf-d184e04f0ba0"
+  ]
+}

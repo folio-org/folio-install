@@ -1,0 +1,32 @@
+{
+   "username" : "kiarra",
+   "enrollmentDate" : "2015-10-10",
+   "id" : "d5b279a9-9ff3-4b4f-9ef8-ab8535352d65",
+   "personal" : {
+      "phone" : "(587)980-8388",
+      "lastName" : "Yundt",
+      "middleName" : "Morton",
+      "firstName" : "Al",
+      "email" : "aimee@kovacek-beatty-and-bradtke.st",
+      "dateOfBirth" : "2005-08-08",
+      "mobilePhone" : "(652)956-8781 x54042",
+      "addresses" : [
+         {
+            "postalCode" : "12810-4814",
+            "addressLine1" : "77643 Jamir Flat",
+            "region" : "SD",
+            "primaryAddress" : true,
+            "addressTypeId" : "ad2c4726-b397-4a0c-8e0e-c31dc5503296",
+            "countryId" : "US",
+            "city" : "Pomona"
+         }
+      ],
+      "preferredContactTypeId" : "005"
+   },
+   "barcode" : "470304896452223",
+   "patronGroup" : "97a31a9d-52bf-4a80-98ca-39df96520abb",
+   "type" : "patron",
+   "active" : true,
+   "expirationDate" : "2020-05-29"
+}
+

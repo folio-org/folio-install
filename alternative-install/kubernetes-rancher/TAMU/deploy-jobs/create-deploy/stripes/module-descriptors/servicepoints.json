@@ -1,0 +1,6 @@
+{
+  "id" : "folio_servicepoints-1.2.0",
+  "name" : "Service Points handler for Stripes",
+  "requires" : [ ],
+  "permissionSets" : [ ]
+}

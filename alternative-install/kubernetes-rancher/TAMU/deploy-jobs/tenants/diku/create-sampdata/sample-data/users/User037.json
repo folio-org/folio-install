@@ -1,0 +1,32 @@
+{
+   "active" : true,
+   "expirationDate" : "2019-12-03",
+   "type" : "patron",
+   "patronGroup" : "97a31a9d-52bf-4a80-98ca-39df96520abb",
+   "personal" : {
+      "mobilePhone" : "018-760-9618",
+      "addresses" : [
+         {
+            "primaryAddress" : true,
+            "region" : "MD",
+            "countryId" : "US",
+            "addressTypeId" : "ad2c4726-b397-4a0c-8e0e-c31dc5503296",
+            "city" : "Escondido",
+            "addressLine1" : "95296 Parisian Turnpike Apt. 627",
+            "postalCode" : "41134"
+         }
+      ],
+      "preferredContactTypeId" : "004",
+      "email" : "thomas@gerhold-inc.int",
+      "dateOfBirth" : "1948-10-28",
+      "phone" : "754-344-0658 x375",
+      "lastName" : "Ondricka",
+      "middleName" : "Crawford",
+      "firstName" : "Chet"
+   },
+   "id" : "08bfc2ae-be2e-4273-88d2-300b79206b8d",
+   "barcode" : "448810883352635",
+   "username" : "estelle",
+   "enrollmentDate" : "2016-02-28"
+}
+

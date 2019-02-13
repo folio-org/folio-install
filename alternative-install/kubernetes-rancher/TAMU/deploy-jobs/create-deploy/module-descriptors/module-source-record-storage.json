@@ -1,0 +1,122 @@
+{
+  "id" : "mod-source-record-storage-1.0.0",
+  "name" : "Source Record Storage Module",
+  "requires" : [ ],
+  "provides" : [ {
+    "id" : "source-record-storage",
+    "version" : "1.0",
+    "handlers" : [ {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/source-storage/snapshot",
+      "permissionsRequired" : [ "source-storage.snapshot.get" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/source-storage/snapshot",
+      "permissionsRequired" : [ "source-storage.snapshot.post" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/source-storage/snapshot/{jobExecutionId}",
+      "permissionsRequired" : [ "source-storage.snapshot.get" ]
+    }, {
+      "methods" : [ "PUT" ],
+      "pathPattern" : "/source-storage/snapshot/{jobExecutionId}",
+      "permissionsRequired" : [ "source-storage.snapshot.put" ]
+    }, {
+      "methods" : [ "DELETE" ],
+      "pathPattern" : "/source-storage/snapshot/{jobExecutionId}",
+      "permissionsRequired" : [ "source-storage.snapshot.delete" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/source-storage/record",
+      "permissionsRequired" : [ "source-storage.record.get" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/source-storage/record",
+      "permissionsRequired" : [ "source-storage.record.post" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/source-storage/record/{id}",
+      "permissionsRequired" : [ "source-storage.record.get" ]
+    }, {
+      "methods" : [ "PUT" ],
+      "pathPattern" : "/source-storage/record/{id}",
+      "permissionsRequired" : [ "source-storage.record.put" ]
+    }, {
+      "methods" : [ "DELETE" ],
+      "pathPattern" : "/source-storage/record/{id}",
+      "permissionsRequired" : [ "source-storage.record.delete" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/source-storage/result",
+      "permissionsRequired" : [ "source-storage.result.get" ]
+    } ]
+  }, {
+    "id" : "_tenant",
+    "version" : "1.0",
+    "interfaceType" : "system",
+    "handlers" : [ {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/_/tenant"
+    } ]
+  } ],
+  "permissionSets" : [ {
+    "permissionName" : "source-storage.snapshot.get",
+    "displayName" : "Source Storage - get snapshot(s)",
+    "description" : "Get Snapshot(s)"
+  }, {
+    "permissionName" : "source-storage.snapshot.post",
+    "displayName" : "Source Storage - create new snapshot",
+    "description" : "Post Snapshot"
+  }, {
+    "permissionName" : "source-storage.snapshot.put",
+    "displayName" : "Source Storage - update snapshot",
+    "description" : "Put Snapshot"
+  }, {
+    "permissionName" : "source-storage.snapshot.delete",
+    "displayName" : "Source Storage - delete snapshot",
+    "description" : "Delete Snapshot"
+  }, {
+    "permissionName" : "source-storage.record.get",
+    "displayName" : "Source Storage - get record(s)",
+    "description" : "Get Record(s)"
+  }, {
+    "permissionName" : "source-storage.record.post",
+    "displayName" : "Source Storage - create new record",
+    "description" : "Post Record"
+  }, {
+    "permissionName" : "source-storage.record.put",
+    "displayName" : "Source Storage - update record",
+    "description" : "Put Record"
+  }, {
+    "permissionName" : "source-storage.record.delete",
+    "displayName" : "Source Storage - delete record",
+    "description" : "Delete Record"
+  }, {
+    "permissionName" : "source-storage.result.get",
+    "displayName" : "Source Storage - get results",
+    "description" : "Get Results"
+  }, {
+    "permissionName" : "source-storage.all",
+    "displayName" : "Source Record Storage - all permissions",
+    "description" : "Entire set of permissions needed to manage snapshots and records",
+    "subPermissions" : [ "source-storage.snapshot.get", "source-storage.snapshot.post", "source-storage.snapshot.put", "source-storage.snapshot.delete", "source-storage.record.get", "source-storage.record.post", "source-storage.record.put", "source-storage.record.delete", "source-storage.result.get" ],
+    "visible" : false
+  } ],
+  "launchDescriptor" : {
+    "dockerImage" : "folioorg/mod-source-record-storage:1.0.0",
+    "dockerPull" : true,
+    "env" : [ {
+      "name" : "JAVA_OPTIONS",
+      "value" : "-Xmx256m"
+    } ],
+    "dockerArgs" : {
+      "HostConfig" : {
+        "PortBindings" : {
+          "8081/tcp" : [ {
+            "HostPort" : "%p"
+          } ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,162 @@
+{
+  "id" : "mod-users-bl-4.3.2",
+  "name" : "users business logic",
+  "requires" : [ {
+    "id" : "users",
+    "version" : "14.3 15.0"
+  }, {
+    "id" : "permissions",
+    "version" : "5.0"
+  }, {
+    "id" : "login",
+    "version" : "4.4"
+  }, {
+    "id" : "service-points",
+    "version" : "2.1 3.0"
+  }, {
+    "id" : "service-points-users",
+    "version" : "1.0"
+  }, {
+    "id" : "password-validator",
+    "version" : "1.0"
+  }, {
+    "id" : "authtoken",
+    "version" : "2.0"
+  }, {
+    "id" : "notify",
+    "version" : "2.0"
+  }, {
+    "id" : "configuration",
+    "version" : "2.0"
+  } ],
+  "provides" : [ {
+    "id" : "users-bl",
+    "version" : "3.4",
+    "handlers" : [ {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/bl-users",
+      "permissionsRequired" : [ "users-bl.collection.get" ],
+      "modulePermissions" : [ "users.collection.get", "inventory-storage.service-points-users.collection.get", "inventory-storage.service-points-users.item.get", "inventory-storage.service-points.collection.get", "inventory-storage.service-points.item.get" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/bl-users/_self",
+      "permissionsRequired" : [ ],
+      "modulePermissions" : [ "users.item.get", "users.collection.get", "perms.users.get", "usergroups.item.get", "inventory-storage.service-points-users.collection.get", "inventory-storage.service-points-users.item.get", "inventory-storage.service-points.collection.get", "inventory-storage.service-points.item.get" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/bl-users/login",
+      "permissionsRequired" : [ ],
+      "modulePermissions" : [ "users.item.get", "users.collection.get", "perms.users.item.get", "perms.users.get", "usergroups.item.get", "inventory-storage.service-points-users.collection.get", "inventory-storage.service-points-users.item.get", "inventory-storage.service-points.collection.get", "inventory-storage.service-points.item.get" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/bl-users/by-username/{id}",
+      "permissionsRequired" : [ "users-bl.item.get", "perms.users.get" ],
+      "modulePermissions" : [ "users.item.get", "users.collection.get", "perms.users.get", "login.item.get", "inventory-storage.service-points-users.collection.get", "inventory-storage.service-points-users.item.get", "inventory-storage.service-points.collection.get", "inventory-storage.service-points.item.get" ]
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/bl-users/by-id/{id}",
+      "permissionsRequired" : [ "users-bl.item.get", "perms.users.get" ],
+      "modulePermissions" : [ "users.item.get", "users.collection.get", "perms.users.get", "login.item.get", "inventory-storage.service-points-users.collection.get", "inventory-storage.service-points-users.item.get", "inventory-storage.service-points.collection.get", "inventory-storage.service-points.item.get" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/bl-users",
+      "permissionsRequired" : [ "users-bl.item.post" ],
+      "permissionsDesired" : [ "perms.users.item.post" ],
+      "modulePermissions" : [ "users.item.post", "perms.users.item.post", "login.item.post" ]
+    }, {
+      "methods" : [ "PUT" ],
+      "pathPattern" : "/bl-users/{id}",
+      "permissionsRequired" : [ "users-bl.item.put" ],
+      "permissionsDesired" : [ "perms.users.item.put" ],
+      "modulePermissions" : [ "users.edit", "users.item.put", "perms.users.item.put", "login.item.put" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/bl-users/forgotten/password",
+      "permissionsRequired" : [ ],
+      "permissionsDesired" : [ ],
+      "modulePermissions" : [ "users.edit", "users.item.put", "perms.users.item.put", "login.item.put", "configuration.entries.collection.get", "users.collection.get", "users.item.get", "login.password-reset-action.post", "auth.signtoken", "notify.item.post" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/bl-users/forgotten/username",
+      "permissionsRequired" : [ ],
+      "permissionsDesired" : [ ],
+      "modulePermissions" : [ "users.edit", "users.item.put", "perms.users.item.put", "login.item.put", "configuration.entries.collection.get", "users.collection.get", "notify.item.post" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/bl-users/settings/myprofile/password",
+      "permissionsRequired" : [ ],
+      "permissionsDesired" : [ ],
+      "modulePermissions" : [ "validation.validate.post", "login.item.put", "users.item.get" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/bl-users/password-reset/link",
+      "permissionsRequired" : [ "users-bl.password-reset-link.generate" ],
+      "permissionsDesired" : [ ],
+      "modulePermissions" : [ "users.item.get", "configuration.entries.collection.get", "login.password-reset-action.post", "auth.signtoken", "notify.item.post" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/bl-users/password-reset/reset",
+      "permissionsRequired" : [ "users-bl.password-reset-link.reset" ],
+      "permissionsDesired" : [ ],
+      "modulePermissions" : [ "login.password-reset-action.get", "users.item.get", "auth.signtoken", "login.password-reset.post", "validation.validate.post", "notify.item.post" ]
+    }, {
+      "methods" : [ "POST" ],
+      "pathPattern" : "/bl-users/password-reset/validate",
+      "permissionsRequired" : [ "users-bl.password-reset-link.validate" ],
+      "permissionsDesired" : [ ],
+      "modulePermissions" : [ "users.item.get", "auth.signtoken", "login.password-reset-action.get" ]
+    } ]
+  } ],
+  "permissionSets" : [ {
+    "permissionName" : "users-bl.collection.get",
+    "displayName" : "users-bl collection get",
+    "description" : "Get a list of composite user records"
+  }, {
+    "permissionName" : "users-bl.item.get",
+    "displayName" : "users-bl item get",
+    "description" : "Get a single composite user record by id"
+  }, {
+    "permissionName" : "users-bl.item.post",
+    "displayName" : "users-bl item post",
+    "description" : "Create a new composite user record"
+  }, {
+    "permissionName" : "users-bl.item.put",
+    "displayName" : "users-bl item put",
+    "description" : "Modify a composite user record"
+  }, {
+    "permissionName" : "users-bl.password-reset-link.generate",
+    "displayName" : "users-bl password reset link generate",
+    "description" : "Generate and send password reset link"
+  }, {
+    "permissionName" : "users-bl.password-reset-link.validate",
+    "displayName" : "users-bl password-reset-link validate",
+    "description" : "Validate create/reset password link and log user into system to change password"
+  }, {
+    "permissionName" : "users-bl.password-reset-link.reset",
+    "displayName" : "users-bl password-reset-link reset",
+    "description" : "Reset password by link"
+  }, {
+    "permissionName" : "users-bl.all",
+    "displayName" : "users-bl all",
+    "description" : "All user business-logic permissions",
+    "subPermissions" : [ "users-bl.collection.get", "users-bl.item.get", "users-bl.item.post", "users-bl.item.put", "users-bl.password-reset-link.generate", "users-bl.password-reset-link.validate", "users-bl.password-reset-link.reset" ],
+    "visible" : false
+  } ],
+  "launchDescriptor" : {
+    "dockerImage" : "folioorg/mod-users-bl:4.3.2",
+    "dockerPull" : true,
+    "env" : [ {
+      "name" : "JAVA_OPTIONS",
+      "value" : "-Xmx256m"
+    } ],
+    "dockerArgs" : {
+      "HostConfig" : {
+        "PortBindings" : {
+          "8081/tcp" : [ {
+            "HostPort" : "%p"
+          } ]
+        }
+      }
+    }
+  }
+}

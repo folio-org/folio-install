@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    field.cattle.io/targetWorkloadIds: '["deployment:folio-q4:mod-inventory"]'
+    workload.cattle.io/targetWorkloadIdNoop: "true"
+    workload.cattle.io/workloadPortBased: "true"
+  creationTimestamp: null
+  labels:
+    cattle.io/creator: norman
+  name: mod-inventory
+  ownerReferences:
+  - apiVersion: apps/v1beta2
+    controller: true
+    kind: deployment
+    name: mod-inventory
+    uid:
+  selfLink: /api/v1/namespaces/folio-q4/services/mod-inventory
+spec:
+  ports:
+  - name: 9403tcp01-mod-inventory
+    port: 9403
+    protocol: TCP
+    targetPort: 9403
+  selector:
+    workload.user.cattle.io/workloadselector: deployment-folio-q4-mod-inventory
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

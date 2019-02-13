@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    chart: statefulset-1
+    heritage: Tiller
+    io.cattle.field/appId: pg-set-q4
+    name: pgset
+    release: pg-set-q4
+  name: pgset
+  selfLink: /api/v1/namespaces/folio-q4/services/pgset
+spec:
+  clusterIP: None
+  ports:
+  - name: web
+    port: 5432
+    protocol: TCP
+    targetPort: 5432
+  selector:
+    app: pgset
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

@@ -1,0 +1,34 @@
+{
+  "id" : "mod-codex-mux-2.3.0",
+  "name" : "Codex Multiplexer",
+  "requires" : [ ],
+  "provides" : [ {
+    "id" : "codex",
+    "version" : "3.2",
+    "handlers" : [ {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/codex-instances"
+    }, {
+      "methods" : [ "GET" ],
+      "pathPattern" : "/codex-instances/{id}"
+    } ]
+  } ],
+  "permissionSets" : [ ],
+  "launchDescriptor" : {
+    "dockerImage" : "folioorg/mod-codex-mux:2.3.0",
+    "dockerPull" : true,
+    "env" : [ {
+      "name" : "JAVA_OPTIONS",
+      "value" : "-Xmx256m"
+    } ],
+    "dockerArgs" : {
+      "HostConfig" : {
+        "PortBindings" : {
+          "8081/tcp" : [ {
+            "HostPort" : "%p"
+          } ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,207 @@
+{
+  "id" : "folio_finance-1.2.0",
+  "name" : "Description for ui-finance",
+  "requires" : [ {
+    "id" : "budget",
+    "version" : "1.0"
+  }, {
+    "id" : "fiscal_year",
+    "version" : "1.0"
+  }, {
+    "id" : "fund_distribution",
+    "version" : "1.0"
+  }, {
+    "id" : "fund",
+    "version" : "1.0"
+  }, {
+    "id" : "ledger",
+    "version" : "1.0"
+  }, {
+    "id" : "transaction",
+    "version" : "1.0"
+  } ],
+  "permissionSets" : [ {
+    "permissionName" : "module.finance.enabled",
+    "displayName" : "UI: Finance module is enabled"
+  }, {
+    "permissionName" : "budget.collection.get",
+    "displayName" : "budget-collection get",
+    "description" : "Get a collection of budgets"
+  }, {
+    "permissionName" : "budget.item.post",
+    "displayName" : "budget-item post",
+    "description" : "Create a new budget"
+  }, {
+    "permissionName" : "budget.item.get",
+    "displayName" : "budget-item get",
+    "description" : "Fetch a budget"
+  }, {
+    "permissionName" : "budget.item.put",
+    "displayName" : "budget-item put",
+    "description" : "Update a budget"
+  }, {
+    "permissionName" : "budget.item.delete",
+    "displayName" : "budget-item delete",
+    "description" : "Delete a budget"
+  }, {
+    "permissionName" : "budget.all",
+    "displayName" : "All budget perms",
+    "description" : "All permissions for the budget",
+    "subPermissions" : [ "budget.collection.get", "budget.item.post", "budget.item.get", "budget.item.put", "budget.item.delete" ]
+  }, {
+    "permissionName" : "fiscal_year.collection.get",
+    "displayName" : "fiscal-year-collection get",
+    "description" : "Get collection of fiscal year"
+  }, {
+    "permissionName" : "fiscal_year.item.post",
+    "displayName" : "fiscal-year-item post",
+    "description" : "Create a new fiscal year"
+  }, {
+    "permissionName" : "fiscal_year.item.get",
+    "displayName" : "fiscal-year-item get",
+    "description" : "Fetch a fiscal year"
+  }, {
+    "permissionName" : "fiscal_year.item.put",
+    "displayName" : "fiscal-year-item put",
+    "description" : "Update a fiscal year"
+  }, {
+    "permissionName" : "fiscal_year.item.delete",
+    "displayName" : "fiscal-year-item delete",
+    "description" : "Delete a fiscal year"
+  }, {
+    "permissionName" : "fiscal_year.all",
+    "displayName" : "All fiscal_year perms",
+    "description" : "All permissions for the fiscal year",
+    "subPermissions" : [ "fiscal_year.collection.get", "fiscal_year.item.post", "fiscal_year.item.get", "fiscal_year.item.put", "fiscal_year.item.delete" ]
+  }, {
+    "permissionName" : "fund_distribution.collection.get",
+    "displayName" : "fund-distribution-collection get",
+    "description" : "Get collection of fund distributions"
+  }, {
+    "permissionName" : "fund_distribution.item.post",
+    "displayName" : "fund-distribution-item post",
+    "description" : "Create a new fund distribution"
+  }, {
+    "permissionName" : "fund_distribution.item.get",
+    "displayName" : "fund-distribution-item get",
+    "description" : "Fetch a fund distribution"
+  }, {
+    "permissionName" : "fund_distribution.item.put",
+    "displayName" : "fund-distribution-item put",
+    "description" : "Update a fund distribution"
+  }, {
+    "permissionName" : "fund_distribution.item.delete",
+    "displayName" : "fund-distribution-item delete",
+    "description" : "Delete a fund distribution"
+  }, {
+    "permissionName" : "fund_distribution.all",
+    "displayName" : "All fund_distribution perms",
+    "description" : "All permissions for the fund distribution",
+    "subPermissions" : [ "fund_distribution.collection.get", "fund_distribution.item.post", "fund_distribution.item.get", "fund_distribution.item.put", "fund_distribution.item.delete" ]
+  }, {
+    "permissionName" : "fund.collection.get",
+    "displayName" : "fund-collection get",
+    "description" : "Get collection of funds"
+  }, {
+    "permissionName" : "fund.item.post",
+    "displayName" : "fund-item post",
+    "description" : "Create a new fund"
+  }, {
+    "permissionName" : "fund.item.get",
+    "displayName" : "fund-item get",
+    "description" : "Fetch a fund"
+  }, {
+    "permissionName" : "fund.item.put",
+    "displayName" : "fund-item put",
+    "description" : "Update a fund"
+  }, {
+    "permissionName" : "fund.item.delete",
+    "displayName" : "fund-item delete",
+    "description" : "Delete a fund"
+  }, {
+    "permissionName" : "fund.all",
+    "displayName" : "All fund perms",
+    "description" : "All permissions for the fund",
+    "subPermissions" : [ "fund.collection.get", "fund.item.post", "fund.item.get", "fund.item.put", "fund.item.delete" ]
+  }, {
+    "permissionName" : "ledger.collection.get",
+    "displayName" : "ledger-collection get",
+    "description" : "Get collection of ledgers"
+  }, {
+    "permissionName" : "ledger.item.post",
+    "displayName" : "ledger-item post",
+    "description" : "Create a new ledger"
+  }, {
+    "permissionName" : "ledger.item.get",
+    "displayName" : "ledger-item get",
+    "description" : "Fetch a ledger"
+  }, {
+    "permissionName" : "ledger.item.put",
+    "displayName" : "ledger-item put",
+    "description" : "Update a ledger"
+  }, {
+    "permissionName" : "ledger.item.delete",
+    "displayName" : "ledger-item delete",
+    "description" : "Delete a ledger"
+  }, {
+    "permissionName" : "ledger.all",
+    "displayName" : "All fund perms",
+    "description" : "All permissions for the ledger",
+    "subPermissions" : [ "ledger.collection.get", "ledger.item.post", "ledger.item.get", "ledger.item.put", "ledger.item.delete" ]
+  }, {
+    "permissionName" : "tag.collection.get",
+    "displayName" : "tag-collection get",
+    "description" : "Get collection of tags"
+  }, {
+    "permissionName" : "tag.item.post",
+    "displayName" : "tag-item post",
+    "description" : "Create a new tag"
+  }, {
+    "permissionName" : "tag.item.get",
+    "displayName" : "tag-item get",
+    "description" : "Fetch a tag"
+  }, {
+    "permissionName" : "tag.item.put",
+    "displayName" : "tag-item put",
+    "description" : "Update a tag"
+  }, {
+    "permissionName" : "tag.item.delete",
+    "displayName" : "tag-item delete",
+    "description" : "Delete a tag"
+  }, {
+    "permissionName" : "tag.all",
+    "displayName" : "All tag perms",
+    "description" : "All permissions for the tag",
+    "subPermissions" : [ "tag.collection.get", "tag.item.post", "tag.item.get", "tag.item.put", "tag.item.delete" ]
+  }, {
+    "permissionName" : "transaction.collection.get",
+    "displayName" : "transaction-collection get",
+    "description" : "Get collection of transactions"
+  }, {
+    "permissionName" : "transaction.item.post",
+    "displayName" : "transaction-item post",
+    "description" : "Create a new transaction"
+  }, {
+    "permissionName" : "transaction.item.get",
+    "displayName" : "transaction-item get",
+    "description" : "Fetch a transaction"
+  }, {
+    "permissionName" : "transaction.item.put",
+    "displayName" : "transaction-item put",
+    "description" : "Update a transaction"
+  }, {
+    "permissionName" : "transaction.item.delete",
+    "displayName" : "transaction-item delete",
+    "description" : "Delete a transaction"
+  }, {
+    "permissionName" : "transaction.all",
+    "displayName" : "All tag perms",
+    "description" : "All permissions for the transaction",
+    "subPermissions" : [ "transaction.collection.get", "transaction.item.post", "transaction.item.get", "transaction.item.put", "transaction.item.delete" ]
+  }, {
+    "permissionName" : "finance.module.all",
+    "displayName" : "All finance-module perms",
+    "description" : "All permissions for the finance module",
+    "subPermissions" : [ "budget.all", "fiscal_year.all", "fund_distribution.all", "funds.all", "ledger.all", "tag.all", "transaction.all" ]
+  } ]
+}

@@ -1,0 +1,42 @@
+{
+  "name": "@folio/platform-complete",
+  "version": "1.2.0",
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "export NODE_OPTIONS=\"--max-old-space-size=4096 $NODE_OPTIONS\"; stripes build stripes.config.js",
+    "stripes": "stripes",
+    "start": "stripes serve stripes.config.js",
+    "build-module-descriptors": "node ./build-module-descriptors.js",
+    "local": "f=stripes.config.js; test -f $f.local && f=$f.local; echo Using config $f; stripes serve $f",
+    "test": "echo 'No unit tests implemented'",
+    "test-int": "stripes test nightmare stripes.config.js",
+    "test-regression": "stripes test nightmare stripes.config.js --run WD/platform-core/checkout/users/inventory/requests/circulation/organization",
+    "lint": "eslint test/ui-testing"
+  },
+  "dependencies": {
+    "@folio/agreements": "~1.1.3",
+    "@folio/calendar": "~2.0.6",
+    "@folio/data-import": "~1.0.0",
+    "@folio/eholdings": "~1.2.0",
+    "@folio/erm-usage": "~1.0.0",
+    "@folio/finance": "~1.2.0",
+    "@folio/licenses": "~1.1.0",
+    "@folio/marccat": "~1.2.0",
+    "@folio/platform-core": "~1.2.4",
+    "@folio/orders": "~1.0.0",
+    "@folio/plugin-find-vendor": "~1.2.0",
+    "@folio/stripes": "~1.1.0",
+    "@folio/vendors": "~1.2.0",
+    "react": "~16.6.3",
+    "react-dom": "~16.6.3", 
+    "react-redux": "~5.1.1", 
+    "redux": "~3.7.2"
+
+  },
+  "devDependencies": {
+    "@folio/eslint-config-stripes": "^3.2.1",
+    "@folio/stripes-cli": "^1.5.0",
+    "eslint": "^4.19.1",
+    "lodash": "^4.17.5"
+  }
+}

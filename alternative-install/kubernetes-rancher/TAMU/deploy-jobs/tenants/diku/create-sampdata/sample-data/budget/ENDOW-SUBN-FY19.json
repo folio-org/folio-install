@@ -1,0 +1,16 @@
+{
+  "name": "ENDOW-SUBN-FY19",
+  "code": "ENDOW-SUBN-FY19",
+  "budget_status": "Active",
+  "limit_enc_percent": 100,
+  "limit_exp_percent": 100,
+  "allocation": 55000.00,
+  "awaiting_payment": 1815.00,
+  "available": 47960.00,
+  "encumbered": 2255.00,
+  "expenditures": 2970.00,
+  "over_encumbrance": 0,
+  "fund_id": "1714f71f-b845-444b-a79e-a577487a6f7d",
+  "fiscal_year_id": "684b5dc5-92f6-4db7-b996-b549d88f5e4e",
+  "tags": null
+}
