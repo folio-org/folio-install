@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # set NAMESPACE in  hazelcast xml file
-sed -i "s/NAMESPACE/$(echo "${NAMESPACE}" | envsubst)/g" $HAZELCAST_FILE;
+sed -i "s/NAMESPACE/$NAMESPACE/g" $HAZELCAST_FILE;
 
 if [ $INITDB = 'true' ]; then
     echo "InitDB"
