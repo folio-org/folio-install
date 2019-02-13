@@ -1,5 +1,7 @@
 apiVersion: v1
 data:
+  DEPLOY_URL: https://raw.githubusercontent.com/folio-org/platform-core/q4-2018/okapi-install.json
+  ENABLE_URL: https://raw.githubusercontent.com/folio-org/platform-core/q4-2018/stripes-install.json
   FOLIO_PASSWORD: admin
   FOLIO_USER: diku_admin
   OKAPI_HOSTPORT: localhost:9130

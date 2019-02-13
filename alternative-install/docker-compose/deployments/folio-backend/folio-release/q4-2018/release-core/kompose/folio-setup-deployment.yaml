@@ -21,6 +21,16 @@ spec:
     spec:
       containers:
       - env:
+        - name: DEPLOY_URL
+          valueFrom:
+            configMapKeyRef:
+              key: DEPLOY_URL
+              name: folio-setup-config-folio-setup-env
+        - name: ENABLE_URL
+          valueFrom:
+            configMapKeyRef:
+              key: ENABLE_URL
+              name: folio-setup-config-folio-setup-env
         - name: FOLIO_INSTALL_TAG
           value: q4-2018
         - name: FOLIO_PASSWORD
