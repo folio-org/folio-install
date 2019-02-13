@@ -2,7 +2,7 @@
 
 sleep 60;
 
-if [ $INITDB = 'true' ]; then
+if [ "$INITDB" = "true" ]; then
     # set git repo to the correct branch or tag
     (cd platform-complete  && git checkout "$PLATFORM_COMPLETE_TAG");
     (cd folio-install  && git checkout "$FOLIO_INSTALL_TAG");
@@ -17,7 +17,7 @@ if [ $INITDB = 'true' ]; then
     perl folio-install/bootstrap-superuser.pl --tenant "$OKAPI_TENANT" --user "$FOLIO_USER" --password "$FOLIO_PASSWORD" --okapi "$OKAPI_URL";
 fi
 
-if [ $LOAD_SAMPLEDATA = 'true' ] && [ $INITDB = 'true' ]; then
+if [ "$LOAD_SAMPLEDATA" = "true" ] && [ "$INITDB" = "true" ]; then
     # Load Ref data
     perl folio-install/load-data.pl --sort location-units/institutions,location-units/campuses,location-units/libraries,locations --custom-method loan-rules-storage=PUT --tenant "$OKAPI_TENANT" --user "$FOLIO_USER" --password "$FOLIO_PASSWORD" --okapi "$OKAPI_URL" folio-install/reference-data;
 

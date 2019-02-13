@@ -1,5 +1,8 @@
 #!/bin/sh
-sleep 1;
+
+# set NAMESPACE in  hazelcast xml file
+sed -i "s/NAMESPACE/$(echo "${NAMESPACE}" | envsubst)/g" $HAZELCAST_FILE;
+
 if [ $INITDB = 'true' ]; then
     echo "InitDB"
     java -Dstorage=postgres -Dpostgres_host=$PG_HOST -Dpostgres_port=$PG_PORT -Dpostgres_username=$PG_USERNAME \
@@ -8,6 +11,7 @@ if [ $INITDB = 'true' ]; then
 
     sleep 1
     export OKAPI_CLUSTERHOST=$(hostname -i)
+    export OKAPI_NODENAME=$(hostname)
 
     echo "Start Okapi after init"
     java -Dstorage=postgres -Dpostgres_host=$PG_HOST -Dpostgres_port=$PG_PORT -Dpostgres_username=$PG_USERNAME \
@@ -18,6 +22,7 @@ if [ $INITDB = 'true' ]; then
 
 else
     export OKAPI_CLUSTERHOST=$(hostname -i)
+    export OKAPI_NODENAME=$(hostname)
 
     echo "Start Okapi Only"
     java -Dstorage=postgres -Dpostgres_host=$PG_HOST -Dpostgres_port=$PG_PORT -Dpostgres_username=$PG_USERNAME \
