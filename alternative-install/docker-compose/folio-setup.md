@@ -73,9 +73,9 @@ Navigate to `q4-2018` branch and click `group_vars`. Within this folder select t
 
     * Update Configmap change HAZELCAST_IP and OKAPI_CLUSTERHOST
 
-        $ cd ..
-        $ chmod +x updateOkapiConfigmap
-        $ ./updateOkapiConfigmap
+            $ cd ..
+            $ chmod +x updateOkapiConfigmap
+            $ ./updateOkapiConfigmap
 
 
 rbac.yaml
