@@ -77,7 +77,7 @@
                 <group-name>GROUP-NAME</group-name>
             </azure>
             <kubernetes enabled="true">
-                <namespace>NAMESPACE</namespace>
+                <namespace>q4-core</namespace>
                 <service-name>okapi</service-name>
                 <!--
                 <service-label-name>MY-SERVICE-LABEL-NAME</service-label-name>
