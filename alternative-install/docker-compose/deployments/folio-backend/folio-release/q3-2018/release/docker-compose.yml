@@ -1,0 +1,921 @@
+services:
+  folio-db:
+    build:
+      context: /Users/mast4541/github/cu/folio/folio-install/alternative-install/docker-compose/images/postgres
+    container_name: folio-db
+    environment:
+      FOLIO_DATABASE: folio
+      FOLIO_DATABASE_ROLE_USER: folio
+      FOLIO_PASSWORD: folio123
+      PG_DATABASE: okapi
+      PG_HOST: folio-db
+      PG_PASSWORD: okapi25
+      PG_PORT: '5432'
+      PG_USERNAME: okapi
+      POSTGRES_PASSWORD: password
+      db.database: folio
+      db.host: folio-db
+      db.password: folio123
+      db.port: '5432'
+      db.username: folio
+    image: culibraries/postgres:9.6
+    volumes:
+    - folio-pgdata:/var/lib/postgresql/data:rw
+  folio-setup:
+    build:
+      context: /Users/mast4541/github/cu/folio/folio-install/alternative-install/docker-compose/images/folio-setup
+    container_name: folio-setup
+    depends_on:
+    - folio-db
+    - okapi
+    environment:
+      FOLIO_INSTALL_TAG: q3-2018-2
+      FOLIO_PASSWORD: admin
+      FOLIO_USER: diku_admin
+      HAZELCAST_FILE: /usr/local/bin/folio/okapi/hazelcast.xml
+      HAZELCAST_IP: okapi
+      HAZELCAST_PORT: '5701'
+      HAZELCAST_VERTX_PORT: '5703'
+      INITDB: "true"
+      LOAD_SAMPLEDATA: "true"
+      OKAPI_CLUSTERHOST: okapi
+      OKAPI_COMMAND: cluster
+      OKAPI_HOST: okapi
+      OKAPI_HOSTPORT: localhost:9130
+      OKAPI_LOGLEVEL: ERROR
+      OKAPI_NODENAME: okapi
+      OKAPI_PORT: '9130'
+      OKAPI_SCHEME: http
+      OKAPI_TENANT: diku
+      OKAPI_URL: http://okapi:9130
+      PLATFORM_COMPLETE_TAG: q3-2018
+      TENANT_DESCRIPTION: '''Danish Library Technology Institute'''
+      TENANT_NAME: '''Datalogisk Institute'''
+    image: culibraries/foliosetup:0.0.1
+  mod-authtoken:
+    build:
+      args:
+        MODULE: mod-authtoken
+        ORG: folioorg
+        TAG: 1.5.2
+      context: /Users/mast4541/github/cu/folio/folio-install/alternative-install/docker-compose/images/backend-module
+    container_name: folio-mod-authtoken
+    depends_on:
+    - folio-db
+    - folio-setup
+    - okapi
+    environment:
+      FOLIO_DATABASE: folio
+      FOLIO_DATABASE_ROLE_USER: folio
+      FOLIO_PASSWORD: folio123
+      MODULE: mod-authtoken
+      MODULE_URL: http://mod-authtoken:8081
+      OKAPI_TENANT: diku
+      OKAPI_URL: http://okapi:9130
+      ORG: folioorg
+      PG_DATABASE: okapi
+      PG_HOST: folio-db
+      PG_PASSWORD: okapi25
+      PG_PORT: '5432'
+      PG_USERNAME: okapi
+      POSTGRES_PASSWORD: password
+      TAG: 1.5.2
+      db.database: folio
+      db.host: folio-db
+      db.password: folio123
+      db.port: '5432'
+      db.username: folio
+    image: culibraries/mod-authtoken:1.5.2
+  mod-calendar:
+    build:
+      args:
+        MODULE: mod-calendar
+        ORG: folioorg
+        TAG: 1.0.2
+      context: /Users/mast4541/github/cu/folio/folio-install/alternative-install/docker-compose/images/backend-module
+    container_name: folio-mod-calendar
+    depends_on:
+    - folio-db
+    - folio-setup
+    - okapi
+    environment:
+      FOLIO_DATABASE: folio
+      FOLIO_DATABASE_ROLE_USER: folio
+      FOLIO_PASSWORD: folio123
+      MODULE: mod-calendar
+      MODULE_URL: http://mod-calendar:8081
+      OKAPI_TENANT: diku
+      OKAPI_URL: http://okapi:9130
+      ORG: folioorg
+      PG_DATABASE: okapi
+      PG_HOST: folio-db
+      PG_PASSWORD: okapi25
+      PG_PORT: '5432'
+      PG_USERNAME: okapi
+      POSTGRES_PASSWORD: password
+      TAG: 1.0.2
+      db.database: folio
+      db.host: folio-db
+      db.password: folio123
+      db.port: '5432'
+      db.username: folio
+    image: culibraries/mod-calendar:1.0.2
+  mod-circulation:
+    build:
+      args:
+        MODULE: mod-circulation
+        ORG: folioorg
+        TAG: 12.0.0
+      context: /Users/mast4541/github/cu/folio/folio-install/alternative-install/docker-compose/images/backend-module
+    container_name: folio-mod-circulation
+    depends_on:
+    - folio-db
+    - folio-setup
+    - okapi
+    environment:
+      FOLIO_DATABASE: folio
+      FOLIO_DATABASE_ROLE_USER: folio
+      FOLIO_PASSWORD: folio123
+      MODULE: mod-circulation
+      MODULE_URL: http://mod-circulation:9801
+      OKAPI_TENANT: diku
+      OKAPI_URL: http://okapi:9130
+      ORG: folioorg
+      PG_DATABASE: okapi
+      PG_HOST: folio-db
+      PG_PASSWORD: okapi25
+      PG_PORT: '5432'
+      PG_USERNAME: okapi
+      POSTGRES_PASSWORD: password
+      TAG: 12.0.0
+      db.database: folio
+      db.host: folio-db
+      db.password: folio123
+      db.port: '5432'
+      db.username: folio
+    image: culibraries/mod-circulation:12.0.0
+  mod-circulation-storage:
+    build:
+      args:
+        MODULE: mod-circulation-storage
+        ORG: folioorg
+        TAG: 6.1.0
+      context: /Users/mast4541/github/cu/folio/folio-install/alternative-install/docker-compose/images/backend-module
+    container_name: folio-mod-circulation-storage
+    depends_on:
+    - folio-db
+    - folio-setup
+    - okapi
+    environment:
+      FOLIO_DATABASE: folio
+      FOLIO_DATABASE_ROLE_USER: folio
+      FOLIO_PASSWORD: folio123
+      MODULE: mod-circulation-storage
+      MODULE_URL: http://mod-circulation-storage:8081
+      OKAPI_TENANT: diku
+      OKAPI_URL: http://okapi:9130
+      ORG: folioorg
+      PG_DATABASE: okapi
+      PG_HOST: folio-db
+      PG_PASSWORD: okapi25
+      PG_PORT: '5432'
+      PG_USERNAME: okapi
+      POSTGRES_PASSWORD: password
+      TAG: 6.1.0
+      db.database: folio
+      db.host: folio-db
+      db.password: folio123
+      db.port: '5432'
+      db.username: folio
+    image: culibraries/mod-circulation-storage:6.1.0
+  mod-codex-ekb:
+    build:
+      args:
+        MODULE: mod-codex-ekb
+        ORG: folioorg
+        TAG: 1.0.0
+      context: /Users/mast4541/github/cu/folio/folio-install/alternative-install/docker-compose/images/backend-module
+    container_name: folio-mod-codex-ekb
+    depends_on:
+    - folio-db
+    - folio-setup
+    - okapi
+    environment:
+      FOLIO_DATABASE: folio
+      FOLIO_DATABASE_ROLE_USER: folio
+      FOLIO_PASSWORD: folio123
+      MODULE: mod-codex-ekb
+      MODULE_URL: http://mod-codex-ekb:8081
+      OKAPI_TENANT: diku
+      OKAPI_URL: http://okapi:9130
+      ORG: folioorg
+      PG_DATABASE: okapi
+      PG_HOST: folio-db
+      PG_PASSWORD: okapi25
+      PG_PORT: '5432'
+      PG_USERNAME: okapi
+      POSTGRES_PASSWORD: password
+      TAG: 1.0.0
+      db.database: folio
+      db.host: folio-db
+      db.password: folio123
+      db.port: '5432'
+      db.username: folio
+    image: culibraries/mod-codex-ekb:1.0.0
+  mod-codex-inventory:
+    build:
+      args:
+        MODULE: mod-codex-inventory
+        ORG: folioorg
+        TAG: 1.2.1
+      context: /Users/mast4541/github/cu/folio/folio-install/alternative-install/docker-compose/images/backend-module
+    container_name: folio-mod-codex-inventory
+    depends_on:
+    - folio-db
+    - folio-setup
+    - okapi
+    environment:
+      FOLIO_DATABASE: folio
+      FOLIO_DATABASE_ROLE_USER: folio
+      FOLIO_PASSWORD: folio123
+      MODULE: mod-codex-inventory
+      MODULE_URL: http://mod-codex-inventory:8081
+      OKAPI_TENANT: diku
+      OKAPI_URL: http://okapi:9130
+      ORG: folioorg
+      PG_DATABASE: okapi
+      PG_HOST: folio-db
+      PG_PASSWORD: okapi25
+      PG_PORT: '5432'
+      PG_USERNAME: okapi
+      POSTGRES_PASSWORD: password
+      TAG: 1.2.1
+      db.database: folio
+      db.host: folio-db
+      db.password: folio123
+      db.port: '5432'
+      db.username: folio
+    image: culibraries/mod-codex-inventory:1.2.1
+  mod-codex-mux:
+    build:
+      args:
+        MODULE: mod-codex-mux
+        ORG: folioorg
+        TAG: 2.2.2
+      context: /Users/mast4541/github/cu/folio/folio-install/alternative-install/docker-compose/images/backend-module
+    container_name: folio-mod-codex-mux
+    depends_on:
+    - folio-db
+    - folio-setup
+    - okapi
+    environment:
+      FOLIO_DATABASE: folio
+      FOLIO_DATABASE_ROLE_USER: folio
+      FOLIO_PASSWORD: folio123
+      MODULE: mod-codex-mux
+      MODULE_URL: http://mod-codex-mux:8081
+      OKAPI_TENANT: diku
+      OKAPI_URL: http://okapi:9130
+      ORG: folioorg
+      PG_DATABASE: okapi
+      PG_HOST: folio-db
+      PG_PASSWORD: okapi25
+      PG_PORT: '5432'
+      PG_USERNAME: okapi
+      POSTGRES_PASSWORD: password
+      TAG: 2.2.2
+      db.database: folio
+      db.host: folio-db
+      db.password: folio123
+      db.port: '5432'
+      db.username: folio
+    image: culibraries/mod-codex-mux:2.2.2
+  mod-configuration:
+    build:
+      args:
+        MODULE: mod-configuration
+        ORG: folioorg
+        TAG: 5.0.0
+      context: /Users/mast4541/github/cu/folio/folio-install/alternative-install/docker-compose/images/backend-module
+    container_name: folio-mod-configuration
+    depends_on:
+    - folio-db
+    - folio-setup
+    - okapi
+    environment:
+      FOLIO_DATABASE: folio
+      FOLIO_DATABASE_ROLE_USER: folio
+      FOLIO_PASSWORD: folio123
+      MODULE: mod-configuration
+      MODULE_URL: http://mod-configuration:8081
+      OKAPI_TENANT: diku
+      OKAPI_URL: http://okapi:9130
+      ORG: folioorg
+      PG_DATABASE: okapi
+      PG_HOST: folio-db
+      PG_PASSWORD: okapi25
+      PG_PORT: '5432'
+      PG_USERNAME: okapi
+      POSTGRES_PASSWORD: password
+      TAG: 5.0.0
+      db.database: folio
+      db.host: folio-db
+      db.password: folio123
+      db.port: '5432'
+      db.username: folio
+    image: culibraries/mod-configuration:5.0.0
+  mod-feesfines:
+    build:
+      args:
+        MODULE: mod-feesfines
+        ORG: folioorg
+        TAG: 14.2.4
+      context: /Users/mast4541/github/cu/folio/folio-install/alternative-install/docker-compose/images/backend-module
+    container_name: folio-mod-feesfines
+    depends_on:
+    - folio-db
+    - folio-setup
+    - okapi
+    environment:
+      FOLIO_DATABASE: folio
+      FOLIO_DATABASE_ROLE_USER: folio
+      FOLIO_PASSWORD: folio123
+      MODULE: mod-feesfines
+      MODULE_URL: http://mod-tags:8081
+      OKAPI_TENANT: diku
+      OKAPI_URL: http://okapi:9130
+      ORG: folioorg
+      PG_DATABASE: okapi
+      PG_HOST: folio-db
+      PG_PASSWORD: okapi25
+      PG_PORT: '5432'
+      PG_USERNAME: okapi
+      POSTGRES_PASSWORD: password
+      TAG: 14.2.4
+      db.database: folio
+      db.host: folio-db
+      db.password: folio123
+      db.port: '5432'
+      db.username: folio
+    image: culibraries/mod-feesfines:14.2.4
+  mod-finance:
+    build:
+      args:
+        MODULE: mod-finance
+        ORG: folioorg
+        TAG: 1.0.0
+      context: /Users/mast4541/github/cu/folio/folio-install/alternative-install/docker-compose/images/backend-module
+    container_name: folio-mod-finance
+    depends_on:
+    - folio-db
+    - folio-setup
+    - okapi
+    environment:
+      FOLIO_DATABASE: folio
+      FOLIO_DATABASE_ROLE_USER: folio
+      FOLIO_PASSWORD: folio123
+      MODULE: mod-finance
+      MODULE_URL: http://mod-finance:8081
+      OKAPI_TENANT: diku
+      OKAPI_URL: http://okapi:9130
+      ORG: folioorg
+      PG_DATABASE: okapi
+      PG_HOST: folio-db
+      PG_PASSWORD: okapi25
+      PG_PORT: '5432'
+      PG_USERNAME: okapi
+      POSTGRES_PASSWORD: password
+      TAG: 1.0.0
+      db.database: folio
+      db.host: folio-db
+      db.password: folio123
+      db.port: '5432'
+      db.username: folio
+    image: culibraries/mod-finance:1.0.0
+  mod-inventory:
+    build:
+      args:
+        MODULE: mod-inventory
+        ORG: folioorg
+        TAG: 9.5.0
+      context: /Users/mast4541/github/cu/folio/folio-install/alternative-install/docker-compose/images/backend-module
+    container_name: folio-mod-inventory
+    depends_on:
+    - folio-db
+    - folio-setup
+    - okapi
+    environment:
+      FOLIO_DATABASE: folio
+      FOLIO_DATABASE_ROLE_USER: folio
+      FOLIO_PASSWORD: folio123
+      MODULE: mod-inventory
+      MODULE_URL: http://mod-inventory:9403
+      OKAPI_TENANT: diku
+      OKAPI_URL: http://okapi:9130
+      ORG: folioorg
+      PG_DATABASE: okapi
+      PG_HOST: folio-db
+      PG_PASSWORD: okapi25
+      PG_PORT: '5432'
+      PG_USERNAME: okapi
+      POSTGRES_PASSWORD: password
+      TAG: 9.5.0
+      db.database: folio
+      db.host: folio-db
+      db.password: folio123
+      db.port: '5432'
+      db.username: folio
+    image: culibraries/mod-inventory:9.5.0
+  mod-inventory-storage:
+    build:
+      args:
+        MODULE: mod-inventory-storage
+        ORG: folioorg
+        TAG: 12.8.2
+      context: /Users/mast4541/github/cu/folio/folio-install/alternative-install/docker-compose/images/backend-module
+    container_name: folio-mod-inventory-storage
+    depends_on:
+    - folio-db
+    - folio-setup
+    - okapi
+    environment:
+      FOLIO_DATABASE: folio
+      FOLIO_DATABASE_ROLE_USER: folio
+      FOLIO_PASSWORD: folio123
+      MODULE: mod-inventory-storage
+      MODULE_URL: http://mod-inventory-storage:8081
+      OKAPI_TENANT: diku
+      OKAPI_URL: http://okapi:9130
+      ORG: folioorg
+      PG_DATABASE: okapi
+      PG_HOST: folio-db
+      PG_PASSWORD: okapi25
+      PG_PORT: '5432'
+      PG_USERNAME: okapi
+      POSTGRES_PASSWORD: password
+      TAG: 12.8.2
+      db.database: folio
+      db.host: folio-db
+      db.password: folio123
+      db.port: '5432'
+      db.username: folio
+    image: culibraries/mod-inventory-storage:12.8.2
+  mod-kb-ebsco:
+    build:
+      args:
+        MODULE: mod-kb-ebsco
+        ORG: folioorg
+        TAG: 1.0.1
+      context: /Users/mast4541/github/cu/folio/folio-install/alternative-install/docker-compose/images/backend-module
+    container_name: folio-mod-kb-ebsco
+    depends_on:
+    - folio-db
+    - folio-setup
+    - okapi
+    environment:
+      FOLIO_DATABASE: folio
+      FOLIO_DATABASE_ROLE_USER: folio
+      FOLIO_PASSWORD: folio123
+      MODULE: mod-kb-ebsco
+      MODULE_URL: http://mod-kb-ebsco:8081
+      OKAPI_TENANT: diku
+      OKAPI_URL: http://okapi:9130
+      ORG: folioorg
+      PG_DATABASE: okapi
+      PG_HOST: folio-db
+      PG_PASSWORD: okapi25
+      PG_PORT: '5432'
+      PG_USERNAME: okapi
+      POSTGRES_PASSWORD: password
+      START_CMD: '"rails server -b 0.0.0.0 -p 8081"'
+      TAG: 1.0.1
+      db.database: folio
+      db.host: folio-db
+      db.password: folio123
+      db.port: '5432'
+      db.username: folio
+    image: culibraries/mod-kb-ebsco:1.0.1
+  mod-login:
+    build:
+      args:
+        MODULE: mod-login
+        ORG: folioorg
+        TAG: 4.5.0
+      context: /Users/mast4541/github/cu/folio/folio-install/alternative-install/docker-compose/images/backend-module
+    container_name: folio-mod-login
+    depends_on:
+    - folio-db
+    - folio-setup
+    - okapi
+    environment:
+      FOLIO_DATABASE: folio
+      FOLIO_DATABASE_ROLE_USER: folio
+      FOLIO_PASSWORD: folio123
+      MODULE: mod-login
+      MODULE_URL: http://mod-login:8081
+      OKAPI_TENANT: diku
+      OKAPI_URL: http://okapi:9130
+      ORG: folioorg
+      PG_DATABASE: okapi
+      PG_HOST: folio-db
+      PG_PASSWORD: okapi25
+      PG_PORT: '5432'
+      PG_USERNAME: okapi
+      POSTGRES_PASSWORD: password
+      TAG: 4.5.0
+      db.database: folio
+      db.host: folio-db
+      db.password: folio123
+      db.port: '5432'
+      db.username: folio
+    image: culibraries/mod-login:4.5.0
+  mod-login-saml:
+    build:
+      args:
+        MODULE: mod-login-saml
+        ORG: folioorg
+        TAG: 1.2.0
+      context: /Users/mast4541/github/cu/folio/folio-install/alternative-install/docker-compose/images/backend-module
+    container_name: folio-mod-login-saml
+    depends_on:
+    - folio-db
+    - folio-setup
+    - okapi
+    environment:
+      FOLIO_DATABASE: folio
+      FOLIO_DATABASE_ROLE_USER: folio
+      FOLIO_PASSWORD: folio123
+      MODULE: mod-login-saml
+      MODULE_URL: http://mod-login-saml:8081
+      OKAPI_TENANT: diku
+      OKAPI_URL: http://okapi:9130
+      ORG: folioorg
+      PG_DATABASE: okapi
+      PG_HOST: folio-db
+      PG_PASSWORD: okapi25
+      PG_PORT: '5432'
+      PG_USERNAME: okapi
+      POSTGRES_PASSWORD: password
+      TAG: 1.2.0
+      db.database: folio
+      db.host: folio-db
+      db.password: folio123
+      db.port: '5432'
+      db.username: folio
+    image: culibraries/mod-login-saml:1.2.0
+  mod-notes:
+    build:
+      args:
+        MODULE: mod-notes
+        ORG: folioorg
+        TAG: 2.1.2
+      context: /Users/mast4541/github/cu/folio/folio-install/alternative-install/docker-compose/images/backend-module
+    container_name: folio-mod-notes
+    depends_on:
+    - folio-db
+    - folio-setup
+    - okapi
+    environment:
+      FOLIO_DATABASE: folio
+      FOLIO_DATABASE_ROLE_USER: folio
+      FOLIO_PASSWORD: folio123
+      MODULE: mod-notes
+      MODULE_URL: http://mod-notes:8081
+      OKAPI_TENANT: diku
+      OKAPI_URL: http://okapi:9130
+      ORG: folioorg
+      PG_DATABASE: okapi
+      PG_HOST: folio-db
+      PG_PASSWORD: okapi25
+      PG_PORT: '5432'
+      PG_USERNAME: okapi
+      POSTGRES_PASSWORD: password
+      TAG: 2.1.2
+      db.database: folio
+      db.host: folio-db
+      db.password: folio123
+      db.port: '5432'
+      db.username: folio
+    image: culibraries/mod-notes:2.1.2
+  mod-notify:
+    build:
+      args:
+        MODULE: mod-notify
+        ORG: folioorg
+        TAG: 1.1.8
+      context: /Users/mast4541/github/cu/folio/folio-install/alternative-install/docker-compose/images/backend-module
+    container_name: folio-mod-notify
+    depends_on:
+    - folio-db
+    - folio-setup
+    - okapi
+    environment:
+      FOLIO_DATABASE: folio
+      FOLIO_DATABASE_ROLE_USER: folio
+      FOLIO_PASSWORD: folio123
+      MODULE: mod-notify
+      MODULE_URL: http://mod-notify:8081
+      OKAPI_TENANT: diku
+      OKAPI_URL: http://okapi:9130
+      ORG: folioorg
+      PG_DATABASE: okapi
+      PG_HOST: folio-db
+      PG_PASSWORD: okapi25
+      PG_PORT: '5432'
+      PG_USERNAME: okapi
+      POSTGRES_PASSWORD: password
+      TAG: 1.1.8
+      db.database: folio
+      db.host: folio-db
+      db.password: folio123
+      db.port: '5432'
+      db.username: folio
+    image: culibraries/mod-notify:1.1.8
+  mod-permissions:
+    build:
+      args:
+        MODULE: mod-permissions
+        ORG: folioorg
+        TAG: 5.3.2
+      context: /Users/mast4541/github/cu/folio/folio-install/alternative-install/docker-compose/images/backend-module
+    container_name: folio-mod-permissions
+    depends_on:
+    - folio-db
+    - folio-setup
+    - okapi
+    environment:
+      FOLIO_DATABASE: folio
+      FOLIO_DATABASE_ROLE_USER: folio
+      FOLIO_PASSWORD: folio123
+      MODULE: mod-permissions
+      MODULE_URL: http://mod-permissions:8081
+      OKAPI_TENANT: diku
+      OKAPI_URL: http://okapi:9130
+      ORG: folioorg
+      PG_DATABASE: okapi
+      PG_HOST: folio-db
+      PG_PASSWORD: okapi25
+      PG_PORT: '5432'
+      PG_USERNAME: okapi
+      POSTGRES_PASSWORD: password
+      TAG: 5.3.2
+      db.database: folio
+      db.host: folio-db
+      db.password: folio123
+      db.port: '5432'
+      db.username: folio
+    image: culibraries/mod-permissions:5.3.2
+  mod-rtac:
+    build:
+      args:
+        MODULE: mod-rtac
+        ORG: folioorg
+        TAG: 1.1.0
+      context: /Users/mast4541/github/cu/folio/folio-install/alternative-install/docker-compose/images/backend-module
+    container_name: folio-mod-rtac
+    depends_on:
+    - folio-db
+    - folio-setup
+    - okapi
+    environment:
+      FOLIO_DATABASE: folio
+      FOLIO_DATABASE_ROLE_USER: folio
+      FOLIO_PASSWORD: folio123
+      MODULE: mod-rtac
+      MODULE_URL: http://mod-rtac:8081
+      OKAPI_TENANT: diku
+      OKAPI_URL: http://okapi:9130
+      ORG: folioorg
+      PG_DATABASE: okapi
+      PG_HOST: folio-db
+      PG_PASSWORD: okapi25
+      PG_PORT: '5432'
+      PG_USERNAME: okapi
+      POSTGRES_PASSWORD: password
+      TAG: 1.1.0
+      db.database: folio
+      db.host: folio-db
+      db.password: folio123
+      db.port: '5432'
+      db.username: folio
+    image: culibraries/mod-rtac:1.1.0
+  mod-tags:
+    build:
+      args:
+        MODULE: mod-tags
+        ORG: folioorg
+        TAG: 0.1.3
+      context: /Users/mast4541/github/cu/folio/folio-install/alternative-install/docker-compose/images/backend-module
+    container_name: folio-mod-tags
+    depends_on:
+    - folio-db
+    - folio-setup
+    - okapi
+    environment:
+      FOLIO_DATABASE: folio
+      FOLIO_DATABASE_ROLE_USER: folio
+      FOLIO_PASSWORD: folio123
+      MODULE: mod-tags
+      MODULE_URL: http://mod-tags:8081
+      OKAPI_TENANT: diku
+      OKAPI_URL: http://okapi:9130
+      ORG: folioorg
+      PG_DATABASE: okapi
+      PG_HOST: folio-db
+      PG_PASSWORD: okapi25
+      PG_PORT: '5432'
+      PG_USERNAME: okapi
+      POSTGRES_PASSWORD: password
+      TAG: 0.1.3
+      db.database: folio
+      db.host: folio-db
+      db.password: folio123
+      db.port: '5432'
+      db.username: folio
+    image: culibraries/mod-tags:0.1.3
+  mod-user-import:
+    build:
+      args:
+        MODULE: mod-user-import
+        ORG: folioorg
+        TAG: 3.1.0
+      context: /Users/mast4541/github/cu/folio/folio-install/alternative-install/docker-compose/images/backend-module
+    container_name: folio-mod-user-import
+    depends_on:
+    - folio-db
+    - folio-setup
+    - okapi
+    environment:
+      FOLIO_DATABASE: folio
+      FOLIO_DATABASE_ROLE_USER: folio
+      FOLIO_PASSWORD: folio123
+      MODULE: mod-user-import
+      MODULE_URL: http://mod-user-import:8081
+      OKAPI_TENANT: diku
+      OKAPI_URL: http://okapi:9130
+      ORG: folioorg
+      PG_DATABASE: okapi
+      PG_HOST: folio-db
+      PG_PASSWORD: okapi25
+      PG_PORT: '5432'
+      PG_USERNAME: okapi
+      POSTGRES_PASSWORD: password
+      TAG: 3.1.0
+      db.database: folio
+      db.host: folio-db
+      db.password: folio123
+      db.port: '5432'
+      db.username: folio
+    image: culibraries/mod-user-import:3.1.0
+  mod-users:
+    build:
+      args:
+        MODULE: mod-users
+        ORG: folioorg
+        TAG: 15.2.1
+      context: /Users/mast4541/github/cu/folio/folio-install/alternative-install/docker-compose/images/backend-module
+    container_name: folio-mod-users
+    depends_on:
+    - folio-db
+    - folio-setup
+    - okapi
+    environment:
+      FOLIO_DATABASE: folio
+      FOLIO_DATABASE_ROLE_USER: folio
+      FOLIO_PASSWORD: folio123
+      MODULE: mod-users
+      MODULE_URL: http://mod-users:8081
+      OKAPI_TENANT: diku
+      OKAPI_URL: http://okapi:9130
+      ORG: folioorg
+      PG_DATABASE: okapi
+      PG_HOST: folio-db
+      PG_PASSWORD: okapi25
+      PG_PORT: '5432'
+      PG_USERNAME: okapi
+      POSTGRES_PASSWORD: password
+      TAG: 15.2.1
+      db.database: folio
+      db.host: folio-db
+      db.password: folio123
+      db.port: '5432'
+      db.username: folio
+    image: culibraries/mod-users:15.2.1
+  mod-users-bl:
+    build:
+      args:
+        MODULE: mod-users-bl
+        ORG: folioorg
+        TAG: 4.0.2
+      context: /Users/mast4541/github/cu/folio/folio-install/alternative-install/docker-compose/images/backend-module
+    container_name: folio-mod-users-bl
+    depends_on:
+    - folio-db
+    - folio-setup
+    - okapi
+    environment:
+      FOLIO_DATABASE: folio
+      FOLIO_DATABASE_ROLE_USER: folio
+      FOLIO_PASSWORD: folio123
+      MODULE: mod-users-bl
+      MODULE_URL: http://mod-users-bl:8081
+      OKAPI_TENANT: diku
+      OKAPI_URL: http://okapi:9130
+      ORG: folioorg
+      PG_DATABASE: okapi
+      PG_HOST: folio-db
+      PG_PASSWORD: okapi25
+      PG_PORT: '5432'
+      PG_USERNAME: okapi
+      POSTGRES_PASSWORD: password
+      TAG: 4.0.2
+      db.database: folio
+      db.host: folio-db
+      db.password: folio123
+      db.port: '5432'
+      db.username: folio
+    image: culibraries/mod-users-bl:4.0.2
+  mod-vendors:
+    build:
+      args:
+        MODULE: mod-vendors
+        ORG: folioorg
+        TAG: 1.0.1
+      context: /Users/mast4541/github/cu/folio/folio-install/alternative-install/docker-compose/images/backend-module
+    container_name: folio-mod-vendors
+    depends_on:
+    - folio-db
+    - folio-setup
+    - okapi
+    environment:
+      FOLIO_DATABASE: folio
+      FOLIO_DATABASE_ROLE_USER: folio
+      FOLIO_PASSWORD: folio123
+      MODULE: mod-vendors
+      MODULE_URL: http://mod-vendors:8081
+      OKAPI_TENANT: diku
+      OKAPI_URL: http://okapi:9130
+      ORG: folioorg
+      PG_DATABASE: okapi
+      PG_HOST: folio-db
+      PG_PASSWORD: okapi25
+      PG_PORT: '5432'
+      PG_USERNAME: okapi
+      POSTGRES_PASSWORD: password
+      TAG: 1.0.1
+      db.database: folio
+      db.host: folio-db
+      db.password: folio123
+      db.port: '5432'
+      db.username: folio
+    image: culibraries/mod-vendors:1.0.1
+  okapi:
+    build:
+      args:
+        OKAPI_TAG: v2.18.0
+      context: /Users/mast4541/github/cu/folio/folio-install/alternative-install/docker-compose/images/okapi
+    container_name: folio-okapi
+    depends_on:
+    - folio-db
+    environment:
+      FOLIO_DATABASE: folio
+      FOLIO_DATABASE_ROLE_USER: folio
+      FOLIO_PASSWORD: folio123
+      HAZELCAST_FILE: /usr/local/bin/folio/okapi/hazelcast.xml
+      HAZELCAST_IP: okapi
+      HAZELCAST_PORT: '5701'
+      HAZELCAST_VERTX_PORT: '5703'
+      INITDB: "true"
+      OKAPI_CLUSTERHOST: okapi
+      OKAPI_COMMAND: cluster
+      OKAPI_HOST: okapi
+      OKAPI_LOGLEVEL: ERROR
+      OKAPI_NODENAME: okapi
+      OKAPI_PORT: '9130'
+      OKAPI_URL: http://okapi:9130
+      PG_DATABASE: okapi
+      PG_HOST: folio-db
+      PG_PASSWORD: okapi25
+      PG_PORT: '5432'
+      PG_USERNAME: okapi
+      POSTGRES_PASSWORD: password
+      db.database: folio
+      db.host: folio-db
+      db.password: folio123
+      db.port: '5432'
+      db.username: folio
+    expose:
+    - 5701-5710
+    - 54327
+    - 9130
+    - 9150
+    - 4243
+    image: culibraries/okapi:v2.18.0
+    ports:
+    - 9130:9130/tcp
+    volumes:
+    - /Users/mast4541/github/cu/folio/folio-install/alternative-install/docker-compose/images/okapi/startup.sh:/usr/local/bin/folio/startup.sh:rw
+version: '3.0'
+volumes:
+  folio-pgdata: {}
+
