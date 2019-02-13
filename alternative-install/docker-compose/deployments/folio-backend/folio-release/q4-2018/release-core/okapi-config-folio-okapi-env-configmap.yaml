@@ -1,0 +1,18 @@
+apiVersion: v1
+data:
+  HAZELCAST_FILE: /usr/local/bin/folio/okapi/hazelcast.xml
+  HAZELCAST_IP: 10.100.180.244
+  HAZELCAST_PORT: "5701"
+  HAZELCAST_VERTX_PORT: "5703"
+  OKAPI_CLUSTERHOST: 10.100.180.244
+  OKAPI_COMMAND: cluster
+  OKAPI_HOST: okapi
+  OKAPI_LOGLEVEL: INFO
+  OKAPI_PORT: "9130"
+  OKAPI_URL: http://okapi:9130
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: okapi-config-folio-okapi-env
+  name: okapi-config-folio-okapi-env

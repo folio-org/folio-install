@@ -1,0 +1,99 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose -f ./folio-release/q4-2018/release-core/docker-compose.yml
+      convert --out ./folio-release/q4-2018/release-core/kompose/
+    kompose.image-pull-policy: Always
+    kompose.version: 1.16.0 ()
+  creationTimestamp: null
+  labels:
+    io.kompose.service: folio-db
+  name: folio-db
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: folio-db
+    spec:
+      containers:
+      - env:
+        - name: DB_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              key: DB_DATABASE
+              name: folio-db-config-folio-module-env
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: DB_HOST
+              name: folio-db-config-folio-module-env
+        - name: DB_MAXPOOLSIZE
+          valueFrom:
+            configMapKeyRef:
+              key: DB_MAXPOOLSIZE
+              name: folio-db-config-folio-module-env
+        - name: DB_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: DB_PASSWORD
+              name: folio-db-config-folio-module-env
+        - name: DB_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: DB_PORT
+              name: folio-db-config-folio-module-env
+        - name: DB_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              key: DB_USERNAME
+              name: folio-db-config-folio-module-env
+        - name: PG_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              key: PG_DATABASE
+              name: folio-db-config-folio-db-env
+        - name: PG_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: PG_HOST
+              name: folio-db-config-folio-db-env
+        - name: PG_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: PG_PASSWORD
+              name: folio-db-config-folio-db-env
+        - name: PG_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: PG_PORT
+              name: folio-db-config-folio-db-env
+        - name: PG_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              key: PG_USERNAME
+              name: folio-db-config-folio-db-env
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_PASSWORD
+              name: folio-db-config-folio-db-env
+        image: culibraries/postgres:9.6
+        name: folio-db
+        ports:
+        - containerPort: 5432
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          subPath: postgres
+          name: folio-pgdata
+      restartPolicy: Always
+      volumes:
+      - name: folio-pgdata
+        persistentVolumeClaim:
+          claimName: folio-pgdata
+status: {}

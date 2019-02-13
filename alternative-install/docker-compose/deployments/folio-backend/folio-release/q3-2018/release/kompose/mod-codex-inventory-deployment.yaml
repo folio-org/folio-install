@@ -1,0 +1,66 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert --out kompose/
+    kompose.version: 1.16.0 ()
+  creationTimestamp: null
+  labels:
+    io.kompose.service: mod-codex-inventory
+  name: mod-codex-inventory
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: mod-codex-inventory
+    spec:
+      containers:
+      - env:
+        - name: FOLIO_DATABASE
+          value: folio
+        - name: FOLIO_DATABASE_ROLE_USER
+          value: folio
+        - name: FOLIO_PASSWORD
+          value: folio123
+        - name: MODULE
+          value: mod-codex-inventory
+        - name: MODULE_URL
+          value: http://mod-codex-inventory:8081
+        - name: OKAPI_TENANT
+          value: diku
+        - name: OKAPI_URL
+          value: http://okapi:9130
+        - name: ORG
+          value: folioorg
+        - name: PG_DATABASE
+          value: okapi
+        - name: PG_HOST
+          value: folio-db
+        - name: PG_PASSWORD
+          value: okapi25
+        - name: PG_PORT
+          value: "5432"
+        - name: PG_USERNAME
+          value: okapi
+        - name: POSTGRES_PASSWORD
+          value: password
+        - name: TAG
+          value: 1.2.1
+        - name: db.database
+          value: folio
+        - name: db.host
+          value: folio-db
+        - name: db.password
+          value: folio123
+        - name: db.port
+          value: "5432"
+        - name: db.username
+          value: folio
+        image: culibraries/mod-codex-inventory:1.2.1
+        name: folio-mod-codex-inventory
+        resources: {}
+      restartPolicy: Always
+status: {}

@@ -1,0 +1,658 @@
+version: "3"
+services:
+  folio-db:
+    image: culibraries/postgres:9.6
+    container_name: folio-db
+    build:
+      context: ../../../../../images/postgres
+    env_file:
+      - ../../../config/folio-db.env
+      - ../../../config/folio-module.env
+    expose:
+      - 
+    ports:
+      - :
+    volumes:
+      - folio-pgdata:/var/lib/postgresql/data
+  okapi:
+    image: culibraries/okapi:v2.22.0
+    container_name: folio-okapi
+    build:
+      context: ../../../../../images/okapi
+      args:
+        - OKAPI_TAG=v2.22.0
+    env_file:
+      - ../../../config/folio-db.env
+      - ../../../config/folio-okapi.env
+    environment:
+      - OKAPI_NODENAME=okapi
+      - INITDB=true
+    expose:
+      - 5701-5710
+      - 54327
+      - 9130
+      - 9150
+    ports:
+      - 9130:9130
+    depends_on:
+      - folio-db
+  folio-setup:
+    image: culibraries/foliosetup:0.0.1
+    container_name: folio-setup
+    build: ../../../../../images/folio-setup
+    env_file:
+      - ../../../config/folio-setup.env
+      - ../../../config/folio-okapi.env
+    environment:
+      - OKAPI_NODENAME=okapi
+      - PLATFORM_COMPLETE_TAG=
+      - FOLIO_INSTALL_TAG=
+      - LOAD_SAMPLEDATA=
+      - INITDB=true
+    depends_on:
+      - okapi
+      - folio-db
+  mod-feesfines:
+    image: folioorg/mod-feesfines:15.1.0
+    container_name: folio-mod-feesfines
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+    environment:
+      - JAVA_OPTIONS=-Xmx256m
+    depends_on:
+      - okapi
+      - folio-db
+  mod-users:
+    image: folioorg/mod-users:15.3.0
+    container_name: folio-mod-users
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+    environment:
+      - JAVA_OPTIONS=-Xmx384m
+    depends_on:
+      - okapi
+      - folio-db
+  mod-password-validator:
+    image: folioorg/mod-password-validator:1.0.1
+    container_name: folio-mod-password-validator
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+    environment:
+      - JAVA_OPTIONS=-Xmx256m
+    depends_on:
+      - okapi
+      - folio-db
+  mod-permissions:
+    image: folioorg/mod-permissions:5.4.0
+    container_name: folio-mod-permissions
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+    environment:
+      - JAVA_OPTIONS=-Xmx512m
+    depends_on:
+      - okapi
+      - folio-db
+  mod-login:
+    image: folioorg/mod-login:4.6.0
+    container_name: folio-mod-login
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+    environment:
+      - JAVA_OPTIONS=-Xmx256m
+    depends_on:
+      - okapi
+      - folio-db
+  mod-inventory-storage:
+    image: folioorg/mod-inventory-storage:14.0.0
+    container_name: folio-mod-inventory-storage
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+    environment:
+      - JAVA_OPTIONS=-Xmx512m
+    depends_on:
+      - okapi
+      - folio-db
+  mod-configuration:
+    image: folioorg/mod-configuration:5.0.1
+    container_name: folio-mod-configuration
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+    environment:
+      - JAVA_OPTIONS=-Xmx256m
+    depends_on:
+      - okapi
+      - folio-db
+  mod-authtoken:
+    image: folioorg/mod-authtoken:2.0.4
+    container_name: folio-mod-authtoken
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+    environment:
+      - JAVA_OPTIONS=-Xmx256m
+    depends_on:
+      - okapi
+      - folio-db
+  mod-circulation-storage:
+    image: folioorg/mod-circulation-storage:6.2.0
+    container_name: folio-mod-circulation-storage
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+    environment:
+      - JAVA_OPTIONS=-Xmx256m
+    depends_on:
+      - okapi
+      - folio-db
+  mod-circulation:
+    image: folioorg/mod-circulation:14.1.0
+    container_name: folio-mod-circulation
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 9801
+    ports:
+      - 9801:9801
+    environment:
+      - JAVA_OPTIONS=-Xmx256m
+    depends_on:
+      - okapi
+      - folio-db
+  mod-inventory:
+    image: folioorg/mod-inventory:11.0.0
+    container_name: folio-mod-inventory
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 9403
+    ports:
+      - 9403:9403
+    environment:
+      - JAVA_OPTIONS=-Dorg.folio.metadata.inventory.storage.type=okapi
+    depends_on:
+      - okapi
+      - folio-db
+  mod-codex-mux:
+    image: folioorg/mod-codex-mux:2.3.0
+    container_name: folio-mod-codex-mux
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+    environment:
+      - JAVA_OPTIONS=-Xmx256m
+    depends_on:
+      - okapi
+      - folio-db
+  mod-codex-inventory:
+    image: folioorg/mod-codex-inventory:1.4.0
+    container_name: folio-mod-codex-inventory
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+    environment:
+      - JAVA_OPTIONS=-Xmx256m
+    depends_on:
+      - okapi
+      - folio-db
+  mod-login-saml:
+    image: folioorg/mod-login-saml:1.2.1
+    container_name: folio-mod-login-saml
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+    environment:
+      - JAVA_OPTIONS=-Xmx256m
+    depends_on:
+      - okapi
+      - folio-db
+  mod-notify:
+    image: folioorg/mod-notify:2.1.0
+    container_name: folio-mod-notify
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+    environment:
+      - JAVA_OPTIONS=-Xmx256m
+    depends_on:
+      - okapi
+      - folio-db
+  mod-notes:
+    image: folioorg/mod-notes:2.2.0
+    container_name: folio-mod-notes
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+    environment:
+      - JAVA_OPTIONS=-Xmx256m
+    depends_on:
+      - okapi
+      - folio-db
+  mod-users-bl:
+    image: folioorg/mod-users-bl:4.3.2
+    container_name: folio-mod-users-bl
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+    environment:
+      - JAVA_OPTIONS=-Xmx256m
+    depends_on:
+      - okapi
+      - folio-db
+  mod-tags:
+    image: folioorg/mod-tags:0.2.0
+    container_name: folio-mod-tags
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+    environment:
+      - JAVA_OPTIONS=-Xmx256m
+    depends_on:
+      - okapi
+      - folio-db
+  mod-codex-ekb:
+    image: folioorg/mod-codex-ekb:1.1.0
+    container_name: folio-mod-codex-ekb
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+    environment:
+      - JAVA_OPTIONS=-Xmx256m
+    depends_on:
+      - okapi
+      - folio-db
+  mod-kb-ebsco:
+    image: folioorg/mod-kb-ebsco:1.1.0
+    container_name: folio-mod-kb-ebsco
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+    environment:
+      - JAVA_OPTIONS=
+    depends_on:
+      - okapi
+      - folio-db
+  mod-calendar:
+    image: folioorg/mod-calendar:1.2.0
+    container_name: folio-mod-calendar
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+    environment:
+      - JAVA_OPTIONS=-Xmx256m
+    depends_on:
+      - okapi
+      - folio-db
+  mod-vendors:
+    image: folioorg/mod-vendors:1.0.3
+    container_name: folio-mod-vendors
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+    environment:
+      - JAVA_OPTIONS=-Xmx256m
+    depends_on:
+      - okapi
+      - folio-db
+  mod-agreements:
+    image: folioorg/mod-agreements:1.0.2
+    container_name: folio-mod-agreements
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 8080
+    ports:
+      - 8080:8080
+    environment:
+      - JAVA_OPTIONS=-Xmx256m
+    depends_on:
+      - okapi
+      - folio-db
+  mod-marccat:
+    image: folioorg/mod-marccat:1.2.0
+    container_name: folio-mod-marccat
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 9403
+    ports:
+      - 9403:9403
+    environment:
+      - JAVA_OPTIONS=
+    depends_on:
+      - okapi
+      - folio-db
+  mod-template-engine:
+    image: folioorg/mod-template-engine:1.0.1
+    container_name: folio-mod-template-engine
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+    environment:
+      - JAVA_OPTIONS=-Xmx256m
+    depends_on:
+      - okapi
+      - folio-db
+  mod-finance-storage:
+    image: folioorg/mod-finance-storage:1.0.1
+    container_name: folio-mod-finance-storage
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+    environment:
+      - JAVA_OPTIONS=-Xmx256m
+    depends_on:
+      - okapi
+      - folio-db
+  mod-orders-storage:
+    image: folioorg/mod-orders-storage:1.0.2
+    container_name: folio-mod-orders-storage
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+    environment:
+      - JAVA_OPTIONS=-Xmx256m
+    depends_on:
+      - okapi
+      - folio-db
+  mod-source-record-storage:
+    image: folioorg/mod-source-record-storage:1.0.0
+    container_name: folio-mod-source-record-storage
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+    environment:
+      - JAVA_OPTIONS=-Xmx256m
+    depends_on:
+      - okapi
+      - folio-db
+  mod-source-record-manager:
+    image: folioorg/mod-source-record-manager:0.1.0
+    container_name: folio-mod-source-record-manager
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+    environment:
+      - JAVA_OPTIONS=-Xmx256m
+    depends_on:
+      - okapi
+      - folio-db
+  mod-event-config:
+    image: folioorg/mod-event-config:1.0.0
+    container_name: folio-mod-event-config
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+    environment:
+      - JAVA_OPTIONS=-Xmx256m
+    depends_on:
+      - okapi
+      - folio-db
+  mod-orders:
+    image: folioorg/mod-orders:1.0.2
+    container_name: folio-mod-orders
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+    environment:
+      - JAVA_OPTIONS=-Xmx256m
+    depends_on:
+      - okapi
+      - folio-db
+  mod-erm-usage:
+    image: folioorg/mod-erm-usage:1.0.0
+    container_name: folio-mod-erm-usage
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+    environment:
+      - JAVA_OPTIONS=-Xmx256m
+    depends_on:
+      - okapi
+      - folio-db
+  mod-erm-usage-harvester:
+    image: folioorg/mod-erm-usage-harvester:1.0.0
+    container_name: folio-mod-erm-usage-harvester
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+    environment:
+      - JAVA_OPTIONS=-Xmx256m
+    depends_on:
+      - okapi
+      - folio-db
+  mod-gobi:
+    image: folioorg/mod-gobi:1.0.1
+    container_name: folio-mod-gobi
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+    environment:
+      - JAVA_OPTIONS=-Xmx256m
+    depends_on:
+      - okapi
+      - folio-db
+  mod-data-import:
+    image: folioorg/mod-data-import:1.0.0
+    container_name: folio-mod-data-import
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+    environment:
+      - JAVA_OPTIONS=-Xmx256m
+    depends_on:
+      - okapi
+      - folio-db
+  mod-patron:
+    image: folioorg/mod-patron:1.2.0
+    container_name: folio-mod-patron
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+    environment:
+      - JAVA_OPTIONS=-Xmx256m
+    depends_on:
+      - okapi
+      - folio-db
+  mod-rtac:
+    image: folioorg/mod-rtac:1.2.1
+    container_name: folio-mod-rtac
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+    environment:
+      - JAVA_OPTIONS=-Xmx256m
+    depends_on:
+      - okapi
+      - folio-db
+  mod-email:
+    image: folioorg/mod-email:1.0.0
+    container_name: folio-mod-email
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+    environment:
+      - JAVA_OPTIONS=-Xmx256m
+    depends_on:
+      - okapi
+      - folio-db
+  mod-sender:
+    image: folioorg/mod-sender:1.0.0
+    container_name: folio-mod-sender
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+    environment:
+      - JAVA_OPTIONS=-Xmx256m
+    depends_on:
+      - okapi
+      - folio-db
+  mod-audit:
+    image: folioorg/mod-audit:0.0.3
+    container_name: folio-mod-audit
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+    environment:
+      - JAVA_OPTIONS=-Xmx256m
+    depends_on:
+      - okapi
+      - folio-db
+  mod-audit-filter:
+    image: folioorg/mod-audit-filter:0.0.3
+    container_name: folio-mod-audit-filter
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+    environment:
+      - JAVA_OPTIONS=-Xmx256m
+    depends_on:
+      - okapi
+      - folio-db
+  mod-licenses:
+    image: folioorg/mod-licenses:1.0.2
+    container_name: folio-mod-licenses
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 8080
+    ports:
+      - 8080:8080
+    environment:
+      - JAVA_OPTIONS=-Xmx256m
+    depends_on:
+      - okapi
+      - folio-db
+  mod-oai-pmh:
+    image: folioorg/mod-oai-pmh:1.0.1
+    container_name: folio-mod-oai-pmh
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+    environment:
+      - JAVA_OPTIONS=-Xmx256m
+    depends_on:
+      - okapi
+      - folio-db
+volumes:
+  folio-pgdata: {}

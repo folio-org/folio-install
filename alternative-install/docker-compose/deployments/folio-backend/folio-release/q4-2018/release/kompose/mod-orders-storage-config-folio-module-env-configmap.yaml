@@ -1,0 +1,14 @@
+apiVersion: v1
+data:
+  DB_DATABASE: folio
+  DB_MAXPOOLSIZE: "5"
+  DB_PASSWORD: folio123
+  DB_USERNAME: folio
+  PG_HOST: folio-db
+  PG_PORT: "5432"
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: mod-orders-storage-config-folio-module-env
+  name: mod-orders-storage-config-folio-module-env

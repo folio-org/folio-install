@@ -1,0 +1,4 @@
+volumes:
+{% for elem in DOCKER_VOLUMES -%}
+  {{elem |indent(2, True) }}: {}
+{%- endfor %}

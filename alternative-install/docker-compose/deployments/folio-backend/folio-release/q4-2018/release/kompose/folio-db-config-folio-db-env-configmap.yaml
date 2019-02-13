@@ -1,0 +1,13 @@
+apiVersion: v1
+data:
+  PG_DATABASE: okapi
+  PG_HOST: folio-db
+  PG_PASSWORD: okapi25
+  PG_PORT: "5432"
+  PG_USERNAME: okapi
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: folio-db-config-folio-db-env
+  name: folio-db-config-folio-db-env

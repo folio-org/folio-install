@@ -1,0 +1,108 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose -f ./folio-release/q4-2018/release/docker-compose.yml convert
+      --out ./folio-release/q4-2018/release/kompose/
+    kompose.version: 1.16.0 ()
+  creationTimestamp: null
+  labels:
+    io.kompose.service: okapi
+  name: okapi
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: okapi
+    spec:
+      containers:
+      - env:
+        - name: HAZELCAST_FILE
+          valueFrom:
+            configMapKeyRef:
+              key: HAZELCAST_FILE
+              name: okapi-config-folio-okapi-env
+        - name: HAZELCAST_IP
+          valueFrom:
+            configMapKeyRef:
+              key: HAZELCAST_IP
+              name: okapi-config-folio-okapi-env
+        - name: HAZELCAST_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: HAZELCAST_PORT
+              name: okapi-config-folio-okapi-env
+        - name: HAZELCAST_VERTX_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: HAZELCAST_VERTX_PORT
+              name: okapi-config-folio-okapi-env
+        - name: INITDB
+          value: "true"
+        - name: OKAPI_CLUSTERHOST
+          valueFrom:
+            configMapKeyRef:
+              key: OKAPI_CLUSTERHOST
+              name: okapi-config-folio-okapi-env
+        - name: OKAPI_COMMAND
+          valueFrom:
+            configMapKeyRef:
+              key: OKAPI_COMMAND
+              name: okapi-config-folio-okapi-env
+        - name: OKAPI_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: OKAPI_HOST
+              name: okapi-config-folio-okapi-env
+        - name: OKAPI_LOGLEVEL
+          valueFrom:
+            configMapKeyRef:
+              key: OKAPI_LOGLEVEL
+              name: okapi-config-folio-okapi-env
+        - name: OKAPI_NODENAME
+          value: okapi
+        - name: OKAPI_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: OKAPI_PORT
+              name: okapi-config-folio-okapi-env
+        - name: OKAPI_URL
+          valueFrom:
+            configMapKeyRef:
+              key: OKAPI_URL
+              name: okapi-config-folio-okapi-env
+        - name: PG_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              key: PG_DATABASE
+              name: okapi-config-folio-db-env
+        - name: PG_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: PG_HOST
+              name: okapi-config-folio-db-env
+        - name: PG_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: PG_PASSWORD
+              name: okapi-config-folio-db-env
+        - name: PG_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: PG_PORT
+              name: okapi-config-folio-db-env
+        - name: PG_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              key: PG_USERNAME
+              name: okapi-config-folio-db-env
+        image: culibraries/okapi:2.22.0-1
+        name: folio-okapi
+        ports:
+        - containerPort: 9130
+        resources: {}
+      restartPolicy: Always
+status: {}

@@ -1,0 +1,16 @@
+  {{MODULE}}:
+    image: {{BASE_IMAGE_ORG}}/{{MODULE}}:{{TAG}}
+    labels:
+      kompose.image-pull-policy: Always
+    container_name: folio-{{MODULE}}
+    env_file:
+      - ../../../config/folio-module.env
+    expose:
+      - {{MODULE_PORT}}
+    ports:
+      - {{MODULE_PORT}}:{{MODULE_PORT}}
+    environment:
+      - JAVA_OPTIONS={{JAVA_OPTIONS}}
+    depends_on:
+      - okapi
+      - folio-db

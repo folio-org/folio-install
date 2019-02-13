@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+REPLACEIP=$(rancher kubectl get services -n $1 | grep okapi| awk '{print $3}')
+echo $REPLACEIP
+cp kompose/okapi-config-folio-okapi-env-configmap.yaml .;
+sed -i "s/REPLACEIP/$REPLACEIP/g" okapi-config-folio-okapi-env-configmap.yaml
+rancher kubectl scale deploy okapi --replicas=0 -n $1
+sleep 5
+rancher kubectl scale deploy okapi --replicas=1 -n $1
+#sed -i "s/REPLACEIP/$(echo "$REPLACEIP" | envsubst)/g" okapi-config-folio-okapi-env-configmap.yaml;

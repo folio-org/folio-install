@@ -1,0 +1,70 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert --out kompose/
+    kompose.version: 1.16.0 ()
+  creationTimestamp: null
+  labels:
+    io.kompose.service: folio-setup
+  name: folio-setup
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: folio-setup
+    spec:
+      containers:
+      - env:
+        - name: FOLIO_INSTALL_TAG
+          value: q3-2018-2
+        - name: FOLIO_PASSWORD
+          value: admin
+        - name: FOLIO_USER
+          value: diku_admin
+        - name: HAZELCAST_FILE
+          value: /usr/local/bin/folio/okapi/hazelcast.xml
+        - name: HAZELCAST_IP
+          value: okapi
+        - name: HAZELCAST_PORT
+          value: "5701"
+        - name: HAZELCAST_VERTX_PORT
+          value: "5703"
+        - name: INITDB
+          value: "true"
+        - name: LOAD_SAMPLEDATA
+          value: "true"
+        - name: OKAPI_CLUSTERHOST
+          value: okapi
+        - name: OKAPI_COMMAND
+          value: cluster
+        - name: OKAPI_HOST
+          value: okapi
+        - name: OKAPI_HOSTPORT
+          value: localhost:9130
+        - name: OKAPI_LOGLEVEL
+          value: ERROR
+        - name: OKAPI_NODENAME
+          value: okapi
+        - name: OKAPI_PORT
+          value: "9130"
+        - name: OKAPI_SCHEME
+          value: http
+        - name: OKAPI_TENANT
+          value: diku
+        - name: OKAPI_URL
+          value: http://okapi:9130
+        - name: PLATFORM_COMPLETE_TAG
+          value: q3-2018
+        - name: TENANT_DESCRIPTION
+          value: '''Danish Library Technology Institute'''
+        - name: TENANT_NAME
+          value: '''Datalogisk Institute'''
+        image: culibraries/foliosetup:0.0.1
+        name: folio-setup
+        resources: {}
+      restartPolicy: Always
+status: {}

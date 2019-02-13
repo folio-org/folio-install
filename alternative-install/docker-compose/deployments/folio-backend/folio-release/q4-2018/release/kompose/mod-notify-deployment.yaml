@@ -1,0 +1,59 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose -f ./folio-release/q4-2018/release/docker-compose.yml convert
+      --out ./folio-release/q4-2018/release/kompose/
+    kompose.version: 1.16.0 ()
+  creationTimestamp: null
+  labels:
+    io.kompose.service: mod-notify
+  name: mod-notify
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: mod-notify
+    spec:
+      containers:
+      - env:
+        - name: DB_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              key: DB_DATABASE
+              name: mod-notify-config-folio-module-env
+        - name: DB_MAXPOOLSIZE
+          valueFrom:
+            configMapKeyRef:
+              key: DB_MAXPOOLSIZE
+              name: mod-notify-config-folio-module-env
+        - name: DB_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: DB_PASSWORD
+              name: mod-notify-config-folio-module-env
+        - name: DB_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              key: DB_USERNAME
+              name: mod-notify-config-folio-module-env
+        - name: JAVA_OPTIONS
+          value: -Xmx256m
+        - name: PG_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: PG_HOST
+              name: mod-notify-config-folio-module-env
+        - name: PG_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: PG_PORT
+              name: mod-notify-config-folio-module-env
+        image: folioorg/mod-notify:2.1.0
+        name: folio-mod-notify
+        resources: {}
+      restartPolicy: Always
+status: {}

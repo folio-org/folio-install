@@ -1,0 +1,59 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose -f ./folio-release/q4-2018/release/docker-compose.yml convert
+      --out ./folio-release/q4-2018/release/kompose/
+    kompose.version: 1.16.0 ()
+  creationTimestamp: null
+  labels:
+    io.kompose.service: mod-finance-storage
+  name: mod-finance-storage
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: mod-finance-storage
+    spec:
+      containers:
+      - env:
+        - name: DB_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              key: DB_DATABASE
+              name: mod-finance-storage-config-folio-module-env
+        - name: DB_MAXPOOLSIZE
+          valueFrom:
+            configMapKeyRef:
+              key: DB_MAXPOOLSIZE
+              name: mod-finance-storage-config-folio-module-env
+        - name: DB_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: DB_PASSWORD
+              name: mod-finance-storage-config-folio-module-env
+        - name: DB_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              key: DB_USERNAME
+              name: mod-finance-storage-config-folio-module-env
+        - name: JAVA_OPTIONS
+          value: -Xmx256m
+        - name: PG_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: PG_HOST
+              name: mod-finance-storage-config-folio-module-env
+        - name: PG_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: PG_PORT
+              name: mod-finance-storage-config-folio-module-env
+        image: folioorg/mod-finance-storage:1.0.1
+        name: folio-mod-finance-storage
+        resources: {}
+      restartPolicy: Always
+status: {}

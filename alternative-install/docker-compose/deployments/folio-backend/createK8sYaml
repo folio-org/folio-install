@@ -1,0 +1,183 @@
+#!/usr/bin/env python
+
+
+import yaml
+import json
+import requests
+import sys
+import jinja2
+import collections
+import os
+import errno
+from subprocess import check_output
+from dotenv import dotenv_values
+from shutil import copyfile
+registry_module_url = "http://folio-registry.aws.indexdata.com/_/proxy/modules"
+template_dir = "./templates"
+
+
+def templateRender(tmpl, data):
+    template = jinja2.Template(tmpl)
+    return template.render(data)
+
+
+def readTemplate(filename):
+    with open(filename, 'r') as f1:
+        return f1.read()
+
+
+def saveOutput(render, filename):
+    with open(filename, 'w') as f1:
+        f1.write(render)
+
+
+def findnth(haystack, needle, n):
+    parts = haystack.split(needle, n+1)
+    if len(parts) <= n+1:
+        return -1
+    return len(haystack)-len(parts[-1])-len(needle)
+
+
+def getModuleUrl(module, tag):
+    try:
+        url = "{0}/{1}-{2}".format(registry_module_url, module, tag)
+        # print(url)
+        req = requests.get(url)
+        data = req.json()
+        container_port = list(data["launchDescriptor"]['dockerArgs']
+                              ['HostConfig']['PortBindings'].keys())[0].split('/')[0]
+        return "http://{0}:{1}".format(module, container_port)
+    except:
+        print(
+            "Warning: {0}-{1} not found in folio-registry. Port 8081 used as default".format(module, tag))
+        return "http://{0}:{1}".format(module, "8081")
+
+
+def generateDCenv(url, path, variable_file="./folio-variables.env", variable_file2="./config/folio-db.env", output_location_add="../../../"):
+    # parse release yaml file
+    req = requests.get(url)
+    data = yaml.load(req.text)
+    # Pull backend modules from the deploy_url
+    req = requests.get(data['deploy_url'])
+    # setup environment variables from .env file
+    env_vars = dict(dotenv_values(dotenv_path=variable_file).items())
+    env_vars.update(dict(dotenv_values(dotenv_path=variable_file2).items()))
+    env_vars["OKAPI_TAG"] = "v{0}".format(data['okapi_version'].split("-")[0])
+    env_vars["DOCKER_VOLUMES"] = env_vars["DOCKER_VOLUMES"].split(';')
+    env_vars["RELATIVE_PATH_IMAGES"] = "{0}{1}".format(
+        output_location_add, env_vars["RELATIVE_PATH_IMAGES"])
+
+    generateRBAC(path, env_vars)
+    # create templates for docker-compose file
+    base_dc_template = readTemplate(
+        "{0}/dc-base.tmpl".format(template_dir))
+    backend_mod_template = readTemplate(
+        "{0}/dc-backend-service.tmpl".format(template_dir))
+    volume_template = readTemplate("{0}/dc-volume.tmpl".format(template_dir))
+    # Load docker-compose base services
+    dockerCompose = templateRender(base_dc_template, env_vars)
+    # Load docker-compose backend module services
+    for itm in req.json():
+        count = len(itm['id'].split('-'))
+        module = itm['id'][:findnth(itm['id'], '-', count-2)]
+        tag = itm['id'][findnth(itm['id'], '-', count-2)+1:]
+        env_vars["MODULE"] = module
+        env_vars["TAG"] = tag
+        env_vars["MODULE_URL"] = getModuleUrl(module, tag)
+        env_vars['MODULE_PORT'] = env_vars["MODULE_URL"].split(':')[-1]
+        env_vars["JAVA_OPTIONS"] = ""
+        # find JAVA_OPTIONS for module
+        for itm in data['folio_modules']:
+            if itm['name'] == module:
+                for env in itm['docker_env']:
+                    if env['name'] == "JAVA_OPTIONS":
+                        env_vars["JAVA_OPTIONS"] = env['value']
+        # Load docker-compose backend module service
+        dockerCompose = "{0}\n{1}".format(
+            dockerCompose, templateRender(backend_mod_template, env_vars))
+    # Load docker-compose volumes
+    dockerCompose = "{0}\n{1}".format(
+        dockerCompose, templateRender(volume_template, env_vars))
+    print("2. Docker Compose created")
+    return dockerCompose
+    #saveOutput(dockerCompose, output_filename)
+    #rint("Docker Compose file: {0}".format(output_filename))
+
+
+def createKompose(path, composefile):
+    kompose_path = "{0}/kompose".format(path)
+    os.makedirs(kompose_path)
+
+
+def generateRBAC(path, env_vars):
+    print("1. Generater RBAC script")
+    filename = "{0}/rbac.yaml".format(path)
+    template = readTemplate("{0}/rbac.tmpl".format(template_dir))
+    rbac = templateRender(template, env_vars)
+    saveOutput(rbac, filename)
+    # copy update config map bash file
+    filename = "{0}/updateOkapiConfigmap.tmpl".format(template_dir)
+    dest = "{0}/updateOkapiConfigmap".format(path)
+    #print(filename, dest)
+    copyfile(filename, dest)
+    return filename
+
+
+def checkFileStructure(path):
+    try:
+        os.makedirs("{0}/kompose".format(path))
+    except OSError as e:
+        if e.errno != errno.EEXIST:
+            raise
+    return path
+
+
+def outputDockerComposeK8s(path, composefile):
+    print("3. Generater Kubernetes YAML files")
+    saveOutput(composefile, "{0}/docker-compose.yml".format(path))
+    check_output(['kompose', '-f', "{0}/docker-compose.yml".format(
+        path), "convert", "--out", "{0}/kompose/".format(path)])
+    # Fix subPath issue
+    insertSubpath(path)
+
+
+def insertSubpath(path, lookup="- mountPath: /var/lib/postgresql/data"):
+    filename = "{0}/kompose/folio-db-deployment.yaml".format(path)
+    line_num = None
+    with open(filename, 'r') as myFile:
+        for num, line in enumerate(myFile, 1):
+            if lookup in line:
+                line_num = num
+    with open(filename, 'r') as myFile:
+        contents = myFile.readlines()
+    contents.insert(line_num, "          subPath: postgres\n")
+    with open(filename, 'w') as myFile:
+        contents = "".join(contents)
+        myFile.write(contents)
+
+
+def parseArgs(inputArgs, arg_names):
+    args = dict(zip(arg_names, inputArgs))
+    Arg_list = collections.namedtuple('Arg_list', arg_names)
+    return Arg_list(*(args.get(arg, None) for arg in arg_names))
+
+
+if __name__ == '__main__':
+    arg_names = ['command', 'url']
+    args = parseArgs(sys.argv, arg_names)
+    # if not args.output_filename:
+    #    raise Exception("Must include output filename as the first argument")
+    # default q4 group_vars
+    #url = "https://raw.githubusercontent.com/folio-org/folio-ansible/q3-2018/group_vars/release"
+    url = "https://raw.githubusercontent.com/folio-org/folio-ansible/q4-2018/group_vars/release"
+    if args.url:
+        url = args.url
+    path = "./folio-release/{0}/{1}".format(
+        url.split('/')[-3], url.split('/')[-1])
+    checkFileStructure(path)
+    # print(args.url)
+    dc = generateDCenv(url, path)
+
+    outputDockerComposeK8s(path, dc)
+
+    # print (args,args.url)

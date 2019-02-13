@@ -1,0 +1,62 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose -f ./folio-release/q4-2018/release-core/docker-compose.yml
+      convert --out ./folio-release/q4-2018/release-core/kompose/
+    kompose.image-pull-policy: Always
+    kompose.version: 1.16.0 ()
+  creationTimestamp: null
+  labels:
+    io.kompose.service: mod-inventory
+  name: mod-inventory
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: mod-inventory
+    spec:
+      containers:
+      - env:
+        - name: DB_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              key: DB_DATABASE
+              name: mod-inventory-config-folio-module-env
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: DB_HOST
+              name: mod-inventory-config-folio-module-env
+        - name: DB_MAXPOOLSIZE
+          valueFrom:
+            configMapKeyRef:
+              key: DB_MAXPOOLSIZE
+              name: mod-inventory-config-folio-module-env
+        - name: DB_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: DB_PASSWORD
+              name: mod-inventory-config-folio-module-env
+        - name: DB_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: DB_PORT
+              name: mod-inventory-config-folio-module-env
+        - name: DB_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              key: DB_USERNAME
+              name: mod-inventory-config-folio-module-env
+        - name: JAVA_OPTIONS
+          value: -Dorg.folio.metadata.inventory.storage.type=okapi
+        image: folioorg/mod-inventory:11.0.0
+        name: folio-mod-inventory
+        ports:
+        - containerPort: 9403
+        resources: {}
+      restartPolicy: Always
+status: {}

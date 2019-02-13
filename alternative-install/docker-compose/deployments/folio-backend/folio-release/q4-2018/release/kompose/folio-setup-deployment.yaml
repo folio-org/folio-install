@@ -1,0 +1,122 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose -f ./folio-release/q4-2018/release/docker-compose.yml convert
+      --out ./folio-release/q4-2018/release/kompose/
+    kompose.version: 1.16.0 ()
+  creationTimestamp: null
+  labels:
+    io.kompose.service: folio-setup
+  name: folio-setup
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: folio-setup
+    spec:
+      containers:
+      - env:
+        - name: FOLIO_INSTALL_TAG
+          value: q4-2018
+        - name: FOLIO_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: FOLIO_PASSWORD
+              name: folio-setup-config-folio-setup-env
+        - name: FOLIO_USER
+          valueFrom:
+            configMapKeyRef:
+              key: FOLIO_USER
+              name: folio-setup-config-folio-setup-env
+        - name: HAZELCAST_FILE
+          valueFrom:
+            configMapKeyRef:
+              key: HAZELCAST_FILE
+              name: folio-setup-config-folio-okapi-env
+        - name: HAZELCAST_IP
+          valueFrom:
+            configMapKeyRef:
+              key: HAZELCAST_IP
+              name: folio-setup-config-folio-okapi-env
+        - name: HAZELCAST_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: HAZELCAST_PORT
+              name: folio-setup-config-folio-okapi-env
+        - name: HAZELCAST_VERTX_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: HAZELCAST_VERTX_PORT
+              name: folio-setup-config-folio-okapi-env
+        - name: INITDB
+          value: "true"
+        - name: LOAD_SAMPLEDATA
+          value: "true"
+        - name: OKAPI_CLUSTERHOST
+          valueFrom:
+            configMapKeyRef:
+              key: OKAPI_CLUSTERHOST
+              name: folio-setup-config-folio-okapi-env
+        - name: OKAPI_COMMAND
+          valueFrom:
+            configMapKeyRef:
+              key: OKAPI_COMMAND
+              name: folio-setup-config-folio-okapi-env
+        - name: OKAPI_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: OKAPI_HOST
+              name: folio-setup-config-folio-okapi-env
+        - name: OKAPI_HOSTPORT
+          valueFrom:
+            configMapKeyRef:
+              key: OKAPI_HOSTPORT
+              name: folio-setup-config-folio-setup-env
+        - name: OKAPI_LOGLEVEL
+          valueFrom:
+            configMapKeyRef:
+              key: OKAPI_LOGLEVEL
+              name: folio-setup-config-folio-okapi-env
+        - name: OKAPI_NODENAME
+          value: okapi
+        - name: OKAPI_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: OKAPI_PORT
+              name: folio-setup-config-folio-okapi-env
+        - name: OKAPI_SCHEME
+          valueFrom:
+            configMapKeyRef:
+              key: OKAPI_SCHEME
+              name: folio-setup-config-folio-setup-env
+        - name: OKAPI_TENANT
+          valueFrom:
+            configMapKeyRef:
+              key: OKAPI_TENANT
+              name: folio-setup-config-folio-setup-env
+        - name: OKAPI_URL
+          valueFrom:
+            configMapKeyRef:
+              key: OKAPI_URL
+              name: folio-setup-config-folio-okapi-env
+        - name: PLATFORM_COMPLETE_TAG
+          value: q4-2018
+        - name: TENANT_DESCRIPTION
+          valueFrom:
+            configMapKeyRef:
+              key: TENANT_DESCRIPTION
+              name: folio-setup-config-folio-setup-env
+        - name: TENANT_NAME
+          valueFrom:
+            configMapKeyRef:
+              key: TENANT_NAME
+              name: folio-setup-config-folio-setup-env
+        image: culibraries/foliosetup:0.0.1
+        name: folio-setup
+        resources: {}
+      restartPolicy: Always
+status: {}

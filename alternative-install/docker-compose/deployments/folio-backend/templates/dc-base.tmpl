@@ -1,0 +1,60 @@
+version: "3"
+services:
+  folio-db:
+    image: {{BUILD_ORG}}/postgres:9.6
+    labels:
+      kompose.image-pull-policy: Always
+    container_name: folio-db
+    build:
+      context: {{RELATIVE_PATH_IMAGES}}/postgres
+    env_file:
+      - ../../../config/folio-db.env
+      - ../../../config/folio-module.env
+    expose:
+      - {{PG_PORT}}
+    ports:
+      - {{PG_PORT}}:{{PG_PORT}}
+    volumes:
+      - folio-pgdata:/var/lib/postgresql/data
+  okapi:
+    image: {{BUILD_ORG}}/okapi:{{OKAPI_TAG}}
+    labels:
+      kompose.image-pull-policy: Always
+    container_name: folio-okapi
+    build:
+      context: {{RELATIVE_PATH_IMAGES}}/okapi
+      args:
+        - OKAPI_TAG={{OKAPI_TAG}}
+    env_file:
+      - ../../../config/folio-db.env
+      - ../../../config/folio-okapi.env
+    environment:
+      - OKAPI_NODENAME=okapi
+      - INITDB={{INITDB}}
+    expose:
+      - 5701-5710
+      - 54327
+      - 9130
+      - 9150
+    ports:
+      - {{OKAPI_PORT_HOST}}:9130
+    depends_on:
+      - folio-db
+  folio-setup:
+    image: {{BUILD_ORG}}/foliosetup:0.0.1
+    labels:
+      kompose.image-pull-policy: Always
+    container_name: folio-setup
+    build: {{RELATIVE_PATH_IMAGES}}/folio-setup
+    env_file:
+      - ../../../config/folio-setup.env
+      - ../../../config/folio-okapi.env
+    environment:
+      - OKAPI_NODENAME=okapi
+      - PLATFORM_COMPLETE_TAG={{PLATFORM_COMPLETE_TAG}}
+      - FOLIO_INSTALL_TAG={{FOLIO_INSTALL_TAG}}
+      - LOAD_SAMPLEDATA={{LOAD_SAMPLEDATA}}
+      - INITDB={{INITDB}}
+    depends_on:
+      - okapi
+      - folio-db
