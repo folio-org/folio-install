@@ -6,12 +6,9 @@ if [ "$INITDB" = "true" ]; then
     # set git repo to the correct branch or tag
     (cd platform-complete  && git checkout "$PLATFORM_COMPLETE_TAG");
     (cd folio-install  && git checkout "$FOLIO_INSTALL_TAG");
-
-    #Pull module descriptors from central repository (this will take a while)
-    #curl -w '\n' -X POST -H "Content-type: application/json" -d '{"urls":["http://folio-registry.aws.indexdata.com"]}' "$OKAPI_URL/_/proxy/pull/modules";
-
+    
+    # Run Tenant setup 
     ./setup.py
-    #sleep within python script(180s)
 
     #Create FOLIO Superuser
     perl folio-install/bootstrap-superuser.pl --tenant "$OKAPI_TENANT" --user "$FOLIO_USER" --password "$FOLIO_PASSWORD" --okapi "$OKAPI_URL";
@@ -31,4 +28,4 @@ if [ "$LOAD_SAMPLEDATA" = "true" ] && [ "$INITDB" = "true" ]; then
     for i in folio-install/sample-data/mod-inventory/*.xml; do curl -w '\n' -D - -X POST -H "Content-type: multipart/form-data" -H "X-Okapi-Tenant: $OKAPI_TENANT" -H "X-Okapi-Token: $token" -F upload=@${i} "$OKAPI_URL/inventory/ingest/mods"; done
 
 fi
-sleep 240;
+
