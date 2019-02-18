@@ -158,12 +158,12 @@ CREATE DATABASE folio WITH OWNER folio;
 wget --quiet -O - https://repository.folio.org/packages/debian/folio-apt-archive-key.asc | sudo apt-key add -
 sudo add-apt-repository "deb https://repository.folio.org/packages/ubuntu xenial/"
 sudo apt-get update
-sudo apt-get -y install okapi=2.22.0-1
+sudo apt-get -y install okapi=2.25.0-1
 ```
 
 ### Sidebar: Okapi releases
 
-Okapi 2.22.0 is the version of Okapi that was made a part of the Q4-2018 release. If you'd like to work with the latest Okapi release, change the final command above to:
+If you'd like to work with the latest Okapi release, change the final command above to:
 
 ```
 sudo apt-get -y install okapi
