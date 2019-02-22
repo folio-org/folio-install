@@ -171,6 +171,8 @@ sudo apt-get -y install okapi
 
 Note that there is some risk in this, as the latest Okapi release may not have been tested with the rest of the components in the Q4-2018 release.
 
+### Mainbar: Continue configure Okapi
+
 2. Configure Okapi to run as a single node server with persistent storage
 
   * Edit file `/etc/folio/okapi/okapi.conf` and make the following changes:
@@ -249,7 +251,7 @@ yarn install
 
 The `platform-core` platform is constructed with versions of FOLIO components and dependencies that have been tested together and are known to work.
 
-If you would rather build Stripes with the most recent code that may not have been fully integration tested, clone the `platform-core` repository, omit the step of checking out the latest tag, then:
+If you would rather build Stripes with the most recent code that may not have been fully integration tested, clone the `platform-core` repository at step 2 above, omit the step of checking out the latest tag, and do this instead:
 
 ```
 git checkout snapshot
@@ -259,6 +261,8 @@ yarn install
 **Be warned, this could result in a bundle with unstable code!**
 
 If you build Stripes this way, you will need to construct your FOLIO backend system a little differently. See [Building from the bleeding edge -- part II](#sidebar-building-from-the-bleeding-edge----part-ii) below.
+
+### Mainbar: Continue build Stripes
 
 5. Configure Stripes
 
@@ -331,7 +335,7 @@ curl -w '\n' -D - -X POST -H "Content-type: application/json" \
 
 ### Sidebar: Building from the bleeding edge -- part II
 
-If you would rather deploy the most recent code for the backend, rather than relying on the `okapi-install.json` and `stripes-install.json` files from the platform-core, then create your own files using the procedure below. **Proceed at your own risk!** You could end up with a system that contains unstable code. In addition, the reference and sample data included in this repository may not be compatible with your new backend.
+If you would rather deploy the most recent code for the backend, rather than relying on the `okapi-install.json` and `stripes-install.json` files from the platform-core, then create your own files using the procedure below instead of the above steps. **Proceed at your own risk!** You could end up with a system that contains unstable code. In addition, the reference and sample data included in this repository may not be compatible with your new backend.
 
 1. Build a list of frontend modules to enable
 
