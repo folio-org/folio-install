@@ -221,7 +221,7 @@ ssh_agent_auth: false
 15) Deploy create-deploy Workload *Job*, to enable modules for `/proxy/modules`, `/discovery/modules`, and diku tenant – built from our custom Docker container with scripts - with diku-tenant-config Secret
 16) Deploy bootstrap-superuser Workload *Job* – built from our custom Docker container with scripts - with diku-tenant-config Secret
 17) Deploy create-refdata Workload *Job* – built from our custom Docker container with scripts - with diku-tenant-config Secret
-18) Deploy create-sampdata Workload *Job* – built from our custom Docker container with scripts - with x-okapi-token Secret
+18) Deploy create-sampdata Workload *Job* – built from our custom Docker container with scripts - with x-okapi-token Secret AND diku-tenant-config Secret
 19) Edit Okapi Workload, set InitDB environment variable to false
 20) Scale up Okapi pods to 3 using Rancher 2.0 + button
 21) Add Ingress under Load Balancing for Okapi and Stripes using URLs for `/` and `/_/`
