@@ -327,11 +327,11 @@ OKAPI_PORT = 9130<br/>
 OKAPI_NODENAME = okapi1<br/>
 OKAPI_LOGLEVEL = INFO<br/>
 OKAPI_HOST = okapi<br/>
-OKAPI_CLUSTERHOST = xx.xx.x.xxx (Insert ClusterIP Kubernetes assigns the service)<br/>
+OKAPI_CLUSTERHOST = $(OKAPI_SERVICE_HOST)<br/>
 INITDB = false<br/>
 HAZELCAST_VERTX_PORT = 5703<br/>
 HAZELCAST_PORT = 5701<br/>
-HAZELCAST_IP = xx.xx.x.xxx (Insert ClusterIP Kubernetes assigns the service)<br/>
+HAZELCAST_IP = $(OKAPI_SERVICE_HOST)<br/>
 
 
 ### HA Postgres in Kubernetes/Rancher Notes:
