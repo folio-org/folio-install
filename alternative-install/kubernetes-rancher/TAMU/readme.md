@@ -387,7 +387,7 @@ X_OKAPI_TOKEN = *Authentication token from Okapi*
 ### Okapi Notes:
 
 -Running in *clustered* mode.<br/>
--Hazelcast in Kubernetes requires editing the hazelcast.xml file included with the included Okapi repo before you build the Docker container, and setting your Folio namespace under:
+-Hazelcast in Kubernetes requires editing the hazelcast.xml file included with the Okapi repo before you build the Docker container, and setting your Folio namespace under:
 ```
 <kubernetes enabled="true">
                 <namespace>folio-q4</namespace>
