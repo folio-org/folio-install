@@ -171,24 +171,107 @@ https://your.private.registry.org
   h) Docker Root Directory - /var/lib/docker<br/>
   i) Default Pod Security Policy - unrestricted (You can change this later for the cluster as well as the Namespaces once Pod Security Policies have been established)<br/>
   j) Cloud Provider - None
-3) Click Edit as YAML button and add this code to the very bottom under Services section:
+3) Click Edit as YAML button and replace with this code:
 ```
+addon_job_timeout: 30
+authentication:
+  strategy: "x509"
+bastion_host:
+  ssh_agent_auth: false
+cloud_provider:
+  name: "vsphere"
+  vsphereCloudProvider:
+    global:
+      datacenters: "DC1, DC2"
+      insecure-flag: true
+      password: "password"
+      soap-roundtrip-count: 0
+      user: "username"
+    virtual_center:
+      vsphere-dr.org:
+        datacenters: "DC2"
+        soap-roundtrip-count: 0
+      vsphere.org:
+        datacenters: "DC1"
+        soap-roundtrip-count: 0
+    workspace:
+      datacenter: "DC1"
+      default-datastore: "kube"
+      folder: "kubevols"
+      server: "vsphere.org"
+ignore_docker_version: true
+#
+#   # Currently only nginx ingress provider is supported.
+#   # To disable ingress controller, set `provider: none`
+#   # To enable ingress on specific nodes, use the node_selector, eg:
+#      provider: nginx
+#      node_selector:
+#        app: ingress
+#
+ingress:
+  provider: "nginx"
+kubernetes_version: "v1.13.4-rancher1-1"
+monitoring:
+  provider: "metrics-server"
+#
+#   # If you are using calico on AWS
+#
+#      network:
+#        plugin: calico
+#        calico_network_provider:
+#          cloud_provider: aws
+#
+#   # To specify flannel interface
+#
+#      network:
+#        plugin: flannel
+#        flannel_network_provider:
+#          iface: eth1
+#
+#   # To specify flannel interface for canal plugin
+#
+#      network:
+#        plugin: canal
+#        canal_network_provider:
+#          iface: eth1
+#
+network:
+  options:
+    flannel_backend_type: "vxlan"
+  plugin: "canal"
+#
+#      services:
+#        kube_api:
+#          service_cluster_ip_range: 10.43.0.0/16
+#        kube_controller:
+#          cluster_cidr: 10.42.0.0/16
+#          service_cluster_ip_range: 10.43.0.0/16
+#        kubelet:
+#          cluster_domain: cluster.local
+#          cluster_dns_server: 10.43.0.10
+#
 services:
   etcd:
+    creation: "24h"
     extra_args:
       election-timeout: "5000"
       heartbeat-interval: "500"
-    snapshot: false
+    retention: "72h"
+    snapshot: true
   kube-api:
     pod_security_policy: true
+    service_node_port_range: "30000-32767"
   kube-controller:
     extra_args:
-      node-monitor-grace-period: "30s"
+      node-monitor-grace-period: "60s"
       node-monitor-period: "10s"
-      pod-eviction-timeout: "30s"
+      pod-eviction-timeout: "120s"
   kubelet:
     extra_args:
       node-status-update-frequency: "5s"
+    extra_env:
+      - "RKE_CLOUD_CONFIG_CHECKSUM=<checksum value>"
+      - "RKE_CLOUD_CONFIG_CHECKSUM=<checksum value>"
     fail_swap_on: false
 ssh_agent_auth: false
 ```
@@ -433,9 +516,9 @@ Run instructions from here: https://gist.github.com/superseb/3a9c0d2e4a60afa3689
 
 ```kubectl get --all-namespaces rs -o json|jq -r '.items[] | select(.spec.replicas | contains(0)) | "kubectl delete rs --namespace=\(.metadata.namespace) \(.metadata.name)"'```
 
-#### Enabling Recurring etcd Snapshots on the cluster:
+#### Enable Recurring etcd Snapshots on the cluster:
 
-RKE takes a snapshot of etcd running on each etcd node. The file is saved to /opt/rke/etcd-snapshots
+You can enable this option when you create or edit the cluster. RKE takes a snapshot of etcd running on each etcd node. The file is saved to /opt/rke/etcd-snapshots.
 
 #### When spinning up containers from Dockerhub, be sure the Workload `Advanced Option - Command` *Auto Restart* setting is set to *Always*
 
