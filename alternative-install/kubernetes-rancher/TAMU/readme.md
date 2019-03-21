@@ -50,9 +50,10 @@ END``
 
 ```systemctl restart docker```
 
-#### Run/Install Rancher Manager:
+#### Run/Install Rancher Server:
+(We are using our own certs, signed by a recognized CA)
 
-```docker run -d --restart=unless-stopped -p 80:80 -p 443:443 rancher/rancher```
+```docker run -d --restart=unless-stopped -p 80:80 -p 443:443 -v /etc/ssl/certs/my-cert.pem:/etc/rancher/ssl/cert.pem -v /etc/ssl/certs/my-key.pem:/etc/rancher/ssl/key.pem rancher/rancher:stable --no-cacerts```
 
 
 
