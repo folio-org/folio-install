@@ -171,7 +171,7 @@ https://your.private.registry.org
   h) Docker Root Directory - /var/lib/docker<br/>
   i) Default Pod Security Policy - unrestricted (You can change this later for the cluster as well as the Namespaces once Pod Security Policies have been established)<br/>
   j) Cloud Provider - None
-3) Click Edit as YAML button and replace with this code:
+3) Click Edit as YAML button and replace with this code (for using vSphere Storage Class):
 ```
 addon_job_timeout: 30
 authentication:
