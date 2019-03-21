@@ -1,4 +1,4 @@
-# Folio on Kubernetes/Rancher 2.0
+# Folio on Kubernetes/Rancher 2.1
 
 ## License
 
@@ -8,7 +8,7 @@ This software is distributed under the terms of the Apache License, Version 2.0.
 
 ## Introduction
 
-A collection of Dockerfiles and YAML for FOLIO Q4 installation on Kubernetes/Rancher 2.0.<br/>
+A collection of Dockerfiles and YAML for FOLIO Q4 installation on Kubernetes/Rancher 2.1.<br/>
 Latest deployment procedure here: https://wiki.folio.org/pages/viewpage.action?pageId=14458600
 
 ## Contents
@@ -103,7 +103,7 @@ END``
 
 ### Create vSphere Node template:
 
-1) Rancher 2.0 UI - Global View
+1) Rancher 2.1 UI - Global View
 2) Click upper right-hand corner drop-down - select Node Templates
 3) Click Add Template
 4) Click vSphere
@@ -285,13 +285,13 @@ ssh_agent_auth: false
 
 ### Set-up order overview (Our Rancher-exported YAML can be looked at under the YAML folder):
 
-1) Create cluster via Rancher 2.0 with one or more nodes, using Canal network plugin. We are using VMware to provision Oracle Linux VMs at the moment
-2) Create Folio-Project in Rancher 2.0 UI
-3) Add folio-q4 Namespace for Folio-Project under Namespaces in Rancher 2.0 UI
+1) Create cluster via Rancher 2.1 with one or more nodes, using Canal network plugin. We are using VMware to provision Oracle Linux VMs at the moment
+2) Create Folio-Project in Rancher 2.1 UI
+3) Add folio-q4 Namespace for Folio-Project under Namespaces in Rancher 2.1 UI
 4) Add Dockerhub and your private Docker registries to the Folio-Project
 5) Add Persistent Volume on the cluster and Persistent Volume Claim for Folio-Project (We are using an NFS Share)<br/>
 
-(The rest of these steps are from within the Folio-Project in Rancher 2.0)<br/>
+(The rest of these steps are from within the Folio-Project in Rancher 2.1)<br/>
 
 6) Create db-config and db-connect Rancher Secrets under Folio-Project Resources - Secrets
 7) Deploy crunchy-postgres Workload *Stateful set* via Helm Package, edit the Workload to tweak environment variables for use with Folio - with db-config Secret
@@ -307,7 +307,7 @@ ssh_agent_auth: false
 17) Deploy create-refdata Workload *Job* – built from our custom Docker container with scripts - with diku-tenant-config Secret
 18) Deploy create-sampdata Workload *Job* – built from our custom Docker container with scripts - with x-okapi-token Secret AND diku-tenant-config Secret
 19) Edit Okapi Workload, set InitDB environment variable to false
-20) Scale up Okapi pods to 3 using Rancher 2.0 + button
+20) Scale up Okapi pods to 3 using Rancher 2.1 + button
 21) Add Ingress under Load Balancing for Okapi and Stripes using URLs for `/` and `/_/`
 
 ### Cluster Service Accounts Notes
@@ -479,13 +479,13 @@ MAX_WAL_SENDERS = 2<br/>
 -When setting up Load Balancing/Ingress, target the Service name instead of Workload name if you have specific ports you have set in the Workload.<br/>
 -For Okapi HA ingress, I have Okapi Service as the target at port 9130, with root path, `/` and `/_/` for the hostname folio-okapiq4.org<br/>
 
--To have default Rancher 2.0 Nginx ingress be a little smarter about DNS RR, add annotations in Rancher 2.0 GUI Service Discovery:<br/>
+-To have default Rancher 2.1 Nginx ingress be a little smarter about DNS RR, add annotations in Rancher 2.1 GUI Service Discovery:<br/>
 
 nginx.ingress.kubernetes.io/upstream-fail-timeout = 5<br/>
 nginx.ingress.kubernetes.io/upstream-max-fails = 2<br/>
 nginx.ingress.kubernetes.io/proxy-connect-timeout = 2<br/>
 
--To allow larger chunks of data, add annotations in Rancher 2.0 GUI Service Discovery:<br/>
+-To allow larger chunks of data, add annotations in Rancher 2.1 GUI Service Discovery:<br/>
 
 nginx.ingress.kubernetes.io/client-body-buffer-size = 2M<br/>
 nginx.ingress.kubernetes.io/proxy-body-size = 1g
