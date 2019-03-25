@@ -492,5 +492,5 @@ for i in /vagrant/sample-data/mod-inventory/*.xml; do curl -w '\n' -D - -X POST 
 ## Known issues
 
 This Jira filter shows known critical issues that are not yet resolved:
-* [Known critical Q4-2018 issues](https://issues.folio.org/issues/?filter=11081)
+* [Known critical Q1-2019 issues](https://issues.folio.org/issues/?filter=11353)
 
