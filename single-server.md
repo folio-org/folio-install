@@ -34,7 +34,7 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 ```
 git clone https://github.com/folio-org/folio-install
 cd folio-install
-git checkout q4-2018
+git checkout folio-1866-q1-2019
 ```
 
 The default procedure will create a VirtualBox VM based on this [Vagrantfile](Vagrantfile), running a generic Ubuntu Xenial OS, with 9 GB RAM and 2 CPUs. Port 9130 of the guest will be forwarded to port 9130 of the host, and port 80 of the guest will be forwarded to port 3000 of the host. The `folio-install` directory on the host will be shared on the guest at the mount point `/vagrant`.
@@ -161,7 +161,7 @@ CREATE DATABASE folio WITH OWNER folio;
 wget --quiet -O - https://repository.folio.org/packages/debian/folio-apt-archive-key.asc | sudo apt-key add -
 sudo add-apt-repository "deb https://repository.folio.org/packages/ubuntu xenial/"
 sudo apt-get update
-sudo apt-get -y install okapi=2.25.0-1
+sudo apt-get -y install okapi=2.26.0-1
 ```
 
 ### Sidebar: Okapi releases
@@ -172,7 +172,7 @@ If you'd like to work with the latest Okapi release, change the final command ab
 sudo apt-get -y install okapi
 ```
 
-Note that there is some risk in this, as the latest Okapi release may not have been tested with the rest of the components in the Q4-2018 release.
+Note that there is some risk in this, as the latest Okapi release may not have been tested with the rest of the components in the Q1-2019 release.
 
 ### Mainbar: Continue configure Okapi
 
@@ -238,10 +238,10 @@ git clone https://github.com/folio-org/platform-core
 cd platform-core
 ```
 
-3. Check out the `q4-2018` branch. The HEAD of this branch should reflect the latest release, including any bug fix releases.
+3. Check out the `q1-2019-rc` branch. The HEAD of this branch should reflect the latest release, including any bug fix releases.
 
 ```
-git checkout q4-2018
+git checkout q1-2019-rc
 ```
 
 4. Install npm packages
