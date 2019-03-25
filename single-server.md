@@ -1,5 +1,8 @@
 # FOLIO deployment: single server
 
+** NOTE: 20190325: ** This document is still being adjusted for q1-2019 release.
+See [FOLIO-1866](https://issues.folio.org/browse/FOLIO-1866).
+
 Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ansible
 
 ## Disclaimers/Caveats
