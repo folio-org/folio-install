@@ -3,7 +3,7 @@
 ### Database connection envs:
 DB_DATABASE = okapi_modules<br/>
 DB_HOST = postgres_host<br/>
-DB_MAXPOOLSIZE = 20<br/>
+DB_MAXPOOLSIZE = 10<br/>
 DB_PASSWORD = folio_admin_password<br/>
 DB_PORT = 5432<br/>
 DB_USERNAME = folio_admin
