@@ -318,12 +318,12 @@ curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"DB
 curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"DB_PASSWORD\",\"value\":\"folio123\"}" http://localhost:9130/_/env
 ```
 
-2. Post the list of backend modules to deploy and enable
+2. Post the list of backend modules to deploy and enable. Also load their sample and reference data:
 
 ```
 curl -w '\n' -D - -X POST -H "Content-type: application/json" \
   -d @platform-core/okapi-install.json \
-  http://localhost:9130/_/proxy/tenants/diku/install?deploy=true\&preRelease=false
+  http://localhost:9130/_/proxy/tenants/diku/install?deploy=true\&preRelease=false\&tenantParameters=loadSample%3Dtrue%2CloadReference%3Dtrue
 ```
 
 Note: This will take a long time to return, as all the Docker images must be pulled from Docker Hub. Progress can be followed in the Okapi log at `/var/log/folio/okapi/okapi.log` and via `sudo docker ps`
@@ -435,6 +435,8 @@ perl /vagrant/bootstrap-superuser.pl \
 
 ## Load module reference data
 
+** NOTE: 20190328: ** This section is to be removed.
+
   * Reference data is required for mod-inventory-storage and mod-circulation-storage and mod-users
     * It is included in the GitHub repos for these modules, along with a shell script for loading
     * Reference data for the latest release has been copied into this repository, in the directory `reference-data`
@@ -449,6 +451,8 @@ perl /vagrant/load-data.pl \
 ```
 
 ## Load sample data
+
+** NOTE: 20190328: ** This section is to be removed.
 
 It can be convenient to have sample data to load into the system for testing. Some sample data that is compatible with the last FOLIO release has been included in this repository, in the directory `sample-data`. You can load it using the same [sample perl script](load-data.pl) as above.
 
