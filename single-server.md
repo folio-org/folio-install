@@ -238,10 +238,10 @@ git clone https://github.com/folio-org/platform-core
 cd platform-core
 ```
 
-3. Check out the `q1-2019-rc` branch. The HEAD of this branch should reflect the latest release, including any bug fix releases.
+3. Check out the `q1-2019` branch. The HEAD of this branch should reflect the latest release, including any bug fix releases.
 
 ```
-git checkout q1-2019-rc
+git checkout q1-2019
 ```
 
 4. Install npm packages
