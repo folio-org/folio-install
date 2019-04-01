@@ -318,7 +318,7 @@ curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"DB
 curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"DB_PASSWORD\",\"value\":\"folio123\"}" http://localhost:9130/_/env
 ```
 
-2. Post the list of backend modules to deploy and enable. Also load their sample and reference data:
+2. Post the list of backend modules to deploy and enable. Also set the [tenantParameters](https://github.com/folio-org/okapi/blob/master/doc/guide.md#install-modules-per-tenant) to load their sample and reference data:
 
 ```
 curl -w '\n' -D - -X POST -H "Content-type: application/json" \
