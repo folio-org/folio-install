@@ -1,6 +1,6 @@
 # FOLIO deployment: single server
 
-** NOTE: 20190325: ** This document is still being adjusted for q1-2019 release.
+** NOTE: 20190402: ** This document is still being adjusted for q1-2019 release.
 See [FOLIO-1866](https://issues.folio.org/browse/FOLIO-1866).
 
 Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ansible
@@ -10,7 +10,7 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 * Much of this is already automated as part of the folio-ansible project
 * This is not a full production install. One obvious omission is securing the Okapi API itself.
 * The _minimum_ RAM required for a system based on [platform-core](https://github.com/folio-org/platform-core) is 11 GB. Keep this in mind if you are running on a VM.
-* To instead build a system based on [platform-complete](https://github.com/folio-org/platform-complete) will require approximately 22 GB.
+* To instead build a system based on [platform-complete](https://github.com/folio-org/platform-complete) will require approximately 23 GB.
 
 ## Summary
 
@@ -44,7 +44,7 @@ The default procedure will create a VirtualBox VM based on this [Vagrantfile](Va
 The default procedure uses the
 [platform-core](https://github.com/folio-org/platform-core) configuration.
 
-To instead build a system based on [platform-complete](https://github.com/folio-org/platform-complete), adjust the `vb.memory` in the [Vagrantfile](Vagrantfile) to be approximately 22 GB. In `nginx-stripes.conf` replace `platform-core` with `platform-complete`. Throughout these instructions, replace every mention of `platform-core` with `platform-complete`.
+To instead build a system based on [platform-complete](https://github.com/folio-org/platform-complete), adjust the `vb.memory` in the [Vagrantfile](Vagrantfile) to be approximately 23 GB. In `nginx-stripes.conf` replace `platform-core` with `platform-complete`. Throughout these instructions, replace every mention of `platform-core` with `platform-complete`.
 
 3. Bring up the Vagrant VM, log into it
 
@@ -282,7 +282,7 @@ const platformComplete = {
 
 6. Build webpack
 
-  * *Note: if you're not building on a local Vagrant box, see [Options for `yarn build`](#sidebar-options-for-yarn-build) below*
+*Note: if you're not building on a local Vagrant box, see [Options for `yarn build`](#sidebar-options-for-yarn-build) below*
 
 ```
 NODE_ENV=production yarn build output
@@ -326,7 +326,7 @@ curl -w '\n' -D - -X POST -H "Content-type: application/json" \
   http://localhost:9130/_/proxy/tenants/diku/install?deploy=true\&preRelease=false\&tenantParameters=loadSample%3Dtrue%2CloadReference%3Dtrue
 ```
 
-Note: This will take a long time to return, as all the Docker images must be pulled from Docker Hub. Progress can be followed in the Okapi log at `/var/log/folio/okapi/okapi.log` and via `sudo docker ps`
+Note: This will take a long time to return, as all the Docker images must be pulled from Docker Hub. Progress can be followed in the Okapi log at `/var/log/folio/okapi/okapi.log` and via `sudo docker ps | grep -v "^CONTAINER"`
 
 3. Post the list of Stripes modules to enable
 
@@ -338,7 +338,7 @@ curl -w '\n' -D - -X POST -H "Content-type: application/json" \
 
 ### Sidebar: Building from the bleeding edge -- part II
 
-** NOTE: 20190401: ** This section has not yet beend updated for q1-2019.
+** NOTE: 20190402: ** This section has not yet been verified for q1-2019.
 
 If you would rather deploy the most recent code for the backend, rather than relying on the `okapi-install.json` and `stripes-install.json` files from the platform-core, then create your own files using the procedure below instead of the above steps. **Proceed at your own risk!** You could end up with a system that contains unstable code. In addition, the reference and sample data included in this repository may not be compatible with your new backend.
 
@@ -371,7 +371,7 @@ perl /vagrant/gen-module-list.pl \
   platform-complete/ModuleDescriptors > stripes-install.json
 ```
 
-Note: Its snapshot branch is missing some modules compared to q4-2018 branch [FOLIO-1688](https://issues.folio.org/browse/FOLIO-1688).
+Note: Its snapshot branch is missing some modules compared to this release branch [FOLIO-1688](https://issues.folio.org/browse/FOLIO-1688).
 This might require the Vagrantfile to be allocated more memory, and more modules added to that `--extra-modules` option.
 
 2. Post list of modules to Okapi, let Okapi resolve dependencies and send back a list of modules to deploy and enable
@@ -437,7 +437,7 @@ perl /vagrant/bootstrap-superuser.pl \
 
 ## Load module reference data
 
-** NOTE: 20190328: ** This section is to be removed.
+** NOTE: 20190402: ** This section is to be removed.
 
   * Reference data is required for mod-inventory-storage and mod-circulation-storage and mod-users
     * It is included in the GitHub repos for these modules, along with a shell script for loading
@@ -454,7 +454,7 @@ perl /vagrant/load-data.pl \
 
 ## Load sample data
 
-** NOTE: 20190328: ** This section is to be removed.
+** NOTE: 20190402: ** This section is to be removed.
 
 It can be convenient to have sample data to load into the system for testing. Some sample data that is compatible with the last FOLIO release has been included in this repository, in the directory `sample-data`. You can load it using the same [sample perl script](load-data.pl) as above.
 
