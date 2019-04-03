@@ -495,6 +495,20 @@ Replace the `<okapi token>` placeholder with the actual token from the previous 
 for i in /vagrant/sample-data/mod-inventory/*.xml; do curl -w '\n' -D - -X POST -H "Content-type: multipart/form-data" -H "X-Okapi-Tenant: diku" -H "X-Okapi-Token: <okapi token>" -F upload=@${i} http://localhost:9130/inventory/ingest/mods; done
 ```
 
+## Secure the OKAPI API (supertenant)
+If this is a production install, you may want to secure the Okapi API. You can secure the Okapi API or supertenant either by using the included script `secure-supertenant.py` or by following the instructions in the [Securing Okapi](https://github.com/folio-org/okapi/blob/master/doc/securing.md) guide.
+
+The included script requires mod-authtoken, mod-login, mod-permissions, and mod-users. It will enable those modules on the supertenant, create a superuser, and grant the `okpai-all` permission set to the superuser. It will also grant all permissions on the modules in enables to the superuser.
+
+**CAUTION**: When the supertenant is secured, you must login using mod-authtoken to obtain an authtoken and include it in the `x-okapi-token` header for every request to the Okapi API. For Example, if you want to repeat any of the calls to Okapi in this guide, you will need to include `x-okapi-tenant:YOURTOKEN` and `x-okapi-tenant:supertenant` as headers for any requests to the Okapi API.
+
+To use the included script run the following replacing USERNAME and PASSWORD with your desired values.:
+```
+python3 secure-superuser.py -u USERNAME -p PASSWORD
+``` 
+
+You can also specify a different url for okapi by using the `-o` option. The default value is `http://localhost:9130` if you do not specify this option.
+
 ## Known issues
 
 This Jira filter shows known critical issues that are not yet resolved:
