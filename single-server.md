@@ -14,6 +14,7 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 
 ## Summary
 
+<!-- ../okapi/doc/md2toc -l 2 -h 2 -s 2 single-server.md -->
 * [Build a target Linux host](#build-a-target-linux-host)
 * [Install and configure required packages](#install-and-configure-required-packages)
 * [Create databases and roles](#create-databases-and-roles)
@@ -25,6 +26,7 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 * [Create a FOLIO “superuser” and load permissions](#create-a-folio-superuser-and-load-permissions)
 * [Load module reference data](#load-module-reference-data)
 * [Load sample data](#load-sample-data)
+* [Secure the Okapi API (supertenant)](#secure-the-okapi-api-supertenant)
 * [Known issues](#known-issues)
 
 ## Build a target Linux host
