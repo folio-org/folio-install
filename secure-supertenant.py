@@ -85,10 +85,7 @@ def okapi_get(url, tenant=None):
     }
     r = urllib.request.urlopen(url)
     try:
-        if headers == True:
-            response_data = dict(r.info())
-        else:
-            response_data = r.read()
+        response_data = r.read().decode('utf-8')
     except urllib.error.HTTPError as e:
         sys.exit(
             ' - '.join([
@@ -111,7 +108,7 @@ def okapi_post(url, payload, tenant=None, return_headers=False):
         if return_headers == True:
             response_data = dict(resp.info())
         else:
-            response_data =  resp.read()
+            response_data =  resp.read().decode('utf-8')
     except urllib.error.HTTPError as e:
         sys.exit(' - '.join([
                 'ERROR', 'POST', e.url,
