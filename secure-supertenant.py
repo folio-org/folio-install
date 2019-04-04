@@ -8,8 +8,8 @@ import urllib.request
 import uuid
 
 
-SUPERUSER_PERMISSIONS = [ 
-    "okapi.all", 
+SUPERUSER_PERMISSIONS = [
+    "okapi.all",
     "okapi.proxy.pull.modules.post",
     "perms.all",
     "login.all",
@@ -34,13 +34,13 @@ def main():
     newuser = create_user_mod_users(args.user_name, okapi_url)
     newuser_json = json.loads(newuser)
     print("Successfully created user {} with id {}".format(args.user_name, newuser_json['id']))
-    
+
     # Grant permissions to user
     print("Granting the following permissions to {}".format(args.user_name))
     for perm in SUPERUSER_PERMISSIONS:
         print(perm)
     add_permissions(newuser_json['id'], SUPERUSER_PERMISSIONS, okapi_url)
-    
+
     # Create login credentials
     create_login_credentials(args.user_name, args.password, okapi_url)
 
@@ -118,7 +118,7 @@ def okapi_post(url, payload, tenant=None, return_headers=False):
                 str(e.status), str(e.read().decode('utf-8'))
             ]))
     return response_data
-    
+
 def fetch_module_ids(module_names, okapi_url):
     module_ids = {}
     r = okapi_get(okapi_url + '/_/discovery/modules')
@@ -131,12 +131,12 @@ def fetch_module_ids(module_names, okapi_url):
                 module_ids[name] = name_regex.search(mod['srvcId']).group()
             except AttributeError:
                 pass
-    
+
     return module_ids
 
 def enable_module(module_id, okapi_url, tenant=None):
     tenant = tenant or 'supertenant'
-    payload = json.dumps({ 
+    payload = json.dumps({
                 'id' : module_id
             }).encode('UTF-8')
     return okapi_post(okapi_url +
