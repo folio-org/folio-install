@@ -297,6 +297,9 @@ The `yarn build` command above can be changed to build the webpack in different 
 
 ## Configure webserver to serve Stripes webpack
 
+Now that the webpack is built, proceed to configure the 'nginx' server.
+Remeber if building for `platform-complete` then set that in the `/vagrant/nginx-stripes.conf` file.
+
   * [Sample nginx configuration](nginx-stripes.conf)
 
 ```
@@ -498,18 +501,19 @@ for i in /vagrant/sample-data/mod-inventory/*.xml; do curl -w '\n' -D - -X POST 
 ```
 
 ## Secure the Okapi API (supertenant)
+
 If this is a production install, you may want to secure the Okapi API. You can secure the Okapi API or supertenant either by using the included sample script [secure-supertenant.py](secure-supertenant.py) or by following the instructions in the [Securing Okapi](https://github.com/folio-org/okapi/blob/master/doc/securing.md) guide.
 
-The included script requires mod-authtoken, mod-login, mod-permissions, and mod-users. It will enable those modules on the supertenant, create a superuser, and grant the `okapi.all` permission set to the superuser. It will also grant all permissions on the modules in enables to the superuser.
+The included script requires mod-authtoken, mod-login, mod-permissions, and mod-users. It will enable those modules on the supertenant, create a superuser, and grant the `okapi.all` permission set to the superuser. It will also grant all permissions to the superuser on the modules that it enables.
 
-**CAUTION**: When the supertenant is secured, you must login using mod-authtoken to obtain an authtoken and include it in the `x-okapi-token` header for every request to the Okapi API. For Example, if you want to repeat any of the calls to Okapi in this guide, you will need to include `x-okapi-token:YOURTOKEN` and `x-okapi-tenant:supertenant` as headers for any requests to the Okapi API.
+**CAUTION**: When the supertenant is secured, you must login using mod-authtoken to obtain an authtoken and include it in the `x-okapi-token` header for every request to the Okapi API. For example, if you want to repeat any of the calls to Okapi in this guide, you will need to include `x-okapi-token:YOURTOKEN` and `x-okapi-tenant:supertenant` as headers for any requests to the Okapi API.
 
-To use the included script run the following replacing USERNAME and PASSWORD with your desired values.:
+To use the included script, run the following replacing USERNAME and PASSWORD with your desired values:
 ```
 python3 secure-superuser.py -u USERNAME -p PASSWORD
 ```
 
-You can also specify a different url for okapi by using the `-o` option. The default value is `http://localhost:9130` if you do not specify this option.
+You can also specify a different url for Okapi by using the `-o` option. The default value is `http://localhost:9130` if you do not specify this option.
 
 ## Known issues
 
