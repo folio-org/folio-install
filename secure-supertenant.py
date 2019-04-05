@@ -46,7 +46,7 @@ def main():
 
     # Enable mod-authtoken
     mod_authtoken_id = fetch_module_ids(['mod-authtoken'], okapi_url)['mod-authtoken']
-    print("Enablling module {}...".format(mod_authtoken_id))
+    print("Enabling module {}...".format(mod_authtoken_id))
     enable_module(mod_authtoken_id, okapi_url)
 
     #Log in and print x-okapi-token
@@ -56,7 +56,7 @@ def main():
         'password': args.password
     }).encode('UTF-8')
 
-    login_headers = okapi_post(okapi_url + '/authn/login' ,payload, return_headers=True)
+    login_headers = okapi_post(okapi_url + '/authn/login', payload, return_headers=True)
 
     print(json.dumps({
         'username': args.user_name,
@@ -89,7 +89,7 @@ def okapi_get(url, tenant=None):
     except urllib.error.HTTPError as e:
         sys.exit(
             ' - '.join([
-                'ERROR','GET', e.url,
+                'ERROR', 'GET', e.url,
                 str(e.status), str(e.read())
             ]))
     return response_data
