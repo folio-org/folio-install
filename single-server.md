@@ -7,8 +7,8 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 
 ## Disclaimers/Caveats
 
-* Much of this is already automated as part of the folio-ansible project
-* This is not a full production install. One obvious omission is securing the Okapi API itself.
+* Much of this is already automated as part of the folio-ansible project.
+* This is not considered to be a full production install.
 * The _minimum_ RAM required for a system based on [platform-core](https://github.com/folio-org/platform-core) is 11 GB. Keep this in mind if you are running on a VM.
 * To instead build a system based on [platform-complete](https://github.com/folio-org/platform-complete) will require approximately 24 GB.
 
