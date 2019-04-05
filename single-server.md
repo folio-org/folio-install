@@ -411,7 +411,7 @@ curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"DB
 ```
 curl -w '\n' -D - -X POST -H "Content-type: application/json" \
   -d @okapi-install.json \
-  http://localhost:9130/_/proxy/tenants/diku/install?deploy=true
+  http://localhost:9130/_/proxy/tenants/diku/install?deploy=true\&tenantParameters=loadSample%3Dtrue%2CloadReference%3Dtrue
 ```
 
 6. Post the list of Stripes modules to enable
