@@ -254,6 +254,8 @@ yarn install
 
 ### Sidebar: Building from the bleeding edge
 
+** NOTE: 20190405: ** This section has not been verified for q1-2019.
+
 The `platform-core` platform is constructed with versions of FOLIO components and dependencies that have been tested together and are known to work.
 
 If you would rather build Stripes with the most recent code that may not have been fully integration tested, clone the `platform-core` repository at step 2 above, omit the step of checking out the latest tag, and do this instead:
@@ -343,7 +345,7 @@ curl -w '\n' -D - -X POST -H "Content-type: application/json" \
 
 ### Sidebar: Building from the bleeding edge -- part II
 
-** NOTE: 20190405: ** This section has not yet been verified for q1-2019.
+** NOTE: 20190405: ** This section has not been verified for q1-2019.
 
 If you would rather deploy the most recent code for the backend, rather than relying on the `okapi-install.json` and `stripes-install.json` files from the platform-core, then create your own files using the procedure below instead of the above steps. **Proceed at your own risk!** You could end up with a system that contains unstable code. In addition, the reference and sample data included in this repository may not be compatible with your new backend.
 
@@ -375,9 +377,6 @@ perl /vagrant/gen-module-list.pl \
   --extra-modules mod-audit,mod-audit-filter,mod-codex-inventory,mod-codex-ekb,mod-email,mod-event-config,mod-gobi,mod-oai-pmh,mod-patron,mod-rtac,mod-sender \
   platform-complete/ModuleDescriptors > stripes-install.json
 ```
-
-Note: Its snapshot branch is missing some modules compared to this release branch [FOLIO-1688](https://issues.folio.org/browse/FOLIO-1688).
-This might require the Vagrantfile to be allocated more memory, and more modules added to that `--extra-modules` option.
 
 2. Post list of modules to Okapi, let Okapi resolve dependencies and send back a list of modules to deploy and enable
 
