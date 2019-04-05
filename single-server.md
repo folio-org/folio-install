@@ -1,6 +1,6 @@
 # FOLIO deployment: single server
 
-** NOTE: 20190402: ** This document is still being adjusted for q1-2019 release.
+** NOTE: 20190405: ** This document is still being adjusted for q1-2019 release.
 See [FOLIO-1866](https://issues.folio.org/browse/FOLIO-1866).
 
 Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ansible
@@ -10,7 +10,7 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 * Much of this is already automated as part of the folio-ansible project
 * This is not a full production install. One obvious omission is securing the Okapi API itself.
 * The _minimum_ RAM required for a system based on [platform-core](https://github.com/folio-org/platform-core) is 11 GB. Keep this in mind if you are running on a VM.
-* To instead build a system based on [platform-complete](https://github.com/folio-org/platform-complete) will require approximately 23 GB.
+* To instead build a system based on [platform-complete](https://github.com/folio-org/platform-complete) will require approximately 24 GB.
 
 ## Summary
 
@@ -39,14 +39,14 @@ cd folio-install
 git checkout folio-1866-q1-2019
 ```
 
-The default procedure will create a VirtualBox VM based on this [Vagrantfile](Vagrantfile), running a generic Ubuntu Xenial OS, with 11 GB RAM and 2 CPUs. Port 9130 of the guest will be forwarded to port 9130 of the host, and port 80 of the guest will be forwarded to port 3000 of the host. The `folio-install` directory on the host will be shared on the guest at the mount point `/vagrant`.
+The default procedure will create a VirtualBox VM based on this [Vagrantfile](Vagrantfile), running a generic Ubuntu Xenial OS, with 11 GB RAM and 2 CPUs. Port 9130 of the guest will be forwarded to port 9130 of the host, and port 80 of the guest will be forwarded to port 3000 of the host. The `folio-install` directory on the host will be shared on the guest at the `/vagrant` mount point.
 
 2. Decide between platform-core and platform-complete
 
 The default procedure uses the
 [platform-core](https://github.com/folio-org/platform-core) configuration.
 
-To instead build a system based on [platform-complete](https://github.com/folio-org/platform-complete), adjust the `vb.memory` in the [Vagrantfile](Vagrantfile) to be approximately 23 GB. In `nginx-stripes.conf` replace `platform-core` with `platform-complete`. Throughout these instructions, replace every mention of `platform-core` with `platform-complete`.
+To instead build a system based on [platform-complete](https://github.com/folio-org/platform-complete), adjust the `vb.memory` in the [Vagrantfile](Vagrantfile) to be approximately 24 GB. In `nginx-stripes.conf` replace `platform-core` with `platform-complete`. Throughout these instructions, replace every mention of `platform-core` with `platform-complete`.
 
 3. Bring up the Vagrant VM, log into it
 
@@ -298,7 +298,7 @@ The `yarn build` command above can be changed to build the webpack in different 
 ## Configure webserver to serve Stripes webpack
 
 Now that the webpack is built, proceed to configure the 'nginx' server.
-Remeber if building for `platform-complete` then set that in the `/vagrant/nginx-stripes.conf` file.
+Remember if building for `platform-complete` then set that in the `/vagrant/nginx-stripes.conf` file.
 
   * [Sample nginx configuration](nginx-stripes.conf)
 
@@ -343,7 +343,7 @@ curl -w '\n' -D - -X POST -H "Content-type: application/json" \
 
 ### Sidebar: Building from the bleeding edge -- part II
 
-** NOTE: 20190402: ** This section has not yet been verified for q1-2019.
+** NOTE: 20190405: ** This section has not yet been verified for q1-2019.
 
 If you would rather deploy the most recent code for the backend, rather than relying on the `okapi-install.json` and `stripes-install.json` files from the platform-core, then create your own files using the procedure below instead of the above steps. **Proceed at your own risk!** You could end up with a system that contains unstable code. In addition, the reference and sample data included in this repository may not be compatible with your new backend.
 
@@ -442,47 +442,31 @@ perl /vagrant/bootstrap-superuser.pl \
 
 ## Load module reference data
 
-** NOTE: 20190402: ** This section is to be removed.
+Reference data for various backend modules is already automatically loaded
+at the [enable for tenant](#deploy-a-compatible-folio-backend-enable-for-tenant) step above.
 
-  * Reference data is required for mod-inventory-storage and mod-circulation-storage and mod-users
-    * It is included in the GitHub repos for these modules, along with a shell script for loading
-    * Reference data for the latest release has been copied into this repository, in the directory `reference-data`
-  * Reference data (address types, patron groups) can be created in the UI for mod-users
-  * [Sample perl script](load-data.pl) to load data from this repository
-
-```
-perl /vagrant/load-data.pl \
-  --sort location-units/institutions,location-units/campuses,location-units/libraries,locations,statistical-code-types \
-  --custom-method loan-rules-storage=PUT \
-  /vagrant/reference-data
-```
+If other reference data is needed, then the [sample perl script](load-data.pl) can load reference data too.
 
 ## Load sample data
 
-** NOTE: 20190402: ** This section is to be removed.
+Sample data for various backend modules is already automatically loaded
+at the [enable for tenant](#deploy-a-compatible-folio-backend-enable-for-tenant) step above.
 
-It can be convenient to have sample data to load into the system for testing. Some sample data that is compatible with the last FOLIO release has been included in this repository, in the directory `sample-data`. You can load it using the same [sample perl script](load-data.pl) as above.
+All necessary `platform-core` modules are using that mechanism.
+However for `platform-complete` there is one module not yet doing it in that way (mod-finance-storage [MODFISTO-5](https://issues.folio.org/browse/MODFISTO-5)).
 
-When building the default system based on `platform-core` then do:
-
-```
-perl /vagrant/load-data.pl \
-  --exclude budget,fiscal_year,fund,ledger,vendor \
-  --sort instance-storage/instances,instance-storage/instance-relationships,holdings-storage,item-storage,users,authn,perms,service-points-users \
-  --custom-method "instances/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/"=PUT \
-  /vagrant/sample-data
-```
-
-If instead building a system based on `platform-complete` then do:
+To load its sample data, and for any other additional sample data, use the [sample perl script](load-data.pl) to load data from the `sample-data` directory.
+For example when building a system based on `platform-complete` then do:
 
 ```
 perl /vagrant/load-data.pl \
-  --sort fiscal_year,ledger,fund,budget,instance-storage/instances,instance-storage/instance-relationships,holdings-storage,item-storage,users,authn,perms,service-points-users \
-  --custom-method "instances/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/"=PUT \
+  --sort fiscal_year,ledger,fund,budget \
   /vagrant/sample-data
 ```
 
-mod-inventory provides an `/inventory/ingest/mods` endpoint for loading MODS records, which it will use to create instances, holdings, and items with default values. There are sample files in the `sample-data/mod-inventory` directory of this repository.
+### Load MODS records
+
+The mod-inventory provides an `/inventory/ingest/mods` endpoint for loading MODS records, which it will use to create instances, holdings, and items with default values. There are sample files in the `sample-data/mod-inventory` directory of this repository.
 
 First login and obtain an Okapi token -- it will be in the x-okapi-token header
 
@@ -510,7 +494,7 @@ The included script requires mod-authtoken, mod-login, mod-permissions, and mod-
 
 To use the included script, run the following replacing USERNAME and PASSWORD with your desired values:
 ```
-python3 secure-superuser.py -u USERNAME -p PASSWORD
+python3 /vagrant/secure-superuser.py -u USERNAME -p PASSWORD
 ```
 
 You can also specify a different url for Okapi by using the `-o` option. The default value is `http://localhost:9130` if you do not specify this option.
