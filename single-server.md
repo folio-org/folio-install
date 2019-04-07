@@ -255,8 +255,6 @@ yarn install
 
 ### Sidebar: Building from the bleeding edge
 
-** NOTE: 20190405: ** This section has not been verified for q1-2019.
-
 This section goes beyond the quarterly release. Be careful.
 
 The `platform-core` platform is constructed with versions of FOLIO components and dependencies that have been tested together and are known to work.
@@ -350,8 +348,6 @@ curl -w '\n' -D - -X POST -H "Content-type: application/json" \
 
 ### Sidebar: Building from the bleeding edge -- part II
 
-** NOTE: 20190405: ** This section has not been verified for q1-2019.
-
 This section goes beyond the quarterly release. Be careful.
 
 If you would rather deploy the most recent code for the backend, rather than relying on the `okapi-install.json` and `stripes-install.json` files from the release branch, then create your own files using the procedure below instead of the above section. **Proceed at your own risk!** You could end up with a system that contains unstable code.
@@ -382,7 +378,8 @@ If instead building a system based on `platform-complete` then do:
 
 ```
 perl /vagrant/gen-module-list.pl \
-  --extra-modules mod-audit,mod-audit-filter,mod-codex-inventory,mod-codex-ekb,mod-email,mod-event-config,mod-gobi,mod-oai-pmh,mod-patron,mod-rtac,mod-sender \
+  --extra-modules mod-audit,mod-audit-filter,mod-codex-inventory,mod-codex-ekb,mod-data-import-converter-storage,mod-erm-usage-harvester,mod-gobi,mod-oai-pmh,mod-patron,mod-rtac,edge-oai-pmh,edge-orders,edge-patron,edge-rtac \
+  --exclude-modules stripes-erm-components \
   platform-complete/ModuleDescriptors > stripes-install.json
 ```
 
