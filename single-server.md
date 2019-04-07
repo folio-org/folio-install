@@ -427,7 +427,8 @@ curl -w '\n' -D - -X POST -H "Content-type: application/json" \
 See the [Securing Okapi](https://github.com/folio-org/okapi/blob/master/doc/guide.md#securing-okapi) section of the Guide and the linked detail.
 
   * A superuser can only be created if the `authtoken` interface is disabled for the tenant
-  * Need to create a record for the superuser in 3 storage modules: mod-users, mod-login, mod-permissions
+  * Need to create a record for the superuser in 3 storage modules (mod-users, mod-login, mod-permissions)
+    and the service-points in mod-inventory-storage.
   * After creating the superuser, reenable the `authtoken` interface
   * All permissionSets that are not included in other permissionSets can be listed with the CQL query `/perms/permissions?query=childOf%3D%3D%5B%5D&length=500` (`childOf==[]`)
   * Go through permissionSets, POST permissions to `/perms/users/<permissionsUserId>/permissions` endpoint
