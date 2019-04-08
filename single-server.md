@@ -1,7 +1,6 @@
 # FOLIO deployment: single server
 
-** NOTE: 20190405: ** This document is still being adjusted for q1-2019 release.
-See [FOLIO-1866](https://issues.folio.org/browse/FOLIO-1866).
+This procedure will establish a FOLIO system based on the "Q1-2019 Bellis" quarterly release.
 
 Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ansible
 
@@ -37,7 +36,7 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 ```
 git clone https://github.com/folio-org/folio-install
 cd folio-install
-git checkout folio-1866-q1-2019
+git checkout q1-2019
 ```
 
 The default procedure will create a VirtualBox VM based on this [Vagrantfile](Vagrantfile), running a generic Ubuntu Xenial OS, with 11 GB RAM and 2 CPUs. Port 9130 of the guest will be forwarded to port 9130 of the host, and port 80 of the guest will be forwarded to port 3000 of the host. The `folio-install` directory on the host will be shared on the guest at the `/vagrant` mount point.
