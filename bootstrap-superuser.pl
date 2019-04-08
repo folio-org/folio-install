@@ -1,8 +1,8 @@
 # Create a FOLIO "superuser" on a running system
 # This assumes the Okapi API is not secured
-# Modules required: mod-authtoken, mod-users, mod-login, mod-permissions, mod-users-bl
+# Modules required: mod-authtoken, mod-users, mod-login, mod-permissions, mod-inventory-storage, mod-users-bl
 # 1. Disable mod-authtoken
-# 2. Create records in mod-users, mod-login, mod-permissions
+# 2. Create records in mod-users, mod-login, mod-permissions, mod-inventory-storage
 # 3. Re-enable mod-authtoken
 # 4. Assign all permissions to the superuser
 
@@ -81,13 +81,35 @@ unless ($only_perms) {
   $resp = $ua->request($req);
   die $resp->status_line . "\n" unless $resp->is_success;
   print "OK\n";
-  
+
   print "Creating permissions user record...";
   my $perms_user = {
                     userId => $user_id,
                     permissions => [ 'perms.all' ]
                    };
   $req = HTTP::Request->new('POST',"$okapi/perms/users",$header,encode_json($perms_user));
+  $resp = $ua->request($req);
+  die $resp->status_line . "\n" unless $resp->is_success;
+  print "OK\n";
+
+  print "Getting service point IDs...";
+  $req = HTTP::Request->new('GET',"$okapi/service-points",$header);
+  $resp = $ua->request($req);
+  die $resp->status_line . "\n" unless $resp->is_success;
+  my $service_points = decode_json($resp->content)->{'servicepoints'};
+  my @sp_ids;
+  foreach my $i (@{$service_points}) {
+    push(@sp_ids, $$i{id});
+  }
+  print "OK\n";
+
+  print "Creating service points user record...";
+  my $sp_user = {
+                 userId => $user_id,
+                 servicePointsIds => \@sp_ids,
+                 defaultServicePointId => $sp_ids[0]
+                };
+  $req = HTTP::Request->new('POST',"$okapi/service-points-users",$header,encode_json($sp_user));
   $resp = $ua->request($req);
   die $resp->status_line . "\n" unless $resp->is_success;
   print "OK\n";

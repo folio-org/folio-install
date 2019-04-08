@@ -1,16 +1,21 @@
 # FOLIO deployment: single server
 
+** NOTE: 20190405: ** This document is still being adjusted for q1-2019 release.
+See [FOLIO-1866](https://issues.folio.org/browse/FOLIO-1866).
+
 Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ansible
 
 ## Disclaimers/Caveats
 
-* Much of this is already automated as part of the folio-ansible project
-* This is not a full production install. One obvious omission is securing the Okapi API itself.
-* The _minimum_ RAM required for a system based on [platform-core](https://github.com/folio-org/platform-core) is 9 GB. Keep this in mind if you are running on a VM.
-* To instead build a system based on [platform-complete](https://github.com/folio-org/platform-complete) will require approximately 22 GB.
+* Much of this is already automated as part of the folio-ansible project.
+* This is not considered to be a full production install.
+* There are some steps in the procedure called "sidebar" where one can go beyond the quarterly release to build a snapshot-based system (be careful).
+* The _minimum_ RAM required for a system based on [platform-core](https://github.com/folio-org/platform-core) is 11 GB. Keep this in mind if you are running on a VM.
+* To instead build a system based on [platform-complete](https://github.com/folio-org/platform-complete) will require approximately 24 GB.
 
 ## Summary
 
+<!-- ../okapi/doc/md2toc -l 2 -h 2 -s 2 single-server.md -->
 * [Build a target Linux host](#build-a-target-linux-host)
 * [Install and configure required packages](#install-and-configure-required-packages)
 * [Create databases and roles](#create-databases-and-roles)
@@ -22,6 +27,7 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 * [Create a FOLIO “superuser” and load permissions](#create-a-folio-superuser-and-load-permissions)
 * [Load module reference data](#load-module-reference-data)
 * [Load sample data](#load-sample-data)
+* [Secure the Okapi API (supertenant)](#secure-the-okapi-api-supertenant)
 * [Known issues](#known-issues)
 
 ## Build a target Linux host
@@ -31,17 +37,17 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 ```
 git clone https://github.com/folio-org/folio-install
 cd folio-install
-git checkout q4-2018
+git checkout folio-1866-q1-2019
 ```
 
-The default procedure will create a VirtualBox VM based on this [Vagrantfile](Vagrantfile), running a generic Ubuntu Xenial OS, with 9 GB RAM and 2 CPUs. Port 9130 of the guest will be forwarded to port 9130 of the host, and port 80 of the guest will be forwarded to port 3000 of the host. The `folio-install` directory on the host will be shared on the guest at the mount point `/vagrant`.
+The default procedure will create a VirtualBox VM based on this [Vagrantfile](Vagrantfile), running a generic Ubuntu Xenial OS, with 11 GB RAM and 2 CPUs. Port 9130 of the guest will be forwarded to port 9130 of the host, and port 80 of the guest will be forwarded to port 3000 of the host. The `folio-install` directory on the host will be shared on the guest at the `/vagrant` mount point.
 
 2. Decide between platform-core and platform-complete
 
 The default procedure uses the
 [platform-core](https://github.com/folio-org/platform-core) configuration.
 
-To instead build a system based on [platform-complete](https://github.com/folio-org/platform-complete), adjust the `vb.memory` in the [Vagrantfile](Vagrantfile) to be approximately 22 GB. In `nginx-stripes.conf` replace `platform-core` with `platform-complete`. Throughout these instructions, replace every mention of `platform-core` with `platform-complete`.
+To instead build a system based on [platform-complete](https://github.com/folio-org/platform-complete), adjust the `vb.memory` in the [Vagrantfile](Vagrantfile) to be approximately 24 GB. In `nginx-stripes.conf` replace `platform-core` with `platform-complete`. Throughout these instructions, replace every mention of `platform-core` with `platform-complete`.
 
 3. Bring up the Vagrant VM, log into it
 
@@ -78,8 +84,8 @@ sudo apt-get -y install postgresql-9.6 postgresql-contrib-9.6 postgresql-client-
 
 4. Configure PostgreSQL to listen on all interfaces and allow connections from all addresses (to allow Docker connections)
 
-  * Edit file `/etc/postgresql/9.6/main/postgresql.conf`, add line `listen_addresses = '*'` in the "Connection Settings" section
-  * Edit file `/etc/postgresql/9.6/main/pg_hba.conf`, add line `host  all  all  0.0.0.0/0  md5`
+  * Edit file `/etc/postgresql/9.6/main/postgresql.conf` to add line `listen_addresses = '*'` in the "Connection Settings" section
+  * Edit file `/etc/postgresql/9.6/main/pg_hba.conf` to add line `host  all  all  0.0.0.0/0  md5`
   * Restart PostgreSQL with command `sudo systemctl restart postgresql`
 
 5. Import the Docker signing key, add the Docker apt repository, install the Docker engine
@@ -158,7 +164,7 @@ CREATE DATABASE folio WITH OWNER folio;
 wget --quiet -O - https://repository.folio.org/packages/debian/folio-apt-archive-key.asc | sudo apt-key add -
 sudo add-apt-repository "deb https://repository.folio.org/packages/ubuntu xenial/"
 sudo apt-get update
-sudo apt-get -y install okapi=2.25.0-1
+sudo apt-get -y install okapi=2.26.1-1
 ```
 
 ### Sidebar: Okapi releases
@@ -169,7 +175,7 @@ If you'd like to work with the latest Okapi release, change the final command ab
 sudo apt-get -y install okapi
 ```
 
-Note that there is some risk in this, as the latest Okapi release may not have been tested with the rest of the components in the Q4-2018 release.
+Note that there is some risk in this, as the latest Okapi release may not have been tested with the rest of the components in the Q1-2019 release.
 
 ### Mainbar: Continue configure Okapi
 
@@ -235,10 +241,10 @@ git clone https://github.com/folio-org/platform-core
 cd platform-core
 ```
 
-3. Check out the `q4-2018` branch. The HEAD of this branch should reflect the latest release, including any bug fix releases.
+3. Check out the `q1-2019` branch. The HEAD of this branch should reflect the latest release, including any bug fix releases.
 
 ```
-git checkout q4-2018
+git checkout q1-2019
 ```
 
 4. Install npm packages
@@ -248,6 +254,8 @@ yarn install
 ```
 
 ### Sidebar: Building from the bleeding edge
+
+This section goes beyond the quarterly release. Be careful.
 
 The `platform-core` platform is constructed with versions of FOLIO components and dependencies that have been tested together and are known to work.
 
@@ -260,7 +268,9 @@ yarn install
 
 **Be warned, this could result in a bundle with unstable code!**
 
-If you build Stripes this way, you will need to construct your FOLIO backend system a little differently. See [Building from the bleeding edge -- part II](#sidebar-building-from-the-bleeding-edge----part-ii) below.
+If you build Stripes this way, then you will need to construct your FOLIO backend system a little differently.
+See [Sidebar: building from the bleeding edge -- part II](#sidebar-building-from-the-bleeding-edge----part-ii) below
+(but before proceeding to that next sidebar, continue with these mainbar instructions to build the webpack and to configure the Stripes nginx server).
 
 ### Mainbar: Continue build Stripes
 
@@ -279,7 +289,7 @@ const platformComplete = {
 
 6. Build webpack
 
-  * *Note: if you're not building on a local Vagrant box, see [Options for `yarn build`](#sidebar-options-for-yarn-build) below*
+*Note: if you're not building on a local Vagrant box, see [Options for `yarn build`](#sidebar-options-for-yarn-build) below*
 
 ```
 NODE_ENV=production yarn build output
@@ -291,6 +301,9 @@ cd ..
 The `yarn build` command above can be changed to build the webpack in different ways. For more details, see the documentation for the [Stripes command line](https://github.com/folio-org/stripes-cli/blob/master/doc/commands.md#build-command).
 
 ## Configure webserver to serve Stripes webpack
+
+Now that the webpack is built, proceed to configure the 'nginx' server.
+Remember if building for `platform-complete` then set that in the `/vagrant/nginx-stripes.conf` file.
 
   * [Sample nginx configuration](nginx-stripes.conf)
 
@@ -315,15 +328,15 @@ curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"DB
 curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"DB_PASSWORD\",\"value\":\"folio123\"}" http://localhost:9130/_/env
 ```
 
-2. Post the list of backend modules to deploy and enable
+2. Post the list of backend modules to deploy and enable. Also set the [tenantParameters](https://github.com/folio-org/okapi/blob/master/doc/guide.md#install-modules-per-tenant) to load their sample and reference data:
 
 ```
 curl -w '\n' -D - -X POST -H "Content-type: application/json" \
   -d @platform-core/okapi-install.json \
-  http://localhost:9130/_/proxy/tenants/diku/install?deploy=true\&preRelease=false
+  http://localhost:9130/_/proxy/tenants/diku/install?deploy=true\&preRelease=false\&tenantParameters=loadSample%3Dtrue%2CloadReference%3Dtrue
 ```
 
-Note: This will take a long time to return, as all the Docker images must be pulled from Docker Hub. Progress can be followed in the Okapi log at `/var/log/folio/okapi/okapi.log` and via `sudo docker ps`
+Note: This will take a long time to return, as all the Docker images must be pulled from Docker Hub. Progress can be followed in the Okapi log at `/var/log/folio/okapi/okapi.log` and via `sudo docker ps | grep -v "^CONTAINER"`
 
 3. Post the list of Stripes modules to enable
 
@@ -335,7 +348,9 @@ curl -w '\n' -D - -X POST -H "Content-type: application/json" \
 
 ### Sidebar: Building from the bleeding edge -- part II
 
-If you would rather deploy the most recent code for the backend, rather than relying on the `okapi-install.json` and `stripes-install.json` files from the platform-core, then create your own files using the procedure below instead of the above steps. **Proceed at your own risk!** You could end up with a system that contains unstable code. In addition, the reference and sample data included in this repository may not be compatible with your new backend.
+This section goes beyond the quarterly release. Be careful.
+
+If you would rather deploy the most recent code for the backend, rather than relying on the `okapi-install.json` and `stripes-install.json` files from the release branch, then create your own files using the procedure below instead of the above section. **Proceed at your own risk!** You could end up with a system that contains unstable code.
 
 1. Build a list of frontend modules to enable
 
@@ -347,6 +362,7 @@ cd ..
 
   * Each module descriptor ID generated by the yarn command above (except for a specific few) needs to go into a JSON array to post to the Okapi `/_/proxy/tenants/<tenantId>/install` endpoint
   * Some modules do not get pulled in by dependency, so they need to be added to the list
+    (i.e. those that are noted in the release branch `install-extras.json` file)
   * Some FOLIO packages generate module descriptors that aren't in the central registry, so they need to be removed from the list
   * [Sample perl script](gen-module-list.pl) to generate JSON array from Stripes build with the correct packages added and removed:
 
@@ -362,12 +378,10 @@ If instead building a system based on `platform-complete` then do:
 
 ```
 perl /vagrant/gen-module-list.pl \
-  --extra-modules mod-audit,mod-audit-filter,mod-codex-inventory,mod-codex-ekb,mod-email,mod-event-config,mod-gobi,mod-oai-pmh,mod-patron,mod-rtac,mod-sender \
+  --extra-modules mod-audit,mod-audit-filter,mod-codex-inventory,mod-codex-ekb,mod-data-import-converter-storage,mod-erm-usage-harvester,mod-gobi,mod-oai-pmh,mod-patron,mod-rtac,edge-oai-pmh,edge-orders,edge-patron,edge-rtac \
+  --exclude-modules stripes-erm-components \
   platform-complete/ModuleDescriptors > stripes-install.json
 ```
-
-Note: Its snapshot branch is missing some modules compared to q4-2018 branch [FOLIO-1688](https://issues.folio.org/browse/FOLIO-1688).
-This might require the Vagrantfile to be allocated more memory, and more modules added to that `--extra-modules` option.
 
 2. Post list of modules to Okapi, let Okapi resolve dependencies and send back a list of modules to deploy and enable
 
@@ -402,7 +416,7 @@ curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"DB
 ```
 curl -w '\n' -D - -X POST -H "Content-type: application/json" \
   -d @okapi-install.json \
-  http://localhost:9130/_/proxy/tenants/diku/install?deploy=true
+  http://localhost:9130/_/proxy/tenants/diku/install?deploy=true\&tenantParameters=loadSample%3Dtrue%2CloadReference%3Dtrue
 ```
 
 6. Post the list of Stripes modules to enable
@@ -413,12 +427,15 @@ curl -w '\n' -D - -X POST -H "Content-type: application/json" \
   http://localhost:9130/_/proxy/tenants/diku/install
 ```
 
+That is the end of the sidebar divergence, so now continue with the shared mainbar procedure.
+
 ## Create a FOLIO “superuser” and load permissions
 
 See the [Securing Okapi](https://github.com/folio-org/okapi/blob/master/doc/guide.md#securing-okapi) section of the Guide and the linked detail.
 
   * A superuser can only be created if the `authtoken` interface is disabled for the tenant
-  * Need to create a record for the superuser in 3 storage modules: mod-users, mod-login, mod-permissions
+  * Need to create a record for the superuser in 3 storage modules (mod-users, mod-login, mod-permissions)
+    and the service-points in mod-inventory-storage.
   * After creating the superuser, reenable the `authtoken` interface
   * All permissionSets that are not included in other permissionSets can be listed with the CQL query `/perms/permissions?query=childOf%3D%3D%5B%5D&length=500` (`childOf==[]`)
   * Go through permissionSets, POST permissions to `/perms/users/<permissionsUserId>/permissions` endpoint
@@ -432,43 +449,31 @@ perl /vagrant/bootstrap-superuser.pl \
 
 ## Load module reference data
 
-  * Reference data is required for mod-inventory-storage and mod-circulation-storage and mod-users
-    * It is included in the GitHub repos for these modules, along with a shell script for loading
-    * Reference data for the latest release has been copied into this repository, in the directory `reference-data`
-  * Reference data (address types, patron groups) can be created in the UI for mod-users
-  * [Sample perl script](load-data.pl) to load data from this repository
+Reference data for various backend modules is already automatically loaded
+at the [enable for tenant](#deploy-a-compatible-folio-backend-enable-for-tenant) step above.
 
-```
-perl /vagrant/load-data.pl \
-  --sort location-units/institutions,location-units/campuses,location-units/libraries,locations,statistical-code-types \
-  --custom-method loan-rules-storage=PUT \
-  /vagrant/reference-data
-```
+If other reference data is needed, then the [sample perl script](load-data.pl) can load reference data too.
 
 ## Load sample data
 
-It can be convenient to have sample data to load into the system for testing. Some sample data that is compatible with the last FOLIO release has been included in this repository, in the directory `sample-data`. You can load it using the same [sample perl script](load-data.pl) as above.
+Sample data for various backend modules is already automatically loaded
+at the [enable for tenant](#deploy-a-compatible-folio-backend-enable-for-tenant) step above.
 
-When building the default system based on `platform-core` then do:
+All necessary `platform-core` modules are using that mechanism.
+However for `platform-complete` there is one module not yet doing it in that way (mod-finance-storage [MODFISTO-5](https://issues.folio.org/browse/MODFISTO-5)).
 
-```
-perl /vagrant/load-data.pl \
-  --exclude budget,fiscal_year,fund,ledger,vendor \
-  --sort instance-storage/instances,instance-storage/instance-relationships,holdings-storage,item-storage,users,authn,perms,service-points-users \
-  --custom-method "instances/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/"=PUT \
-  /vagrant/sample-data
-```
-
-If instead building a system based on `platform-complete` then do:
+To load its sample data, and for any other additional sample data, use the [sample perl script](load-data.pl) to load data from the `sample-data` directory.
+For example when building a system based on `platform-complete` then do:
 
 ```
 perl /vagrant/load-data.pl \
-  --sort fiscal_year,ledger,fund,budget,instance-storage/instances,instance-storage/instance-relationships,holdings-storage,item-storage,users,authn,perms,service-points-users \
-  --custom-method "instances/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/"=PUT \
+  --sort fiscal_year,ledger,fund,budget \
   /vagrant/sample-data
 ```
 
-mod-inventory provides an `/inventory/ingest/mods` endpoint for loading MODS records, which it will use to create instances, holdings, and items with default values. There are sample files in the `sample-data/mod-inventory` directory of this repository.
+### Load MODS records
+
+The mod-inventory provides an `/inventory/ingest/mods` endpoint for loading MODS records, which it will use to create instances, holdings, and items with default values. There are sample files in the `sample-data/mod-inventory` directory of this repository.
 
 First login and obtain an Okapi token -- it will be in the x-okapi-token header
 
@@ -486,8 +491,23 @@ Replace the `<okapi token>` placeholder with the actual token from the previous 
 for i in /vagrant/sample-data/mod-inventory/*.xml; do curl -w '\n' -D - -X POST -H "Content-type: multipart/form-data" -H "X-Okapi-Tenant: diku" -H "X-Okapi-Token: <okapi token>" -F upload=@${i} http://localhost:9130/inventory/ingest/mods; done
 ```
 
+## Secure the Okapi API (supertenant)
+
+If this is a production install, you may want to secure the Okapi API. You can secure the Okapi API or supertenant either by using the included sample script [secure-supertenant.py](secure-supertenant.py) or by following the instructions in the [Securing Okapi](https://github.com/folio-org/okapi/blob/master/doc/securing.md) guide.
+
+The included script requires mod-authtoken, mod-login, mod-permissions, and mod-users. It will enable those modules on the supertenant, create a superuser, and grant the `okapi.all` permission set to the superuser. It will also grant all permissions to the superuser on the modules that it enables.
+
+**CAUTION**: When the supertenant is secured, you must login using mod-authtoken to obtain an authtoken and include it in the `x-okapi-token` header for every request to the Okapi API. For example, if you want to repeat any of the calls to Okapi in this guide, you will need to include `x-okapi-token:YOURTOKEN` and `x-okapi-tenant:supertenant` as headers for any requests to the Okapi API.
+
+To use the included script, run the following replacing USERNAME and PASSWORD with your desired values:
+```
+python3 /vagrant/secure-superuser.py -u USERNAME -p PASSWORD
+```
+
+You can also specify a different url for Okapi by using the `-o` option. The default value is `http://localhost:9130` if you do not specify this option.
+
 ## Known issues
 
 This Jira filter shows known critical issues that are not yet resolved:
-* [Known critical Q4-2018 issues](https://issues.folio.org/issues/?filter=11081)
+* [Known critical Q1-2019 issues](https://issues.folio.org/issues/?filter=11353)
 
