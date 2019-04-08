@@ -46,7 +46,7 @@ def main():
     created_user = {}
     created_user['userId'] = perms_json['userId']
     created_user['permsId'] = perms_json['id']
-    created_user['rpermissions'] = perms_json['permissions'] 
+    created_user['permissions'] = perms_json['permissions'] 
 
     return created_user
 
