@@ -15,7 +15,7 @@ An institutional user must be created with appropriate permissions to use the ed
     --permissions oai-pmh.all --tenant diku \
     --admin-user diku_admin --admin-password admin
 ```
-If you need to assign more than one permission set, use a comma delimited list, i.e. `--permissions edge-rtac.all,edge-oai-pmh.all`
+If you would like to specify an Okapi instance running somewhere other than http://localhost:9130 you can add the `--okapi-url` to pass a different url. If you need to assign more than one permission set, use a comma delimited list, i.e. `--permissions edge-rtac.all,edge-oai-pmh.all`
 ### Create an Edge API key
 Refer to the documentation in the [edge-common](https://github.com/folio-org/edge-common) repository for more details on how to create an API key for a production ready system. For this example, we'll use an `ephemeral.properties` file which stores credentials in plain text. This is meant for development and demonstration purposes only.
 ```
@@ -25,7 +25,7 @@ cd edge-common
 mvn package
 java -jar target/edge-common-api-key-utils.jar -g -t diku -u instuser
 ```
-
+This will return an API key that must be included in requests to edge modules. in this example, we get `eyJzIjoiM0VWY3cwbVNvNCIsInQiOiJkaWt1IiwidSI6Imluc3R1c2VyIn0=`.
 
 ## Start edge module Docker containers
 You can run containers for edge modules in a number of ways. This guide uses docker-compose.
@@ -90,14 +90,19 @@ server {
   }
 }
 ```
+Now link your new configuration and restart Nginx.
+```
+sudo ln -s /etc/nginx/sites-available/edge /etc/nginx/sites-enabled/edge
+sudo service nginx restart
+```
 In this configuration, nginx is listening on port 8000 which is an arbitrary unused port selected to listen for requests to edge APIs. The location `/oai` is based on the interface provided by the edge-oai-pmh module. Check the edge module's raml file to find the correct interface to proxy.
 
 ## Test and cleanup
 Verify a valid response by constructing a request according to the edge module's documentation. For edge-oai-pmh for example:
 ```
-http://folio-snapshot-test.aws.indexdata.com:8000/oai?apikey=APIKEY&verb=Identify
+http://folio-snapshot-test.aws.indexdata.com:8000/oai?apikey=eyJzIjoiM0VWY3cwbVNvNCIsInQiOiJkaWt1IiwidSI6Imluc3R1c2VyIn0=&verb=Identify
 ```
-where APIKEY is the key you generated using the edge-common utilty.
+If you used a different username and password, subsitute the appropriate API key here.
 
 Optionally, clean up the edge-common repo.
 ```
