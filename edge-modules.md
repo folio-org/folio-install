@@ -58,11 +58,11 @@ services:
     volumes: 
       - /etc/folio/edge:/mnt
     command: 
-      -"-Dokapi_url=http://localhost:9130"
-      -"-Dsecure_store_props=/mnt/edge-oai-pmh-ephemeral.properties"
+      -"Dokapi_url=http://10.36.1.70:9130"
+      -"Dsecure_store_props=/mnt/edge-oai-pmh-ephemeral.properties"
     restart: "always"
 ```
-To start the edge module containers:
+In this configuration, use the IP address or DNS record for Okapi (not 'localhost') for the okapi_url option. To start the edge module containers:
 ```
 cd /etc/folio/edge
 sudo docker-compose up -d
@@ -91,3 +91,15 @@ server {
 ```
 In this configuration, nginx is listening on port 8000 which is an arbitrary unused port selected to listen for requests to edge APIs. The location `/oai` is based on the interface provided by the edge-oai-pmh module. Check the edge module's raml file to fine the correct interface to proxy.
 
+## Test and cleanup
+Verify a valid response by constructing a request according to the edge modules documentation. For edge-oai-pmh for example: 
+```
+http://folio-snapshot-test.aws.indexdata.com:8000/oai?apikey=APIKEY&verb=Identify
+```
+where APIKEY is the key you generated using the edge-common utilty.
+
+Optionally, clean up the edge-common repo.
+```
+cd ~
+rm -rf edge-common/
+``` 
