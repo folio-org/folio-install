@@ -1,7 +1,7 @@
 # Installing Edge Modules
 Begin by collecting information about the edge module you are installing. In this example, we'll install edge-oai-pmh. Collect information on your own environment following the example below:
 | Variable | Example Value | Notes |
-|----------|-------|------|
+| -------- | ----- | ---- |
 | Institutional User | instuser | username of your choosing |
 | Instituitonal User Password | instpass | password of your choosing |
 | Tenant | diku | |
