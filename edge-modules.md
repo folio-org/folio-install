@@ -4,18 +4,18 @@ Begin by collecting information about the edge module you are installing. In thi
 | Variable | Example Value | Notes |
 | -------- | ----- | ---- |
 | Institutional User | instuser | username of your choosing |
-| Instituitonal User Password | instpass | password of your choosing |
+| Institutional User Password | instpass | password of your choosing |
 | Tenant | diku | |
 | Permission sets | oai-pmh.all | permissions to be assigned to institutional user |
 
 ## Create institutional user
-An institutional must be created with appropriate permissions to use the edge module. You can use the included `create-user.py` script to create a user and assign permissions if you choose.
+An institutional user must be created with appropriate permissions to use the edge module. You can use the included `create-user.py` script to create a user and assign permissions if you choose.
 ```
 ./create-user.py -u instuser -p instpass \
     --permissions oai-pmh.all --tenant diku \
     --admin-user diku_admin --admin-password admin
 ```
-If you need to assign more than one permission set, use a comma delimeted list, i.e. `--permissions edge-rtac.all,edge-oai-pmh.all`.
+If you need to assign more than one permission set, use a comma delimited list, i.e. `--permissions edge-rtac.all,edge-oai-pmh.all`
 ### Create an Edge API key
 Refer to the documentation in the [edge-common](https://github.com/folio-org/edge-common) repository for more details on how to create an API key for a production ready system. For this example, we'll use an `ephemeral.properties` file which stores credentials in plain text. This is meant for development and demonstration purposes only.
 ```
@@ -90,10 +90,10 @@ server {
   }
 }
 ```
-In this configuration, nginx is listening on port 8000 which is an arbitrary unused port selected to listen for requests to edge APIs. The location `/oai` is based on the interface provided by the edge-oai-pmh module. Check the edge module's raml file to fine the correct interface to proxy.
+In this configuration, nginx is listening on port 8000 which is an arbitrary unused port selected to listen for requests to edge APIs. The location `/oai` is based on the interface provided by the edge-oai-pmh module. Check the edge module's raml file to find the correct interface to proxy.
 
 ## Test and cleanup
-Verify a valid response by constructing a request according to the edge modules documentation. For edge-oai-pmh for example:
+Verify a valid response by constructing a request according to the edge module's documentation. For edge-oai-pmh for example:
 ```
 http://folio-snapshot-test.aws.indexdata.com:8000/oai?apikey=APIKEY&verb=Identify
 ```
