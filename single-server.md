@@ -91,7 +91,7 @@ sudo apt-get -y install postgresql-9.6 postgresql-contrib-9.6 postgresql-client-
 5. Import the Docker signing key, add the Docker apt repository, install the Docker engine
 
 ```
-wget --quiet -O - https://yum.dockerproject.org/gpg | sudo apt-key add -
+wget --quiet -O - https://apt.dockerproject.org/gpg | sudo apt-key add -
 sudo add-apt-repository "deb https://apt.dockerproject.org/repo ubuntu-xenial main"
 sudo apt-get update
 sudo apt-get -y install docker-engine
@@ -490,7 +490,125 @@ Replace the `<okapi token>` placeholder with the actual token from the previous 
 ```
 for i in /vagrant/sample-data/mod-inventory/*.xml; do curl -w '\n' -D - -X POST -H "Content-type: multipart/form-data" -H "X-Okapi-Tenant: diku" -H "X-Okapi-Token: <okapi token>" -F upload=@${i} http://localhost:9130/inventory/ingest/mods; done
 ```
+### Sidebar: install edge modules for platform-complete
 
+If you are instlaling platform-complete, you may chose to also install implement edge APIs. Edge APIs for Folio are designed to allow external systems to integrate with Folio. These are distinct from the internal APIs used by Folio and implemented though Okapi. It is not recommended that external systems integrate directly with Folio/Okapi APIs.
+
+1. Gather information
+    Begin by collecting information about the edge module you are installing. In this example, we'll install edge-oai-pmh. Collect information on your own environment following the example below:
+
+    | Variable | Example Value | Notes |
+    | -------- | ----- | ---- |
+    | Institutional User | instuser | username of your choosing |
+    | Institutional User Password | instpass | password of your choosing |
+    | Tenant | diku | |
+    | Permission sets | oai-pmh.all | permissions to be assigned to institutional user |
+
+2. Create institutional user
+    An institutional user must be created with appropriate permissions to use the edge module. You can use the included `create-user.py` script to create a user and assign permissions if you choose.
+    ```
+    ./create-user.py -u instuser -p instpass \
+        --permissions oai-pmh.all --tenant diku \
+        --admin-user diku_admin --admin-password admin
+    ```
+    If you would like to specify an Okapi instance running somewhere other than http://localhost:9130 you can add the `--okapi-url` flag to pass a different url. If you need to assign more than one permission set, use a comma delimited list, i.e. `--permissions edge-rtac.all,edge-oai-pmh.all`
+
+3. Create an Edge API key
+    Refer to the documentation in the [edge-common](https://github.com/folio-org/edge-common) repository for more details on how to create an API key for a production ready system. For this example, we'll use an `ephemeral.properties` file which stores credentials in plain text. This is meant for development and demonstration purposes only.
+    ```
+    cd ~
+    git clone https://github.com/folio-org/edge-common.git
+    cd edge-common
+    mvn package
+    java -jar target/edge-common-api-key-utils.jar -g -t diku -u instuser
+    ```
+    This will return an API key that must be included in requests to edge modules. in this example, we get `eyJzIjoiM0VWY3cwbVNvNCIsInQiOiJkaWt1IiwidSI6Imluc3R1c2VyIn0=`.
+
+4. Start edge module Docker containers
+    You can run containers for edge modules in a number of ways. This guide uses docker-compose. If docker-compose is not already installed on your system, follow the instructions from [docker](https://docs.docker.com/compose/install/). For example:
+    ```
+    sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$ (uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
+    ```
+    Set up ephemeral.properties file to let your edge module know what tenant and user to use.
+    ```
+    sudo mkdir -p /etc/folio/edge
+    vi /etc/folio/edge/edge-oai-pmh-ephemeral.properties
+    ```
+    The ephemeral properties file should look like this
+    ```
+    secureStore.type=Ephemeral
+    # a comma separated list of tenants
+    tenants=diku
+    #######################################################
+    # For each tenant, the institutional user password...
+    #
+    # Note: this is intended for development purposes only
+    #######################################################
+    # format: tenant=username,password
+    diku=instuser,instpass
+    ```
+    Set up a docker compose file in `/etc/folio/edge/docker-compose.yml` that defines each edge module you want to run as a service. For example, we'll define a service for edge-oai-pmh here.
+    ```
+    version: '2'
+    services:
+      edge-oai-pmh:
+        ports:
+          - "9700:8081"
+        image: folioci/edge-oai-pmh:2.1.0-SNAPSHOT.24
+        volumes:
+          - /etc/folio/edge:/mnt
+        command:
+          -"Dokapi_url=http://10.36.1.70:9130"
+          -"Dsecure_store_props=/mnt/edge-oai-pmh-ephemeral.properties"
+        restart: "always"
+    ```
+    In this configuration, use the IP address or DNS record for Okapi (not 'localhost') for the okapi_url option. To start the edge module containers:
+    ```
+    cd /etc/folio/edge
+    sudo docker-compose up -d
+    ```
+5. Set up Nginx
+    ```
+    sudo apt update
+    sudo apt install nginx -y
+    ```
+    Now disable the default virtual host config and create a new one to proxy the edge modules.
+    ```
+    sudo unlink /etc/nginx/sites-enabled/default
+    sudo vi /etc/nginx/sites-available/edge
+    ```
+    Configure your Nginx to proxy your edge modules. In this example, we'll configure edge-oai-pmh.
+    ```
+    server {
+      listen 8000;
+      server_name localhost;
+      charset utf-8;
+    
+      location /oai {
+          proxy_pass http://localhost:9700;
+      }
+    }
+    ```
+    Now link your new configuration and restart Nginx.
+    ```
+    sudo ln -s /etc/nginx/sites-available/edge /etc/nginx/sites-enabled/edge
+    sudo service nginx restart
+    ```
+    In this configuration, nginx is listening on port 8000 which is an arbitrary unused port selected to listen for requests to edge APIs. The location `/oai` is based on the interface provided by the edge-oai-pmh module. Check the edge module's raml file to find the correct interface to proxy.
+
+6. Test and cleanup
+    Verify a valid response by constructing a request according to the edge module's documentation. For edge-oai-pmh for example:
+    ```
+    http://folio-snapshot-test.aws.indexdata.com:8000/oai?    apikey=eyJzIjoiM0VWY3cwbVNvNCIsInQiOiJkaWt1IiwidSI6Imluc3R1c2VyIn0=&verb=Identify
+    ```
+    If you used a different username and password, subsitute the appropriate API key here.
+
+    Optionally, clean up the edge-common repo.
+    ```
+    cd ~
+    rm -rf edge-common/
+    ```
 ## Secure the Okapi API (supertenant)
 
 If this is a production install, you may want to secure the Okapi API. You can secure the Okapi API or supertenant either by using the included sample script [secure-supertenant.py](secure-supertenant.py) or by following the instructions in the [Securing Okapi](https://github.com/folio-org/okapi/blob/master/doc/securing.md) guide.
