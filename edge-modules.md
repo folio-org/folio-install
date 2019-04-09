@@ -4,7 +4,7 @@ Begin by collecting information about the edge module you are installing. In thi
 |----------|-------|------|
 | Institutional User | instuser | username of your choosing |
 | Instituitonal User Password | instpass | password of your choosing |
-| Tenant | diku | | 
+| Tenant | diku | |
 | Permission sets | oai-pmh.all | permissions to be assigned to institutional user |
 
 ## Create institutional user
@@ -52,12 +52,12 @@ Set up a docker compose file in `/etc/folio/edge/docker-compose.yml` that define
 version: '2'
 services:
   edge-oai-pmh:
-    ports: 
+    ports:
       - "9700:8081"
     image: folioci/edge-oai-pmh:2.1.0-SNAPSHOT.24
-    volumes: 
+    volumes:
       - /etc/folio/edge:/mnt
-    command: 
+    command:
       -"Dokapi_url=http://10.36.1.70:9130"
       -"Dsecure_store_props=/mnt/edge-oai-pmh-ephemeral.properties"
     restart: "always"
@@ -83,7 +83,7 @@ server {
   listen 8000;
   server_name localhost;
   charset utf-8;
-  
+
   location /oai {
       proxy_pass http://localhost:9700;
   }
@@ -92,7 +92,7 @@ server {
 In this configuration, nginx is listening on port 8000 which is an arbitrary unused port selected to listen for requests to edge APIs. The location `/oai` is based on the interface provided by the edge-oai-pmh module. Check the edge module's raml file to fine the correct interface to proxy.
 
 ## Test and cleanup
-Verify a valid response by constructing a request according to the edge modules documentation. For edge-oai-pmh for example: 
+Verify a valid response by constructing a request according to the edge modules documentation. For edge-oai-pmh for example:
 ```
 http://folio-snapshot-test.aws.indexdata.com:8000/oai?apikey=APIKEY&verb=Identify
 ```
@@ -102,4 +102,4 @@ Optionally, clean up the edge-common repo.
 ```
 cd ~
 rm -rf edge-common/
-``` 
+```

@@ -46,7 +46,7 @@ def main():
     created_user = {}
     created_user['userId'] = perms_json['userId']
     created_user['permsId'] = perms_json['id']
-    created_user['permissions'] = perms_json['permissions'] 
+    created_user['permissions'] = perms_json['permissions']
 
     return created_user
 
@@ -63,7 +63,7 @@ def parse_command_line_args():
     parser.add_argument('-a', '--admin-user', help='admin user with permission to create user',
                         required=False)
     parser.add_argument('-c', '--admin-password', help='password for admin user',
-                        required=False)                   
+                        required=False)
 
     args = parser.parse_args()
 
