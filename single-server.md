@@ -517,26 +517,14 @@ You may choose to also install and serve edge APIs. Edge APIs for FOLIO are desi
     ```
     If you need to specify an Okapi instance running somewhere other than `http://localhost:9130` you can add the `--okapi-url` flag to pass a different url. If you need to assign more than one permission set, use a comma delimited list, i.e. `--permissions edge-rtac.all,edge-oai-pmh.all`
 
-3. Create an Edge API key
+3. Add a secure store for access credentials
 
-    Refer to the documentation in the [edge-common](https://github.com/folio-org/edge-common) repository for more details on how to create an API key for a production ready system. For this example, we'll use an `ephemeral.properties` file which stores credentials in plain text. This is meant for development and demonstration purposes only.
-    ```
-    cd ~
-    git clone https://github.com/folio-org/edge-common.git
-    cd edge-common
-    mvn package
-    java -jar target/edge-common-api-key-utils.jar -g -t diku -u instuser
-    ```
-    This will return an API key that must be included in requests to edge modules. In this example, we get `eyJzIjoiM0VWY3cwbVNvNCIsInQiOiJkaWt1IiwidSI6Imluc3R1c2VyIn0=`
+    Provide edge module access credentials for tenants and their institutional user.
 
-4. Start edge module Docker containers
+    Refer to the documentation in the [edge-common](https://github.com/folio-org/edge-common) repository for details about the various secure store facilities.
+    For this example, we will use a basic EphemeralStore using an `ephemeral.properties` file which stores credentials in plain text.
+    This is meant for development and demonstration purposes only.
 
-    You can run containers for edge modules in a number of ways. This guide uses docker-compose. If docker-compose is not already installed on your system, follow the instructions from [docker](https://docs.docker.com/compose/install/). For example:
-    ```
-    sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-    sudo chmod +x /usr/local/bin/docker-compose
-    ```
-    Set up ephemeral.properties file to let your edge module know what tenant and user to use.
     ```
     sudo mkdir -p /etc/folio/edge
     vi /etc/folio/edge/edge-oai-pmh-ephemeral.properties
@@ -554,6 +542,15 @@ You may choose to also install and serve edge APIs. Edge APIs for FOLIO are desi
     # format: tenant=username,password
     diku=instuser,instpass
     ```
+
+4. Start edge module Docker containers
+
+    You can run containers for edge modules in a number of ways. This guide uses docker-compose. If docker-compose is not already installed on your system, follow the instructions from [docker](https://docs.docker.com/compose/install/). For example:
+    ```
+    sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
+    ```
+
     Set up a docker compose file in `/etc/folio/edge/docker-compose.yml` that defines each edge module you want to run as a service. For example, we'll define a service for edge-oai-pmh here.
     ```
     version: '2'
@@ -591,7 +588,7 @@ You may choose to also install and serve edge APIs. Edge APIs for FOLIO are desi
       listen 8000;
       server_name localhost;
       charset utf-8;
-    
+
       location /oai {
           proxy_pass http://localhost:9700;
       }
@@ -604,18 +601,26 @@ You may choose to also install and serve edge APIs. Edge APIs for FOLIO are desi
     ```
     In this configuration, nginx is listening on port 8000 which is an arbitrary unused port selected to listen for requests to edge APIs. The location `/oai` is based on the interface provided by the edge-oai-pmh module. Check the edge module's raml file to find the correct interface to proxy.
 
-6. Test and cleanup
+6. Create an Edge API key
 
-    Verify a valid response by constructing a request according to the edge module's documentation. For edge-oai-pmh for example:
-    ```
-    http://folio-snapshot-test.aws.indexdata.com:8000/oai?apikey=eyJzIjoiM0VWY3cwbVNvNCIsInQiOiJkaWt1IiwidSI6Imluc3R1c2VyIn0=&verb=Identify
-    ```
-    If you used a different username and password, substitute the appropriate API key here.
+    Refer to the documentation in the [edge-common](https://github.com/folio-org/edge-common) repository for more details on how to create an API key for a production-ready system.
 
-    Optionally, clean up the edge-common repo.
+    On a host system, follow this procedure to generate the API key for the tenant and institutional user that were configured in the previous sections:
+
     ```
     cd ~
-    rm -rf edge-common/
+    git clone https://github.com/folio-org/edge-common.git
+    cd edge-common
+    mvn package
+    java -jar target/edge-common-api-key-utils.jar -g -t diku -u instuser
+    ```
+    This will return an API key that must be included in requests to edge modules. In this example, we get `eyJzIjoiM0VWY3cwbVNvNCIsInQiOiJkaWt1IiwidSI6Imluc3R1c2VyIn0=`
+
+7. Test the edge module access
+
+    Verify a valid response by constructing a request according to the relevant edge module's documentation. For edge-oai-pmh for example:
+    ```
+    http://folio-snapshot-test.aws.indexdata.com:8000/oai?apikey=eyJzIjoiM0VWY3cwbVNvNCIsInQiOiJkaWt1IiwidSI6Imluc3R1c2VyIn0=&verb=Identify
     ```
 
 ## Secure the Okapi API (supertenant)
@@ -626,7 +631,7 @@ The included script requires mod-authtoken, mod-login, mod-permissions, and mod-
 
 **CAUTION**: When the supertenant is secured, you must login using mod-authtoken to obtain an authtoken and include it in the `x-okapi-token` header for every request to the Okapi API. For example, if you want to repeat any of the calls to Okapi in this guide, you will need to include `x-okapi-token:YOURTOKEN` and `x-okapi-tenant:supertenant` as headers for any requests to the Okapi API.
 
-To use the included script, run the following replacing USERNAME and PASSWORD with your desired values:
+To use the included script, run the following command replacing USERNAME and PASSWORD with your desired values:
 ```
 python3 /vagrant/secure-superuser.py -u USERNAME -p PASSWORD
 ```
