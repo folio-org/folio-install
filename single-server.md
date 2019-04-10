@@ -336,7 +336,8 @@ curl -w '\n' -D - -X POST -H "Content-type: application/json" \
   http://localhost:9130/_/proxy/tenants/diku/install?deploy=true\&preRelease=false\&tenantParameters=loadSample%3Dtrue%2CloadReference%3Dtrue
 ```
 
-Note: This will take a long time to return, as all the Docker images must be pulled from Docker Hub. Progress can be followed in the Okapi log at `/var/log/folio/okapi/okapi.log` and via `sudo docker ps | grep -v "^CONTAINER"`
+Note: This will take a long time to return, as all the Docker images must be pulled from Docker Hub.
+Progress can be followed in the Okapi log at `/var/log/folio/okapi/okapi.log` and via `sudo docker ps | grep -v "^CONTAINER" | wc -l`
 
 3. Post the list of Stripes modules to enable
 
@@ -511,7 +512,7 @@ You may choose to also install and serve edge APIs. Edge APIs for FOLIO are desi
 
     An institutional user must be created with appropriate permissions to use the edge module. You can use the included `create-user.py` script to create a user and assign permissions if you choose.
     ```
-    ./create-user.py -u instuser -p instpass \
+    python3 create-user.py -u instuser -p instpass \
         --permissions oai-pmh.all --tenant diku \
         --admin-user diku_admin --admin-password admin
     ```
@@ -526,8 +527,9 @@ You may choose to also install and serve edge APIs. Edge APIs for FOLIO are desi
     This is meant for development and demonstration purposes only.
 
     ```
+    vagrant ssh
     sudo mkdir -p /etc/folio/edge
-    vi /etc/folio/edge/edge-oai-pmh-ephemeral.properties
+    sudo vi /etc/folio/edge/edge-oai-pmh-ephemeral.properties
     ```
     The ephemeral properties file should look like this
     ```
@@ -562,7 +564,7 @@ You may choose to also install and serve edge APIs. Edge APIs for FOLIO are desi
         volumes:
           - /etc/folio/edge:/mnt
         command:
-          -"Dokapi_url=http://10.36.1.70:9130"
+          -"Dokapi_url=http://10.0.2.15:9130"
           -"Dsecure_store_props=/mnt/edge-oai-pmh-ephemeral.properties"
         restart: "always"
     ```
@@ -582,7 +584,7 @@ You may choose to also install and serve edge APIs. Edge APIs for FOLIO are desi
     sudo unlink /etc/nginx/sites-enabled/default
     sudo vi /etc/nginx/sites-available/edge
     ```
-    Configure your nginx to proxy your edge modules. In this example, we'll configure edge-oai-pmh.
+    Configure nginx to proxy the edge modules. In this example, we'll configure edge-oai-pmh.
     ```
     server {
       listen 8000;
@@ -594,7 +596,7 @@ You may choose to also install and serve edge APIs. Edge APIs for FOLIO are desi
       }
     }
     ```
-    Now link your new configuration and restart nginx.
+    Now link that new configuration and restart nginx.
     ```
     sudo ln -s /etc/nginx/sites-available/edge /etc/nginx/sites-enabled/edge
     sudo service nginx restart
@@ -614,13 +616,13 @@ You may choose to also install and serve edge APIs. Edge APIs for FOLIO are desi
     mvn package
     java -jar target/edge-common-api-key-utils.jar -g -t diku -u instuser
     ```
-    This will return an API key that must be included in requests to edge modules. In this example, we get `eyJzIjoiM0VWY3cwbVNvNCIsInQiOiJkaWt1IiwidSI6Imluc3R1c2VyIn0=`
+    This will return an API key that must be included in requests to edge modules. In this example, we get `eyJzIjoiRnRUNEdQYXlZWiIsInQiOiJkaWt1IiwidSI6Imluc3R1c2VyIn0=`
 
 7. Test the edge module access
 
-    Verify a valid response by constructing a request according to the relevant edge module's documentation. For edge-oai-pmh for example:
+    Verify a valid response by constructing a request according to the relevant module's documentation. For edge-oai-pmh for example:
     ```
-    http://folio-snapshot-test.aws.indexdata.com:8000/oai?apikey=eyJzIjoiM0VWY3cwbVNvNCIsInQiOiJkaWt1IiwidSI6Imluc3R1c2VyIn0=&verb=Identify
+    curl -s "http://localhost:8000/oai?apikey=eyJzIjoiRnRUNEdQYXlZWiIsInQiOiJkaWt1IiwidSI6Imluc3R1c2VyIn0=&verb=Identify" | xq '.'
     ```
 
 ## Secure the Okapi API (supertenant)
