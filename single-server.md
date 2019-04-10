@@ -174,7 +174,7 @@ sudo apt-get -y install okapi=2.26.1-1
 
 ### Sidebar: Okapi releases
 
-If you'd like to work with the latest Okapi release, change the final command above to:
+If you would like to work with the latest Okapi release, change the final command above to:
 
 ```
 sudo apt-get -y install okapi
@@ -273,7 +273,7 @@ yarn install
 
 **Be warned, this could result in a bundle with unstable code!**
 
-If you build Stripes this way, then you will need to construct your FOLIO backend system a little differently.
+If you build Stripes this way, then the FOLIO backend system needs to be constructed a little differently.
 See [Sidebar: building from the bleeding edge -- part II](#sidebar-building-from-the-bleeding-edge----part-ii) below
 (but before proceeding to that next sidebar, continue with these mainbar instructions to build the webpack and to configure the Stripes nginx server).
 
@@ -504,7 +504,7 @@ You may choose to also install and serve edge APIs. Edge APIs for FOLIO are desi
 
 1. Gather information
 
-    Begin by collecting information about the edge module you are installing. In this example, we'll install edge-oai-pmh. Collect information on your own environment following the example below:
+    Begin by collecting information about the edge module that you are installing. In this example, we'll install edge-oai-pmh. Collect information on your own environment following the example below:
 
     | Variable | Example Value | Notes |
     | -------- | ----- | ---- |
@@ -515,13 +515,14 @@ You may choose to also install and serve edge APIs. Edge APIs for FOLIO are desi
 
 2. Create institutional user
 
-    An institutional user must be created with appropriate permissions to use the edge module. You can use the included `create-user.py` script to create a user and assign permissions if you choose.
+    An institutional user must be created with appropriate permissions to use the edge module. You can use the included `create-user.py` script to create a user and assign permissions.
     ```
     python3 create-user.py -u instuser -p instpass \
         --permissions oai-pmh.all --tenant diku \
         --admin-user diku_admin --admin-password admin
     ```
-    If you need to specify an Okapi instance running somewhere other than `http://localhost:9130` you can add the `--okapi-url` flag to pass a different url. If you need to assign more than one permission set, use a comma delimited list, i.e. `--permissions edge-rtac.all,edge-oai-pmh.all`
+    If you need to specify an Okapi instance running somewhere other than `http://localhost:9130` then add the `--okapi-url` flag to pass a different url.
+    If more than one permission set needs to be assigned, then use a comma delimited list, i.e. `--permissions edge-rtac.all,edge-oai-pmh.all`
 
 3. Add a secure store for access credentials
 
@@ -552,13 +553,14 @@ You may choose to also install and serve edge APIs. Edge APIs for FOLIO are desi
 
 4. Start edge module Docker containers
 
-    You can run containers for edge modules in a number of ways. This guide uses docker-compose. If docker-compose is not already installed on your system, follow the instructions from [docker](https://docs.docker.com/compose/install/). For example:
+    The containers for edge modules can be established in various of ways. This guide uses docker-compose.
+    If docker-compose is not already installed or needs to be upgraded, then follow the instructions from [docker](https://docs.docker.com/compose/install/). For example:
     ```
     sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
     sudo chmod +x /usr/local/bin/docker-compose
     ```
 
-    Set up a docker compose file in `/etc/folio/edge/docker-compose.yml` that defines each edge module you want to run as a service.
+    Set up a docker compose file in `/etc/folio/edge/docker-compose.yml` that defines each edge module that is to be run as a service.
 
     Find the relevant module versions:
     ```
