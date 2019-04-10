@@ -505,6 +505,7 @@ If you are installing platform-complete, you may chose to also install implement
     | Permission sets | oai-pmh.all | permissions to be assigned to institutional user |
 
 2. Create institutional user
+
     An institutional user must be created with appropriate permissions to use the edge module. You can use the included `create-user.py` script to create a user and assign permissions if you choose.
     ```
     ./create-user.py -u instuser -p instpass \
@@ -514,6 +515,7 @@ If you are installing platform-complete, you may chose to also install implement
     If you would like to specify an Okapi instance running somewhere other than http://localhost:9130 you can add the `--okapi-url` flag to pass a different url. If you need to assign more than one permission set, use a comma delimited list, i.e. `--permissions edge-rtac.all,edge-oai-pmh.all`
 
 3. Create an Edge API key
+
     Refer to the documentation in the [edge-common](https://github.com/folio-org/edge-common) repository for more details on how to create an API key for a production ready system. For this example, we'll use an `ephemeral.properties` file which stores credentials in plain text. This is meant for development and demonstration purposes only.
     ```
     cd ~
@@ -525,6 +527,7 @@ If you are installing platform-complete, you may chose to also install implement
     This will return an API key that must be included in requests to edge modules. in this example, we get `eyJzIjoiM0VWY3cwbVNvNCIsInQiOiJkaWt1IiwidSI6Imluc3R1c2VyIn0=`.
 
 4. Start edge module Docker containers
+
     You can run containers for edge modules in a number of ways. This guide uses docker-compose. If docker-compose is not already installed on your system, follow the instructions from [docker](https://docs.docker.com/compose/install/). For example:
     ```
     sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$ (uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
@@ -569,6 +572,7 @@ If you are installing platform-complete, you may chose to also install implement
     sudo docker-compose up -d
     ```
 5. Set up NGINX
+
     ```
     sudo apt update
     sudo apt install nginx -y
@@ -598,6 +602,7 @@ If you are installing platform-complete, you may chose to also install implement
     In this configuration, nginx is listening on port 8000 which is an arbitrary unused port selected to listen for requests to edge APIs. The location `/oai` is based on the interface provided by the edge-oai-pmh module. Check the edge module's raml file to find the correct interface to proxy.
 
 6. Test and cleanup
+
     Verify a valid response by constructing a request according to the edge module's documentation. For edge-oai-pmh for example:
     ```
     http://folio-snapshot-test.aws.indexdata.com:8000/oai?apikey=eyJzIjoiM0VWY3cwbVNvNCIsInQiOiJkaWt1IiwidSI6Imluc3R1c2VyIn0=&verb=Identify
