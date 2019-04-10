@@ -377,7 +377,7 @@ If instead building a system based on `platform-complete` then do:
 
 ```
 perl /vagrant/gen-module-list.pl \
-  --extra-modules mod-audit,mod-audit-filter,mod-codex-inventory,mod-codex-ekb,mod-data-import-converter-storage,mod-erm-usage-harvester,mod-gobi,mod-oai-pmh,mod-patron,mod-rtac,edge-oai-pmh,edge-orders,edge-patron,edge-rtac \
+  --extra-modules mod-audit,mod-audit-filter,mod-codex-inventory,mod-codex-ekb,mod-data-import-converter-storage,mod-erm-usage-harvester,mod-user-import,mod-gobi,mod-oai-pmh,mod-patron,mod-rtac,edge-oai-pmh,edge-orders,edge-patron,edge-rtac \
   --exclude-modules stripes-erm-components \
   platform-complete/ModuleDescriptors > stripes-install.json
 ```
