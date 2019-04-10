@@ -26,6 +26,7 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 * [Create a FOLIO “superuser” and load permissions](#create-a-folio-superuser-and-load-permissions)
 * [Load module reference data](#load-module-reference-data)
 * [Load sample data](#load-sample-data)
+* [Install and serve edge modules for platform-complete](#install-and-serve-edge-modules-for-platform-complete)
 * [Secure the Okapi API (supertenant)](#secure-the-okapi-api-supertenant)
 * [Known issues](#known-issues)
 
@@ -489,9 +490,11 @@ Replace the `<okapi token>` placeholder with the actual token from the previous 
 ```
 for i in /vagrant/sample-data/mod-inventory/*.xml; do curl -w '\n' -D - -X POST -H "Content-type: multipart/form-data" -H "X-Okapi-Tenant: diku" -H "X-Okapi-Token: <okapi token>" -F upload=@${i} http://localhost:9130/inventory/ingest/mods; done
 ```
-### Sidebar: install edge modules for platform-complete
+## Install and serve edge modules for platform-complete
 
-If you are installing platform-complete, you may chose to also install implement edge APIs. Edge APIs for FOLIO are designed to allow external systems to integrate with FOLIO. These are distinct from the internal APIs used by FOLIO and implemented though Okapi. It is not recommended that external systems integrate directly with FOLIO/Okapi APIs.
+This section is only relevant for platform-complete.
+
+You may choose to also install and serve edge APIs. Edge APIs for FOLIO are designed to enable external systems to integrate with FOLIO. These are distinct from the internal APIs used by FOLIO and implemented though Okapi. It is not recommended that external systems integrate directly with FOLIO/Okapi APIs.
 
 1. Gather information
 
@@ -512,7 +515,7 @@ If you are installing platform-complete, you may chose to also install implement
         --permissions oai-pmh.all --tenant diku \
         --admin-user diku_admin --admin-password admin
     ```
-    If you would like to specify an Okapi instance running somewhere other than `http://localhost:9130` you can add the `--okapi-url` flag to pass a different url. If you need to assign more than one permission set, use a comma delimited list, i.e. `--permissions edge-rtac.all,edge-oai-pmh.all`
+    If you need to specify an Okapi instance running somewhere other than `http://localhost:9130` you can add the `--okapi-url` flag to pass a different url. If you need to assign more than one permission set, use a comma delimited list, i.e. `--permissions edge-rtac.all,edge-oai-pmh.all`
 
 3. Create an Edge API key
 
@@ -524,7 +527,7 @@ If you are installing platform-complete, you may chose to also install implement
     mvn package
     java -jar target/edge-common-api-key-utils.jar -g -t diku -u instuser
     ```
-    This will return an API key that must be included in requests to edge modules. in this example, we get `eyJzIjoiM0VWY3cwbVNvNCIsInQiOiJkaWt1IiwidSI6Imluc3R1c2VyIn0=`
+    This will return an API key that must be included in requests to edge modules. In this example, we get `eyJzIjoiM0VWY3cwbVNvNCIsInQiOiJkaWt1IiwidSI6Imluc3R1c2VyIn0=`
 
 4. Start edge module Docker containers
 
@@ -614,6 +617,7 @@ If you are installing platform-complete, you may chose to also install implement
     cd ~
     rm -rf edge-common/
     ```
+
 ## Secure the Okapi API (supertenant)
 
 If this is a production install, you may want to secure the Okapi API. You can secure the Okapi API or supertenant either by using the included sample script [secure-supertenant.py](secure-supertenant.py) or by following the instructions in the [Securing Okapi](https://github.com/folio-org/okapi/blob/master/doc/securing.md) guide.
