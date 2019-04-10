@@ -553,7 +553,9 @@ You may choose to also install and serve edge APIs. Edge APIs for FOLIO are desi
     sudo chmod +x /usr/local/bin/docker-compose
     ```
 
-    Set up a docker compose file in `/etc/folio/edge/docker-compose.yml` that defines each edge module you want to run as a service. For example, we'll define a service for edge-oai-pmh here.
+    Set up a docker compose file in `/etc/folio/edge/docker-compose.yml` that defines each edge module you want to run as a service.
+    For example, we will define a service only for [edge-oai-pmh](https://github.com/folio-org/edge-oai-pmh) here.
+
     ```
     version: '2'
     services:
@@ -620,7 +622,8 @@ You may choose to also install and serve edge APIs. Edge APIs for FOLIO are desi
 
 7. Test the edge module access
 
-    Verify a valid response by constructing a request according to the relevant module's documentation. For edge-oai-pmh for example:
+    Verify a valid response by constructing a request according to the relevant module's documentation.
+    For [mod-oai-pmh](https://github.com/folio-org/mod-oai-pmh) for example:
     ```
     curl -s "http://localhost:8000/oai?apikey=eyJzIjoiRnRUNEdQYXlZWiIsInQiOiJkaWt1IiwidSI6Imluc3R1c2VyIn0=&verb=Identify" | xq '.'
     ```
