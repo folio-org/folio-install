@@ -608,7 +608,9 @@ You may choose to also install and serve edge APIs. Edge APIs for FOLIO are desi
     sudo ln -s /etc/nginx/sites-available/edge /etc/nginx/sites-enabled/edge
     sudo service nginx restart
     ```
-    In this configuration, nginx is listening on port 8000 which is an arbitrary unused port selected to listen for requests to edge APIs. The location `/oai` is based on the interface provided by the edge-oai-pmh module. Check the edge module's raml file to find the correct interface to proxy.
+    In this configuration, nginx is listening on port 8000 which is an arbitrary unused port selected to listen for requests to edge APIs.
+    The location `/oai` is based on the interface provided by the edge-oai-pmh module.
+    Check the edge module's [API reference documentation](https://dev.folio.org/reference/api/#edge-oai-pmh) to find the relevant endpoint to proxy.
 
 6. Create an Edge API key
 
