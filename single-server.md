@@ -512,7 +512,7 @@ If you are installing platform-complete, you may chose to also install implement
         --permissions oai-pmh.all --tenant diku \
         --admin-user diku_admin --admin-password admin
     ```
-    If you would like to specify an Okapi instance running somewhere other than http://localhost:9130 you can add the `--okapi-url` flag to pass a different url. If you need to assign more than one permission set, use a comma delimited list, i.e. `--permissions edge-rtac.all,edge-oai-pmh.all`
+    If you would like to specify an Okapi instance running somewhere other than `http://localhost:9130` you can add the `--okapi-url` flag to pass a different url. If you need to assign more than one permission set, use a comma delimited list, i.e. `--permissions edge-rtac.all,edge-oai-pmh.all`
 
 3. Create an Edge API key
 
@@ -524,7 +524,7 @@ If you are installing platform-complete, you may chose to also install implement
     mvn package
     java -jar target/edge-common-api-key-utils.jar -g -t diku -u instuser
     ```
-    This will return an API key that must be included in requests to edge modules. in this example, we get `eyJzIjoiM0VWY3cwbVNvNCIsInQiOiJkaWt1IiwidSI6Imluc3R1c2VyIn0=`.
+    This will return an API key that must be included in requests to edge modules. in this example, we get `eyJzIjoiM0VWY3cwbVNvNCIsInQiOiJkaWt1IiwidSI6Imluc3R1c2VyIn0=`
 
 4. Start edge module Docker containers
 
@@ -607,7 +607,7 @@ If you are installing platform-complete, you may chose to also install implement
     ```
     http://folio-snapshot-test.aws.indexdata.com:8000/oai?apikey=eyJzIjoiM0VWY3cwbVNvNCIsInQiOiJkaWt1IiwidSI6Imluc3R1c2VyIn0=&verb=Identify
     ```
-    If you used a different username and password, subsitute the appropriate API key here.
+    If you used a different username and password, substitute the appropriate API key here.
 
     Optionally, clean up the edge-common repo.
     ```
