@@ -491,9 +491,10 @@ for i in /vagrant/sample-data/mod-inventory/*.xml; do curl -w '\n' -D - -X POST 
 ```
 ### Sidebar: install edge modules for platform-complete
 
-If you are instlaling platform-complete, you may chose to also install implement edge APIs. Edge APIs for Folio are designed to allow external systems to integrate with Folio. These are distinct from the internal APIs used by Folio and implemented though Okapi. It is not recommended that external systems integrate directly with Folio/Okapi APIs.
+If you are installing platform-complete, you may chose to also install implement edge APIs. Edge APIs for FOLIO are designed to allow external systems to integrate with FOLIO. These are distinct from the internal APIs used by FOLIO and implemented though Okapi. It is not recommended that external systems integrate directly with FOLIO/Okapi APIs.
 
 1. Gather information
+
     Begin by collecting information about the edge module you are installing. In this example, we'll install edge-oai-pmh. Collect information on your own environment following the example below:
 
     | Variable | Example Value | Notes |
@@ -567,7 +568,7 @@ If you are instlaling platform-complete, you may chose to also install implement
     cd /etc/folio/edge
     sudo docker-compose up -d
     ```
-5. Set up Nginx
+5. Set up NGINX
     ```
     sudo apt update
     sudo apt install nginx -y
@@ -577,7 +578,7 @@ If you are instlaling platform-complete, you may chose to also install implement
     sudo unlink /etc/nginx/sites-enabled/default
     sudo vi /etc/nginx/sites-available/edge
     ```
-    Configure your Nginx to proxy your edge modules. In this example, we'll configure edge-oai-pmh.
+    Configure your nginx to proxy your edge modules. In this example, we'll configure edge-oai-pmh.
     ```
     server {
       listen 8000;
@@ -589,7 +590,7 @@ If you are instlaling platform-complete, you may chose to also install implement
       }
     }
     ```
-    Now link your new configuration and restart Nginx.
+    Now link your new configuration and restart nginx.
     ```
     sudo ln -s /etc/nginx/sites-available/edge /etc/nginx/sites-enabled/edge
     sudo service nginx restart
@@ -599,7 +600,7 @@ If you are instlaling platform-complete, you may chose to also install implement
 6. Test and cleanup
     Verify a valid response by constructing a request according to the edge module's documentation. For edge-oai-pmh for example:
     ```
-    http://folio-snapshot-test.aws.indexdata.com:8000/oai?    apikey=eyJzIjoiM0VWY3cwbVNvNCIsInQiOiJkaWt1IiwidSI6Imluc3R1c2VyIn0=&verb=Identify
+    http://folio-snapshot-test.aws.indexdata.com:8000/oai?apikey=eyJzIjoiM0VWY3cwbVNvNCIsInQiOiJkaWt1IiwidSI6Imluc3R1c2VyIn0=&verb=Identify
     ```
     If you used a different username and password, subsitute the appropriate API key here.
 
