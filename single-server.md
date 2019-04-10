@@ -530,7 +530,7 @@ If you are installing platform-complete, you may chose to also install implement
 
     You can run containers for edge modules in a number of ways. This guide uses docker-compose. If docker-compose is not already installed on your system, follow the instructions from [docker](https://docs.docker.com/compose/install/). For example:
     ```
-    sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$ (uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
     sudo chmod +x /usr/local/bin/docker-compose
     ```
     Set up ephemeral.properties file to let your edge module know what tenant and user to use.
