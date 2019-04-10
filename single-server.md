@@ -585,16 +585,13 @@ You may choose to also install and serve edge APIs. Edge APIs for FOLIO are desi
     ```
 5. Set up NGINX
 
+    The nginx is already installed during previous sections.
+
+    Create a new virtual host configuration to proxy the edge modules.
     ```
-    sudo apt update
-    sudo apt install nginx -y
-    ```
-    Now disable the default virtual host config and create a new one to proxy the edge modules.
-    ```
-    sudo unlink /etc/nginx/sites-enabled/default
     sudo vi /etc/nginx/sites-available/edge
     ```
-    Configure nginx to proxy the edge modules. In this example, we'll configure edge-oai-pmh.
+    In this example, we will only configure edge-oai-pmh:
     ```
     server {
       listen 8000;
@@ -602,7 +599,7 @@ You may choose to also install and serve edge APIs. Edge APIs for FOLIO are desi
       charset utf-8;
 
       location /oai {
-          proxy_pass http://localhost:9700;
+        proxy_pass http://localhost:9700;
       }
     }
     ```
