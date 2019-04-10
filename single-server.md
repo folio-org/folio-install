@@ -554,6 +554,12 @@ You may choose to also install and serve edge APIs. Edge APIs for FOLIO are desi
     ```
 
     Set up a docker compose file in `/etc/folio/edge/docker-compose.yml` that defines each edge module you want to run as a service.
+
+    Find the relevant module versions:
+    ```
+    curl -s http://localhost:9130/_/proxy/tenants/diku/modules | jq '.[].id' | grep edge
+    ```
+
     For example, we will define a service only for [edge-oai-pmh](https://github.com/folio-org/edge-oai-pmh) here.
 
     ```
@@ -570,7 +576,9 @@ You may choose to also install and serve edge APIs. Edge APIs for FOLIO are desi
           -"Dsecure_store_props=/mnt/edge-oai-pmh-ephemeral.properties"
         restart: "always"
     ```
-    In this configuration, use the IP address or DNS record for Okapi (not 'localhost') for the okapi_url option. To start the edge module containers:
+    In this configuration, use the IP address or DNS record for Okapi (not 'localhost') for the okapi_url option.
+
+    Now start the edge module containers:
     ```
     cd /etc/folio/edge
     sudo docker-compose up -d
