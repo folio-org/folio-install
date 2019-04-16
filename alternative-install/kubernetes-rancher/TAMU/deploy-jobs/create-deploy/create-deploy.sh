@@ -21,7 +21,7 @@ python ./create-deploy-desc.py
 
 echo POSTing the list of backend modules to install for a tenant, and importing data if set to true...
 
-# If you get an "HTTP/1.1 500 Internal Server Error" here, your module needs to be able connect to the database
+# If you get an "HTTP/1.1 500 Internal Server Error" here, your module needs to be able to connect to the database
 
 curl -w '\n' -D - -X POST -H "Content-type: application/json" \
   -d @install/okapi-install.json \
