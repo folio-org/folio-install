@@ -4,7 +4,11 @@
 
 ### Linux console run command
 
-`docker run --rm -d --network folio-network --name create-deploy -h create-deploy -e TENANT_ID=mytenant -e OKAPI_URL=http://localhost:9130 create-deploy`
+`docker run --rm -d --network folio-network --name create-deploy -h create-deploy -e TENANT_ID=mytenant -e OKAPI_URL=http://localhost:9130 -e REGISTRY_URL=http://localhost:9130/_/proxy/modules -e SAMPLE_DATA=false -e REF_DATA=false create-deploy`
+
+### What to deploy
+
+Update the included install/stripes-install.json and install/okapi-install.json files with the modules you wish to deploy to your Folio system's Okapi `/_/proxy/tenants/<tenant_id>/install` enpoint. The initial deploy will take some time, as all of the module descriptors are brought into your Okapi's `/_/proxy/modules` endpoint.
 
 ## Environment variables
 
@@ -17,3 +21,15 @@ The short name of the Tenant. Defaults to `mytenant`.
 ### OKAPI_URL
 
 Internal OKAPI URL to use. Defaults to `http://localhost:9130`.
+
+### REGISTRY_URL
+
+Module registry URL to use for YOUR Okapi. Defaults to `http://localhost:9130/_/proxy/modules`.
+
+### SAMPLE_DATA
+
+Load module sample data. Defaults to `false`.
+
+### REF_DATA
+
+Load module reference data. Defaults to `false`.
