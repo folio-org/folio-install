@@ -8,9 +8,37 @@ DB_PASSWORD = folio_admin_password<br/>
 DB_PORT = 5432<br/>
 DB_USERNAME = folio_admin
 
+### edge-oai-pmh
+Startup Options:<br/>
+JAVA_OPTIONS = -Dokapi_url=http://okapi:9130 -Dsecure_store=Ephemeral -Dsecure_store_props=/etc/folio/edge/edge-ephemeral.properties -Xmx256m<br/>
+Database connection: No<br/>
+Port: 8081<br/>
+Health Check endpoint: NA
+
+### edge-orders
+Startup Options:<br/>
+JAVA_OPTIONS = -Dokapi_url=http://okapi:9130 -Dsecure_store=Ephemeral -Dsecure_store_props=/etc/folio/edge/edge-ephemeral.properties -Xmx256m<br/>
+Database connection: No<br/>
+Port: 8081<br/>
+Health Check endpoint: NA
+
+### edge-patron
+Startup Options:<br/>
+JAVA_OPTIONS = -Dokapi_url=http://okapi:9130 -Dsecure_store=Ephemeral -Dsecure_store_props=/etc/folio/edge/edge-ephemeral.properties -Xmx256m<br/>
+Database connection: No<br/>
+Port: 8081<br/>
+Health Check endpoint: NA
+
+### edge-rtac
+Startup Options:<br/>
+JAVA_OPTIONS = -Dokapi_url=http://okapi:9130 -Dsecure_store=Ephemeral -Dsecure_store_props=/etc/folio/edge/edge-ephemeral.properties -Xmx256m<br/>
+Database connection: No<br/>
+Port: 8081<br/>
+Health Check endpoint: NA
+
 ### mod-agreements
 Startup Options:<br/>
-JAVA_OPTIONS = -Xmx256m<br/>
+JAVA_OPTIONS = -Xmx512m<br/>
 GRAILS_SERVER_PORT = 8080<br/>
 GRAILS_SERVER_HOST = mod-agreements<br/>
 Database connection: Yes<br/>
@@ -94,6 +122,14 @@ Database connection: Yes<br/>
 Port: 8081<br/>
 Health Check endpoint: /admin/health
 
+### mod-data-import-converter-storage
+Startup Options:<br/>
+JAVA_OPTIONS = -Xmx256m<br/>
+test.mode = true<br/>
+Database connection: Yes<br/>
+Port: 8081<br/>
+Health Check endpoint: /admin/health
+
 ### mod-data-loader
 Startup Options:<br/>
 JAVA_OPTIONS = -Xmx256m<br/>
@@ -158,7 +194,7 @@ OKAPI_TOKEN = foo<br/>
 OKAPI_TENANT = diku<br/>
 LOGGING_CATEGORIES = ramlpath<br/>
 Database connection: No<br/>
-Port: 3000<br/>
+Port: 3001<br/>
 Health Check endpoint: NA
 
 ### mod-inventory
@@ -175,17 +211,17 @@ Database connection: Yes<br/>
 Port: 8081<br/>
 Health Check endpoint: /admin/health
 
-### mod-kb-ebsco
+### mod-kb-ebsco-java
 Startup Options:<br/>
 JAVA_OPTIONS = -Xmx256m<br/>
 EBSCO_RMAPI_BASE_URL = https://sandbox.ebsco.io<br/>
-Database connection: No<br/>
+Database connection: Yes<br/>
 Port: 8081<br/>
 Health Check endpoint: /admin/health
 
 ### mod-licenses
 Startup Options:<br/>
-JAVA_OPTIONS = -Xmx256m<br/>
+JAVA_OPTIONS = -Xmx512m<br/>
 GRAILS_SERVER_PORT = 8080<br/>
 GRAILS_SERVER_HOST = mod-licenses<br/>
 Database connection: Yes<br/>
