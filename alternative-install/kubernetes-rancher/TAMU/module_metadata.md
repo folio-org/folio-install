@@ -13,14 +13,14 @@ Startup Options:<br/>
 JAVA_OPTIONS = -Dokapi_url=http://okapi:9130 -Dsecure_store=Ephemeral -Dsecure_store_props=/etc/folio/edge/edge-ephemeral.properties -Xmx256m<br/>
 Database connection: No<br/>
 Port: 8081<br/>
-Health Check endpoint: NA
+Health Check endpoint: /admin/health
 
 ### edge-orders
 Startup Options:<br/>
 JAVA_OPTIONS = -Dokapi_url=http://okapi:9130 -Dsecure_store=Ephemeral -Dsecure_store_props=/etc/folio/edge/edge-ephemeral.properties -Xmx256m<br/>
 Database connection: No<br/>
 Port: 8081<br/>
-Health Check endpoint: NA
+Health Check endpoint: /admin/health
 
 ### edge-patron
 Startup Options:<br/>
@@ -34,7 +34,7 @@ Startup Options:<br/>
 JAVA_OPTIONS = -Dokapi_url=http://okapi:9130 -Dsecure_store=Ephemeral -Dsecure_store_props=/etc/folio/edge/edge-ephemeral.properties -Xmx256m<br/>
 Database connection: No<br/>
 Port: 8081<br/>
-Health Check endpoint: NA
+Health Check endpoint: /admin/health
 
 ### mod-agreements
 Startup Options:<br/>
