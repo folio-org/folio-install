@@ -155,7 +155,7 @@ Health Check endpoint: /admin/health
 Startup Options:<br/>
 JAVA_OPTIONS = -Xmx256m<br/>
 CONFIG = {"okapiUrl": "http://okapi:9130"}<br/>
-Database connection: No<br/>
+Database connection: Yes<br/>
 Port: 8081<br/>
 Health Check endpoint: NA
 
