@@ -47,14 +47,14 @@ Health Check endpoint: NA
 
 ### mod-audit
 Startup Options:<br/>
-JAVA_OPTIONS = -Xmx256m<br/>
+JAVA_OPTIONS = -Xmx512m<br/>
 Database connection: Yes<br/>
 Port: 8081<br/>
 Health Check endpoint: /admin/health
 
 ### mod-audit-filter
 Startup Options:<br/>
-JAVA_OPTIONS = -Xmx256m<br/>
+JAVA_OPTIONS = -Xmx512m<br/>
 Database connection: Yes<br/>
 Port: 8081<br/>
 Health Check endpoint: /admin/health
