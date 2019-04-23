@@ -10,7 +10,7 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 * This is not considered to be a full production install.
 * There are some steps in the procedure called "sidebar" where one can go beyond the quarterly release to build a snapshot-based system (be careful).
 * This release uses PostgreSQL 9.6.1+ (upgrade to 10 is planned for Q2).
-* The _minimum_ RAM required for a system based on [platform-core](https://github.com/folio-org/platform-core) is 11 GB. Keep this in mind if you are running on a VM.
+* The _minimum_ RAM required for a system based on [platform-core](https://github.com/folio-org/platform-core) is 11 GB. See [why](#frequently-asked-questions). Keep this in mind if you are running on a VM.
 * To instead build a system based on [platform-complete](https://github.com/folio-org/platform-complete) will require approximately 24 GB.
 
 ## Summary
@@ -30,6 +30,7 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 * [Install and serve edge modules for platform-complete](#install-and-serve-edge-modules-for-platform-complete)
 * [Secure the Okapi API (supertenant)](#secure-the-okapi-api-supertenant)
 * [Known issues](#known-issues)
+* [Frequently asked questions](#frequently-asked-questions)
 
 ## Build a target Linux host
 
@@ -662,4 +663,17 @@ You can also specify a different url for Okapi by using the `-o` option. The def
 
 This Jira filter shows known critical issues that are not yet resolved:
 * [Known critical Q1-2019 issues](https://issues.folio.org/issues/?filter=11353)
+
+## Frequently asked questions
+
+### Why so much memory required
+
+Why is a lot of vagrant memory allocated?
+
+For the platform-core there are about 25 backend modules (about 40 for platform-complete),
+with their docker images allocating about 350 MB each (as an average).
+Some room is needed for loading the data and running the database.
+
+More is needed during the preparation phase, while building the Stripes webpack.
+If short on memory, then build this elsewhere.
 
