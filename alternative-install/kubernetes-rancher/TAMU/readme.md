@@ -407,16 +407,17 @@ X_OKAPI_TOKEN = *Authentication token from Okapi*
   
 PG_HOST = pg-folio<br/>
 OKAPI_URL = http://okapi:9130<br/>
+OKAPI_STORAGE = postgres<br/>
 OKAPI_PORT = 9130<br/>
 OKAPI_NODENAME = okapi1<br/>
 OKAPI_LOGLEVEL = INFO<br/>
 OKAPI_HOST = okapi<br/>
+OKAPI_COMMAND = cluster<br/>
 OKAPI_CLUSTERHOST = $(OKAPI_SERVICE_HOST)<br/>
 INITDB = false<br/>
 HAZELCAST_VERTX_PORT = 5703<br/>
 HAZELCAST_PORT = 5701<br/>
 HAZELCAST_IP = $(OKAPI_SERVICE_HOST)<br/>
-
 
 ### HA Postgres in Kubernetes/Rancher Notes:
 
