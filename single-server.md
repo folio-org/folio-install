@@ -9,7 +9,8 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 * Much of this is already automated as part of the folio-ansible project.
 * This is not considered to be a full production install.
 * There are some steps in the procedure called "sidebar" where one can go beyond the quarterly release to build a snapshot-based system (be careful).
-* The _minimum_ RAM required for a system based on [platform-core](https://github.com/folio-org/platform-core) is 11 GB. Keep this in mind if you are running on a VM.
+* This release uses PostgreSQL 9.6.1+ (upgrade to 10 is planned for Q2).
+* The _minimum_ RAM required for a system based on [platform-core](https://github.com/folio-org/platform-core) is 11 GB. See [why](#frequently-asked-questions). Keep this in mind if you are running on a VM.
 * To instead build a system based on [platform-complete](https://github.com/folio-org/platform-complete) will require approximately 24 GB.
 
 ## Summary
@@ -29,6 +30,7 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 * [Install and serve edge modules for platform-complete](#install-and-serve-edge-modules-for-platform-complete)
 * [Secure the Okapi API (supertenant)](#secure-the-okapi-api-supertenant)
 * [Known issues](#known-issues)
+* [Frequently asked questions](#frequently-asked-questions)
 
 ## Build a target Linux host
 
@@ -50,7 +52,7 @@ and this [Vagrantfile](Vagrantfile).
 
 To instead build a system based on [platform-complete](https://github.com/folio-org/platform-complete),
 copy [Vagrantfile-complete](Vagrantfile-complete) to `Vagrantfile`.
-This sets the `vb.memory` to be 24 GB and forwards the additional port 4000 for serving edge modules.
+This sets the `vb.memory` to be 24 GB and forwards the additional port 8000 for serving edge modules.
 Also copy [nginx-stripes-complete.conf](nginx-stripes-complete.conf) to `nginx-stripes.conf` file.
 Throughout these instructions, replace every mention of `platform-core` with `platform-complete`.
 
@@ -601,7 +603,7 @@ You may choose to also install and serve edge APIs. Edge APIs for FOLIO are desi
     In this example, we will only configure edge-oai-pmh:
     ```
     server {
-      listen 4000;
+      listen 8000;
       server_name localhost;
       charset utf-8;
 
@@ -615,7 +617,7 @@ You may choose to also install and serve edge APIs. Edge APIs for FOLIO are desi
     sudo ln -s /etc/nginx/sites-available/edge /etc/nginx/sites-enabled/edge
     sudo service nginx restart
     ```
-    In this configuration, nginx is listening on port 4000 which is an arbitrary unused port selected to listen for requests to edge APIs.
+    In this configuration, nginx is listening on port 8000 which is an arbitrary unused port selected to listen for requests to edge APIs.
     The location `/oai` is based on the interface provided by the edge-oai-pmh module.
     Check the edge module's [API reference documentation](https://dev.folio.org/reference/api/#edge-oai-pmh) to find the relevant endpoint to proxy.
 
@@ -639,7 +641,7 @@ You may choose to also install and serve edge APIs. Edge APIs for FOLIO are desi
     Verify a valid response by constructing a request according to the relevant module's documentation.
     For [mod-oai-pmh](https://github.com/folio-org/mod-oai-pmh) for example:
     ```
-    curl -s "http://localhost:4000/oai?apikey=eyJzIjoiRnRUNEdQYXlZWiIsInQiOiJkaWt1IiwidSI6Imluc3R1c2VyIn0=&verb=Identify" | xq '.'
+    curl -s "http://localhost:8000/oai?apikey=eyJzIjoiRnRUNEdQYXlZWiIsInQiOiJkaWt1IiwidSI6Imluc3R1c2VyIn0=&verb=Identify" | xq '.'
     ```
 
 ## Secure the Okapi API (supertenant)
@@ -661,4 +663,17 @@ You can also specify a different url for Okapi by using the `-o` option. The def
 
 This Jira filter shows known critical issues that are not yet resolved:
 * [Known critical Q1-2019 issues](https://issues.folio.org/issues/?filter=11353)
+
+## Frequently asked questions
+
+### Why so much memory required
+
+Why is a lot of vagrant memory allocated?
+
+For the platform-core there are about 25 backend modules (about 40 for platform-complete),
+with their docker images allocating about 350 MB each (as an average).
+Some room is needed for loading the data and running the database.
+
+More is needed during the preparation phase, while building the Stripes webpack.
+If short on memory, then build this elsewhere.
 
