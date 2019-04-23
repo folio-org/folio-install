@@ -1,5 +1,5 @@
 #Prerequisites JDK
-FROM maven:3.5.4-jdk-8-alpine
+FROM maven:3.6.1-jdk-8-alpine
 
 #Mvn
 RUN apk add --no-cache curl git
@@ -7,7 +7,7 @@ RUN apk add --no-cache curl git
 #Okapi git clone and MVN Build
 RUN mkdir -p /usr/local/bin/folio/
 WORKDIR /usr/local/bin/folio
-RUN git clone  -b "v2.22.0" --recursive https://github.com/folio-org/okapi.git
+RUN git clone  -b "v2.27.1" --recursive https://github.com/folio-org/okapi.git
 RUN cd okapi && mvn clean install -DskipTests
 
 #Expose ports
@@ -28,16 +28,17 @@ ENV PG_PORT='5432'
 ENV PG_USERNAME='okapi'
 ENV PG_PASSWORD='okapi25'
 ENV PG_DATABASE='okapi'
-ENV OKAPI_COMMAND='cluster'
+ENV OKAPI_COMMAND='dev'
 ENV OKAPI_PORT='9130'
 ENV OKAPI_URL='http://localhost:9130'
 ENV OKAPI_HOST='localhost'
 ENV OKAPI_CLUSTERHOST='localhost'
 ENV OKAPI_NODENAME='okapi1'
 ENV OKAPI_LOGLEVEL='INFO'
+ENV OKAPI_STORAGE='postgres'
 ENV HAZELCAST_FILE='/usr/local/bin/folio/okapi/hazelcast.xml'
 ENV HAZELCAST_PORT='5701'
-ENV HAZELCAST_VERTX_PORT='5703'
+ENV HAZELCAST_VERTX_PORT='5702'
 ENV HAZELCAST_IP='localhost'
 
 #Copy in scripts and files

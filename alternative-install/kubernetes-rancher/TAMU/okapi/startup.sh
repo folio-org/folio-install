@@ -2,7 +2,7 @@
 
 if [ $INITDB = 'true' ]; then
     echo "InitDB"
-    java -Dstorage=postgres -Dpostgres_host=$PG_HOST -Dpostgres_port=$PG_PORT -Dpostgres_username=$PG_USERNAME \
+    java -Dstorage=$OKAPI_STORAGE -Dpostgres_host=$PG_HOST -Dpostgres_port=$PG_PORT -Dpostgres_username=$PG_USERNAME \
     -Dpostgres_password=$PG_PASSWORD -Dpostgres_database=$PG_DATABASE -Dhost=$OKAPI_HOST -Dport=$OKAPI_PORT -Dokapiurl=$OKAPI_URL \
     -Dnodename=$OKAPI_NODENAME -Dloglevel=$OKAPI_LOGLEVEL -jar okapi/okapi-core/target/okapi-core-fat.jar initdatabase
 
@@ -11,7 +11,7 @@ if [ $INITDB = 'true' ]; then
     export OKAPI_NODENAME=$(hostname)
 
     echo "Start Okapi after init"
-    java -Dstorage=postgres -Dpostgres_host=$PG_HOST -Dpostgres_port=$PG_PORT -Dpostgres_username=$PG_USERNAME \
+    java -Dstorage=$OKAPI_STORAGE -Dpostgres_host=$PG_HOST -Dpostgres_port=$PG_PORT -Dpostgres_username=$PG_USERNAME \
     -Dpostgres_password=$PG_PASSWORD -Dpostgres_database=$PG_DATABASE -Dhost=$OKAPI_HOST -Dport=$OKAPI_PORT -Dokapiurl=$OKAPI_URL \
     -Dnodename=$OKAPI_NODENAME -Dloglevel=$OKAPI_LOGLEVEL \
     -Dhazelcast.ip=$HAZELCAST_IP -Dhazelcast.port=$HAZELCAST_PORT \
@@ -22,7 +22,7 @@ else
     export OKAPI_NODENAME=$(hostname)
 
     echo "Start Okapi Only"
-    java -Dstorage=postgres -Dpostgres_host=$PG_HOST -Dpostgres_port=$PG_PORT -Dpostgres_username=$PG_USERNAME \
+    java -Dstorage=$OKAPI_STORAGE -Dpostgres_host=$PG_HOST -Dpostgres_port=$PG_PORT -Dpostgres_username=$PG_USERNAME \
     -Dpostgres_password=$PG_PASSWORD -Dpostgres_database=$PG_DATABASE -Dhost=$OKAPI_HOST -Dport=$OKAPI_PORT -Dokapiurl=$OKAPI_URL \
     -Dnodename=$OKAPI_NODENAME -Dloglevel=$OKAPI_LOGLEVEL \
     -Dhazelcast.ip=$HAZELCAST_IP -Dhazelcast.port=$HAZELCAST_PORT \

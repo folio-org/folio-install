@@ -14,39 +14,39 @@ When you start the `okapi` image, you can adjust the configuration of the Okapi 
 
 ### INITDB
 
-Default is `false`.  Determine whether or not to initialize the database before running okapi
+Determine whether or not to initialize the database before running Okapi. Default `false`.
 
 ### PG_HOST
 
-PostgreSQL host. Defaults to `pg-folio`.
+PostgreSQL host. Default `pg-folio`.
 
 ### PG_PORT
 
-PostgreSQL port. Defaults to `5432`.
+PostgreSQL port. Default `5432`.
 
 ### PG_USERNAME
 
-PostgreSQL username. Defaults to `okapi`.
+PostgreSQL username. Default `okapi`.
 
 ### PG_PASSWORD
 
-PostgreSQL password. Defaults to `okapi25`.
+PostgreSQL password. Default `okapi25`.
 
 ### PG_DATABASE
 
-PostgreSQL database. Defaults to `okapi`.
+PostgreSQL database. Default `okapi`.
 
 ### OkAPI_COMMAND
 
-OKAPI command to use, cluster or dev. Defaults to `dev`.
+OKAPI command to use, `cluster`, `dev`, `deployment`, `proxy`, or `help`. Default `dev`.
 
 ### OKAPI_URL
 
-Internal OKAPI URL to use. Defaults to `http://localhost:9130`.
+Internal OKAPI URL to use. Default `http://localhost:9130`.
 
 ### OKAPI_LOGLEVEL
 
-OKAPI log level to use. Defaults to `INFO`; other useful values are `DEBUG`, `TRACE`, `WARN` and `ERROR`.
+OKAPI log level to use, `INFO`, `DEBUG`, `TRACE`, `WARN` and `ERROR`. Default `INFO`.
 
 ### OKAPI_HOST
 
@@ -54,7 +54,7 @@ OKAPI host to use for deployment service.  Default `localhost`.
 
 ### OKAPI_NODENAME
 
-Name of the OKAPI Cluster node of this instance.
+Name of the OKAPI Cluster node of this instance. Default `okapi1`.
 
 ### OKAPI_CLUSTERHOST
 
@@ -62,7 +62,11 @@ The Docker host machine interface address for the OKAPI Cluster node to use (typ
 
 ### OKAPI_PORT
 
-The port on which Okapi listens. Defaults to `9130`.
+The port on which Okapi listens. Default `9130`.
+
+### OKAPI_STORAGE
+
+Defines the storage back end, `postgres`, `mongo` or `inmemory`. Default `postgres`.
 
 ### HAZELCAST_FILE
 
@@ -78,4 +82,4 @@ The PUBLIC port for hazelcast in the OKAPI Cluster node to use. Default `5701`.
 
 ### HAZELCAST_VERTX_PORT
 
-The TCP port for vertx cluster communications to use.
+The TCP port for vertx cluster communications to use. Default `5703`.
