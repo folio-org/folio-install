@@ -82,4 +82,4 @@ The PUBLIC port for hazelcast in the OKAPI Cluster node to use. Default `5701`.
 
 ### HAZELCAST_VERTX_PORT
 
-The TCP port for vertx cluster communications to use. Default `5703`.
+The TCP port for vertx cluster communications to use. Default `5702`.
