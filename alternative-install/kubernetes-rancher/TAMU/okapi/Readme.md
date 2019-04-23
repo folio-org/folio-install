@@ -36,7 +36,7 @@ PostgreSQL password. Default `okapi25`.
 
 PostgreSQL database. Default `okapi`.
 
-### OkAPI_COMMAND
+### OKAPI_COMMAND
 
 OKAPI command to use, `cluster`, `dev`, `deployment`, `proxy`, or `help`. Default `dev`.
 
