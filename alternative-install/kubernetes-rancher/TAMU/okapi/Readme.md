@@ -66,7 +66,7 @@ The port on which Okapi listens. Default `9130`.
 
 ### OKAPI_STORAGE
 
-Defines the storage back end, `postgres`, `mongo` or `inmemory`. Default `postgres`.
+Defines the storage back end, `postgres`, `mongo` or `inmemory`. Default `inmemory`.
 
 ### HAZELCAST_FILE
 
