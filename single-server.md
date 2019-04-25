@@ -654,7 +654,7 @@ The included script requires mod-authtoken, mod-login, mod-permissions, and mod-
 
 To use the included script, run the following command replacing USERNAME and PASSWORD with your desired values:
 ```
-python3 /vagrant/secure-superuser.py -u USERNAME -p PASSWORD
+python3 /vagrant/secure-supertenant.py -u USERNAME -p PASSWORD
 ```
 
 You can also specify a different url for Okapi by using the `-o` option. The default value is `http://localhost:9130` if you do not specify this option.
