@@ -298,7 +298,7 @@ ssh_agent_auth: false
 8) Add Record under Service Discovery, named pg-folio, as type *Selector* with Label/Value: *statefulset.kubernetes.io/pod-name = pgset-0*
 9) Deploy create-db Workload *Job* - built from our custom Docker container with DB init scripts - with db-connect Secret
 10) Deploy Okapi Workload *Scalable deployment* of 1 and InitDB environment variable set to true - built from our custom Docker container
-11) Deploy Folio module Workloads *Scalable deployment* between 1 and 3 (one Workload per Folio module) - with db-connect Secret for those modules that need a connection to the database
+11) Deploy Folio module Workloads *Scalable deployment* between 1 and 3 (one Workload per Folio module) - with db-connect Secret for those modules that need a connection to the database. Use included YAML here for Q1 modules: [folio-q1-modules YAML] (YAML/folio-q1-modules.yaml), and edit to set your namespace and Secrets.
 12) Deploy Stripes Workload *Run one pod on each node* – built from our custom Docker container
 13) Create diku-tenant-config and x-okapi-token Rancher Secrets under Folio-Project - Resources - Secrets
 14) Deploy create-tenant Workload *Job* – built from our custom Docker container with scripts - with diku-tenant-config Secret
