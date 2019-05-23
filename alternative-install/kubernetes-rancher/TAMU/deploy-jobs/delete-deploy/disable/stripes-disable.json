@@ -1,0 +1,114 @@
+[
+  {
+    "id": "folio_agreements-<version>",
+    "action": "disable"
+  },
+  {
+    "id": "folio_calendar-<version>",
+    "action": "disable"
+  },
+  {
+    "id": "folio_checkin-<version>",
+    "action": "disable"
+  },
+  {
+    "id": "folio_checkout-<version>",
+    "action": "disable"
+  },
+  {
+    "id": "folio_circulation-<version>",
+    "action": "disable"
+  },
+  {
+    "id": "folio_data-import-<version>",
+    "action": "disable"
+  },
+  {
+    "id": "folio_developer-<version>",
+    "action": "disable"
+  },
+  {
+    "id": "folio_eholdings-<version>",
+    "action": "disable"
+  },
+  {
+    "id": "folio_erm-usage-<version>",
+    "action": "disable"
+  },
+  {
+    "id": "folio_finance-<version>",
+    "action": "disable"
+  },
+  {
+    "id": "folio_inventory-<version>",
+    "action": "disable"
+  },
+  {
+    "id": "folio_licenses-<version>",
+    "action": "disable"
+  },
+  {
+    "id": "folio_myprofile-<version>",
+    "action": "disable"
+  },
+  {
+    "id": "folio_orders-<version>",
+    "action": "disable"
+  },
+  {
+    "id": "folio_organization-<version>",
+    "action": "disable"
+  },
+  {
+    "id": "folio_plugin-find-agreement-<version>",
+    "action": "disable"
+  },
+  {
+    "id": "folio_plugin-find-instance-<version>",
+    "action": "disable"
+  },
+  {
+    "id": "folio_plugin-find-license-<version>",
+    "action": "disable"
+  },
+  {
+    "id": "folio_plugin-find-user-<version>",
+    "action": "disable"
+  },
+  {
+    "id": "folio_plugin-find-vendor-<version>",
+    "action": "disable"
+  },
+  {
+    "id": "folio_requests-<version>",
+    "action": "disable"
+  },
+  {
+    "id": "folio_search-<version>",
+    "action": "disable"
+  },
+  {
+    "id": "folio_servicepoints-<version>",
+    "action": "disable"
+  },
+  {
+    "id": "folio_stripes-core-<version>",
+    "action": "disable"
+  },
+  {
+    "id": "folio_stripes-smart-components-<version>",
+    "action": "disable"
+  },
+  {
+    "id": "folio_tags-<version>",
+    "action": "disable"
+  },
+  {
+    "id": "folio_users-<version>",
+    "action": "disable"
+  },
+  {
+    "id": "folio_vendors-<version>",
+    "action": "disable"
+  }
+]
