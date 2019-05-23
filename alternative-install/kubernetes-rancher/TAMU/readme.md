@@ -486,14 +486,14 @@ MAX_WAL_SENDERS = 2<br/>
 
 -To have default Rancher 2.1 Nginx ingress be a little smarter about DNS RR, add annotations in Rancher 2.1 GUI Service Discovery:<br/>
 
-nginx.ingress.kubernetes.io/upstream-fail-timeout = 5<br/>
-nginx.ingress.kubernetes.io/upstream-max-fails = 2<br/>
-nginx.ingress.kubernetes.io/proxy-connect-timeout = 2<br/>
+nginx.ingress.kubernetes.io/upstream-fail-timeout = 10<br/>
+nginx.ingress.kubernetes.io/upstream-max-fails = 1<br/>
+nginx.ingress.kubernetes.io/proxy-connect-timeout = 60<br/>
 
 -To allow larger chunks of data, add annotations in Rancher 2.1 GUI Service Discovery:<br/>
 
-nginx.ingress.kubernetes.io/client-body-buffer-size = 2M<br/>
-nginx.ingress.kubernetes.io/proxy-body-size = 1g
+nginx.ingress.kubernetes.io/client-body-buffer-size = 512M<br/>
+nginx.ingress.kubernetes.io/proxy-body-size = 2048M
 
 
 
