@@ -8,7 +8,7 @@
 
 ### What to disable
 
-Update the included disable/stripes-disable.json and disable/okapi-disable.json files with the modules and versions you wish to disable for your Folio system's Okapi `/_/proxy/tenants/<tenant_id>/install` endpoint. The disable will take some time if you set the PURGE_DATA environment variable to true, as all of the module data are removed from their databases for that tenant.
+Update the included disable/stripes-disable.json and disable/okapi-disable.json files with the modules and versions you wish to disable for your Folio system's Okapi `/_/proxy/tenants/<tenant_id>/install` endpoint. The disable will take some time if you set the PURGE_DATA environment variable to true, as all of the module data are removed from their databases for the tenant you specify with TENANT_ID.
 
 ## Environment variables
 
