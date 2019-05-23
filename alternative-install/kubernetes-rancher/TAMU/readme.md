@@ -24,6 +24,7 @@ Latest deployment procedure here: https://wiki.folio.org/pages/viewpage.action?p
 * [create-tenant Dockerfile Readme](deploy-jobs/create-tenant/Readme.md)
 * [create-sampdata Dockerfile Readme](deploy-jobs/tenants/diku/create-sampdata/Readme.md)
 * [secure-okapi Dockerfile Readme](deploy-jobs/secure-okapi)
+* [delete-deploy Dockerfile Readme](deploy-jobs/delete-deploy/Readme.md)
 
 ## Prerequisites for Rancher Server
 
