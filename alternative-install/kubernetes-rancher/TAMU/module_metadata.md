@@ -75,14 +75,14 @@ Health Check endpoint: /admin/health
 
 ### mod-circulation
 Startup Options:<br/>
-JAVA_OPTIONS = -Xmx256m<br/>
+JAVA_OPTIONS = -Xmx512m<br/>
 Database connection: No<br/>
 Port: 9801<br/>
 Health Check endpoint: NA
 
 ### mod-circulation-storage
 Startup Options:<br/>
-JAVA_OPTIONS = -Xmx256m<br/>
+JAVA_OPTIONS = -Xmx512m<br/>
 Database connection: Yes<br/>
 Port: 8081<br/>
 Health Check endpoint: /admin/health
@@ -110,21 +110,21 @@ Health Check endpoint: /admin/health
 
 ### mod-configuration
 Startup Options:<br/>
-JAVA_OPTIONS = -Xmx256m<br/>
+JAVA_OPTIONS = -Xmx512m<br/>
 Database connection: Yes<br/>
 Port: 8081<br/>
 Health Check endpoint: /admin/health
 
 ### mod-data-import
 Startup Options:<br/>
-JAVA_OPTIONS = -Xmx256m<br/>
+JAVA_OPTIONS = -Xmx1024m<br/>
 Database connection: Yes<br/>
 Port: 8081<br/>
 Health Check endpoint: /admin/health
 
 ### mod-data-import-converter-storage
 Startup Options:<br/>
-JAVA_OPTIONS = -Xmx256m<br/>
+JAVA_OPTIONS = -Xmx512m<br/>
 test.mode = true<br/>
 Database connection: Yes<br/>
 Port: 8081<br/>
@@ -132,7 +132,7 @@ Health Check endpoint: /admin/health
 
 ### mod-data-loader
 Startup Options:<br/>
-JAVA_OPTIONS = -Xmx256m<br/>
+JAVA_OPTIONS = -Xmx1024m<br/>
 Database connection: No<br/>
 Port: 8081<br/>
 Health Check endpoint: /admin/health
@@ -168,14 +168,14 @@ Health Check endpoint: /admin/health
 
 ### mod-feesfines
 Startup Options:<br/>
-JAVA_OPTIONS = -Xmx256m<br/>
+JAVA_OPTIONS = -Xmx512m<br/>
 Database connection: Yes<br/>
 Port: 8081<br/>
 Health Check endpoint: /admin/health
 
 ### mod-finance-storage
 Startup Options:<br/>
-JAVA_OPTIONS = -Xmx256m<br/>
+JAVA_OPTIONS = -Xmx512m<br/>
 Database connection: Yes<br/>
 Port: 8081<br/>
 Health Check endpoint: /admin/health
@@ -271,14 +271,14 @@ Health Check endpoint: /admin/health
 
 ### mod-orders
 Startup Options:<br/>
-JAVA_OPTIONS = -Xmx256m<br/>
+JAVA_OPTIONS = -Xmx512m<br/>
 Database connection: No<br/>
 Port: 8081<br/>
 Health Check endpoint: /admin/health
 
 ### mod-orders-storage
 Startup Options:<br/>
-JAVA_OPTIONS = -Xmx256m<br/>
+JAVA_OPTIONS = -Xmx512m<br/>
 Database connection: Yes<br/>
 Port: 8081<br/>
 Health Check endpoint: /admin/health
@@ -327,7 +327,7 @@ Health Check endpoint: /admin/health
 
 ### mod-source-record-storage
 Startup Options:<br/>
-JAVA_OPTIONS = -Xmx256m<br/>
+JAVA_OPTIONS = -Xmx512m<br/>
 Database connection: Yes<br/>
 Port: 8081<br/>
 Health Check endpoint: /admin/health
@@ -348,14 +348,14 @@ Health Check endpoint: /admin/health
 
 ### mod-user-import
 Startup Options:<br/>
-JAVA_OPTIONS = -Xmx256m<br/>
+JAVA_OPTIONS = -Xmx1024m<br/>
 Database connection: No<br/>
 Port: 8081<br/>
 Health Check endpoint: /admin/health
 
 ### mod-users
 Startup Options:<br/>
-JAVA_OPTIONS = -Xmx384m<br/>
+JAVA_OPTIONS = -Xmx512m<br/>
 Database connection: Yes<br/>
 Port: 8081<br/>
 Health Check endpoint: /admin/health
@@ -369,7 +369,7 @@ Health Check endpoint: /admin/health
 
 ### mod-vendors
 Startup Options:<br/>
-JAVA_OPTIONS = -Xmx384m<br/>
+JAVA_OPTIONS = -Xmx512m<br/>
 Database connection: Yes<br/>
 Port: 8081<br/>
 Health Check endpoint: /admin/health
