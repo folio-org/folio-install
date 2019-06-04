@@ -7,7 +7,7 @@ RUN apk add --no-cache curl git
 #Okapi git clone and MVN Build
 RUN mkdir -p /usr/local/bin/folio/
 WORKDIR /usr/local/bin/folio
-RUN git clone  -b "v2.27.2" --recursive https://github.com/folio-org/okapi.git
+RUN git clone  -b "v2.29.23" --recursive https://github.com/folio-org/okapi.git
 RUN cd okapi && mvn clean install -DskipTests
 
 #Expose ports
