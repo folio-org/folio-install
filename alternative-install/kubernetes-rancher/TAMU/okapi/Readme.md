@@ -9,6 +9,12 @@ When you start the `okapi` image, you can adjust the configuration of the Okapi 
 `docker run --rm -d --network folio-clustered --name okapi -h okapi -e OKAPI_URL=http://okapi:9130 -e INITDB=true -e PG_HOST=pg-folio -e OKAPI_PORT=9130 -e OKAPI_NODENAME=okapi1 -e OKAPI_CLUSTERHOST=localhost -e OKAPI_HOST=localhost -e HAZELCAST_IP=localhost -e HAZELCAST_VERTX_PORT=5702 -e HAZELCAST_PORT=5701 -p 9130:9130 -p 5701:5701 -p 5702:5702 -p 54327:54327/udp okapi`
 
 
+### Editing hazelcast.xml ###
+
+You will need to edit the included hazelcast.xml file before building Okapi.
+Change the `<namespace>folio-namespace</namespace>` parameter to be the namespace of your Folio deployment in Rancher/K8s.
+
+
 ### Dockerfile and variables explained below ###
 
 
