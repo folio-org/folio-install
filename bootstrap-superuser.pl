@@ -1,10 +1,12 @@
-# Create a FOLIO "superuser" on a running system
-# This assumes the Okapi API is not secured
+# Create a FOLIO "superuser" for a tenant on a running system
+# THIS IS NOT FOR SECURING THE OPAKI "SUPERTENANT"
+# For that, see secure-supertenant.py
 # Modules required: mod-authtoken, mod-users, mod-login, mod-permissions, mod-inventory-storage, mod-users-bl
 # 1. Disable mod-authtoken
 # 2. Create records in mod-users, mod-login, mod-permissions, mod-inventory-storage
 # 3. Re-enable mod-authtoken
 # 4. Assign all permissions to the superuser
+# If supertenant is secure, use the "st_token" argument to pass a token for the supertenant superuser.
 
 use strict;
 use warnings;
@@ -12,6 +14,7 @@ use Getopt::Long;
 use LWP;
 use JSON;
 use UUID::Tiny qw(:std);
+use Data::Dumper;
 
 $| = 1;
 # Command line
@@ -21,12 +24,14 @@ my $password = 'admin';
 my $okapi = 'http://localhost:9130';
 my $no_perms = '';
 my $only_perms = '';
+my $st_token = '';
 GetOptions( 'tenant|t=s' => \$tenant,
             'user|u=s' => \$user,
             'password|p=s' => \$password,
             'okapi=s' => \$okapi,
             'noperms' => \$no_perms,
-            'onlyperms' => \$only_perms );
+            'onlyperms' => \$only_perms,
+            'st_token=s' => \$st_token );
 
 my $ua = LWP::UserAgent->new();
 
@@ -35,6 +40,9 @@ unless ($only_perms) {
   my $header = [
                 'Accept' => 'application/json, text/plain'
                ];
+  if ($st_token) {
+    push(@{$header},( 'X-Okapi-Token' => $st_token, 'X-Okapi-Tenant' => 'supertenant' ));
+  }
   my $req = HTTP::Request->new('GET',"$okapi/_/proxy/tenants/$tenant/interfaces/authtoken",$header);
   my $resp = $ua->request($req);
   die $resp->status_line . "\n" unless $resp->is_success;
@@ -47,6 +55,9 @@ unless ($only_perms) {
              'Content-Type' => 'application/json',
              'Accept' => 'application/json, text/plain'
             ];
+  if ($st_token) {
+    push(@{$header},( 'X-Okapi-Token' => $st_token, 'X-Okapi-Tenant' => 'supertenant' ));
+  }
   $req = HTTP::Request->new('POST',"$okapi/_/proxy/tenants/$tenant/install",$header,encode_json([ $authtoken ]));
   $resp = $ua->request($req);
   die $resp->status_line . "\n" unless $resp->is_success;
@@ -124,10 +135,14 @@ unless ($only_perms) {
              'Content-Type' => 'application/json',
              'Accept' => 'application/json, text/plain'
             ];
+  if ($st_token) {
+    push(@{$header},( 'X-Okapi-Token' => $st_token, 'X-Okapi-Tenant' => 'supertenant' ));
+  }
   $req = HTTP::Request->new('POST',"$okapi/_/proxy/tenants/$tenant/install",$header,encode_json($enable));
   $resp = $ua->request($req);
   die $resp->status_line . "\n" unless $resp->is_success;
   print "OK\n";
+  print "Enabled:\n" . $resp->content . "\n";
 }
 
 unless ($no_perms) {
