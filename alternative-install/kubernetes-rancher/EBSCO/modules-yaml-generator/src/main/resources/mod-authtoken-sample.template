@@ -1,0 +1,57 @@
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-#{module-name}
+    name: #{module-name}
+  spec:
+    minReadySeconds: 30
+    progressDeadlineSeconds: 300
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-#{module-name}
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-#{module-name}
+      spec:
+        containers:
+          - env:
+              - name: JAVA_OPTIONS
+                value: -Djwt.signing.key=CorrectBatteryHorseStaple -Xmx1024m
+            envFrom:
+              - secretRef:
+                  name: db-connect
+                  optional: true
+            image: folioorg/#{module-name}:#{image-version}
+            imagePullPolicy: Always
+            name: #{module-name}
+            securityContext:
+              allowPrivilegeEscalation: false
+              privileged: false
+              procMount: Default
+              readOnlyRootFilesystem: false
+              runAsNonRoot: false
+            stdin: true
+            terminationMessagePath: /dev/termination-log
+            terminationMessagePolicy: File
+            tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+          - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
