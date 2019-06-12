@@ -15,7 +15,7 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 
 ## Summary
 
-<!-- ../okapi/doc/md2toc -l 2 -h 2 -s 2 single-server.md -->
+<!-- ../okapi/doc/md2toc -l 2 -h 2 -s 2 README.md -->
 * [Build a target Linux host](#build-a-target-linux-host)
 * [Install and configure required packages](#install-and-configure-required-packages)
 * [Create databases and roles](#create-databases-and-roles)
@@ -40,9 +40,10 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 git clone https://github.com/folio-org/folio-install
 cd folio-install
 git checkout q1-2019
+cd runbooks/single-server
 ```
 
-The default procedure will create a VirtualBox VM based on this [Vagrantfile](Vagrantfile), running a generic Ubuntu Xenial OS, with 11 GB RAM and 2 CPUs. Port 9130 of the guest will be forwarded to port 9130 of the host, and port 80 of the guest will be forwarded to port 3000 of the host. The `folio-install` directory on the host will be shared on the guest at the `/vagrant` mount point.
+The default procedure will create a VirtualBox VM based on this [Vagrantfile](Vagrantfile), running a generic Ubuntu Xenial OS, with 11 GB RAM and 2 CPUs. Port 9130 of the guest will be forwarded to port 9130 of the host, and port 80 of the guest will be forwarded to port 3000 of the host. The `folio-install/runbooks/single-server` directory on the host will be shared on the guest at the `/vagrant` mount point.
 
 2. Decide between platform-core and platform-complete
 
@@ -53,7 +54,7 @@ and this [Vagrantfile](Vagrantfile).
 To instead build a system based on [platform-complete](https://github.com/folio-org/platform-complete),
 copy [Vagrantfile-complete](Vagrantfile-complete) to `Vagrantfile`.
 This sets the `vb.memory` to be 24 GB and forwards the additional port 8000 for serving edge modules.
-Also copy [nginx-stripes-complete.conf](nginx-stripes-complete.conf) to `nginx-stripes.conf` file.
+Also copy [scripts/nginx-stripes-complete.conf](scripts/nginx-stripes-complete.conf) to `scripts/nginx-stripes.conf` file.
 Throughout these instructions, replace every mention of `platform-core` with `platform-complete`.
 
 3. Bring up the Vagrant VM, log into it
@@ -106,11 +107,11 @@ sudo apt-get -y install docker-engine
 
 6. Configure Docker engine to listen on network socket
 
-  * [Sample docker-opts.conf file](docker-opts.conf)
+  * [Sample docker-opts.conf file](scripts/docker-opts.conf)
 
 ```
 sudo mkdir -p /etc/systemd/system/docker.service.d
-sudo cp /vagrant/docker-opts.conf /etc/systemd/system/docker.service.d
+sudo cp /vagrant/scripts/docker-opts.conf /etc/systemd/system/docker.service.d
 sudo systemctl daemon-reload
 sudo systemctl restart docker
 ```
@@ -205,11 +206,11 @@ The Okapi log is at `/var/log/folio/okapi/okapi.log`
 
 4. Pull module descriptors from central registry (this will take a while)
 
-  * [Sample JSON to post to pull API](okapi-pull.json)
+  * [Sample JSON to post to pull API](scripts/okapi-pull.json)
 
 ```
 curl -w '\n' -D - -X POST -H "Content-type: application/json" \
-  -d @/vagrant/okapi-pull.json \
+  -d @/vagrant/scripts/okapi-pull.json \
   http://localhost:9130/_/proxy/pull/modules
 ```
 
@@ -217,11 +218,11 @@ curl -w '\n' -D - -X POST -H "Content-type: application/json" \
 
 1. Post the tenant initialization to Okapi
 
-  * [Sample tenant JSON](tenant.json)
+  * [Sample tenant JSON](scripts/tenant.json)
 
 ```
 curl -w '\n' -D - -X POST -H "Content-type: application/json" \
-  -d @/vagrant/tenant.json \
+  -d @/vagrant/scripts/tenant.json \
   http://localhost:9130/_/proxy/tenants
 ```
 
@@ -310,12 +311,12 @@ The `yarn build` command above can be changed to build the webpack in different 
 ## Configure webserver to serve Stripes webpack
 
 Now that the webpack is built, proceed to configure the 'nginx' server.
-Remember if building for `platform-complete` then set that in the `/vagrant/nginx-stripes.conf` file.
+Remember if building for `platform-complete` then set that in the `/vagrant/scripts/nginx-stripes.conf` file.
 
-  * [Sample nginx configuration](nginx-stripes.conf)
+  * [Sample nginx configuration](scripts/nginx-stripes.conf)
 
 ```
-sudo cp /vagrant/nginx-stripes.conf /etc/nginx/sites-available/stripes
+sudo cp /vagrant/scripts/nginx-stripes.conf /etc/nginx/sites-available/stripes
 sudo ln -s /etc/nginx/sites-available/stripes /etc/nginx/sites-enabled/stripes
 sudo rm /etc/nginx/sites-enabled/default
 sudo systemctl restart nginx
@@ -372,12 +373,12 @@ cd ..
   * Some modules do not get pulled in by dependency, so they need to be added to the list
     (i.e. those that are noted in the release branch `install-extras.json` file)
   * Some FOLIO packages generate module descriptors that aren't in the central registry, so they need to be removed from the list
-  * [Sample perl script](gen-module-list.pl) to generate JSON array from Stripes build with the correct packages added and removed:
+  * [Sample perl script](scripts/gen-module-list.pl) to generate JSON array from Stripes build with the correct packages added and removed:
 
 When building the default system based on `platform-core` then do:
 
 ```
-perl /vagrant/gen-module-list.pl \
+perl /vagrant/scripts/gen-module-list.pl \
   --extra-modules mod-codex-inventory \
   platform-core/ModuleDescriptors > stripes-install.json
 ```
@@ -385,7 +386,7 @@ perl /vagrant/gen-module-list.pl \
 If instead building a system based on `platform-complete` then do:
 
 ```
-perl /vagrant/gen-module-list.pl \
+perl /vagrant/scripts/gen-module-list.pl \
   --extra-modules mod-audit,mod-audit-filter,mod-codex-inventory,mod-codex-ekb,mod-data-import-converter-storage,mod-erm-usage-harvester,mod-user-import,mod-gobi,mod-oai-pmh,mod-patron,mod-rtac,edge-oai-pmh,edge-orders,edge-patron,edge-rtac \
   --exclude-modules stripes-erm-components \
   platform-complete/ModuleDescriptors > stripes-install.json
@@ -403,10 +404,10 @@ curl -w '\n' -X POST -D - -H "Content-type: application/json" \
 
   * Backend modules will be deployed by Okapi, so the list needs to be posted separated (frontend modules are not deployed, only enabled for the tenant)
   * Conventionally, backend module names begin with `mod-`, while frontend modules begin with `folio_`
-  * [Sample perl script](build-okapi-install.pl) to extract the backend modules
+  * [Sample perl script](scripts/build-okapi-install.pl) to extract the backend modules
 
 ```
-perl /vagrant/build-okapi-install.pl full-install.json > okapi-install.json
+perl /vagrant/scripts/build-okapi-install.pl full-install.json > okapi-install.json
 ```
 
 4. Post data source information to the Okapi environment for use by deployed modules
@@ -447,10 +448,10 @@ See the [Securing Okapi](https://github.com/folio-org/okapi/blob/master/doc/guid
   * After creating the superuser, reenable the `authtoken` interface
   * All permissionSets that are not included in other permissionSets can be listed with the CQL query `/perms/permissions?query=childOf%3D%3D%5B%5D&length=500` (`childOf==[]`)
   * Go through permissionSets, POST permissions to `/perms/users/<permissionsUserId>/permissions` endpoint
-  * [Sample perl script](bootstrap-superuser.pl) to create a superuser and load permissions
+  * [Sample perl script](scripts/bootstrap-superuser.pl) to create a superuser and load permissions
 
 ```
-perl /vagrant/bootstrap-superuser.pl \
+perl /vagrant/scripts/bootstrap-superuser.pl \
   --tenant diku --user diku_admin --password admin \
   --okapi http://localhost:9130
 ```
@@ -460,7 +461,7 @@ perl /vagrant/bootstrap-superuser.pl \
 Reference data for various backend modules is already automatically loaded
 at the [enable for tenant](#deploy-a-compatible-folio-backend-enable-for-tenant) step above.
 
-If other reference data is needed, then the [sample perl script](load-data.pl) can load reference data too.
+If other reference data is needed, then the [sample perl script](scripts/load-data.pl) can load reference data too.
 
 ## Load sample data
 
@@ -474,7 +475,7 @@ To load its sample data, and for any other additional sample data, use the [samp
 For example when building a system based on `platform-complete` then do:
 
 ```
-perl /vagrant/load-data.pl \
+perl /vagrant/scripts/load-data.pl \
   --sort fiscal_year,ledger,fund,budget \
   /vagrant/sample-data
 ```
@@ -517,9 +518,9 @@ You may choose to also install and serve edge APIs. Edge APIs for FOLIO are desi
 
 2. Create institutional user
 
-    An institutional user must be created with appropriate permissions to use the edge module. You can use the included `create-user.py` script to create a user and assign permissions.
+    An institutional user must be created with appropriate permissions to use the edge module. You can use the included `scripts/create-user.py` to create a user and assign permissions.
     ```
-    python3 create-user.py -u instuser -p instpass \
+    python3 scripts/create-user.py -u instuser -p instpass \
         --permissions oai-pmh.all --tenant diku \
         --admin-user diku_admin --admin-password admin
     ```
@@ -646,7 +647,7 @@ You may choose to also install and serve edge APIs. Edge APIs for FOLIO are desi
 
 ## Secure the Okapi API (supertenant)
 
-If this is a production install, you may want to secure the Okapi API. You can secure the Okapi API or supertenant either by using the included sample script [secure-supertenant.py](secure-supertenant.py) or by following the instructions in the [Securing Okapi](https://github.com/folio-org/okapi/blob/master/doc/securing.md) guide.
+If this is a production install, you may want to secure the Okapi API. You can secure the Okapi API or supertenant either by using the included sample script [scripts/secure-supertenant.py](scripts/secure-supertenant.py) or by following the instructions in the [Securing Okapi](https://github.com/folio-org/okapi/blob/master/doc/securing.md) guide.
 
 The included script requires mod-authtoken, mod-login, mod-permissions, and mod-users. It will enable those modules on the supertenant, create a superuser, and grant the `okapi.all` permission set to the superuser. It will also grant all permissions to the superuser on the modules that it enables.
 
@@ -654,7 +655,7 @@ The included script requires mod-authtoken, mod-login, mod-permissions, and mod-
 
 To use the included script, run the following command replacing USERNAME and PASSWORD with your desired values:
 ```
-python3 /vagrant/secure-supertenant.py -u USERNAME -p PASSWORD
+python3 /vagrant/scripts/secure-supertenant.py -u USERNAME -p PASSWORD
 ```
 
 You can also specify a different url for Okapi by using the `-o` option. The default value is `http://localhost:9130` if you do not specify this option.
