@@ -12,8 +12,9 @@ A collection of runbooks for FOLIO installation.
 
 ## Contents
 
-* [Single server deployment](single-server.md)
-* [Migrating a FOLIO database](database-migration.md)
+* [Single server deployment](runbooks/single-server)
+* [Kubernetes deployment](alternative-install)
+* [Migrating a FOLIO database](runbooks/database-migration)
 
 ## Additional information
 
