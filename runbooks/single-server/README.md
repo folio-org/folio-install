@@ -12,7 +12,7 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 * Much of this is already automated as part of the folio-ansible project.
 * This is not considered to be a full production install.
 * There are some steps in the procedure called "sidebar" where one can go beyond the quarterly release to build a snapshot-based system (be careful).
-* This release uses PostgreSQL 9.6.1+ (upgrade to 10 is planned for Q2).
+* This release uses PostgreSQL 10 version.
 * The _minimum_ RAM required for a system based on [platform-core](https://github.com/folio-org/platform-core) is 11 GB. See [why](#frequently-asked-questions). Keep this in mind if you are running on a VM.
 * To instead build a system based on [platform-complete](https://github.com/folio-org/platform-complete) will require approximately 24 GB.
 
@@ -69,7 +69,7 @@ vagrant ssh
 
 ## Install and configure required packages
 
-### Runtime requirements: Java 8, nginx, PostgreSQL 9.6, Docker
+### Runtime requirements: Java 8, nginx, PostgreSQL 10, Docker
 
 1. Update the apt cache
 
@@ -90,13 +90,13 @@ sudo update-java-alternatives --jre-headless --jre --set java-1.8.0-openjdk-amd6
 wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
 sudo add-apt-repository "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main"
 sudo apt-get update
-sudo apt-get -y install postgresql-9.6 postgresql-contrib-9.6 postgresql-client-9.6 libpq-dev
+sudo apt-get -y install postgresql-10 postgresql-client-10 libpq-dev
 ```
 
 4. Configure PostgreSQL to listen on all interfaces and allow connections from all addresses (to allow Docker connections)
 
-  * Edit file `/etc/postgresql/9.6/main/postgresql.conf` to add line `listen_addresses = '*'` in the "Connection Settings" section
-  * Edit file `/etc/postgresql/9.6/main/pg_hba.conf` to add line `host  all  all  0.0.0.0/0  md5`
+  * Edit file `/etc/postgresql/10/main/postgresql.conf` to add line `listen_addresses = '*'` in the "Connection Settings" section
+  * Edit file `/etc/postgresql/10/main/pg_hba.conf` to add line `host  all  all  0.0.0.0/0  md5`
   * Restart PostgreSQL with command `sudo systemctl restart postgresql`
 
 5. Import the Docker signing key, add the Docker apt repository, install the Docker engine
