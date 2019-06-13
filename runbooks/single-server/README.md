@@ -668,7 +668,7 @@ You can also specify a different url for Okapi by using the `-o` option. The def
 ## Known issues
 
 This Jira filter shows known critical issues that are not yet resolved:
-* [Known critical Q1-2019 issues](https://issues.folio.org/issues/?filter=11353)
+* [Known critical Q2-2019 issues](https://issues.folio.org/issues/?filter=11486)
 
 ## Frequently asked questions
 
