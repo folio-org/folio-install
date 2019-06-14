@@ -1,6 +1,6 @@
 # FOLIO deployment: single server
 
-** NOTE: 20190612: ** This document is still being adjusted for q2-2019 release.
+** NOTE: 20190614: ** This document is still being adjusted for q2.2-2019 release.
 See [FOLIO-2094](https://issues.folio.org/browse/FOLIO-2094).
 
 This procedure will establish a FOLIO system based on the "Q2-2019 Clover" quarterly release.
@@ -252,12 +252,10 @@ git clone https://github.com/folio-org/platform-core
 cd platform-core
 ```
 
-3. Check out the `q2-2019` branch. The HEAD of this branch should reflect the latest release, including any bug fix releases.
-
-* TODO: 20190612: using master until q2-2019 is ready
+3. Check out the `q2.2-2019` branch. The HEAD of this branch should reflect the latest release, including any bug fix releases.
 
 ```
-git checkout master
+git checkout q2.2-2019
 ```
 
 4. Install npm packages
