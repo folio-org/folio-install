@@ -471,17 +471,10 @@ If other reference data is needed, then the [sample perl script](scripts/load-da
 Sample data for various backend modules is already automatically loaded
 at the [enable for tenant](#deploy-a-compatible-folio-backend-enable-for-tenant) step above.
 
-All necessary `platform-core` modules are using that mechanism.
-However for `platform-complete` there is one module not yet doing it in that way (mod-finance-storage [MODFISTO-5](https://issues.folio.org/browse/MODFISTO-5)).
+All necessary `platform-core` and `platform-complete` modules are now using that mechanism.
 
-To load its sample data, and for any other additional sample data, use the [sample perl script](load-data.pl) to load data from the `sample-data` directory.
-For example when building a system based on `platform-complete` then do:
-
-```
-perl /vagrant/scripts/load-data.pl \
-  --sort fiscal_year,ledger,fund,budget \
-  /vagrant/sample-data
-```
+If additional JSON sample data is needed, then use the [sample perl script](load-data.pl)
+to load data from sub-directories of the `sample-data` directory, as explained in the script.
 
 ### Load MODS records
 
