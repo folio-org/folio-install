@@ -202,6 +202,7 @@ Note that there is some risk in this, as the latest Okapi release may not have b
 3. Restart Okapi
 
 ```
+sudo systemctl daemon-reload
 sudo systemctl restart okapi
 ```
 
@@ -283,6 +284,9 @@ If you build Stripes this way, then the FOLIO backend system needs to be constru
 See [Sidebar: building from the bleeding edge -- part II](#sidebar-building-from-the-bleeding-edge----part-ii) below
 (but before proceeding to that next sidebar, continue with these mainbar instructions to build the webpack and to configure the Stripes nginx server).
 
+Now we have today's snapshot set of dependencies installed, instead of the release.
+That is the end of this part of the sidebar divergence, so now continue with the shared mainbar procedure.
+
 ### Mainbar: Continue build Stripes
 
 5. Configure Stripes
@@ -328,6 +332,8 @@ sudo systemctl restart nginx
 ## Deploy a compatible FOLIO backend, enable for tenant
 
 The tagged release of `platform-core` contains an `okapi-install.json` file which, when posted to Okapi, will download all the necessary backend modules as Docker containers, deploy them to the local system, and enable them for your tenant. There is also a `stripes-install.json` file that will enable the frontend modules for the tenant and load the necessary permissions.
+
+(If you are trying the bleeding-edge snapshot, then skip ahead to the next sidebar.)
 
 1. Post data source information to the Okapi environment for use by deployed modules
 
