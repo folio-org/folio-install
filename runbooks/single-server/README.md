@@ -1,8 +1,5 @@
 # FOLIO deployment: single server
 
-** NOTE: 20190614: ** This document is still being adjusted for q2.2-2019 release.
-See [FOLIO-2094](https://issues.folio.org/browse/FOLIO-2094).
-
 This procedure will establish a FOLIO system based on the "Q2-2019 Clover" quarterly release.
 
 Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ansible
@@ -42,7 +39,7 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 ```
 git clone https://github.com/folio-org/folio-install
 cd folio-install
-git checkout folio-2094-q2-2019-single-server
+git checkout q2-2019
 cd runbooks/single-server
 ```
 
