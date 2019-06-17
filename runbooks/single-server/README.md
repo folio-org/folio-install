@@ -1,6 +1,6 @@
 # FOLIO deployment: single server
 
-This procedure will establish a FOLIO system based on the "Q1-2019 Bellis" quarterly release.
+This procedure will establish a FOLIO system based on the "Q2-2019 Clover" quarterly release.
 
 Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ansible
 
@@ -9,7 +9,7 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 * Much of this is already automated as part of the folio-ansible project.
 * This is not considered to be a full production install.
 * There are some steps in the procedure called "sidebar" where one can go beyond the quarterly release to build a snapshot-based system (be careful).
-* This release uses PostgreSQL 9.6.1+ (upgrade to 10 is planned for Q2).
+* This release uses PostgreSQL 10 version.
 * The _minimum_ RAM required for a system based on [platform-core](https://github.com/folio-org/platform-core) is 11 GB. See [why](#frequently-asked-questions). Keep this in mind if you are running on a VM.
 * To instead build a system based on [platform-complete](https://github.com/folio-org/platform-complete) will require approximately 24 GB.
 
@@ -39,7 +39,7 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 ```
 git clone https://github.com/folio-org/folio-install
 cd folio-install
-git checkout q1-2019
+git checkout q2-2019
 cd runbooks/single-server
 ```
 
@@ -53,7 +53,7 @@ and this [Vagrantfile](Vagrantfile).
 
 To instead build a system based on [platform-complete](https://github.com/folio-org/platform-complete),
 copy [Vagrantfile-complete](Vagrantfile-complete) to `Vagrantfile`.
-This sets the `vb.memory` to be 24 GB and forwards the additional port 8000 for serving edge modules.
+This sets the `vb.memory` to be 24 GB and forwards the additional port 8130 for serving edge modules.
 Also copy [scripts/nginx-stripes-complete.conf](scripts/nginx-stripes-complete.conf) to `scripts/nginx-stripes.conf` file.
 Throughout these instructions, replace every mention of `platform-core` with `platform-complete`.
 
@@ -66,7 +66,7 @@ vagrant ssh
 
 ## Install and configure required packages
 
-### Runtime requirements: Java 8, nginx, PostgreSQL 9.6, Docker
+### Runtime requirements: Java 8, nginx, PostgreSQL 10, Docker
 
 1. Update the apt cache
 
@@ -87,13 +87,13 @@ sudo update-java-alternatives --jre-headless --jre --set java-1.8.0-openjdk-amd6
 wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
 sudo add-apt-repository "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main"
 sudo apt-get update
-sudo apt-get -y install postgresql-9.6 postgresql-contrib-9.6 postgresql-client-9.6 libpq-dev
+sudo apt-get -y install postgresql-10 postgresql-client-10 libpq-dev
 ```
 
 4. Configure PostgreSQL to listen on all interfaces and allow connections from all addresses (to allow Docker connections)
 
-  * Edit file `/etc/postgresql/9.6/main/postgresql.conf` to add line `listen_addresses = '*'` in the "Connection Settings" section
-  * Edit file `/etc/postgresql/9.6/main/pg_hba.conf` to add line `host  all  all  0.0.0.0/0  md5`
+  * Edit file `/etc/postgresql/10/main/postgresql.conf` to add line `listen_addresses = '*'` in the "Connection Settings" section
+  * Edit file `/etc/postgresql/10/main/pg_hba.conf` to add line `host  all  all  0.0.0.0/0  md5`
   * Restart PostgreSQL with command `sudo systemctl restart postgresql`
 
 5. Import the Docker signing key, add the Docker apt repository, install the Docker engine
@@ -172,7 +172,7 @@ CREATE DATABASE folio WITH OWNER folio;
 wget --quiet -O - https://repository.folio.org/packages/debian/folio-apt-archive-key.asc | sudo apt-key add -
 sudo add-apt-repository "deb https://repository.folio.org/packages/ubuntu xenial/"
 sudo apt-get update
-sudo apt-get -y install okapi=2.29.0-1
+sudo apt-get -y install okapi=2.30.0-1
 ```
 
 ### Sidebar: Okapi releases
@@ -183,7 +183,7 @@ If you would like to work with the latest Okapi release, change the final comman
 sudo apt-get -y install okapi
 ```
 
-Note that there is some risk in this, as the latest Okapi release may not have been tested with the rest of the components in the Q1-2019 release.
+Note that there is some risk in this, as the latest Okapi release may not have been tested with the rest of the components in the Q2-2019 release.
 
 ### Mainbar: Continue configure Okapi
 
@@ -199,6 +199,7 @@ Note that there is some risk in this, as the latest Okapi release may not have b
 3. Restart Okapi
 
 ```
+sudo systemctl daemon-reload
 sudo systemctl restart okapi
 ```
 
@@ -249,10 +250,10 @@ git clone https://github.com/folio-org/platform-core
 cd platform-core
 ```
 
-3. Check out the `q1-2019` branch. The HEAD of this branch should reflect the latest release, including any bug fix releases.
+3. Check out the `q2.2-2019` branch. The HEAD of this branch should reflect the latest release, including any bug fix releases.
 
 ```
-git checkout q1-2019
+git checkout q2.2-2019
 ```
 
 4. Install npm packages
@@ -279,6 +280,9 @@ yarn install
 If you build Stripes this way, then the FOLIO backend system needs to be constructed a little differently.
 See [Sidebar: building from the bleeding edge -- part II](#sidebar-building-from-the-bleeding-edge----part-ii) below
 (but before proceeding to that next sidebar, continue with these mainbar instructions to build the webpack and to configure the Stripes nginx server).
+
+Now we have today's snapshot set of dependencies installed, instead of the release.
+That is the end of this part of the sidebar divergence, so now continue with the shared mainbar procedure.
 
 ### Mainbar: Continue build Stripes
 
@@ -325,6 +329,8 @@ sudo systemctl restart nginx
 ## Deploy a compatible FOLIO backend, enable for tenant
 
 The tagged release of `platform-core` contains an `okapi-install.json` file which, when posted to Okapi, will download all the necessary backend modules as Docker containers, deploy them to the local system, and enable them for your tenant. There is also a `stripes-install.json` file that will enable the frontend modules for the tenant and load the necessary permissions.
+
+(If you are trying the bleeding-edge snapshot, then skip ahead to the next sidebar.)
 
 1. Post data source information to the Okapi environment for use by deployed modules
 
@@ -468,17 +474,10 @@ If other reference data is needed, then the [sample perl script](scripts/load-da
 Sample data for various backend modules is already automatically loaded
 at the [enable for tenant](#deploy-a-compatible-folio-backend-enable-for-tenant) step above.
 
-All necessary `platform-core` modules are using that mechanism.
-However for `platform-complete` there is one module not yet doing it in that way (mod-finance-storage [MODFISTO-5](https://issues.folio.org/browse/MODFISTO-5)).
+All necessary `platform-core` and `platform-complete` modules are now using that mechanism.
 
-To load its sample data, and for any other additional sample data, use the [sample perl script](load-data.pl) to load data from the `sample-data` directory.
-For example when building a system based on `platform-complete` then do:
-
-```
-perl /vagrant/scripts/load-data.pl \
-  --sort fiscal_year,ledger,fund,budget \
-  /vagrant/sample-data
-```
+If additional JSON sample data is needed, then use the [sample perl script](load-data.pl)
+to load data from sub-directories of the `sample-data` directory, as explained in the script.
 
 ### Load MODS records
 
@@ -503,7 +502,7 @@ for i in /vagrant/sample-data/mod-inventory/*.xml; do curl -w '\n' -D - -X POST 
 
 This section is only relevant for platform-complete.
 
-You may choose to also install and serve edge APIs. Edge APIs for FOLIO are designed to enable external systems to integrate with FOLIO. These are distinct from the internal APIs used by FOLIO and implemented though Okapi. It is not recommended that external systems integrate directly with FOLIO/Okapi APIs.
+You may choose to also install and serve edge APIs.
 
 1. Gather information
 
@@ -578,7 +577,7 @@ You may choose to also install and serve edge APIs. Edge APIs for FOLIO are desi
       edge-oai-pmh:
         ports:
           - "9700:8081"
-        image: folioci/edge-oai-pmh:2.1.0-SNAPSHOT.24
+        image: folioorg/edge-oai-pmh:2.0.0
         volumes:
           - /etc/folio/edge:/mnt
         command:
@@ -604,7 +603,7 @@ You may choose to also install and serve edge APIs. Edge APIs for FOLIO are desi
     In this example, we will only configure edge-oai-pmh:
     ```
     server {
-      listen 8000;
+      listen 8130;
       server_name localhost;
       charset utf-8;
 
@@ -618,7 +617,7 @@ You may choose to also install and serve edge APIs. Edge APIs for FOLIO are desi
     sudo ln -s /etc/nginx/sites-available/edge /etc/nginx/sites-enabled/edge
     sudo service nginx restart
     ```
-    In this configuration, nginx is listening on port 8000 which is an arbitrary unused port selected to listen for requests to edge APIs.
+    In this configuration, nginx is listening on port 8130 which is an arbitrary unused port selected to listen for requests to edge APIs.
     The location `/oai` is based on the interface provided by the edge-oai-pmh module.
     Check the edge module's [API reference documentation](https://dev.folio.org/reference/api/#edge-oai-pmh) to find the relevant endpoint to proxy.
 
@@ -642,7 +641,7 @@ You may choose to also install and serve edge APIs. Edge APIs for FOLIO are desi
     Verify a valid response by constructing a request according to the relevant module's documentation.
     For [mod-oai-pmh](https://github.com/folio-org/mod-oai-pmh) for example:
     ```
-    curl -s "http://localhost:8000/oai?apikey=eyJzIjoiRnRUNEdQYXlZWiIsInQiOiJkaWt1IiwidSI6Imluc3R1c2VyIn0=&verb=Identify" | xq '.'
+    curl -s "http://localhost:8130/oai?apikey=eyJzIjoiRnRUNEdQYXlZWiIsInQiOiJkaWt1IiwidSI6Imluc3R1c2VyIn0=&verb=Identify" | xq '.'
     ```
 
 ## Secure the Okapi API (supertenant)
@@ -663,7 +662,7 @@ You can also specify a different url for Okapi by using the `-o` option. The def
 ## Known issues
 
 This Jira filter shows known critical issues that are not yet resolved:
-* [Known critical Q1-2019 issues](https://issues.folio.org/issues/?filter=11353)
+* [Known critical Q2-2019 issues](https://issues.folio.org/issues/?filter=11486)
 
 ## Frequently asked questions
 
