@@ -1,6 +1,9 @@
 # FOLIO deployment: single server
 
-This procedure will establish a FOLIO system based on the "Q2-2019 Clover" quarterly release.
+** NOTE: 20190801: ** This document is still being adjusted for the current release.
+See [FOLIO-2199](https://issues.folio.org/browse/FOLIO-2199).
+
+This procedure will establish a FOLIO system based on the "Q3.1 2019" release.
 
 Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ansible
 
