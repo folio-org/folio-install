@@ -42,7 +42,7 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 ```
 git clone https://github.com/folio-org/folio-install
 cd folio-install
-git checkout q2-2019
+git checkout folio-2199-q3-2019-single-server
 cd runbooks/single-server
 ```
 
@@ -186,7 +186,7 @@ If you would like to work with the latest Okapi release, change the final comman
 sudo apt-get -y install okapi
 ```
 
-Note that there is some risk in this, as the latest Okapi release may not have been tested with the rest of the components in the Q2-2019 release.
+Note that there is some risk in this, as the latest Okapi release may not have been tested with the rest of the components in the quarterly release.
 
 ### Mainbar: Continue configure Okapi
 
@@ -253,10 +253,10 @@ git clone https://github.com/folio-org/platform-core
 cd platform-core
 ```
 
-3. Check out the `q2.2-2019` branch. The HEAD of this branch should reflect the latest release, including any bug fix releases.
+3. Check out the `q3.1-2019` tag.
 
 ```
-git checkout q2.2-2019
+git checkout q3.1-2019
 ```
 
 4. Install npm packages
