@@ -1,6 +1,6 @@
 # FOLIO deployment: single server
 
-** NOTE: 20190801: ** This document is still being adjusted for the current release.
+** NOTE: 20190803: ** This document is still being adjusted for the current release.
 See [FOLIO-2199](https://issues.folio.org/browse/FOLIO-2199).
 
 This procedure will establish a FOLIO system based on the "Q3.1 2019" release.
@@ -665,7 +665,7 @@ You can also specify a different url for Okapi by using the `-o` option. The def
 ## Known issues
 
 This Jira filter shows known critical issues that are not yet resolved:
-* [Known critical Q2-2019 issues](https://issues.folio.org/issues/?filter=11486)
+* [Known critical Q3.1-2019 issues](https://issues.folio.org/issues/?filter=11601)
 
 ## Frequently asked questions
 
