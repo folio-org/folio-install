@@ -1,6 +1,6 @@
 # FOLIO deployment: single server
 
-This procedure will establish a FOLIO system based on the "Q2-2019 Clover" quarterly release.
+This procedure will establish a FOLIO system based on the "Q3.1 2019" release.
 
 Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ansible
 
@@ -39,7 +39,7 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 ```
 git clone https://github.com/folio-org/folio-install
 cd folio-install
-git checkout q2-2019
+git checkout q3.1-2019
 cd runbooks/single-server
 ```
 
@@ -172,7 +172,7 @@ CREATE DATABASE folio WITH OWNER folio;
 wget --quiet -O - https://repository.folio.org/packages/debian/folio-apt-archive-key.asc | sudo apt-key add -
 sudo add-apt-repository "deb https://repository.folio.org/packages/ubuntu xenial/"
 sudo apt-get update
-sudo apt-get -y install okapi=2.30.0-1
+sudo apt-get -y install okapi=2.30.1-1
 ```
 
 ### Sidebar: Okapi releases
@@ -183,7 +183,7 @@ If you would like to work with the latest Okapi release, change the final comman
 sudo apt-get -y install okapi
 ```
 
-Note that there is some risk in this, as the latest Okapi release may not have been tested with the rest of the components in the Q2-2019 release.
+Note that there is some risk in this, as the latest Okapi release may not have been tested with the rest of the components in the quarterly release.
 
 ### Mainbar: Continue configure Okapi
 
@@ -250,10 +250,10 @@ git clone https://github.com/folio-org/platform-core
 cd platform-core
 ```
 
-3. Check out the `q2.2-2019` branch. The HEAD of this branch should reflect the latest release, including any bug fix releases.
+3. Check out the `q3.1-2019` tag.
 
 ```
-git checkout q2.2-2019
+git checkout q3.1-2019
 ```
 
 4. Install npm packages
@@ -662,7 +662,7 @@ You can also specify a different url for Okapi by using the `-o` option. The def
 ## Known issues
 
 This Jira filter shows known critical issues that are not yet resolved:
-* [Known critical Q2-2019 issues](https://issues.folio.org/issues/?filter=11486)
+* [Known critical Q3.1-2019 issues](https://issues.folio.org/issues/?filter=11601)
 
 ## Frequently asked questions
 
