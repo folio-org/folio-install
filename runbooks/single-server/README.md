@@ -250,7 +250,7 @@ git clone https://github.com/folio-org/platform-core
 cd platform-core
 ```
 
-3. Check out the `q3.1-2019` tag.
+3. Check out the `q3.1-2019` branch. The HEAD of this branch should reflect the latest release, including any bug fix releases.
 
 ```
 git checkout q3.1-2019
