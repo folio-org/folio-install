@@ -173,11 +173,12 @@ wget --quiet -O - https://repository.folio.org/packages/debian/folio-apt-archive
 sudo add-apt-repository "deb https://repository.folio.org/packages/ubuntu xenial/"
 sudo apt-get update
 sudo apt-get -y install okapi=2.30.1-1
+sudo apt-mark hold okapi
 ```
 
 ### Sidebar: Okapi releases
 
-If you would like to work with the latest Okapi release, change the final command above to:
+If you would like to work with the latest Okapi release, remove the hold command above and change the install command above to:
 
 ```
 sudo apt-get -y install okapi
