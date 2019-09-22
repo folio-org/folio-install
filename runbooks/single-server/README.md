@@ -209,7 +209,7 @@ sudo systemctl restart okapi
 
 The Okapi log is at `/var/log/folio/okapi/okapi.log`
 
-4. Pull module descriptors from central registry (this will take a while)
+4. Pull module descriptors from central registry:
 
   * [Sample JSON to post to pull API](scripts/okapi-pull.json)
 
