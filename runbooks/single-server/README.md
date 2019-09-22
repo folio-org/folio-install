@@ -1,8 +1,5 @@
 # FOLIO deployment: single server
 
-** NOTE: 20190921: ** This document is still being adjusted for q3-2-2019 release.
-See [FOLIO-2252](https://issues.folio.org/browse/FOLIO-2252).
-
 This procedure will establish a FOLIO system based on the "Q3-2019 Daisy" quarterly release.
 
 Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ansible
@@ -42,7 +39,7 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 ```
 git clone https://github.com/folio-org/folio-install
 cd folio-install
-git checkout folio-2252-q3-2019-single-server
+git checkout q3-2019
 cd runbooks/single-server
 ```
 
@@ -674,7 +671,7 @@ This Jira filter shows known critical issues that are not yet resolved:
 
 Why is a lot of vagrant memory allocated?
 
-For the platform-core there are about 25 backend modules (about 40 for platform-complete),
+For the platform-core there are about 25 backend modules (about 45 for platform-complete),
 with their docker images allocating about 350 MB each (as an average).
 Some room is needed for loading the data and running the database.
 
