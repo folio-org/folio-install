@@ -1,6 +1,6 @@
 # FOLIO deployment: single server
 
-This procedure will establish a FOLIO system based on the "Q3.1 2019" release.
+This procedure will establish a FOLIO system based on the "Q3-2019 Daisy" quarterly release.
 
 Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ansible
 
@@ -39,7 +39,7 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 ```
 git clone https://github.com/folio-org/folio-install
 cd folio-install
-git checkout q3.1-2019
+git checkout q3-2019
 cd runbooks/single-server
 ```
 
@@ -172,7 +172,7 @@ CREATE DATABASE folio WITH OWNER folio;
 wget --quiet -O - https://repository.folio.org/packages/debian/folio-apt-archive-key.asc | sudo apt-key add -
 sudo add-apt-repository "deb https://repository.folio.org/packages/ubuntu xenial/"
 sudo apt-get update
-sudo apt-get -y install okapi=2.30.1-1
+sudo apt-get -y install okapi=2.32.0-1
 sudo apt-mark hold okapi
 ```
 
@@ -206,7 +206,7 @@ sudo systemctl restart okapi
 
 The Okapi log is at `/var/log/folio/okapi/okapi.log`
 
-4. Pull module descriptors from central registry (this will take a while)
+4. Pull module descriptors from central registry:
 
   * [Sample JSON to post to pull API](scripts/okapi-pull.json)
 
@@ -251,10 +251,10 @@ git clone https://github.com/folio-org/platform-core
 cd platform-core
 ```
 
-3. Check out the `q3.1-2019` branch. The HEAD of this branch should reflect the latest release, including any bug fix releases.
+3. Check out the `q3.2-2019` branch. The HEAD of this branch should reflect the latest release, including any bug fix releases.
 
 ```
-git checkout q3.1-2019
+git checkout q3.2-2019
 ```
 
 4. Install npm packages
@@ -289,16 +289,7 @@ That is the end of this part of the sidebar divergence, so now continue with the
 
 5. Configure Stripes
 
-The platform-core `stripes.config.js` provides the default okapi url and tenant. That is included by platform-complete.
-
-To configure a different IP address and tenant, edit `stripes.config.js` and add an `okapi` key to the `platformComplete` object:
-
-```JS
-const platformComplete = {
-  okapi: { 'url': 'http://localhost:9130', 'tenant': 'diku' },
-  modules: { ... },
-  branding: { ... },
-```
+The platform's `stripes.config.js` provides the default okapi url and tenant and branding. Edit to suit.
 
 6. Build webpack
 
@@ -663,7 +654,7 @@ You can also specify a different url for Okapi by using the `-o` option. The def
 ## Known issues
 
 This Jira filter shows known critical issues that are not yet resolved:
-* [Known critical Q3.1-2019 issues](https://issues.folio.org/issues/?filter=11601)
+* [Known critical Q3.2-2019 issues](https://issues.folio.org/issues/?filter=11760)
 
 ## Frequently asked questions
 
@@ -671,7 +662,7 @@ This Jira filter shows known critical issues that are not yet resolved:
 
 Why is a lot of vagrant memory allocated?
 
-For the platform-core there are about 25 backend modules (about 40 for platform-complete),
+For the platform-core there are about 25 backend modules (about 45 for platform-complete),
 with their docker images allocating about 350 MB each (as an average).
 Some room is needed for loading the data and running the database.
 
