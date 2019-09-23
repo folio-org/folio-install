@@ -289,16 +289,7 @@ That is the end of this part of the sidebar divergence, so now continue with the
 
 5. Configure Stripes
 
-The platform-core `stripes.config.js` provides the default okapi url and tenant. That is included by platform-complete.
-
-To configure a different IP address and tenant, edit `stripes.config.js` and add an `okapi` key to the `platformComplete` object:
-
-```JS
-const platformComplete = {
-  okapi: { 'url': 'http://localhost:9130', 'tenant': 'diku' },
-  modules: { ... },
-  branding: { ... },
-```
+The platform's `stripes.config.js` provides the default okapi url and tenant and branding. Edit to suit.
 
 6. Build webpack
 
