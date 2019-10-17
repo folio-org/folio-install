@@ -4,7 +4,7 @@
 
 ### Linux console run command
 
-`docker run --rm -d --network folio-network --name create-email-config -h create-email-config -e TENANT_ID=mytenant -e EMAIL_FROM="noreply@folio.org" -e EMAIL_PASSWORD="password" -e EMAIL_SMTP_HOST="localhost" -e EMAIL_SMTP_PORT="502" -e EMAIL_USERNAME="login" -e OKAPI_URL=http://localhost:9130 create-email-config`
+`docker run --rm -d --network folio-network --name create-email-config -h create-email-config -e TENANT_ID=mytenant -e EMAIL_FROM=noreply@folio.org -e EMAIL_PASSWORD="password" -e EMAIL_SMTP_HOST=localhost -e EMAIL_SMTP_PORT=502 -e EMAIL_USERNAME=login -e OKAPI_URL=http://localhost:9130 create-email-config`
 
 ## Environment variables
 
