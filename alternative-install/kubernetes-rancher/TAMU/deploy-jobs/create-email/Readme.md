@@ -12,7 +12,7 @@ When you deploy the `create-email-config` image, you can adjust the configuratio
 
 ### TENANT_ID
 
-The short name of the Tenant to create. Defaults to `mytenant`.
+The short name of the Tenant to use. Defaults to `mytenant`.
 
 ### EMAIL_FROM
 
