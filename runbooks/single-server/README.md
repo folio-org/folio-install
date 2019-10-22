@@ -468,7 +468,7 @@ at the [enable for tenant](#deploy-a-compatible-folio-backend-enable-for-tenant)
 
 All necessary `platform-core` and `platform-complete` modules are now using that mechanism.
 
-If additional JSON sample data is needed, then use the [sample perl script](load-data.pl)
+If additional JSON sample data is needed, then use the [sample perl script](scripts/load-data.pl)
 to load data from sub-directories of the `sample-data` directory, as explained in the script.
 
 ### Load MODS records
