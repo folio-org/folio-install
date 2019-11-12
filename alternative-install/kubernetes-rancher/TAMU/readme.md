@@ -126,12 +126,7 @@ https://releases.rancher.com/os/latest/rancheros-vmware.iso
      
 Guestinfo settings:
 guestinfo.hostname=kubenodeXXX
-guestinfo.interface.0.route.0.gateway=XXX.XXX.XXX.X
-guestinfo.dns.server.0=XXX.XXX.XXX.X
-guestinfo.dns.server.1=XXX.XXX.XXX.X
-guestinfo.dns.domain.0=your.domain.org
-guestinfo.interface.0.ip.0.address=XXX.XXX.XXX.X/23
-guestinfo.interface.0.dhcp={"no"}
+guestinfo.interface.0.dhcp={"yes"}
 guestinfo.interface.0.name=eth0
 guestinfo.interface.0.role={"public"}
 disk.enableUUID=TRUE
@@ -291,10 +286,9 @@ local_cluster_auth_endpoint:
   enabled: false
 name: "folio-dev-cluster"
 ```
-4) Add Node Pools. Currently no DHCP pool for CIDR - only one node per node pool per template is supported.
-5) For the Node Pool name Prefix, type kubenode# (0-10), select the corresponding template, and check which roles you want for each node.
-6) Copy the command displayed on screen to your clipboard.
-7) Click Create
+4) Add Node Pools.
+5) For the Node Pool name Prefix, type kubenode# (0-10), select the corresponding Node Template, and check which roles you want for each node.
+6) Click Create
 
 ### Setup Kubernetes cluster Storage Class (From within Rancher GUI):
 
