@@ -1,22 +1,27 @@
-FROM alpine:3.8
+## Build Docker image
 
-#Prerequisites
-RUN apk add --no-cache curl
+`docker build -t create-tenant .`
 
-#Create working directory
-RUN mkdir -p /usr/local/bin/folio
+### Linux console run command
 
-#Set working directory
-WORKDIR /usr/local/bin/folio
+`docker run --rm -d --network folio-network --name create-tenant -h create-tenant -e TENANT_ID=mytenant -e TENANT_NAME="full_tenant_name" -e TENANT_DESC="tenant_description" -e OKAPI_URL=http://localhost:9130 create-tenant`
 
-#Copy in script
-COPY create-tenant.sh /usr/local/bin/folio
+## Environment variables
 
-#Set environment variables for script
-ENV OKAPI_URL='http://localhost:9130'
-ENV TENANT_ID='mytenant'
-ENV TENANT_NAME='full_tenant_name'
-ENV TENANT_DESC='tenant_description'
+When you deploy the `create-tenant` image, you can adjust the configuration by passing one or more environment variables on the `docker run` command line. This assumes you have a Docker network `folio-network` created.
 
-#Execute the script on container runtime
-CMD ["/usr/local/bin/folio/create-tenant.sh"]
+### TENANT_ID
+
+The short name of the Tenant to create. Defaults to `mytenant`.
+
+### TENANT_NAME
+
+Full name of the Tenant to create. Defaults to `full_tenant_name`.
+
+### TENANT_DESC
+
+Description of the Tenant to create. Defaults to `tenant_description`.
+
+### OKAPI_URL
+
+Internal OKAPI URL to use. Defaults to `http://localhost:9130`.
