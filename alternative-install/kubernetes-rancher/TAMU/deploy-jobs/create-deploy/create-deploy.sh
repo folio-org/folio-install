@@ -19,20 +19,12 @@ python ./create-deploy-desc.py
 
 # POST the list of backend modules to enable for a tenant
 
-echo POSTing the list of backend modules to install for a tenant, and importing data if set to true...
+echo POSTing the list of ALL modules to install for a tenant, and importing data if set to true...
 
 # If you get an "HTTP/1.1 500 Internal Server Error" here, your module needs to be able to connect to the database
 
 curl -w '\n' -D - -X POST -H "Content-type: application/json" \
-  -d @install/okapi-install.json \
+  -d @install/install.json \
   $OKAPI_URL/_/proxy/tenants/$TENANT_ID/install?deploy=false\&preRelease=false\&tenantParameters=loadSample%3D$SAMPLE_DATA%2CloadReference%3D$REF_DATA
-
-# POST the list of Stripes modules to enable for a tenant
-
-echo POSTing the list of Stripes modules to install for a tenant...
-
-curl -w '\n' -D - -X POST -H "Content-type: application/json" \
-  -d @install/stripes-install.json \
-  $OKAPI_URL/_/proxy/tenants/$TENANT_ID/install?preRelease=false
 
 echo Done!
