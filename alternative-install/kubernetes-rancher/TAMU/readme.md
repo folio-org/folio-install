@@ -435,7 +435,7 @@ TENANT_NAME = TAMU Libraries Dev
 
 #### ldp-conf Secret key-value pairs:
 
-ldp.conf =  [folio]<br/>
+ldp.conf =  ```[folio]<br/>
             url = http://okapi:9130<br/>
             tenant = tamu<br/>
             user = tamu_admin<br/>
@@ -446,7 +446,7 @@ ldp.conf =  [folio]<br/>
             port = 5432<br/>
             user = ldpadmin<br/>
             password = password<br/>
-            dbname = ldp
+            dbname = ldp```
 
 #### db-connect-migration Secret key-value pairs:
 
