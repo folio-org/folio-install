@@ -6,7 +6,7 @@ When you start the `okapi` image, you can adjust the configuration of the Okapi 
 ### Linux console run command ###
 
 
-`docker run --rm -d --network folio-clustered --name okapi -h okapi -e OKAPI_URL=http://okapi:9130 -e INITDB=true -e PG_HOST=pg-folio -e OKAPI_PORT=9130 -e OKAPI_NODENAME=okapi1 -e OKAPI_CLUSTERHOST=localhost -e OKAPI_HOST=localhost -e HAZELCAST_IP=localhost -e HAZELCAST_VERTX_PORT=5702 -e HAZELCAST_PORT=5701 -p 9130:9130 -p 5701:5701 -p 5702:5702 -p 54327:54327/udp okapi`
+`docker run --rm -d --network folio-clustered --name okapi -h okapi -e OKAPI_URL=http://okapi:9130 -e INITDB=true -e PG_HOST=pg-folio -e OKAPI_PORT=9130 -e OKAPI_NODENAME=okapi1 -e OKAPI_CLUSTERHOST=localhost -e OKAPI_HOST=localhost -e HAZELCAST_IP=localhost -e HAZELCAST_VERTX_PORT=5703 -e HAZELCAST_PORT=5701 -p 9130:9130 -p 5701:5701 -p 5703:5703 -p 54327:54327/udp okapi`
 
 
 ### Editing hazelcast.xml ###
@@ -72,7 +72,7 @@ The port on which Okapi listens. Default `9130`.
 
 ### OKAPI_STORAGE
 
-Defines the storage back end, `postgres`, `mongo` or `inmemory`. Default `inmemory`.
+Defines the storage back end, `postgres`, `mongo` or `inmemory`. Default `postgres`.
 
 ### HAZELCAST_FILE
 
