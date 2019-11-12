@@ -21,3 +21,15 @@ Name of the Okapi superuser to create. Defaults to `superuser`.
 ### SUPER_PSSWD
 
 Password to set for the Okapi superuser. Defaults to `password`.
+
+### TENANT_ID
+
+The short name of the Tenant to create. Defaults to `supertenant`.
+
+### SAMPLE_DATA
+
+Load module sample data. Defaults to `false`.
+
+### REF_DATA
+
+Load module reference data. Defaults to `true`.
