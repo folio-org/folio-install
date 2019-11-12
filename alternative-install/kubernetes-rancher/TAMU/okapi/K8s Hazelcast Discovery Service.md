@@ -2,8 +2,8 @@
 
 ## Run:
 
-``touch rbac.yaml
-vi rbac.yaml``
+``touch rbac.yaml``
+``vi rbac.yaml``
 
 ## Copy:
 
