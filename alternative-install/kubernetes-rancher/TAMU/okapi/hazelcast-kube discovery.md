@@ -2,15 +2,15 @@
 
 #Run:
 
-touch rbac.yaml
-vi rbac.yaml
+``touch rbac.yaml
+vi rbac.yaml``
 
 #Copy:
 
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: hazelcast-rb-q1
+  name: hazelcast-rb-q32-2019
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -18,8 +18,8 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: default
-  namespace: folio-q1
+  namespace: folio-q32-2019
 
 #Run:
 
-kubectl apply -f rbac.yaml
+``kubectl apply -f rbac.yaml``
