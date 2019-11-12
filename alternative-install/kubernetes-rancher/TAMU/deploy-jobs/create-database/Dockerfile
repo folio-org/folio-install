@@ -10,16 +10,13 @@ RUN mkdir -p /usr/local/bin/folio
 WORKDIR /usr/local/bin/folio
 
 #Copy in script
-COPY create-db.sh /usr/local/bin/folio
+COPY alter-db.sh /usr/local/bin/folio
 
 #Set postgres password environment variables to give to psql
-ENV PG_DATABASE='okapi'
-ENV PG_USER='okapi'
+ENV PG_DATABASE='folio_db'
+ENV PG_USER='foliodb_user'
 ENV PG_PASSWORD='password'
-ENV DB_HOST='pghost'
-ENV DB_DATABASE='okapi_modules'
-ENV DB_USERNAME='folio_admin'
-ENV DB_PASSWORD='password'
+ENV DB_HOST='pg-host'
 
 #Execute the script on container runtime
-CMD ["/usr/local/bin/folio/create-db.sh"]
+CMD ["/usr/local/bin/folio/alter-db.sh"]
