@@ -439,7 +439,7 @@ ldp.conf =  ```[folio]<br/>
             url = http://okapi:9130<br/>
             tenant = tamu<br/>
             user = tamu_admin<br/>
-            password = evH2YQt$W7jZ413%<br/>
+            password = password<br/>
             [default-database]<br/>
             dbtype = postgres<br/>
             host = pg-ldp<br/>
