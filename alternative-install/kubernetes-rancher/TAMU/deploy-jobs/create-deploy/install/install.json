@@ -1,0 +1,262 @@
+[ {
+  "id" : "mod-orders-storage-8.0.0",
+  "action" : "enable"
+}, {
+  "id" : "mod-configuration-5.1.0",
+  "action" : "enable"
+}, {
+  "id" : "mod-inventory-storage-17.0.0",
+  "action" : "enable"
+}, {
+  "id" : "mod-users-15.6.2",
+  "action" : "enable"
+}, {
+  "id" : "mod-source-record-storage-2.6.1",
+  "action" : "enable"
+}, {
+  "id" : "mod-inventory-13.0.1",
+  "action" : "enable"
+}, {
+  "id" : "mod-organizations-storage-2.1.0",
+  "action" : "enable"
+}, {
+  "id" : "mod-orders-8.0.2",
+  "action" : "enable"
+}, {
+  "id" : "folio_acquisition-units-1.1.0",
+  "action" : "enable"
+}, {
+  "id" : "mod-agreements-1.10.0",
+  "action" : "enable"
+}, {
+  "id" : "mod-finance-storage-3.0.0",
+  "action" : "enable"
+}, {
+  "id" : "mod-invoice-storage-2.0.0",
+  "action" : "enable"
+}, {
+  "id" : "mod-invoice-2.0.0",
+  "action" : "enable"
+}, {
+  "id" : "mod-licenses-1.11.0",
+  "action" : "enable"
+}, {
+  "id" : "folio_agreements-3.2.4",
+  "action" : "enable"
+}, {
+  "id" : "mod-calendar-1.6.1",
+  "action" : "enable"
+}, {
+  "id" : "folio_calendar-2.5.0",
+  "action" : "enable"
+}, {
+  "id" : "mod-circulation-storage-9.3.0",
+  "action" : "enable"
+}, {
+  "id" : "mod-event-config-1.3.2",
+  "action" : "enable"
+}, {
+  "id" : "mod-template-engine-1.6.1",
+  "action" : "enable"
+}, {
+  "id" : "mod-email-1.5.0",
+  "action" : "enable"
+}, {
+  "id" : "mod-sender-1.1.0",
+  "action" : "enable"
+}, {
+  "id" : "mod-notify-2.3.1",
+  "action" : "enable"
+}, {
+  "id" : "mod-feesfines-15.6.0",
+  "action" : "enable"
+}, {
+  "id" : "mod-circulation-16.7.1",
+  "action" : "enable"
+}, {
+  "id" : "folio_checkin-1.9.0",
+  "action" : "enable"
+}, {
+  "id" : "folio_checkout-1.11.1",
+  "action" : "enable"
+}, {
+  "id" : "folio_circulation-1.11.0",
+  "action" : "enable"
+}, {
+  "id" : "mod-source-record-manager-1.6.2",
+  "action" : "enable"
+}, {
+  "id" : "mod-data-import-1.6.1",
+  "action" : "enable"
+}, {
+  "id" : "mod-data-import-converter-storage-1.5.1",
+  "action" : "enable"
+}, {
+  "id" : "folio_data-import-1.5.1",
+  "action" : "enable"
+}, {
+  "id" : "folio_developer-1.10.1",
+  "action" : "enable"
+}, {
+  "id" : "mod-kb-ebsco-java-3.0.1",
+  "action" : "enable"
+}, {
+  "id" : "mod-tags-0.4.0",
+  "action" : "enable"
+}, {
+  "id" : "folio_eholdings-2.0.2",
+  "action" : "enable"
+}, {
+  "id" : "mod-erm-usage-2.5.0",
+  "action" : "enable"
+}, {
+  "id" : "folio_erm-usage-2.4.0",
+  "action" : "enable"
+}, {
+  "id" : "folio_finance-1.6.0",
+  "action" : "enable"
+}, {
+  "id" : "folio_inventory-1.12.1",
+  "action" : "enable"
+}, {
+  "id" : "folio_invoice-1.1.0",
+  "action" : "enable"
+}, {
+  "id" : "folio_licenses-3.5.1",
+  "action" : "enable"
+}, {
+  "id" : "folio_local-kb-admin-1.1.1",
+  "action" : "enable"
+}, {
+  "id" : "folio_myprofile-1.7.0",
+  "action" : "enable"
+}, {
+  "id" : "mod-notes-2.7.0",
+  "action" : "enable"
+}, {
+  "id" : "folio_notes-1.3.0",
+  "action" : "enable"
+}, {
+  "id" : "folio_orders-1.7.1",
+  "action" : "enable"
+}, {
+  "id" : "folio_organizations-1.5.0",
+  "action" : "enable"
+}, {
+  "id" : "folio_plugin-create-item-1.3.1",
+  "action" : "enable"
+}, {
+  "id" : "folio_plugin-find-agreement-3.0.1",
+  "action" : "enable"
+}, {
+  "id" : "folio_plugin-find-contact-1.3.0",
+  "action" : "enable"
+}, {
+  "id" : "folio_plugin-find-erm-usage-data-provider-1.1.0",
+  "action" : "enable"
+}, {
+  "id" : "folio_plugin-find-instance-1.5.0",
+  "action" : "enable"
+}, {
+  "id" : "folio_plugin-find-interface-1.2.0",
+  "action" : "enable"
+}, {
+  "id" : "folio_plugin-find-license-3.3.1",
+  "action" : "enable"
+}, {
+  "id" : "folio_plugin-find-organization-1.4.0",
+  "action" : "enable"
+}, {
+  "id" : "folio_plugin-find-po-line-1.1.0",
+  "action" : "enable"
+}, {
+  "id" : "folio_plugin-find-user-1.9.0",
+  "action" : "enable"
+}, {
+  "id" : "folio_requests-1.12.0",
+  "action" : "enable"
+}, {
+  "id" : "mod-codex-mux-2.6.0",
+  "action" : "enable"
+}, {
+  "id" : "folio_search-1.9.0",
+  "action" : "enable"
+}, {
+  "id" : "folio_servicepoints-1.4.1",
+  "action" : "enable"
+}, {
+  "id" : "folio_stripes-acq-components-1.2.0",
+  "action" : "enable"
+}, {
+  "id" : "mod-permissions-5.8.2",
+  "action" : "enable"
+}, {
+  "id" : "mod-login-6.1.1",
+  "action" : "enable"
+}, {
+  "id" : "mod-password-validator-1.4.1",
+  "action" : "enable"
+}, {
+  "id" : "mod-authtoken-2.3.0",
+  "action" : "enable"
+}, {
+  "id" : "mod-users-bl-5.1.0",
+  "action" : "enable"
+}, {
+  "id" : "folio_stripes-core-3.10.3",
+  "action" : "enable"
+}, {
+  "id" : "folio_stripes-smart-components-2.11.0",
+  "action" : "enable"
+}, {
+  "id" : "folio_tags-1.3.2",
+  "action" : "enable"
+}, {
+  "id" : "mod-login-saml-1.2.2",
+  "action" : "enable"
+}, {
+  "id" : "folio_tenant-settings-2.13.1",
+  "action" : "enable"
+}, {
+  "id" : "folio_users-2.25.4",
+  "action" : "enable"
+}, {
+  "id" : "mod-codex-inventory-1.5.0",
+  "action" : "enable"
+}, {
+  "id" : "mod-codex-ekb-1.4.0",
+  "action" : "enable"
+}, {
+  "id" : "mod-erm-usage-harvester-1.4.0",
+  "action" : "enable"
+}, {
+  "id" : "mod-rtac-1.2.4",
+  "action" : "enable"
+}, {
+  "id" : "edge-rtac-2.0.1",
+  "action" : "enable"
+}, {
+  "id" : "mod-oai-pmh-1.1.0",
+  "action" : "enable"
+}, {
+  "id" : "edge-oai-pmh-2.0.1",
+  "action" : "enable"
+}, {
+  "id" : "mod-gobi-1.7.0",
+  "action" : "enable"
+}, {
+  "id" : "mod-patron-3.0.2",
+  "action" : "enable"
+}, {
+  "id" : "edge-patron-3.0.3",
+  "action" : "enable"
+}, {
+  "id" : "edge-orders-2.0.2",
+  "action" : "enable"
+}, {
+  "id" : "mod-user-import-3.1.0",
+  "action" : "enable"
+}, {
+  "id" : "edge-sip2-1.0.1",
+  "action" : "enable"
+} ]
