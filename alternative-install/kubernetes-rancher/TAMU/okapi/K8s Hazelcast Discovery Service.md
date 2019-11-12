@@ -1,11 +1,11 @@
-#Perform these commands in Rancher via Launch kubectl
+## Perform these commands in Rancher via Launch kubectl
 
-#Run:
+## Run:
 
 ``touch rbac.yaml
 vi rbac.yaml``
 
-#Copy:
+## Copy:
 
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -20,6 +20,6 @@ subjects:
   name: default
   namespace: folio-q32-2019
 
-#Run:
+## Run:
 
 ``kubectl apply -f rbac.yaml``
