@@ -2,8 +2,8 @@
 
 ## Run:
 
-``touch rbac.yaml``<br/>
-``vi rbac.yaml``
+```touch rbac.yaml```
+```vi rbac.yaml```
 
 ## Copy:
 
@@ -22,4 +22,4 @@ subjects:
 
 ## Run:
 
-``kubectl apply -f rbac.yaml``
+```kubectl apply -f rbac.yaml```
