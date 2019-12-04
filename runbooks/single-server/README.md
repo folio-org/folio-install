@@ -42,7 +42,7 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 ```
 git clone https://github.com/folio-org/folio-install
 cd folio-install
-git checkout q3-2019
+git checkout folio-2378-q4-2019-single-server
 cd runbooks/single-server
 ```
 
@@ -254,10 +254,10 @@ git clone https://github.com/folio-org/platform-core
 cd platform-core
 ```
 
-3. Check out the `q3.2-2019` branch. The HEAD of this branch should reflect the latest release, including any bug fix releases.
+3. Check out the `q4-2019` branch. The HEAD of this branch should reflect the latest release, including any bug fix releases.
 
 ```
-git checkout q3.2-2019
+git checkout q4-2019
 ```
 
 4. Install npm packages
