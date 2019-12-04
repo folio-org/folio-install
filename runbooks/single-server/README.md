@@ -1,6 +1,9 @@
 # FOLIO deployment: single server
 
-This procedure will establish a FOLIO system based on the "Q3-2019 Daisy" quarterly release.
+** NOTE: 20191204: ** This document is still being adjusted for q4-2019 release.
+See [FOLIO-2378](https://issues.folio.org/browse/FOLIO-2378).
+
+This procedure will establish a FOLIO system based on the "Q4-2019 Edelweiss" quarterly release.
 
 Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ansible
 
