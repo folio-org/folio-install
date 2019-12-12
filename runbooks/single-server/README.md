@@ -672,3 +672,9 @@ Some room is needed for loading the data and running the database.
 More is needed during the preparation phase, while building the Stripes webpack.
 If short on memory, then build this elsewhere.
 
+### Adjust LaunchDescriptor properties
+
+Each back-end module has a default LaunchDescriptor in its ModuleDescriptor.
+These have basic minimal memory settings that are appropriate for the FOLIO hosted reference environments.
+For a real system, these would need to be [over-ridden](https://dev.folio.org/guides/module-descriptor/#launchdescriptor-properties).
+
