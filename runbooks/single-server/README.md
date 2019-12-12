@@ -13,8 +13,8 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 * This is not considered to be a full production install.
 * There are some steps in the procedure called "sidebar" where one can go beyond the quarterly release to build a snapshot-based system (be careful).
 * This release uses PostgreSQL 10 version.
-* The _minimum_ RAM required for a system based on [platform-core](https://github.com/folio-org/platform-core) is 11 GB. See [why](#frequently-asked-questions). Keep this in mind if you are running on a VM.
-* To instead build a system based on [platform-complete](https://github.com/folio-org/platform-complete) will require approximately 24 GB.
+* The _minimum_ RAM required for a system based on [platform-core](https://github.com/folio-org/platform-core) is 10 GB. See [why](#frequently-asked-questions). Keep this in mind if you are running on a VM.
+* To instead build a system based on [platform-complete](https://github.com/folio-org/platform-complete) will require approximately 20 GB.
 
 ## Summary
 
@@ -46,7 +46,7 @@ git checkout folio-2378-q4-2019-single-server
 cd runbooks/single-server
 ```
 
-The default procedure will create a VirtualBox VM based on this [Vagrantfile](Vagrantfile), running a generic Ubuntu Xenial OS, with 11 GB RAM and 2 CPUs. Port 9130 of the guest will be forwarded to port 9130 of the host, and port 80 of the guest will be forwarded to port 3000 of the host. The `folio-install/runbooks/single-server` directory on the host will be shared on the guest at the `/vagrant` mount point.
+The default procedure will create a VirtualBox VM based on this [Vagrantfile](Vagrantfile), running a generic Ubuntu Xenial OS, with 10 GB RAM and 2 CPUs. Port 9130 of the guest will be forwarded to port 9130 of the host, and port 80 of the guest will be forwarded to port 3000 of the host. The `folio-install/runbooks/single-server` directory on the host will be shared on the guest at the `/vagrant` mount point.
 
 2. Decide between platform-core and platform-complete
 
@@ -56,7 +56,7 @@ and this [Vagrantfile](Vagrantfile).
 
 To instead build a system based on [platform-complete](https://github.com/folio-org/platform-complete),
 copy [Vagrantfile-complete](Vagrantfile-complete) to `Vagrantfile`.
-This sets the `vb.memory` to be 24 GB and forwards the additional port 8130 for serving edge modules.
+This sets the `vb.memory` to be 20 GB and forwards the additional port 8130 for serving edge modules.
 Also copy [scripts/nginx-stripes-complete.conf](scripts/nginx-stripes-complete.conf) to `scripts/nginx-stripes.conf` file.
 Throughout these instructions, replace every mention of `platform-core` with `platform-complete`.
 
@@ -666,7 +666,7 @@ This Jira filter shows known critical issues that are not yet resolved:
 Why is a lot of vagrant memory allocated?
 
 For the platform-core there are about 25 backend modules (about 45 for platform-complete),
-with their docker images allocating about 350 MB each (as an average).
+with their docker images sizes being about 160 MB each (as an average).
 Some room is needed for loading the data and running the database.
 
 More is needed during the preparation phase, while building the Stripes webpack.
