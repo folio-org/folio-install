@@ -1,6 +1,6 @@
 # FOLIO deployment: single server
 
-This procedure will establish a FOLIO system based on the "Q3-2019 Daisy" quarterly release.
+This procedure will establish a FOLIO system based on the "Q4-2019 Edelweiss" quarterly release.
 
 Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ansible
 
@@ -10,12 +10,12 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 * This is not considered to be a full production install.
 * There are some steps in the procedure called "sidebar" where one can go beyond the quarterly release to build a snapshot-based system (be careful).
 * This release uses PostgreSQL 10 version.
-* The _minimum_ RAM required for a system based on [platform-core](https://github.com/folio-org/platform-core) is 11 GB. See [why](#frequently-asked-questions). Keep this in mind if you are running on a VM.
-* To instead build a system based on [platform-complete](https://github.com/folio-org/platform-complete) will require approximately 24 GB.
+* The _minimum_ RAM required for a system based on [platform-core](https://github.com/folio-org/platform-core) is 10 GB. See [why](#frequently-asked-questions). Keep this in mind if you are running on a VM.
+* To instead build a system based on [platform-complete](https://github.com/folio-org/platform-complete) will require approximately 20 GB.
 
 ## Summary
 
-<!-- ../okapi/doc/md2toc -l 2 -h 2 -s 2 README.md -->
+<!-- ../../../okapi/doc/md2toc -l 2 -h 2 -s 2 README.md -->
 * [Build a target Linux host](#build-a-target-linux-host)
 * [Install and configure required packages](#install-and-configure-required-packages)
 * [Create databases and roles](#create-databases-and-roles)
@@ -39,11 +39,11 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 ```
 git clone https://github.com/folio-org/folio-install
 cd folio-install
-git checkout q3-2019
+git checkout q4-2019
 cd runbooks/single-server
 ```
 
-The default procedure will create a VirtualBox VM based on this [Vagrantfile](Vagrantfile), running a generic Ubuntu Xenial OS, with 11 GB RAM and 2 CPUs. Port 9130 of the guest will be forwarded to port 9130 of the host, and port 80 of the guest will be forwarded to port 3000 of the host. The `folio-install/runbooks/single-server` directory on the host will be shared on the guest at the `/vagrant` mount point.
+The default procedure will create a VirtualBox VM based on this [Vagrantfile](Vagrantfile), running a generic Ubuntu Xenial OS, with 10 GB RAM and 2 CPUs. Port 9130 of the guest will be forwarded to port 9130 of the host, and port 80 of the guest will be forwarded to port 3000 of the host. The `folio-install/runbooks/single-server` directory on the host will be shared on the guest at the `/vagrant` mount point.
 
 2. Decide between platform-core and platform-complete
 
@@ -53,7 +53,7 @@ and this [Vagrantfile](Vagrantfile).
 
 To instead build a system based on [platform-complete](https://github.com/folio-org/platform-complete),
 copy [Vagrantfile-complete](Vagrantfile-complete) to `Vagrantfile`.
-This sets the `vb.memory` to be 24 GB and forwards the additional port 8130 for serving edge modules.
+This sets the `vb.memory` to be 20 GB and forwards the additional port 8130 for serving edge modules.
 Also copy [scripts/nginx-stripes-complete.conf](scripts/nginx-stripes-complete.conf) to `scripts/nginx-stripes.conf` file.
 Throughout these instructions, replace every mention of `platform-core` with `platform-complete`.
 
@@ -172,7 +172,7 @@ CREATE DATABASE folio WITH OWNER folio;
 wget --quiet -O - https://repository.folio.org/packages/debian/folio-apt-archive-key.asc | sudo apt-key add -
 sudo add-apt-repository "deb https://repository.folio.org/packages/ubuntu xenial/"
 sudo apt-get update
-sudo apt-get -y install okapi=2.33.0-1
+sudo apt-get -y install okapi=2.35.1-1
 sudo apt-mark hold okapi
 ```
 
@@ -251,10 +251,10 @@ git clone https://github.com/folio-org/platform-core
 cd platform-core
 ```
 
-3. Check out the `q3.2-2019` branch. The HEAD of this branch should reflect the latest release, including any bug fix releases.
+3. Check out the `q4-2019` branch. The HEAD of this branch should reflect the latest release, including any bug fix releases.
 
 ```
-git checkout q3.2-2019
+git checkout q4-2019
 ```
 
 4. Install npm packages
@@ -654,7 +654,7 @@ You can also specify a different url for Okapi by using the `-o` option. The def
 ## Known issues
 
 This Jira filter shows known critical issues that are not yet resolved:
-* [Known critical Q3.2-2019 issues](https://issues.folio.org/issues/?filter=11760)
+* [Known critical Q4-2019 issues](https://issues.folio.org/issues/?filter=11914)
 
 ## Frequently asked questions
 
@@ -663,9 +663,15 @@ This Jira filter shows known critical issues that are not yet resolved:
 Why is a lot of vagrant memory allocated?
 
 For the platform-core there are about 25 backend modules (about 45 for platform-complete),
-with their docker images allocating about 350 MB each (as an average).
+with their docker images sizes being about 160 MB each (as an average).
 Some room is needed for loading the data and running the database.
 
 More is needed during the preparation phase, while building the Stripes webpack.
 If short on memory, then build this elsewhere.
+
+### Adjust LaunchDescriptor properties
+
+Each back-end module has a default LaunchDescriptor in its ModuleDescriptor.
+These have basic minimal memory settings that are appropriate for the FOLIO hosted reference environments.
+For a real system, these would need to be [over-ridden](https://dev.folio.org/guides/module-descriptor/#launchdescriptor-properties).
 
