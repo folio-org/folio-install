@@ -15,7 +15,7 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 
 ## Summary
 
-<!-- ../okapi/doc/md2toc -l 2 -h 2 -s 2 README.md -->
+<!-- ../../../okapi/doc/md2toc -l 2 -h 2 -s 2 README.md -->
 * [Build a target Linux host](#build-a-target-linux-host)
 * [Install and configure required packages](#install-and-configure-required-packages)
 * [Create databases and roles](#create-databases-and-roles)
