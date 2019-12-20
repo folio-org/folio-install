@@ -87,7 +87,7 @@ sudo update-java-alternatives --jre-headless --jre --set java-1.8.0-openjdk-amd6
 wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
 sudo add-apt-repository "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main"
 sudo apt-get update
-sudo apt-get -y install postgresql-10 postgresql-client-10 libpq-dev
+sudo apt-get -y install postgresql-10 postgresql-client-10 postgresql-common libpq-dev
 ```
 
 4. Configure PostgreSQL to listen on all interfaces and allow connections from all addresses (to allow Docker connections)
