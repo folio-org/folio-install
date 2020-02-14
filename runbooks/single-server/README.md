@@ -99,10 +99,11 @@ sudo apt-get -y install postgresql-10 postgresql-client-10 postgresql-contrib-10
 5. Import the Docker signing key, add the Docker apt repository, install the Docker engine
 
 ```
-wget --quiet -O - https://apt.dockerproject.org/gpg | sudo apt-key add -
-sudo add-apt-repository "deb https://apt.dockerproject.org/repo ubuntu-xenial main"
+sudo apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 sudo apt-get update
-sudo apt-get -y install docker-engine
+sudo apt-get install docker-ce docker-ce-cli containerd.io
 ```
 
 6. Configure Docker engine to listen on network socket
