@@ -24,7 +24,7 @@ Determine whether or not to initialize the database before running Okapi. Defaul
 
 ### PG_HOST
 
-PostgreSQL host. Default `pg-folio`.
+PostgreSQL host. Default `localhost`.
 
 ### PG_PORT
 
