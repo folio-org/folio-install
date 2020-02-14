@@ -1,14 +1,23 @@
-#Prerequisites JDK
-FROM maven:3.6.1-jdk-8-alpine
+FROM maven:3.6.2-ibmjava-8-alpine
 
-#Mvn
+#Maven Prerequisites
 RUN apk add --no-cache curl git
 
-#Okapi git clone and MVN Build
+#Okapi git clone and Maven build
 RUN mkdir -p /usr/local/bin/folio/
 WORKDIR /usr/local/bin/folio
-RUN git clone  -b "v2.33.0" --recursive https://github.com/folio-org/okapi.git
+RUN git clone  -b "v2.36.3" --recursive https://github.com/folio-org/okapi.git
 RUN cd okapi && mvn clean install -DskipTests
+
+#OpenJDK Alpine
+FROM openjdk:8-alpine
+
+#Okapi Prerequisites
+RUN apk add --no-cache curl
+
+#Copy in files at this build layer
+RUN mkdir -p /usr/local/bin/folio/
+COPY --from=0 /usr/local/bin/folio/okapi /usr/local/bin/folio/okapi
 
 #Expose ports
 EXPOSE 9130
@@ -40,6 +49,9 @@ ENV HAZELCAST_FILE='/usr/local/bin/folio/okapi/hazelcast.xml'
 ENV HAZELCAST_PORT='5701'
 ENV HAZELCAST_VERTX_PORT='5702'
 ENV HAZELCAST_IP='localhost'
+
+#Set working directory
+WORKDIR /usr/local/bin/folio
 
 #Copy in scripts and files
 COPY hazelcast.xml /usr/local/bin/folio/okapi/
