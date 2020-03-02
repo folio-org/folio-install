@@ -58,7 +58,7 @@ UUID of the service point in Folio you wish to set for SIP2.
 
 Java config for configuring SIP2 self-checkout settings. An example might look like this:
 
-`{\"timeoutPeriod\": 5,\"retriesAllowed\": 3,\"terminalDelimeter\" : \"\\r\",\"fieldDelimeter\" : \"|\",\"errorDetectionEnabled\" : true,\"charset\" : \"UTF8\",\"SCtimeZone\" : \"EDT\",\"checkinOk\": true,\"checkoutOk\": true,\"acsRenewalPolicy\": false,\"maxPrintWidth\" : 200,\"libraryName\": \"DI\",\"terminalLocation\": \"<servicepoint UUID>\"}`
+`{\"timeoutPeriod\": 5,\"retriesAllowed\": 3,\"terminalDelimeter\" : \"\\r\",\"fieldDelimeter\" : \"|\",\"errorDetectionEnabled\" : true,\"charset\" : \"UTF8\",\"SCtimeZone\" : \"EDT\",\"checkinOk\": true,\"checkoutOk\": true,\"acsRenewalPolicy\": false,\"maxPrintWidth\" : 200,\"libraryName\": \"DI\",\"terminalLocation\": \"<SERVICE_POINT UUID>\"}`
 
 ### ACS_TENANT_CONFIG
 
