@@ -121,6 +121,24 @@ cat > folio_host.json <<END
 }
 END
 
+cat > folio_sip2.json <<END
+{
+"module": "edge-sip2",
+"configName": "selfCheckoutConfig.$SERVICE_POINT",
+"enabled": true,
+"value": "$SELF_CHECKOUT_CONFIG"
+}
+END
+
+cat > folio_sip2_acstenantconfig.json <<END
+{
+"module": "edge-sip2",
+"configName": "acsTenantConfig",
+"enabled": true,
+"value": "$ACS_TENANT_CONFIG"
+}
+END
+
 #Send created config json files to Okapi tenant
 curl -i -w '\n' -X POST $OKAPI_URL/configurations/entries \
 -H "Content-type: application/json" \
@@ -182,5 +200,16 @@ curl -i -w '\n' -X POST $OKAPI_URL/configurations/entries \
 -H "X-Okapi-Token: $X_OKAPI_TOKEN" \
 -d @folio_host.json
 
-echo Done!
+curl -i -w '\n' -X POST $OKAPI_URL/configurations/entries \
+-H "Content-type: application/json" \
+-H "X-Okapi-Tenant: $TENANT_ID" \
+-H "X-Okapi-Token: $X_OKAPI_TOKEN" \
+-d @folio_sip2.json
 
+curl -i -w '\n' -X POST $OKAPI_URL/configurations/entries \
+-H "Content-type: application/json" \
+-H "X-Okapi-Tenant: $TENANT_ID" \
+-H "X-Okapi-Token: $X_OKAPI_TOKEN" \
+-d @folio_sip2_acstenantconfig.json
+
+echo Done!
