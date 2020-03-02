@@ -1,6 +1,6 @@
 ## Build Docker image
 
-`docker build -t create-email-config .`
+`docker build -t create-config .`
 
 ### Linux console run command
 
@@ -8,7 +8,7 @@
 
 ## Environment variables
 
-When you deploy the `create-email-config` image, you can adjust the configuration by passing one or more environment variables on the `docker run` command line. This assumes you have a Docker network `folio-network` created.
+When you deploy the `create-config` image, you can adjust the configuration by passing one or more environment variables on the `docker run` command line. This assumes you have a Docker network `folio-network` created.
 
 ### TENANT_ID
 
@@ -49,6 +49,22 @@ sslOnConnect mode for the connection. Examples are `true` or `false` Defaults to
 ### EMAIL_START_TLS_OPTIONS
 
 TLS security mode for the connection. Examples are `NONE`, `OPTIONAL` or `REQUIRED` Defaults to `NONE`.
+
+### SERVICE_POINT
+
+UUID of the service point in Folio you wish to set for SIP2.
+
+### SELF_CHECKOUT_CONFIG
+
+Java config for configuring SIP2 self-checkout settings. An example might look like this:
+
+`{\"timeoutPeriod\": 5,\"retriesAllowed\": 3,\"terminalDelimeter\" : \"\\r\",\"fieldDelimeter\" : \"|\",\"errorDetectionEnabled\" : true,\"charset\" : \"UTF8\",\"SCtimeZone\" : \"EDT\",\"checkinOk\": true,\"checkoutOk\": true,\"acsRenewalPolicy\": false,\"maxPrintWidth\" : 200,\"libraryName\": \"DI\",\"terminalLocation\": \"<servicepoint UUID>\"}`
+
+### ACS_TENANT_CONFIG
+
+Java config for configuring SIP2 message support. An example might look like this:
+
+`{\"supportedMessages\": [{\"messageName\": \"REQUEST_SC_ACS_RESEND\",\"isSupported\": \"Y\"},{\"messageName\": \"PATRON_STATUS_REQUEST\",\"isSupported\": \"N\"},{\"messageName\": \"CHECKOUT\",\"isSupported\": \"Y\"},{\"messageName\": \"CHECKIN\",\"isSupported\": \"Y\"},{\"messageName\": \"BLOCK_PATRON\",\"isSupported\": \"N\"},{\"messageName\": \"SC_ACS_STATUS\",\"isSupported\": \"Y\"},{\"messageName\": \"LOGIN\",\"isSupported\": \"Y\"},{\"messageName\": \"PATRON_INFORMATION\",\"isSupported\": \"Y\"},{\"messageName\": \"END_PATRON_SESSION\",\"isSupported\": \"Y\"},{\"messageName\": \"FEE_PAID\",\"isSupported\": \"N\"},{\"messageName\": \"ITEM_INFORMATION\",\"isSupported\": \"N\"},{\"messageName\": \"ITEM_STATUS_UPDATE\",\"isSupported\": \"N\"},{\"messageName\": \"PATRON_ENABLE\",\"isSupported\": \"N\"},{\"messageName\": \"HOLD\",\"isSupported\": \"N\"},{\"messageName\": \"RENEW\",\"isSupported\": \"N\"},{\"messageName\": \"RENEW_ALL\",\"isSupported\": \"N\"}],\"statusUpdateOk\": false,\"offlineOk\": false,\"currencyType\" : \"USD\",\"language\" : \"en\",\"patronPasswordVerificationRequired\" : false}`
 
 ### OKAPI_URL
 
