@@ -6,7 +6,7 @@ RUN apk add --no-cache curl git
 #Okapi git clone and Maven build
 RUN mkdir -p /usr/local/bin/folio/
 WORKDIR /usr/local/bin/folio
-RUN git clone  -b "v2.36.3" --recursive https://github.com/folio-org/okapi.git
+RUN git clone  -b "v2.37.0" --recursive https://github.com/folio-org/okapi.git
 RUN cd okapi && mvn clean install -DskipTests
 
 #OpenJDK Alpine
