@@ -389,7 +389,7 @@ items:
         containers:
         - env:
           - name: JAVA_OPTIONS
-            value: -Djwt.signing.key=CorrectBatteryHorseStaple -XX:MaxRAMPercentage=66.0 -Dcache.permissions=true
+            value: -Djwt.signing.key=foo -XX:MaxRAMPercentage=66.0 -Dcache.permissions=true
           image: folioorg/mod-authtoken:2.4.0
           imagePullPolicy: Always
           name: mod-authtoken-2-4-0
