@@ -2,6 +2,6 @@
 
 ### Secrets needed for configuring edge modules and database connections:
 
-connect-db
-edge-securestore-props
+connect-db<br/>
+edge-securestore-props<br/>
 sip2-certs
