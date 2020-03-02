@@ -17,17 +17,18 @@ def findnth(haystack, needle, n):
 # Determines the deployment URL with port, of the modules from your Okapi module registry
 
 def getModuleUrl(module, tag):
+    service_name = module + '-' + tag.replace(".","-").lower()
     try:
         url = "{0}/{1}-{2}".format(os.environ.get('REGISTRY_URL_PY'), module, tag)
         print("Backend module: {0}".format(url))
         req = requests.get(url)
         data = req.json()
         container_port = list(data["launchDescriptor"]['dockerArgs']['HostConfig']['PortBindings'].keys())[0].split('/')[0]
-        return "http://{0}:{1}".format(module, container_port)
+        return "http://{0}:{1}".format(service_name, container_port)
     except:
         print(
             "Warning: {0}-{1} not found in folio-registry. Port 8081 used as default".format(module, tag))
-        return "http://{0}:{1}".format(module, "8081")
+        return "http://{0}:{1}".format(service_name, "8081")
 
 headers = {"Content-type": "application/json"}
 
