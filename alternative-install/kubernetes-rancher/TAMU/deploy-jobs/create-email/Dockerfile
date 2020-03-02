@@ -10,7 +10,7 @@ RUN mkdir -p /usr/local/bin/folio
 WORKDIR /usr/local/bin/folio
 
 #Copy in script
-COPY create-email-config.sh /usr/local/bin/folio
+COPY create-config.sh /usr/local/bin/folio
 
 #Set environment variables for script
 ENV EMAIL_FROM='noreply@folio.org'
@@ -26,6 +26,9 @@ ENV OKAPI_URL='http://localhost:9130'
 ENV TENANT_ID='mytenant'
 ENV X_OKAPI_TOKEN='foo'
 ENV FOLIO_HOST='http://localhost:3000'
+ENV SERVICE_POINT='UUID'
+ENV SELF_CHECKOUT_CONFIG='config'
+ENV ACS_TENANT_CONFIG='config'
 
 #Execute the script on container runtime
-CMD ["/usr/local/bin/folio/create-email-config.sh"]
+CMD ["/usr/local/bin/folio/create-config.sh"]
