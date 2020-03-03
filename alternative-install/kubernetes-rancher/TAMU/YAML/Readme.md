@@ -31,5 +31,5 @@ imagePullSecrets:
 
 -Deploys 50 Workloads representing the Folio Q4 back-end Docker modules.<br/>
 -Those Workloads that connect to storage will be deployed as StatefulSets.<br/>
--The edge-sip2 Workload gets deployed as a DaemonSet, one on every K8s worker node.<br/>
+-The edge-sip2 Workload gets deployed as a DaemonSet, one on every K8s worker node and exposes a hostport 1024.<br/>
 -All other Workloads are deployed as scaleable Deployments.
