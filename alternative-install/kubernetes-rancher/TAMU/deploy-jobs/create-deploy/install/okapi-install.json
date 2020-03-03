@@ -20,7 +20,7 @@
     "action": "enable"
   },
   {
-    "id": "mod-organizations-storage-2.2.1",
+    "id": "mod-organizations-storage-2.2.2",
     "action": "enable"
   },
   {
@@ -36,11 +36,11 @@
     "action": "enable"
   },
   {
-    "id": "mod-agreements-2.0.0",
+    "id": "mod-agreements-2.0.1",
     "action": "enable"
   },
   {
-    "id": "mod-licenses-2.0.0",
+    "id": "mod-licenses-2.0.1",
     "action": "enable"
   },
   {
@@ -84,7 +84,7 @@
     "action": "enable"
   },
   {
-    "id": "mod-source-record-manager-2.0.1",
+    "id": "mod-source-record-manager-2.0.2",
     "action": "enable"
   },
   {
@@ -96,7 +96,7 @@
     "action": "enable"
   },
   {
-    "id": "mod-kb-ebsco-java-3.1.0",
+    "id": "mod-kb-ebsco-java-3.2.0",
     "action": "enable"
   },
   {
@@ -108,7 +108,7 @@
     "action": "enable"
   },
   {
-    "id": "mod-invoice-storage-3.0.0",
+    "id": "mod-invoice-storage-3.0.1",
     "action": "enable"
   },
   {
@@ -164,7 +164,7 @@
     "action": "enable"
   },
   {
-    "id": "mod-oai-pmh-1.2.1",
+    "id": "mod-oai-pmh-2.0.0",
     "action": "enable"
   },
   {
@@ -178,21 +178,5 @@
   {
     "id": "mod-patron-4.0.0",
     "action": "enable"
-  },
-  {
-  "id" : "edge-rtac-2.0.1",
-  "action" : "enable"
-  },
-  {
-  "id" : "edge-oai-pmh-2.1.2",
-  "action" : "enable"
-  },
-  {
-  "id" : "edge-patron-4.0.0",
-  "action" : "enable"
-  },
-  {
-  "id" : "edge-orders-2.1.0",
-  "action" : "enable"
   }
 ]
