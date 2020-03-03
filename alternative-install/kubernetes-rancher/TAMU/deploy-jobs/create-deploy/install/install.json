@@ -14,7 +14,7 @@
   "id" : "mod-inventory-13.1.1",
   "action" : "enable"
 }, {
-  "id" : "mod-organizations-storage-2.2.1",
+  "id" : "mod-organizations-storage-2.2.2",
   "action" : "enable"
 }, {
   "id" : "mod-finance-storage-4.1.1",
@@ -29,10 +29,10 @@
   "id" : "folio_acquisition-units-1.2.0",
   "action" : "enable"
 }, {
-  "id" : "mod-agreements-2.0.0",
+  "id" : "mod-agreements-2.0.1",
   "action" : "enable"
 }, {
-  "id" : "mod-licenses-2.0.0",
+  "id" : "mod-licenses-2.0.1",
   "action" : "enable"
 }, {
   "id" : "folio_agreements-3.3.0",
@@ -80,7 +80,7 @@
   "id" : "mod-source-record-storage-3.0.2",
   "action" : "enable"
 }, {
-  "id" : "mod-source-record-manager-2.0.1",
+  "id" : "mod-source-record-manager-2.0.2",
   "action" : "enable"
 }, {
   "id" : "mod-data-import-1.8.0",
@@ -95,7 +95,7 @@
   "id" : "folio_developer-1.11.0",
   "action" : "enable"
 }, {
-  "id" : "mod-kb-ebsco-java-3.1.0",
+  "id" : "mod-kb-ebsco-java-3.2.0",
   "action" : "enable"
 }, {
   "id" : "mod-tags-0.5.0",
@@ -113,10 +113,10 @@
   "id" : "folio_finance-1.7.1",
   "action" : "enable"
 }, {
-  "id" : "folio_inventory-1.13.3",
+  "id" : "folio_inventory-1.13.5",
   "action" : "enable"
 }, {
-  "id" : "mod-invoice-storage-3.0.0",
+  "id" : "mod-invoice-storage-3.0.1",
   "action" : "enable"
 }, {
   "id" : "mod-invoice-3.0.1",
@@ -176,7 +176,7 @@
   "id" : "folio_plugin-find-user-1.9.1",
   "action" : "enable"
 }, {
-  "id" : "folio_requests-1.14.3",
+  "id" : "folio_requests-1.14.4",
   "action" : "enable"
 }, {
   "id" : "mod-codex-mux-2.7.0",
@@ -239,7 +239,7 @@
   "id" : "edge-rtac-2.0.1",
   "action" : "enable"
 }, {
-  "id" : "mod-oai-pmh-1.2.1",
+  "id" : "mod-oai-pmh-2.0.0",
   "action" : "enable"
 }, {
   "id" : "edge-oai-pmh-2.1.2",
@@ -257,7 +257,7 @@
   "id" : "mod-patron-4.0.0",
   "action" : "enable"
 }, {
-  "id" : "edge-patron-4.0.0",
+  "id" : "edge-patron-4.1.0",
   "action" : "enable"
 }, {
   "id" : "edge-sip2-1.1.0",
