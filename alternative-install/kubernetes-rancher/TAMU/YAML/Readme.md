@@ -1,15 +1,13 @@
 ## YAML for deploying Folio Q4 2019 back-end modules and clustered Okapi on Kubernetes/Rancher 2.x
 
-All YAML assumes you are deploying in a namespace called folio-q4
+All YAML assumes you are deploying in a namespace called `folio-q4`
 
-### Secrets needed for configuring edge modules and database connections:
+### Secrets needed for configuring edge modules, Okapi and database connections:
 
 `connect-db<br/>
 db-connect-okapi<br/>
 edge-securestore-props<br/>
 sip2-certs`
-
-### 
 
 ### Importing folio-q4-clustered-okapi.yaml into the folio-q4 namespace does the following:
 
