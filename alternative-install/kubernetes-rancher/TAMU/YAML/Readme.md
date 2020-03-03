@@ -9,6 +9,14 @@ All YAML assumes you are deploying in a namespace called `folio-q4`
 `edge-securestore-props`<br/>
 `sip2-certs`
 
+### Before you import!!!
+
+-Edit the folio-q4-clustered-okapi.yaml file, and set your Docker registry to pull Okapi from here:</br>
+`image: 10.55.134.48/folio/okapi:q4-2019`
+And edit this section to point to the Registry resource in Rancher here:</br>
+`imagePullSecrets:
+ - name: vic-teague`
+
 ### Importing folio-q4-clustered-okapi.yaml into the folio-q4 namespace does the following:
 
 -Creates a secret called `db-connect-okapi` in the namespace you import to.<br/>
