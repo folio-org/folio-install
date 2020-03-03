@@ -29,7 +29,7 @@ imagePullSecrets:
 
 ### Importing folio-q4-2019-workloads.yaml into the folio-q4 namespace does the following:
 
--Deploys 50 Workloads representing the Folio Q4 back-end, pulls the folioorg Docker container for each.<br/>
+-Deploys 50 Workloads representing the Folio Q4 back-end, pulls the folioorg Docker containers for each.<br/>
 -Creates the 50 Workload's Service Discovery/DNS Records.<br/>
 -Those Workloads that connect to storage will be deployed as StatefulSets, one pod each.<br/>
 -The edge-sip2 Workload gets deployed as a DaemonSet, one pod on every K8s worker node. It also exposes hostport on 1024.<br/>
