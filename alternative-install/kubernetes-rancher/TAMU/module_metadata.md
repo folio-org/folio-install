@@ -185,7 +185,7 @@ Health Check endpoint: /admin/health
 Startup Options:<br/>
 OKAPI_URL = http://okapi:9130<br/>
 OKAPI_TOKEN = foo<br/>
-OKAPI_TENANT = diku<br/>
+OKAPI_TENANT = tamu<br/>
 LOGGING_CATEGORIES = ramlpath<br/>
 Database connection: No<br/>
 Port: 3001<br/>
