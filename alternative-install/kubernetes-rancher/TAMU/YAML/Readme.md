@@ -15,7 +15,7 @@ All YAML assumes you are deploying in a namespace called `folio-q4`
 
 `image: <your_registry_IP_FQDN>/folio/okapi:q4-2019`<br/>
 
--In the same folio-q4-clustered-okapi.yaml file, edit to point to the Registry Resource in your Rancher environment here:<br/>
+-In the same folio-q4-clustered-okapi.yaml file, edit to point to the Registry Resource Secret in your Rancher environment here:<br/>
 ```
 imagePullSecrets:
  - name: <your_registry_secret>
