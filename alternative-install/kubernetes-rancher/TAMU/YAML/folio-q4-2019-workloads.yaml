@@ -284,7 +284,7 @@ items:
             defaultMode: 420
             optional: true
             secretName: edge-securestore-props
-- apiVersion: apps/v1beta1
+- apiVersion: apps/v1beta2
   kind: StatefulSet
   metadata:
     annotations:
@@ -294,6 +294,7 @@ items:
       workload.user.cattle.io/workloadselector: statefulSet-folio-q4-mod-agreements-2-0-0
     name: mod-agreements-2-0-0
   spec:
+    podManagementPolicy: OrderedReady
     minReadySeconds: 0
     progressDeadlineSeconds: 300
     replicas: 1
@@ -301,11 +302,7 @@ items:
     selector:
       matchLabels:
         workload.user.cattle.io/workloadselector: statefulSet-folio-q4-mod-agreements-2-0-0
-    strategy:
-      rollingUpdate:
-        maxSurge: 0
-        maxUnavailable: 1
-      type: RollingUpdate
+    serviceName: mod-agreements-2-0-0
     template:
       metadata:
         annotations:
@@ -357,6 +354,8 @@ items:
         schedulerName: default-scheduler
         securityContext: {}
         terminationGraceperiodSeconds: 60
+    updateStrategy:
+      type: RollingUpdate
 - apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
@@ -389,7 +388,7 @@ items:
         containers:
         - env:
           - name: JAVA_OPTIONS
-            value: -Djwt.signing.key=foo -XX:MaxRAMPercentage=66.0 -Dcache.permissions=true
+            value: -Djwt.signing.key=CorrectBatteryHorseStaple -XX:MaxRAMPercentage=66.0 -Dcache.permissions=true
           image: folioorg/mod-authtoken:2.4.0
           imagePullPolicy: Always
           name: mod-authtoken-2-4-0
@@ -566,7 +565,7 @@ items:
         schedulerName: default-scheduler
         securityContext: {}
         terminationGraceperiodSeconds: 60
-- apiVersion: apps/v1beta1
+- apiVersion: apps/v1beta2
   kind: StatefulSet
   metadata:
     annotations:
@@ -576,6 +575,7 @@ items:
       workload.user.cattle.io/workloadselector: statefulSet-folio-q4-mod-circulation-storage-10-0-1
     name: mod-circulation-storage-10-0-1
   spec:
+    podManagementPolicy: OrderedReady
     minReadySeconds: 0
     progressDeadlineSeconds: 300
     replicas: 1
@@ -583,11 +583,7 @@ items:
     selector:
       matchLabels:
         workload.user.cattle.io/workloadselector: statefulSet-folio-q4-mod-circulation-storage-10-0-1
-    strategy:
-      rollingUpdate:
-        maxSurge: 1
-        maxUnavailable: 0
-      type: RollingUpdate
+    serviceName: mod-circulation-storage-10-0-1
     template:
       metadata:
         annotations:
@@ -650,6 +646,8 @@ items:
         schedulerName: default-scheduler
         securityContext: {}
         terminationGraceperiodSeconds: 60
+    updateStrategy:
+      type: RollingUpdate
 - apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
@@ -1058,7 +1056,7 @@ items:
         schedulerName: default-scheduler
         securityContext: {}
         terminationGraceperiodSeconds: 60
-- apiVersion: apps/v1beta1
+- apiVersion: apps/v1beta2
   kind: StatefulSet
   metadata:
     annotations:
@@ -1068,6 +1066,7 @@ items:
       workload.user.cattle.io/workloadselector: statefulSet-folio-q4-mod-data-import-converter-storage-1-6-0
     name: mod-data-import-converter-storage-1-6-0
   spec:
+    podManagementPolicy: OrderedReady
     minReadySeconds: 0
     progressDeadlineSeconds: 300
     replicas: 1
@@ -1075,11 +1074,7 @@ items:
     selector:
       matchLabels:
         workload.user.cattle.io/workloadselector: statefulSet-folio-q4-mod-data-import-converter-storage-1-6-0
-    strategy:
-      rollingUpdate:
-        maxSurge: 1
-        maxUnavailable: 0
-      type: RollingUpdate
+    serviceName: mod-data-import-converter-storage-1-6-0
     template:
       metadata:
         annotations:
@@ -1144,6 +1139,8 @@ items:
         schedulerName: default-scheduler
         securityContext: {}
         terminationGraceperiodSeconds: 60
+    updateStrategy:
+      type: RollingUpdate
 - apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
@@ -1546,7 +1543,7 @@ items:
         schedulerName: default-scheduler
         securityContext: {}
         terminationGraceperiodSeconds: 60
-- apiVersion: apps/v1beta1
+- apiVersion: apps/v1beta2
   kind: StatefulSet
   metadata:
     annotations:
@@ -1556,6 +1553,7 @@ items:
       workload.user.cattle.io/workloadselector: statefulSet-folio-q4-mod-finance-storage-4-1-1
     name: mod-finance-storage-4-1-1
   spec:
+    podManagementPolicy: OrderedReady
     minReadySeconds: 0
     progressDeadlineSeconds: 300
     replicas: 1
@@ -1563,11 +1561,7 @@ items:
     selector:
       matchLabels:
         workload.user.cattle.io/workloadselector: statefulSet-folio-q4-mod-finance-storage-4-1-1
-    strategy:
-      rollingUpdate:
-        maxSurge: 1
-        maxUnavailable: 0
-      type: RollingUpdate
+    serviceName: mod-finance-storage-4-1-1
     template:
       metadata:
         annotations:
@@ -1630,6 +1624,8 @@ items:
         schedulerName: default-scheduler
         securityContext: {}
         terminationGraceperiodSeconds: 60
+    updateStrategy:
+      type: RollingUpdate
 - apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
@@ -1775,7 +1771,7 @@ items:
         schedulerName: default-scheduler
         securityContext: {}
         terminationGraceperiodSeconds: 60
-- apiVersion: apps/v1beta1
+- apiVersion: apps/v1beta2
   kind: StatefulSet
   metadata:
     annotations:
@@ -1785,6 +1781,7 @@ items:
       workload.user.cattle.io/workloadselector: statefulSet-folio-q4-mod-inventory-storage-18-2-3
     name: mod-inventory-storage-18-2-3
   spec:
+    podManagementPolicy: OrderedReady
     minReadySeconds: 0
     progressDeadlineSeconds: 300
     replicas: 1
@@ -1792,11 +1789,7 @@ items:
     selector:
       matchLabels:
         workload.user.cattle.io/workloadselector: statefulSet-folio-q4-mod-inventory-storage-18-2-3
-    strategy:
-      rollingUpdate:
-        maxSurge: 1
-        maxUnavailable: 0
-      type: RollingUpdate
+    serviceName: mod-inventory-storage-18-2-3
     template:
       metadata:
         annotations:
@@ -1859,6 +1852,8 @@ items:
         schedulerName: default-scheduler
         securityContext: {}
         terminationGraceperiodSeconds: 60
+    updateStrategy:
+      type: RollingUpdate
 - apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
@@ -1945,7 +1940,7 @@ items:
         schedulerName: default-scheduler
         securityContext: {}
         terminationGraceperiodSeconds: 60
-- apiVersion: apps/v1beta1
+- apiVersion: apps/v1beta2
   kind: StatefulSet
   metadata:
     annotations:
@@ -1955,6 +1950,7 @@ items:
       workload.user.cattle.io/workloadselector: statefulSet-folio-q4-mod-licenses-2-0-0
     name: mod-licenses-2-0-0
   spec:
+    podManagementPolicy: OrderedReady
     minReadySeconds: 0
     progressDeadlineSeconds: 300
     replicas: 1
@@ -1962,11 +1958,7 @@ items:
     selector:
       matchLabels:
         workload.user.cattle.io/workloadselector: statefulSet-folio-q4-mod-licenses-2-0-0
-    strategy:
-      rollingUpdate:
-        maxSurge: 0
-        maxUnavailable: 1
-      type: RollingUpdate
+    serviceName: mod-licenses-2-0-0
     template:
       metadata:
         annotations:
@@ -2018,6 +2010,8 @@ items:
         schedulerName: default-scheduler
         securityContext: {}
         terminationGraceperiodSeconds: 60
+    updateStrategy:
+      type: RollingUpdate
 - apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
@@ -2512,7 +2506,7 @@ items:
         schedulerName: default-scheduler
         securityContext: {}
         terminationGraceperiodSeconds: 60
-- apiVersion: apps/v1beta1
+- apiVersion: apps/v1beta2
   kind: StatefulSet
   metadata:
     annotations:
@@ -2522,6 +2516,7 @@ items:
       workload.user.cattle.io/workloadselector: statefulSet-folio-q4-mod-orders-storage-9-0-0
     name: mod-orders-storage-9-0-0
   spec:
+    podManagementPolicy: OrderedReady
     minReadySeconds: 0
     progressDeadlineSeconds: 300
     replicas: 1
@@ -2529,11 +2524,7 @@ items:
     selector:
       matchLabels:
         workload.user.cattle.io/workloadselector: statefulSet-folio-q4-mod-orders-storage-9-0-0
-    strategy:
-      rollingUpdate:
-        maxSurge: 1
-        maxUnavailable: 0
-      type: RollingUpdate
+    serviceName: mod-orders-storage-9-0-0
     template:
       metadata:
         annotations:
@@ -2596,6 +2587,8 @@ items:
         schedulerName: default-scheduler
         securityContext: {}
         terminationGraceperiodSeconds: 60
+    updateStrategy:
+      type: RollingUpdate
 - apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
@@ -3094,7 +3087,7 @@ items:
         schedulerName: default-scheduler
         securityContext: {}
         terminationGraceperiodSeconds: 60
-- apiVersion: apps/v1beta1
+- apiVersion: apps/v1beta2
   kind: StatefulSet
   metadata:
     annotations:
@@ -3104,6 +3097,7 @@ items:
       workload.user.cattle.io/workloadselector: statefulSet-folio-q4-mod-source-record-storage-3-0-2
     name: mod-source-record-storage-3-0-2
   spec:
+    podManagementPolicy: OrderedReady
     minReadySeconds: 0
     progressDeadlineSeconds: 300
     replicas: 1
@@ -3111,11 +3105,7 @@ items:
     selector:
       matchLabels:
         workload.user.cattle.io/workloadselector: statefulSet-folio-q4-mod-source-record-storage-3-0-2
-    strategy:
-      rollingUpdate:
-        maxSurge: 1
-        maxUnavailable: 0
-      type: RollingUpdate
+    serviceName: mod-source-record-storage-3-0-2
     template:
       metadata:
         annotations:
@@ -3180,6 +3170,8 @@ items:
         schedulerName: default-scheduler
         securityContext: {}
         terminationGraceperiodSeconds: 60
+    updateStrategy:
+      type: RollingUpdate
 - apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
@@ -3594,7 +3586,7 @@ items:
         schedulerName: default-scheduler
         securityContext: {}
         terminationGraceperiodSeconds: 60
-- apiVersion: apps/v1beta1
+- apiVersion: apps/v1beta2
   kind: StatefulSet
   metadata:
     annotations:
@@ -3604,6 +3596,7 @@ items:
       workload.user.cattle.io/workloadselector: statefulSet-folio-q4-mod-organizations-storage-2-2-1
     name: mod-organizations-storage-2-2-1
   spec:
+    podManagementPolicy: OrderedReady
     minReadySeconds: 0
     progressDeadlineSeconds: 300
     replicas: 1
@@ -3611,11 +3604,7 @@ items:
     selector:
       matchLabels:
         workload.user.cattle.io/workloadselector: statefulSet-folio-q4-mod-organizations-storage-2-2-1
-    strategy:
-      rollingUpdate:
-        maxSurge: 1
-        maxUnavailable: 0
-      type: RollingUpdate
+    serviceName: mod-organizations-storage-2-2-1
     template:
       metadata:
         annotations:
@@ -3678,7 +3667,9 @@ items:
         schedulerName: default-scheduler
         securityContext: {}
         terminationGraceperiodSeconds: 60
-- apiVersion: apps/v1beta1
+    updateStrategy:
+      type: RollingUpdate
+- apiVersion: apps/v1beta2
   kind: StatefulSet
   metadata:
     annotations:
@@ -3688,6 +3679,7 @@ items:
       workload.user.cattle.io/workloadselector: statefulSet-folio-q4-mod-invoice-storage-3-0-0
     name: mod-invoice-storage-3-0-0
   spec:
+    podManagementPolicy: OrderedReady
     minReadySeconds: 0
     progressDeadlineSeconds: 300
     replicas: 1
@@ -3695,11 +3687,7 @@ items:
     selector:
       matchLabels:
         workload.user.cattle.io/workloadselector: statefulSet-folio-q4-mod-invoice-storage-3-0-0
-    strategy:
-      rollingUpdate:
-        maxSurge: 1
-        maxUnavailable: 0
-      type: RollingUpdate
+    serviceName: mod-invoice-storage-3-0-0
     template:
       metadata:
         annotations:
@@ -3762,6 +3750,8 @@ items:
         schedulerName: default-scheduler
         securityContext: {}
         terminationGraceperiodSeconds: 60
+    updateStrategy:
+      type: RollingUpdate
 - apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
@@ -3949,7 +3939,7 @@ items:
         containers:
         - args:
           - -conf
-          - '{"errorDetectionEnabled":true,"charset":"UTF8","port":1024,"okapiUrl":"http://folio-q4.org","tenant":"diku"}'
+          - '{"errorDetectionEnabled":true,"charset":"UTF8","port":1024,"okapiUrl":"http://folio-okapi-url.org","tenant":"diku"}'
           env:
           - name: JAVA_OPTIONS
             value: -Xmx512m -Dloglevel=debug
@@ -3957,9 +3947,9 @@ items:
           imagePullPolicy: Always
           name: edge-sip2-1-1-0
           ports:
-          - containerPort: 7052
-            hostPort: 7052
-            name: 7052tcp70520
+          - containerPort: 1024
+            hostPort: 1024
+            name: 1024tcp10240
             protocol: TCP
           resources:
             limits:
