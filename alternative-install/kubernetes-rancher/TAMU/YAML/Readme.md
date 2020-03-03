@@ -25,3 +25,4 @@ imagePullSecrets:
 -Creates a secret called `db-connect-okapi` in the namespace you import to.<br/>
 -Creates a ClusterRoleBinding service account named `hazelcast-rb-q4-2019` for K8s Hazelcast plug-in in the `folio-q4` namespace.<br/>
 -Deploys a StatefulSet of 3 clsutered Okapis in the namespace you import to.
+-Once imported, you can edit the default values in the `db-connect-okapi` Secret to match your environment.
