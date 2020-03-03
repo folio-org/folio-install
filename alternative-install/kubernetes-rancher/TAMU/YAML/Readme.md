@@ -11,9 +11,12 @@ All YAML assumes you are deploying in a namespace called `folio-q4`
 
 ### Before you import!!!
 
--Edit the folio-q4-clustered-okapi.yaml file, and set your Docker registry to pull Okapi from here:</br>
-`image: 10.55.134.48/folio/okapi:q4-2019`
-And edit this section to point to the Registry resource in Rancher here:</br>
+-Edit the folio-q4-clustered-okapi.yaml file, and set your Docker registry to pull Okapi from here:<br/>
+
+`image: 10.55.134.48/folio/okapi:q4-2019`<br/>
+
+And edit this section to point to the Registry resource in Rancher here:<br/>
+
 `imagePullSecrets:
  - name: vic-teague`
 
