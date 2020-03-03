@@ -17,8 +17,8 @@ All YAML assumes you are deploying in a namespace called `folio-q4`
 
 And edit this section to point to the Registry resource in Rancher here:<br/>
 
-`imagePullSecrets:
- - name: <your_registry_secret>`
+``imagePullSecrets:
+ - name: <your_registry_secret>``
 
 ### Importing folio-q4-clustered-okapi.yaml into the folio-q4 namespace does the following:
 
