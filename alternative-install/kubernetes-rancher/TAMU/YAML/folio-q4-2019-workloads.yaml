@@ -3939,7 +3939,7 @@ items:
         containers:
         - args:
           - -conf
-          - '{"errorDetectionEnabled":true,"charset":"UTF8","port":1024,"okapiUrl":"http://folio-okapi-url.org","tenant":"diku"}'
+          - '{"errorDetectionEnabled":true,"charset":"UTF8","port":1024,"okapiUrl":"http://folio-okapi-url.org","tenant":"tamu"}'
           env:
           - name: JAVA_OPTIONS
             value: -Xmx512m -Dloglevel=debug
