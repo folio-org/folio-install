@@ -59,7 +59,7 @@ END``
 
 #### VM specs:
 
-4 core CPU<br/>
+8 core CPU<br/>
 16GB of memory<br/>
 40GB disk<br/>
 
@@ -117,7 +117,7 @@ vcenterPort: Usually 443
 username/Password: Your vSphere login or service account
      
 Instance options:
-cpuCount: 4
+cpuCount: 8
 diskSize: 40000
 memorySize: 16384
      
@@ -309,7 +309,7 @@ Filesystem Type: xfs<br/>
 
 1) Create cluster via Rancher 2.x with one or more nodes, using Canal network plugin. We are using VMware to provision Oracle Linux VMs at the moment
 2) Create Folio-Project in Rancher 2.x UI
-3) Add folio-q32-2019, postgres-modules-q32-2019, and postgres-okapi-q32-2019 Namespaces for Folio-Project under Namespaces in Rancher 2.x UI
+3) Add folio-q4, postgres-modules-q4, and postgres-okapi-q4 Namespaces for Folio-Project under Namespaces in Rancher 2.x UI
 4) Add Dockerhub and your private Docker registries to the Folio-Project
 5) Add Persistent Volume on the cluster and Persistent Volume Claim for Folio-Project (We are using vSphere Storage Class)<br/>
 
@@ -317,10 +317,10 @@ Filesystem Type: xfs<br/>
 
 6) Create the following Rancher Secrets under Folio-Project:<br/>
 
-db-connect (folio-q32-2019/postgres-modules-q32-2019/postgres-okapi-q32-2019 namespaces)<br/>
-db-connect-okapi (folio-q32-2019 namespace)<br/>
-db-config-modules (postgres-modules-q32-2019 namespace)<br/>
-db-config-okapi (postgres-okapi-q32-2019 namespace)<br/>
+db-connect (folio-q4/postgres-modules-q4/postgres-okapi-q4 namespaces)<br/>
+db-connect-okapi (folio-q4 namespace)<br/>
+db-config-modules (postgres-modules-q4 namespace)<br/>
+db-config-okapi (postgres-okapi-q4 namespace)<br/>
 
 7) Deploy crunchy-postgres Workload *Stateful set* via Helm Package, edit the Workload to tweak environment variables for use with Folio - with db-config Secret
 8) Add Record under Service Discovery, named pg-folio, as type *Selector* with Label/Value: *statefulset.kubernetes.io/pod-name = pgset-0*
@@ -343,7 +343,7 @@ Run the following in the Rancher GUI - cluster Dashboard using the *Launch kubec
 
 -When using crunchy-postgres, need to execute this command on the cluster for the pgset-sa service account:<br/>
 
-```kubectl create clusterrolebinding pgset-sa --clusterrole=admin --serviceaccount=folio-q32-2019:pgset-sa --namespace=folio-q32-2019```<br/>
+```kubectl create clusterrolebinding pgset-sa --clusterrole=admin --serviceaccount=folio-q4:pgset-sa --namespace=folio-q4```<br/>
 
 -When using Hazelcast discovery Kubernetes plugin for Okapi, need to execute these commands on the cluster for the service account:<br/>
 
@@ -356,7 +356,7 @@ Paste in this code:<br/>
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: hazelcast-rb-q32-2019
+  name: hazelcast-rb-q4-2019
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -364,7 +364,7 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: default
-  namespace: folio-q32-2019
+  namespace: folio-q4
   ```
 
 3) Save
@@ -375,7 +375,7 @@ subjects:
 
 -Each Rancher Secret should only be available to a single Namespace for security and separation.<br/>
 
--The Secrets below were made available to the folio-q32-2019 Namespace:<br/>
+-The Secrets below were made available to the folio-q4 Namespace:<br/>
 
 #### db-connect Secret key-value pairs:
 
@@ -465,7 +465,7 @@ NOTE: You won’t need this until after the Folio system is up, but before you l
 
 X_OKAPI_TOKEN = *Authentication token from Okapi*
 
--The Secrets below were made available to the postgres-modules-q32-2019 Namespace:<br/>
+-The Secrets below were made available to the postgres-modules-q4 Namespace:<br/>
 
 #### db-config-modules Secret key-value pairs:
 
@@ -479,12 +479,12 @@ PG_USER = folio_admin
 
 #### db-connect Secret key-value pairs:
 
-DB_HOST = pg-module-selector-q32-2019<br/>
+DB_HOST = pg-module-selector-q4<br/>
 PG_DATABASE = okapi_modules<br/>
 PG_PASSWORD = password<br/>
 PG_USER = folio_admin
 
--The Secrets below were made available to the postgres-okapi-q32-2019 Namespace:<br/>
+-The Secrets below were made available to the postgres-okapi-q4 Namespace:<br/>
 
 #### db-config-okapi Secret key-value pairs:
 
@@ -498,7 +498,7 @@ PG_USER = okapi
 
 #### db-connect Secret key-value pairs:
 
-DB_HOST = pg-okapi-selector-q32-2019<br/>
+DB_HOST = pg-okapi-selector-q4<br/>
 PG_DATABASE = okapi<br/>
 PG_PASSWORD = password<br/>
 PG_USER = okapi
@@ -536,7 +536,7 @@ PG_USER = spring_folio_admin
 -Hazelcast in Kubernetes requires editing the hazelcast.xml file included with the Okapi repo before you build the Docker container, and setting your Folio namespace under:
 ```
 <kubernetes enabled="true">
-                <namespace>folio-q32-2019</namespace>
+                <namespace>folio-q4</namespace>
                 <service-name>okapi</service-name>
                 <!--
                 <service-label-name>MY-SERVICE-LABEL-NAME</service-label-name>
@@ -607,7 +607,7 @@ MAX_WAL_SENDERS = 2<br/>
 -One URL is for proxying front-end Stripes and the other is for proxying Okapi traffic.<br/>
 -The Okapi traffic URL is the URL used when building Stripes.<br/>
 -When setting up Load Balancing/Ingress, target the Service name instead of Workload name if you have specific ports you have set in the Workload.<br/>
--For Okapi HA ingress, I have Okapi Service as the target at port 9130, with root path, `/` and `/_/` for the hostname folio-okapi-q32.org<br/>
+-For Okapi HA ingress, I have Okapi Service as the target at port 9130, with root path, `/` and `/_/` for the hostname folio-okapi-q4.org<br/>
 
 -To have default Rancher 2.x Nginx ingress be a little smarter about DNS RR, add annotations in Rancher 2.1 GUI Service Discovery:<br/>
 
@@ -735,4 +735,4 @@ https://repository.folio.org/#browse/welcome
 http://folio-registry.aws.indexdata.com/_/proxy/modules
 
 #### Database export example:
-```psql -U postgres -h pg-folio -w -d okapi_modules --command "SELECT * FROM diku_mod_inventory_storage.item;" > /pgdata/folio-q32-2019/items```
+```psql -U postgres -h pg-folio -w -d okapi_modules --command "SELECT * FROM diku_mod_inventory_storage.item;" > /pgdata/folio-q4/items```
