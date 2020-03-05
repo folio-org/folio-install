@@ -1,0 +1,56 @@
+apiVersion: apps/v1beta2
+kind: DaemonSet
+metadata:
+  annotations:
+    field.cattle.io/creatorId: "null"
+  labels:
+    cattle.io/creator: norman
+    workload.user.cattle.io/workloadselector: daemonSet-folio-q4-stripes
+  name: stripes
+spec:
+  minReadySeconds: 30
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      workload.user.cattle.io/workloadselector: daemonSet-folio-q4-stripes
+  template:
+    metadata:
+      annotations:
+        field.cattle.io/ports: '[[{"containerPort":3000,"dnsName":"stripes-nodeport","kind":"NodePort","name":"3000tcp01","protocol":"TCP","sourcePort":0}]]'
+      labels:
+        workload.user.cattle.io/workloadselector: daemonSet-folio-q4-stripes
+    spec:
+      containers:
+      - image: <your_registry_IP_FQDN>/<repo>/stripes:<image_tag>
+        imagePullPolicy: Always
+        name: stripes
+        ports:
+        - containerPort: 3000
+          name: 3000tcp01
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 1m
+            memory: 8Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          privileged: false
+          procMount: Default
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+        stdin: true
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        tty: true
+      dnsConfig: {}
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: <your_registry_secret>
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+  updateStrategy:
+    rollingUpdate:
+      maxUnavailable: 1
+    type: RollingUpdate
