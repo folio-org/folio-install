@@ -1,4 +1,4 @@
-## YAML for deploying Folio Q4 2019 back-end modules and clustered Okapi on Kubernetes/Rancher 2.x
+## YAML for deploying Folio Q4 2019 back-end modules, Stripes webpack and clustered Okapi on Kubernetes/Rancher 2.x
 
 All YAML assumes you are deploying in a namespace called `folio-q4`
 
