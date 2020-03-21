@@ -33,6 +33,7 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 * [Load sample data](#load-sample-data)
 * [Install and serve edge modules for platform-complete](#install-and-serve-edge-modules-for-platform-complete)
 * [Secure the Okapi API (supertenant)](#secure-the-okapi-api-supertenant)
+* [Other considerations](#other-considerations)
 * [Known issues](#known-issues)
 * [Frequently asked questions](#frequently-asked-questions)
 
@@ -677,6 +678,11 @@ python3 /vagrant/scripts/secure-supertenant.py -u USERNAME -p PASSWORD
 ```
 
 You can also specify a different url for Okapi by using the `-o` option. The default value is `http://localhost:9130` if you do not specify this option.
+
+## Other considerations
+
+The [mod-data-export](https://github.com/folio-org/mod-data-export) has a temporary limitation whereby the only supported storage for exported MARC files is an AWS S3 bucket.
+Refer to their [Important notes](https://github.com/folio-org/mod-data-export#important-notes) section.
 
 ## Known issues
 
