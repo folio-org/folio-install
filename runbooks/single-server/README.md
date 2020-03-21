@@ -21,6 +21,7 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 <!-- ../../../okapi/doc/md2toc -l 2 -h 2 -s 2 README.md -->
 * [Build a target Linux host](#build-a-target-linux-host)
 * [Install and configure required packages](#install-and-configure-required-packages)
+* [Install Apache Kafka and Apache ZooKeeper](#install-apache-kafka-and-apache-zookeeper)
 * [Create databases and roles](#create-databases-and-roles)
 * [Install and configure Okapi](#install-and-configure-okapi)
 * [Create FOLIO tenant](#create-folio-tenant)
@@ -153,6 +154,22 @@ wget --quiet -O - https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 sudo add-apt-repository "deb https://dl.yarnpkg.com/debian/ stable main"
 sudo apt-get update
 sudo apt-get -y install yarn
+```
+
+## Install Apache Kafka and Apache ZooKeeper
+
+The [Apache Kafka](https://kafka.apache.org/) and [Apache ZooKeeper](https://zookeeper.apache.org/)
+are required by [FOLIO mod-pubsub](https://github.com/folio-org/mod-pubsub).
+
+Here they are installed using docker-compose.
+
+  * [Sample kafka-zk docker-compose.yml file](scripts/docker-compose-kafka-zk.yml)
+
+```
+sudo mkdir /opt/kafka-zk
+sudo cp /vagrant/scripts/docker-compose-kafka-zk.yml /opt/kafka-zk/docker-compose.yml
+cd /opt/kafka-zk
+sudo docker-compose up -d
 ```
 
 ## Create databases and roles
