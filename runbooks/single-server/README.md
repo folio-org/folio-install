@@ -120,6 +120,17 @@ sudo systemctl daemon-reload
 sudo systemctl restart docker
 ```
 
+7. Install docker-compose
+
+Follow the instructions from [docker](https://docs.docker.com/compose/install/). For example:
+
+```
+sudo curl -L \
+  "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" \
+  -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+```
+
 ### Build requirements: git, curl, NodeJS, npm, Yarn, libjson-perl, libwww-perl libuuid-tiny-perl
 
 1. Install build requirements from Ubuntu apt repositories
@@ -552,11 +563,6 @@ You may choose to also install and serve edge APIs.
 4. Start edge module Docker containers
 
     The containers for edge modules can be established in various of ways. This guide uses docker-compose.
-    If docker-compose is not already installed or needs to be upgraded, then follow the instructions from [docker](https://docs.docker.com/compose/install/). For example:
-    ```
-    sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-    sudo chmod +x /usr/local/bin/docker-compose
-    ```
 
     Set up a docker compose file in `/etc/folio/edge/docker-compose.yml` that defines each edge module that is to be run as a service.
 
