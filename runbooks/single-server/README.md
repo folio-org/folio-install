@@ -171,6 +171,7 @@ sudo mkdir /opt/kafka-zk
 sudo cp /vagrant/scripts/docker-compose-kafka-zk.yml /opt/kafka-zk/docker-compose.yml
 cd /opt/kafka-zk
 sudo docker-compose up -d
+cd -
 ```
 
 ## Create databases and roles
@@ -695,7 +696,7 @@ This Jira filter shows known critical issues that are not yet resolved:
 
 Why is a lot of vagrant memory allocated?
 
-For the platform-core there are about 25 backend modules (about 45 for platform-complete),
+For the platform-core there are about 25 backend modules (about 50 for platform-complete),
 with their docker images sizes being about 160 MB each (as an average).
 Some room is needed for loading the data and running the database.
 
@@ -707,4 +708,9 @@ If short on memory, then build this elsewhere.
 Each back-end module has a default LaunchDescriptor in its ModuleDescriptor.
 These have basic minimal memory settings that are appropriate for the FOLIO hosted reference environments.
 For a real system, these would need to be [over-ridden](https://dev.folio.org/guides/module-descriptor/#launchdescriptor-properties).
+
+### Notes for other operating systems
+
+Utilise this document as a guide to apply to your own particular operating system.
+We can only maintain this one procedure document.
 
