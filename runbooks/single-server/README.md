@@ -685,6 +685,8 @@ You can also specify a different url for Okapi by using the `-o` option. The def
 The [mod-data-export](https://github.com/folio-org/mod-data-export) has a temporary limitation whereby the only supported storage for exported MARC files is an AWS S3 bucket.
 Refer to their [Important notes](https://github.com/folio-org/mod-data-export#important-notes) section.
 
+Refer to other notes about [Regular FOLIO releases](https://dev.folio.org/guides/regular-releases/) with links to co-ordination information and community release notes.
+
 ## Known issues
 
 This Jira filter shows known critical issues that are not yet resolved:
