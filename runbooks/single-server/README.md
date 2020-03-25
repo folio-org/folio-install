@@ -1,9 +1,6 @@
 # FOLIO deployment: single server
 
-** NOTE: 20200320: ** This document is still being adjusted for q1-2020 release.
-See [FOLIO-2507](https://issues.folio.org/browse/FOLIO-2507).
-
-This procedure will establish a FOLIO system based on the "Q1-2020 FameFlower" quarterly release.
+This procedure will establish a FOLIO system based on the "Q1-2020 Fameflower" quarterly release.
 
 Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ansible
 
@@ -44,7 +41,7 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 ```
 git clone https://github.com/folio-org/folio-install
 cd folio-install
-git checkout folio-2507-q1-2020-single-server
+git checkout q1-2020
 cd runbooks/single-server
 ```
 
