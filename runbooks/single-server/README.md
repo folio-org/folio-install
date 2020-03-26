@@ -1,6 +1,6 @@
 # FOLIO deployment: single server
 
-This procedure will establish a FOLIO system based on the "Q4-2019 Edelweiss" quarterly release.
+This procedure will establish a FOLIO system based on the "Q1-2020 Fameflower" quarterly release.
 
 Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ansible
 
@@ -18,6 +18,7 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 <!-- ../../../okapi/doc/md2toc -l 2 -h 2 -s 2 README.md -->
 * [Build a target Linux host](#build-a-target-linux-host)
 * [Install and configure required packages](#install-and-configure-required-packages)
+* [Install Apache Kafka and Apache ZooKeeper](#install-apache-kafka-and-apache-zookeeper)
 * [Create databases and roles](#create-databases-and-roles)
 * [Install and configure Okapi](#install-and-configure-okapi)
 * [Create FOLIO tenant](#create-folio-tenant)
@@ -29,6 +30,7 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 * [Load sample data](#load-sample-data)
 * [Install and serve edge modules for platform-complete](#install-and-serve-edge-modules-for-platform-complete)
 * [Secure the Okapi API (supertenant)](#secure-the-okapi-api-supertenant)
+* [Other considerations](#other-considerations)
 * [Known issues](#known-issues)
 * [Frequently asked questions](#frequently-asked-questions)
 
@@ -39,7 +41,7 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 ```
 git clone https://github.com/folio-org/folio-install
 cd folio-install
-git checkout q4-2019
+git checkout q1-2020
 cd runbooks/single-server
 ```
 
@@ -117,6 +119,17 @@ sudo systemctl daemon-reload
 sudo systemctl restart docker
 ```
 
+7. Install docker-compose
+
+Follow the instructions from [docker](https://docs.docker.com/compose/install/). For example:
+
+```
+sudo curl -L \
+  "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" \
+  -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+```
+
 ### Build requirements: git, curl, NodeJS, npm, Yarn, libjson-perl, libwww-perl libuuid-tiny-perl
 
 1. Install build requirements from Ubuntu apt repositories
@@ -139,6 +152,23 @@ wget --quiet -O - https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 sudo add-apt-repository "deb https://dl.yarnpkg.com/debian/ stable main"
 sudo apt-get update
 sudo apt-get -y install yarn
+```
+
+## Install Apache Kafka and Apache ZooKeeper
+
+The [Apache Kafka](https://kafka.apache.org/) and [Apache ZooKeeper](https://zookeeper.apache.org/)
+are required by [FOLIO mod-pubsub](https://github.com/folio-org/mod-pubsub).
+
+Here they are installed using docker-compose.
+
+  * [Sample kafka-zk docker-compose.yml file](scripts/docker-compose-kafka-zk.yml)
+
+```
+sudo mkdir /opt/kafka-zk
+sudo cp /vagrant/scripts/docker-compose-kafka-zk.yml /opt/kafka-zk/docker-compose.yml
+cd /opt/kafka-zk
+sudo docker-compose up -d
+cd -
 ```
 
 ## Create databases and roles
@@ -173,7 +203,7 @@ CREATE DATABASE folio WITH OWNER folio;
 wget --quiet -O - https://repository.folio.org/packages/debian/folio-apt-archive-key.asc | sudo apt-key add -
 sudo add-apt-repository "deb https://repository.folio.org/packages/ubuntu xenial/"
 sudo apt-get update
-sudo apt-get -y install okapi=2.35.1-1
+sudo apt-get -y install okapi=2.37.0-1
 sudo apt-mark hold okapi
 ```
 
@@ -252,10 +282,10 @@ git clone https://github.com/folio-org/platform-core
 cd platform-core
 ```
 
-3. Check out the `q4-2019` branch. The HEAD of this branch should reflect the latest release, including any bug fix releases.
+3. Check out the `q1-2020` branch. The HEAD of this branch should reflect the latest release, including any bug fix releases.
 
 ```
-git checkout q4-2019
+git checkout q1-2020
 ```
 
 4. Install npm packages
@@ -549,11 +579,6 @@ You may choose to also install and serve edge APIs.
 4. Start edge module Docker containers
 
     The containers for edge modules can be established in various of ways. This guide uses docker-compose.
-    If docker-compose is not already installed or needs to be upgraded, then follow the instructions from [docker](https://docs.docker.com/compose/install/). For example:
-    ```
-    sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-    sudo chmod +x /usr/local/bin/docker-compose
-    ```
 
     Set up a docker compose file in `/etc/folio/edge/docker-compose.yml` that defines each edge module that is to be run as a service.
 
@@ -652,10 +677,17 @@ python3 /vagrant/scripts/secure-supertenant.py -u USERNAME -p PASSWORD
 
 You can also specify a different url for Okapi by using the `-o` option. The default value is `http://localhost:9130` if you do not specify this option.
 
+## Other considerations
+
+The [mod-data-export](https://github.com/folio-org/mod-data-export) has a temporary limitation whereby the only supported storage for exported MARC files is an AWS S3 bucket.
+Refer to their [Important notes](https://github.com/folio-org/mod-data-export#important-notes) section.
+
+Refer to other notes about [Regular FOLIO releases](https://dev.folio.org/guides/regular-releases/) with links to co-ordination information and community release notes.
+
 ## Known issues
 
 This Jira filter shows known critical issues that are not yet resolved:
-* [Known critical Q4-2019 issues](https://issues.folio.org/issues/?filter=11914)
+* [Known critical Q1-2020 issues](https://issues.folio.org/issues/?filter=12114)
 
 ## Frequently asked questions
 
@@ -663,7 +695,7 @@ This Jira filter shows known critical issues that are not yet resolved:
 
 Why is a lot of vagrant memory allocated?
 
-For the platform-core there are about 25 backend modules (about 45 for platform-complete),
+For the platform-core there are about 25 backend modules (about 50 for platform-complete),
 with their docker images sizes being about 160 MB each (as an average).
 Some room is needed for loading the data and running the database.
 
@@ -675,4 +707,9 @@ If short on memory, then build this elsewhere.
 Each back-end module has a default LaunchDescriptor in its ModuleDescriptor.
 These have basic minimal memory settings that are appropriate for the FOLIO hosted reference environments.
 For a real system, these would need to be [over-ridden](https://dev.folio.org/guides/module-descriptor/#launchdescriptor-properties).
+
+### Notes for other operating systems
+
+Utilise this document as a guide to apply to your own particular operating system.
+We can only maintain this one procedure document.
 
