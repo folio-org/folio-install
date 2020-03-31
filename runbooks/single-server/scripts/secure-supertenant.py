@@ -22,11 +22,13 @@ def main():
     args = parse_command_line_args()
     okapi_url = args.okapi_url
 
-    # enable mod-users, mod-permissions, mod-login
-    module_ids = fetch_module_ids(['mod-users', 'mod-permissions', 'mod-login'], okapi_url)
-    for k in module_ids:
-        print("Enabling module {}...".format(module_ids[k]))
-        enable_module(module_ids[k], okapi_url)
+    # enable mod-permissions, mod-users, mod-login
+    module_list = ['mod-permissions', 'mod-users', 'mod-login']
+    module_ids = fetch_module_ids(module_list, okapi_url)
+    for module in module_list:
+        module_id = module_ids[module]
+        print("Enabling module {}...".format(module_id))
+        enable_module(module_id, okapi_url)
         print("Success")
 
     # Create user
