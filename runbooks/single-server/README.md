@@ -686,8 +686,8 @@ Refer to other notes about [Regular FOLIO releases](https://dev.folio.org/guides
 
 ## Known issues
 
-This Jira filter shows known critical issues that are not yet resolved:
-* [Known critical Q1-2020 issues](https://issues.folio.org/issues/?filter=12114)
+At [issues.folio.org](https://issues.folio.org/) relevant tickets have "Labels" such as "`q1-2020`"
+and various others of the form "`q1-2020-*`".
 
 ## Frequently asked questions
 
