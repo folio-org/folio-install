@@ -203,7 +203,7 @@ CREATE DATABASE folio WITH OWNER folio;
 wget --quiet -O - https://repository.folio.org/packages/debian/folio-apt-archive-key.asc | sudo apt-key add -
 sudo add-apt-repository "deb https://repository.folio.org/packages/ubuntu xenial/"
 sudo apt-get update
-sudo apt-get -y install okapi=2.37.2-1
+sudo apt-get -y install okapi=2.38.0-1
 sudo apt-mark hold okapi
 ```
 
@@ -584,7 +584,7 @@ You may choose to also install and serve edge APIs.
 
     Find the relevant module versions:
     ```
-    curl -s http://localhost:9130/_/proxy/tenants/diku/modules | jq '.[].id' | grep edge
+    curl -s http://localhost:9130/_/proxy/tenants/diku/modules | jq -r '.[].id' | grep 'edge-'
     ```
 
     For example, we will define a service only for [edge-oai-pmh](https://github.com/folio-org/edge-oai-pmh) here.
@@ -686,8 +686,8 @@ Refer to other notes about [Regular FOLIO releases](https://dev.folio.org/guides
 
 ## Known issues
 
-This Jira filter shows known critical issues that are not yet resolved:
-* [Known critical Q1-2020 issues](https://issues.folio.org/issues/?filter=12114)
+At [issues.folio.org](https://issues.folio.org/) relevant tickets have "Labels" such as "`q1-2020`"
+and various others of the form "`q1-2020-*`".
 
 ## Frequently asked questions
 
