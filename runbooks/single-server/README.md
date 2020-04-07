@@ -584,7 +584,7 @@ You may choose to also install and serve edge APIs.
 
     Find the relevant module versions:
     ```
-    curl -s http://localhost:9130/_/proxy/tenants/diku/modules | jq '.[].id' | grep edge
+    curl -s http://localhost:9130/_/proxy/tenants/diku/modules | jq -r '.[].id' | grep 'edge-'
     ```
 
     For example, we will define a service only for [edge-oai-pmh](https://github.com/folio-org/edge-oai-pmh) here.
