@@ -547,7 +547,7 @@ PG_USER = spring_folio_admin
 -Workload running as 3 pods that share database (Run as uneven numbers for quorum).<br/>
 -Initially spin up one Okapi pod, do the deployment jobs, then can scale out Okapi's pods for clustering and they will each pick up the tenants/discovery/proxy services.v
 -After single Okapi pod has been initialized, set Workload environment variable for InitDB to false for future pod scalability.<br/>
--*ClusterIP* port mapping for Okapi port 9130, Hazelcast ports (5701 - 5704) and OKAPI_CLUSTERHOST environment variable set to the *ClusterIP* Rancher/K8s assigns in Service Discovery.<br/>
+-*ClusterIP* port mapping for Okapi port 9130, and the Hazelcast ports (5701 - 5704, 54327). Also add a *NodePort* portmap for 9130 when exposing Okapi via a Load Balancing/Ingress entry.<br/>
 
 #### Suggested running configuration for containerized Okapi:
 
