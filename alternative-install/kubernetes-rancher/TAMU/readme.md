@@ -545,9 +545,20 @@ PG_USER = spring_folio_admin
             </kubernetes>
 ```
 -Workload running as 3 pods that share database (Run as uneven numbers for quorum).<br/>
--Initially spin up one Okapi pod, do the deployment jobs, then can scale out Okapi's pods for clustering and they will each pick up the tenants/discovery/proxy services.<br/>
+-Initially spin up one Okapi pod, do the deployment jobs, then can scale out Okapi's pods for clustering and they will each pick up the tenants/discovery/proxy services.v
 -After single Okapi pod has been initialized, set Workload environment variable for InitDB to false for future pod scalability.<br/>
 -*ClusterIP* port mapping for Okapi port 9130, Hazelcast ports (5701 - 5704) and OKAPI_CLUSTERHOST environment variable set to the *ClusterIP* Rancher/K8s assigns in Service Discovery.<br/>
+
+#### Suggested running configuration for containerized Okapi:
+
+-Built using Tamu's Dockerfile vs the Folioorg Dockerhub artifact, as it provides us with a bit more flexibility when running (defined environment variables, ability to pass hazelcast config, ability to initilize the database or not).<br/>
+-At minimum ran as a single cluster of 3 containers per Folio instance, at an odd number of members so a quorum is established (1, 3, 5, 7, etc).<br/>
+-The Okapi cluster is spawned from a single Workload as a K8s statefulset deployment, then scaled out. This is done to allow Okapi nodes to have consistent names, to handle upgrading members on-the-fly, and to facilitate scaling up and down with more consistency and stability.<br/>
+-As stated above, we define in the hazelcast.xml config file a unique group name, namespace the service-name of the deployment in K8s.<br/>
+-Hazelcast overhead seems low. Members and their config are stored in a memory map in each Okapi node from my understanding.<br/>
+-I have seen performance drawbacks with large numbers of Okapi. This appears to stem from the Timers function.<br/>
+-In K8s networking, the Okapi pods are round-robin load-balanced so not a single member gets overwhelmed. This does have a benefit in our testing: Loading data through the APIs doesn’t overload any single K8s node where an Okapi pod instance may be running. This also means that other tenants, where heavy requests may be taking place, do not see as much of a performance impact of the system when multiple tenants are being accessed and used within the same instance of Folio.<br/>
+-It has been our experience that running a separate database for Okapi, and not lumping it in with the Folio modules database, improves performance for us.<br/>
 
 #### Okapi Workload environment variables:
 
