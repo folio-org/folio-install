@@ -551,8 +551,8 @@ PG_USER = spring_folio_admin
 
 #### Suggested running configuration for containerized Okapi:
 
--Built using Tamu's Dockerfile vs the Folioorg Dockerhub artifact, as it provides us with a bit more flexibility when running (defined environment variables, ability to pass hazelcast config, ability to initilize the database or not).<br/>
--At minimum ran as a single cluster of 3 containers per Folio instance, at an odd number of members so a quorum is established (1, 3, 5, 7, etc).<br/>
+-Built using Tamu's Dockerfile vs the Folioorg Dockerhub artifact, as it provides us with a bit more flexibility when running (defined environment variables, ability to pass hazelcast config, ability to initialize the database or not).<br/>
+-At minimum ran as a single cluster of 3 containers per Folio instance, at an odd number of members so a quorum is established (3, 5, 7, etc). You can run as a single node cluster, but you lose the benefits of multiple Okapis providing redundancy and the overhead that allows you for handling multiple, simultaneous and large requests<br/>
 -The Okapi cluster is spawned from a single Workload as a K8s statefulset deployment, then scaled out. This is done to allow Okapi nodes to have consistent names, to handle upgrading members on-the-fly, and to facilitate scaling up and down with more consistency and stability.<br/>
 -As stated above, we define in the hazelcast.xml config file a unique group name, namespace the service-name of the deployment in K8s.<br/>
 -Hazelcast overhead seems low. Members and their config are stored in a memory map in each Okapi node from my understanding.<br/>
