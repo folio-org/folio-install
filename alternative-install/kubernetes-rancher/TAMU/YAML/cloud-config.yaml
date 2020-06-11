@@ -1,4 +1,4 @@
 #cloud-config
 rancher:
-  docker:
-    engine: docker-19.03.5
+  sysctl:
+    vm.max_map_count: 262144
