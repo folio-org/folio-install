@@ -544,12 +544,12 @@ PG_USER = spring_folio_admin
                 -->
             </kubernetes>
 ```
--Workload running as 3 pods that share database (Run as uneven numbers for quorum).<br/>
--Initially spin up one Okapi pod, do the deployment jobs, then can scale out Okapi's pods for clustering and they will each pick up the tenants/discovery/proxy services.v
--After single Okapi pod has been initialized, set Workload environment variable for InitDB to false for future pod scalability.<br/>
+-When a single Okapi pod has been initialized, edit and set Okapi's Workload environment variable for InitDB to false, and it will respin up for future pod scalability with data persistence.<br/>
+-After initially spinning up one Okapi pod, then doing the InitDB variable switch above, execute the deployment K8s Jobs to deploy the Folio tenants and modules.<br/>
+-Scale out Okapi's pods for clustering after finishing your tenant setup, they will each get and manage the shared data of your Folio deployment.<br/>
 -*ClusterIP* port mapping for Okapi port 9130, and the Hazelcast ports (5701 - 5704, 54327). Also add a *NodePort* portmap for 9130 when exposing Okapi via a Load Balancing/Ingress entry.<br/>
 
-#### Suggested running configuration for containerized Okapi:
+#### Configuration and observations for containerized Okapi:
 
 -Built using Tamu's Dockerfile vs the Folioorg Dockerhub artifact, as it provides us with a bit more flexibility when running (defined environment variables, ability to pass hazelcast config, ability to initialize the database or not).<br/>
 -At minimum ran as a single cluster of 3 containers per Folio instance, at an odd number of members so a quorum is established (3, 5, 7, etc). You can run as a single node cluster, but you lose the benefits of multiple Okapis providing redundancy and the overhead that allows you for handling multiple, simultaneous and large requests<br/>
