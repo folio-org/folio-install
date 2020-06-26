@@ -326,7 +326,7 @@ db-config-okapi (postgres-okapi-q4 namespace)<br/>
 8) Add Record under Service Discovery, named pg-folio, as type *Selector* with Label/Value: *statefulset.kubernetes.io/pod-name = pgset-0*
 9) Deploy create-db Workload *Job* - built from our custom Docker container with DB init scripts - with db-connect Secret
 10) Deploy Okapi Workload *Scalable deployment* of 1 and InitDB environment variable set to true - built from our custom Docker container - with db-connect-okapi Secret
-11) Deploy Folio module Workloads *Scalable deployment* between 1 and 3 (one Workload per Folio module) - with db-connect Secret for those modules that need a connection to the database
+11) Deploy Folio module Workloads *Scalable deployment* between 1 and 3 (one Workload per Folio module) - with db-connect Secret for those modules that need a connection to the database. (Import the workloads.yaml file in Rancher for this, it will deploy all of the Folio back-end containers in Rancher)
 12) Deploy Stripes Workload *Run one pod on each node* – built from our custom Docker container
 13) Create tamu-tenant-config, diku-tenant-config and x-okapi-token Rancher Secrets under Folio-Project - Resources - Secrets
 14) Deploy create-tenant Workload *Job* – built from our custom Docker container with scripts - with tamu-tenant-config/diku-tenant-config Secret
