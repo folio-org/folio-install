@@ -1,6 +1,9 @@
 # FOLIO deployment: single server
 
-This procedure will establish a FOLIO system based on the "Q1-2020 Fameflower" quarterly release.
+** NOTE: 20200715: ** This document is still being adjusted for q2-2020 release.
+See [FOLIO-2620](https://issues.folio.org/browse/FOLIO-2620).
+
+This procedure will establish a FOLIO system based on the "Q2-2020 Goldenrod" quarterly release.
 
 Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ansible
 
