@@ -44,7 +44,7 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 ```
 git clone https://github.com/folio-org/folio-install
 cd folio-install
-git checkout q1-2020
+git checkout folio-2620-q2-2020-single-server
 cd runbooks/single-server
 ```
 
@@ -285,10 +285,10 @@ git clone https://github.com/folio-org/platform-core
 cd platform-core
 ```
 
-3. Check out the `q1-2020` branch. The HEAD of this branch should reflect the latest release, including any bug fix releases.
+3. Check out the `q2-2020` branch. The HEAD of this branch should reflect the latest release, including any bug fix releases.
 
 ```
-git checkout q1-2020
+git checkout q2-2020
 ```
 
 4. Install npm packages
@@ -689,8 +689,8 @@ Refer to other notes about [Regular FOLIO releases](https://dev.folio.org/guides
 
 ## Known issues
 
-At [issues.folio.org](https://issues.folio.org/) relevant tickets have "Labels" such as "`q1-2020`"
-and various others of the form "`q1-2020-*`".
+At [issues.folio.org](https://issues.folio.org/) relevant tickets have "Labels" such as "`q2-2020`"
+and various others of the form "`q2-2020-*`".
 
 ## Frequently asked questions
 
