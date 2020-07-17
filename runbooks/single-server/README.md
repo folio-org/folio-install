@@ -141,11 +141,10 @@ sudo chmod +x /usr/local/bin/docker-compose
 sudo apt-get -y install git curl nodejs npm libjson-perl libwww-perl libuuid-tiny-perl
 ```
 
-2. Install n and mocha from npm
+2. Install n from npm
 
 ```
 sudo npm install n -g
-sudo npm install mocha -g
 ```
 
 3. Import the Yarn signing key, add the Yarn apt repository, install Yarn
