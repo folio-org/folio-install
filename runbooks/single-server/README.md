@@ -65,6 +65,7 @@ Throughout these instructions, replace every mention of `platform-core` with `pl
 3. Bring up the Vagrant VM, log into it
 
 ```
+vagrant box update
 vagrant up
 vagrant ssh
 ```
@@ -210,6 +211,8 @@ sudo apt-mark hold okapi
 ```
 
 ### Sidebar: Okapi releases
+
+This section goes beyond the quarterly release. Be careful.
 
 If you would like to work with the latest Okapi release, remove the hold command above and change the install command above to:
 
@@ -543,11 +546,13 @@ You may choose to also install and serve edge APIs.
 2. Create institutional user
 
     An institutional user must be created with appropriate permissions to use the edge module. You can use the included `scripts/create-user.py` to create a user and assign permissions.
+
     ```
-    python3 scripts/create-user.py -u instuser -p instpass \
+    python3 /vagrant/scripts/create-user.py -u instuser -p instpass \
         --permissions oai-pmh.all --tenant diku \
         --admin-user diku_admin --admin-password admin
     ```
+
     If you need to specify an Okapi instance running somewhere other than `http://localhost:9130` then add the `--okapi-url` flag to pass a different url.
     If more than one permission set needs to be assigned, then use a comma delimited list, i.e. `--permissions edge-rtac.all,edge-oai-pmh.all`
 
@@ -564,7 +569,9 @@ You may choose to also install and serve edge APIs.
     sudo mkdir -p /etc/folio/edge
     sudo vi /etc/folio/edge/edge-oai-pmh-ephemeral.properties
     ```
-    The ephemeral properties file should look like this
+
+    The ephemeral properties file should look like this:
+
     ```
     secureStore.type=Ephemeral
     # a comma separated list of tenants
@@ -585,6 +592,7 @@ You may choose to also install and serve edge APIs.
     Set up a docker compose file in `/etc/folio/edge/docker-compose.yml` that defines each edge module that is to be run as a service.
 
     Find the relevant module versions:
+
     ```
     curl -s http://localhost:9130/_/proxy/tenants/diku/modules | jq -r '.[].id' | grep 'edge-'
     ```
@@ -597,7 +605,7 @@ You may choose to also install and serve edge APIs.
       edge-oai-pmh:
         ports:
           - "9700:8081"
-        image: folioorg/edge-oai-pmh:2.0.0
+        image: folioorg/edge-oai-pmh:2.2.1
         volumes:
           - /etc/folio/edge:/mnt
         command:
@@ -605,22 +613,28 @@ You may choose to also install and serve edge APIs.
           -"Dsecure_store_props=/mnt/edge-oai-pmh-ephemeral.properties"
         restart: "always"
     ```
+
     In this configuration, use the IP address or DNS record for Okapi (not 'localhost') for the okapi_url option.
 
     Now start the edge module containers:
+
     ```
     cd /etc/folio/edge
     sudo docker-compose up -d
     ```
+
 5. Set up NGINX
 
     The nginx is already installed during previous sections.
 
     Create a new virtual host configuration to proxy the edge modules.
+
     ```
     sudo vi /etc/nginx/sites-available/edge
     ```
+
     In this example, we will only configure edge-oai-pmh:
+
     ```
     server {
       listen 8130;
@@ -632,11 +646,14 @@ You may choose to also install and serve edge APIs.
       }
     }
     ```
+
     Now link that new configuration and restart nginx.
+
     ```
     sudo ln -s /etc/nginx/sites-available/edge /etc/nginx/sites-enabled/edge
     sudo service nginx restart
     ```
+
     In this configuration, nginx is listening on port 8130 which is an arbitrary unused port selected to listen for requests to edge APIs.
     The location `/oai` is based on the interface provided by the edge-oai-pmh module.
     Check the edge module's [API reference documentation](https://dev.folio.org/reference/api/#edge-oai-pmh) to find the relevant endpoint to proxy.
@@ -654,12 +671,14 @@ You may choose to also install and serve edge APIs.
     mvn package
     java -jar target/edge-common-api-key-utils.jar -g -t diku -u instuser
     ```
+
     This will return an API key that must be included in requests to edge modules. In this example, we get `eyJzIjoiRnRUNEdQYXlZWiIsInQiOiJkaWt1IiwidSI6Imluc3R1c2VyIn0=`
 
 7. Test the edge module access
 
     Verify a valid response by constructing a request according to the relevant module's documentation.
     For [mod-oai-pmh](https://github.com/folio-org/mod-oai-pmh) for example:
+
     ```
     curl -s "http://localhost:8130/oai?apikey=eyJzIjoiRnRUNEdQYXlZWiIsInQiOiJkaWt1IiwidSI6Imluc3R1c2VyIn0=&verb=Identify" | xq '.'
     ```
@@ -673,6 +692,7 @@ The included script requires mod-authtoken, mod-login, mod-permissions, and mod-
 **CAUTION**: When the supertenant is secured, you must login using mod-authtoken to obtain an authtoken and include it in the `x-okapi-token` header for every request to the Okapi API. For example, if you want to repeat any of the calls to Okapi in this guide, you will need to include `x-okapi-token:YOURTOKEN` and `x-okapi-tenant:supertenant` as headers for any requests to the Okapi API.
 
 To use the included script, run the following command replacing USERNAME and PASSWORD with your desired values:
+
 ```
 python3 /vagrant/scripts/secure-supertenant.py -u USERNAME -p PASSWORD
 ```
@@ -697,7 +717,7 @@ and various others of the form "`q2-2020-*`".
 
 Why is a lot of vagrant memory allocated?
 
-For the platform-core there are about 25 backend modules (about 50 for platform-complete),
+For the platform-core there are about 25 backend modules (about 55 for platform-complete),
 with their docker images sizes being about 160 MB each (as an average).
 Some room is needed for loading the data and running the database.
 
