@@ -1,6 +1,6 @@
 # FOLIO deployment: single server
 
-This procedure will establish a FOLIO system based on the "Q1-2020 Fameflower" quarterly release.
+This procedure will establish a FOLIO system based on the "Q2-2020 Goldenrod" quarterly release.
 
 Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ansible
 
@@ -10,7 +10,7 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 * This is not considered to be a full production install.
 * There are some steps in the procedure called "sidebar" where one can go beyond the quarterly release to build a snapshot-based system (be careful).
 * This release uses PostgreSQL 10 version.
-* The _minimum_ RAM required for a system based on [platform-core](https://github.com/folio-org/platform-core) is 10 GB. See [why](#frequently-asked-questions). Keep this in mind if you are running on a VM.
+* The _minimum_ RAM required for a system based on [platform-core](https://github.com/folio-org/platform-core) is 12 GB. See [why](#frequently-asked-questions). Keep this in mind if you are running on a VM.
 * To instead build a system based on [platform-complete](https://github.com/folio-org/platform-complete) will require approximately 20 GB.
 
 ## Summary
@@ -41,11 +41,11 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 ```
 git clone https://github.com/folio-org/folio-install
 cd folio-install
-git checkout q1-2020
+git checkout q2-2020
 cd runbooks/single-server
 ```
 
-The default procedure will create a VirtualBox VM based on this [Vagrantfile](Vagrantfile), running a generic Ubuntu Xenial OS, with 10 GB RAM and 2 CPUs. Port 9130 of the guest will be forwarded to port 9130 of the host, and port 80 of the guest will be forwarded to port 3000 of the host. The `folio-install/runbooks/single-server` directory on the host will be shared on the guest at the `/vagrant` mount point.
+The default procedure will create a VirtualBox VM based on this [Vagrantfile](Vagrantfile), running a generic Ubuntu Xenial OS, with 12 GB RAM and 2 CPUs. Port 9130 of the guest will be forwarded to port 9130 of the host, and port 80 of the guest will be forwarded to port 3000 of the host. The `folio-install/runbooks/single-server` directory on the host will be shared on the guest at the `/vagrant` mount point.
 
 2. Decide between platform-core and platform-complete
 
@@ -62,6 +62,7 @@ Throughout these instructions, replace every mention of `platform-core` with `pl
 3. Bring up the Vagrant VM, log into it
 
 ```
+vagrant box update
 vagrant up
 vagrant ssh
 ```
@@ -125,7 +126,7 @@ Follow the instructions from [docker](https://docs.docker.com/compose/install/).
 
 ```
 sudo curl -L \
-  "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" \
+  "https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)" \
   -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 ```
@@ -138,11 +139,10 @@ sudo chmod +x /usr/local/bin/docker-compose
 sudo apt-get -y install git curl nodejs npm libjson-perl libwww-perl libuuid-tiny-perl
 ```
 
-2. Install n and mocha from npm
+2. Install n from npm
 
 ```
 sudo npm install n -g
-sudo npm install mocha -g
 ```
 
 3. Import the Yarn signing key, add the Yarn apt repository, install Yarn
@@ -203,11 +203,13 @@ CREATE DATABASE folio WITH OWNER folio;
 wget --quiet -O - https://repository.folio.org/packages/debian/folio-apt-archive-key.asc | sudo apt-key add -
 sudo add-apt-repository "deb https://repository.folio.org/packages/ubuntu xenial/"
 sudo apt-get update
-sudo apt-get -y install okapi=2.38.0-1
+sudo apt-get -y install okapi=3.1.2-1
 sudo apt-mark hold okapi
 ```
 
 ### Sidebar: Okapi releases
+
+This section goes beyond the quarterly release. Be careful.
 
 If you would like to work with the latest Okapi release, remove the hold command above and change the install command above to:
 
@@ -282,10 +284,10 @@ git clone https://github.com/folio-org/platform-core
 cd platform-core
 ```
 
-3. Check out the `q1-2020` branch. The HEAD of this branch should reflect the latest release, including any bug fix releases.
+3. Check out the `q2-2020` branch. The HEAD of this branch should reflect the latest release, including any bug fix releases.
 
 ```
-git checkout q1-2020
+git checkout q2-2020
 ```
 
 4. Install npm packages
@@ -541,11 +543,13 @@ You may choose to also install and serve edge APIs.
 2. Create institutional user
 
     An institutional user must be created with appropriate permissions to use the edge module. You can use the included `scripts/create-user.py` to create a user and assign permissions.
+
     ```
-    python3 scripts/create-user.py -u instuser -p instpass \
+    python3 /vagrant/scripts/create-user.py -u instuser -p instpass \
         --permissions oai-pmh.all --tenant diku \
         --admin-user diku_admin --admin-password admin
     ```
+
     If you need to specify an Okapi instance running somewhere other than `http://localhost:9130` then add the `--okapi-url` flag to pass a different url.
     If more than one permission set needs to be assigned, then use a comma delimited list, i.e. `--permissions edge-rtac.all,edge-oai-pmh.all`
 
@@ -562,7 +566,9 @@ You may choose to also install and serve edge APIs.
     sudo mkdir -p /etc/folio/edge
     sudo vi /etc/folio/edge/edge-oai-pmh-ephemeral.properties
     ```
-    The ephemeral properties file should look like this
+
+    The ephemeral properties file should look like this:
+
     ```
     secureStore.type=Ephemeral
     # a comma separated list of tenants
@@ -583,6 +589,7 @@ You may choose to also install and serve edge APIs.
     Set up a docker compose file in `/etc/folio/edge/docker-compose.yml` that defines each edge module that is to be run as a service.
 
     Find the relevant module versions:
+
     ```
     curl -s http://localhost:9130/_/proxy/tenants/diku/modules | jq -r '.[].id' | grep 'edge-'
     ```
@@ -595,7 +602,7 @@ You may choose to also install and serve edge APIs.
       edge-oai-pmh:
         ports:
           - "9700:8081"
-        image: folioorg/edge-oai-pmh:2.0.0
+        image: folioorg/edge-oai-pmh:2.2.1
         volumes:
           - /etc/folio/edge:/mnt
         command:
@@ -603,22 +610,28 @@ You may choose to also install and serve edge APIs.
           -"Dsecure_store_props=/mnt/edge-oai-pmh-ephemeral.properties"
         restart: "always"
     ```
+
     In this configuration, use the IP address or DNS record for Okapi (not 'localhost') for the okapi_url option.
 
     Now start the edge module containers:
+
     ```
     cd /etc/folio/edge
     sudo docker-compose up -d
     ```
+
 5. Set up NGINX
 
     The nginx is already installed during previous sections.
 
     Create a new virtual host configuration to proxy the edge modules.
+
     ```
     sudo vi /etc/nginx/sites-available/edge
     ```
+
     In this example, we will only configure edge-oai-pmh:
+
     ```
     server {
       listen 8130;
@@ -630,11 +643,14 @@ You may choose to also install and serve edge APIs.
       }
     }
     ```
+
     Now link that new configuration and restart nginx.
+
     ```
     sudo ln -s /etc/nginx/sites-available/edge /etc/nginx/sites-enabled/edge
     sudo service nginx restart
     ```
+
     In this configuration, nginx is listening on port 8130 which is an arbitrary unused port selected to listen for requests to edge APIs.
     The location `/oai` is based on the interface provided by the edge-oai-pmh module.
     Check the edge module's [API reference documentation](https://dev.folio.org/reference/api/#edge-oai-pmh) to find the relevant endpoint to proxy.
@@ -652,12 +668,14 @@ You may choose to also install and serve edge APIs.
     mvn package
     java -jar target/edge-common-api-key-utils.jar -g -t diku -u instuser
     ```
+
     This will return an API key that must be included in requests to edge modules. In this example, we get `eyJzIjoiRnRUNEdQYXlZWiIsInQiOiJkaWt1IiwidSI6Imluc3R1c2VyIn0=`
 
 7. Test the edge module access
 
     Verify a valid response by constructing a request according to the relevant module's documentation.
     For [mod-oai-pmh](https://github.com/folio-org/mod-oai-pmh) for example:
+
     ```
     curl -s "http://localhost:8130/oai?apikey=eyJzIjoiRnRUNEdQYXlZWiIsInQiOiJkaWt1IiwidSI6Imluc3R1c2VyIn0=&verb=Identify" | xq '.'
     ```
@@ -671,6 +689,7 @@ The included script requires mod-authtoken, mod-login, mod-permissions, and mod-
 **CAUTION**: When the supertenant is secured, you must login using mod-authtoken to obtain an authtoken and include it in the `x-okapi-token` header for every request to the Okapi API. For example, if you want to repeat any of the calls to Okapi in this guide, you will need to include `x-okapi-token:YOURTOKEN` and `x-okapi-tenant:supertenant` as headers for any requests to the Okapi API.
 
 To use the included script, run the following command replacing USERNAME and PASSWORD with your desired values:
+
 ```
 python3 /vagrant/scripts/secure-supertenant.py -u USERNAME -p PASSWORD
 ```
@@ -686,8 +705,8 @@ Refer to other notes about [Regular FOLIO releases](https://dev.folio.org/guides
 
 ## Known issues
 
-At [issues.folio.org](https://issues.folio.org/) relevant tickets have "Labels" such as "`q1-2020`"
-and various others of the form "`q1-2020-*`".
+At [issues.folio.org](https://issues.folio.org/) relevant tickets have "Labels" such as "`q2-2020`"
+and various others of the form "`q2-2020-*`".
 
 ## Frequently asked questions
 
@@ -695,7 +714,7 @@ and various others of the form "`q1-2020-*`".
 
 Why is a lot of vagrant memory allocated?
 
-For the platform-core there are about 25 backend modules (about 50 for platform-complete),
+For the platform-core there are about 25 backend modules (about 55 for platform-complete),
 with their docker images sizes being about 160 MB each (as an average).
 Some room is needed for loading the data and running the database.
 
