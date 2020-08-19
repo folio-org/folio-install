@@ -322,7 +322,7 @@ db-connect-okapi (folio-q4 namespace)<br/>
 db-config-modules (postgres-modules-q4 namespace)<br/>
 db-config-okapi (postgres-okapi-q4 namespace)<br/>
 
-7) Deploy crunchy-postgres Workload *Stateful set* via Helm Package, edit the Workload to tweak environment variables for use with Folio - with db-config Secret
+7) Deploy two crunchy-postgres Workload *Stateful sets* via Helm Chart, one each to postgres-okapi-q4 and postgres-modules-q4 namespaces. You will then have one Postgres database for Okapi, and the other for Folio storage modules. Edit each Postgres Workload to tweak the environment variables for use with Okapi and Folio modules - using the corresponding db-config-okapi and db-config-modules Secrets.
 8) Add Record under Service Discovery, named pg-folio, as type *Selector* with Label/Value: *statefulset.kubernetes.io/pod-name = pgset-0*
 9) Deploy create-db Workload *Job* - built from our custom Docker container with DB init scripts - with db-connect Secret
 10) Deploy Okapi Workload *Scalable deployment* of 1 and InitDB environment variable set to true - built from our custom Docker container - with db-connect-okapi Secret
