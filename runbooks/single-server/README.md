@@ -72,7 +72,7 @@ vagrant ssh
 
 ## Install and configure required packages
 
-### Runtime requirements: Java 8, nginx, PostgreSQL 10, Docker
+### Runtime requirements: Java 11, nginx, PostgreSQL 10, Docker
 
 1. Update the apt cache
 
@@ -80,11 +80,11 @@ vagrant ssh
 sudo apt-get update
 ```
 
-2. Install Java 8 and nginx, and make Java 8 the system default
+2. Install Java 11 and nginx, and make Java 11 the system default
 
 ```
-sudo apt-get -y install openjdk-8-jdk nginx
-sudo update-java-alternatives --jre-headless --jre --set java-1.8.0-openjdk-amd64
+sudo apt-get -y install openjdk-11-jdk nginx
+sudo update-java-alternatives --jre-headless --jre --set java-1.11.0-openjdk-amd64
 ```
 
 3. Import the PostgreSQL signing key, add the PostgreSQL apt repository, install PostgreSQL
