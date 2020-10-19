@@ -48,7 +48,7 @@ git checkout folio-2832-q3-2020-single-server
 cd runbooks/single-server
 ```
 
-The default procedure will create a VirtualBox VM based on this [Vagrantfile](Vagrantfile), running a generic Ubuntu Xenial OS, with 12 GB RAM and 2 CPUs. Port 9130 of the guest will be forwarded to port 9130 of the host, and port 80 of the guest will be forwarded to port 3000 of the host. The `folio-install/runbooks/single-server` directory on the host will be shared on the guest at the `/vagrant` mount point.
+The default procedure will create a VirtualBox VM based on this [Vagrantfile](Vagrantfile), running a generic Ubuntu Focal Fossa OS, with 12 GB RAM and 2 CPUs. Port 9130 of the guest will be forwarded to port 9130 of the host, and port 80 of the guest will be forwarded to port 3000 of the host. The `folio-install/runbooks/single-server` directory on the host will be shared on the guest at the `/vagrant` mount point.
 
 2. Decide between platform-core and platform-complete
 
@@ -91,7 +91,7 @@ sudo update-java-alternatives --jre-headless --jre --set java-1.8.0-openjdk-amd6
 
 ```
 wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-sudo add-apt-repository "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main"
+sudo add-apt-repository "deb http://apt.postgresql.org/pub/repos/apt/ focal-pgdg main"
 sudo apt-get update
 sudo apt-get -y install postgresql-10 postgresql-client-10 postgresql-contrib-10 libpq-dev
 ```
@@ -204,7 +204,7 @@ CREATE DATABASE folio WITH OWNER folio;
 
 ```
 wget --quiet -O - https://repository.folio.org/packages/debian/folio-apt-archive-key.asc | sudo apt-key add -
-sudo add-apt-repository "deb https://repository.folio.org/packages/ubuntu xenial/"
+sudo add-apt-repository "deb https://repository.folio.org/packages/ubuntu focal/"
 sudo apt-get update
 sudo apt-get -y install okapi=3.1.2-1
 sudo apt-mark hold okapi
