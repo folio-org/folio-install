@@ -11,6 +11,8 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 
 * Much of this is already automated as part of the folio-ansible project.
 * This is not considered to be a full production install.
+* This procedure is only for a fresh install. It is not intended for upgrading an existing installation.
+* See section [Other considerations](#other-considerations) for links to notes for each release.
 * There are some steps in the procedure called "sidebar" where one can go beyond the quarterly release to build a snapshot-based system (be careful).
 * This release uses PostgreSQL 10 version.
 * The _minimum_ RAM required for a system based on [platform-core](https://github.com/folio-org/platform-core) is 12 GB. See [why](#frequently-asked-questions). Keep this in mind if you are running on a VM.
