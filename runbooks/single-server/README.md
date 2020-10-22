@@ -53,7 +53,7 @@ git checkout folio-2832-q3-2020-single-server
 cd runbooks/single-server
 ```
 
-The default procedure will create a VirtualBox VM based on this [Vagrantfile](Vagrantfile), running a generic Ubuntu Focal Fossa OS, with 12 GB RAM and 2 CPUs. Port 9130 of the guest will be forwarded to port 9130 of the host, and port 80 of the guest will be forwarded to port 3000 of the host. The `folio-install/runbooks/single-server` directory on the host will be shared on the guest at the `/vagrant` mount point.
+The default procedure will create a VirtualBox VM based on this [Vagrantfile](Vagrantfile), running a generic Ubuntu Focal Fossa 20.04 OS, with 12 GB RAM and 2 CPUs. Port 9130 of the guest will be forwarded to port 9130 of the host, and port 80 of the guest will be forwarded to port 3000 of the host. The `folio-install/runbooks/single-server` directory on the host will be shared on the guest at the `/vagrant` mount point.
 
 2. Decide between platform-core and platform-complete
 
