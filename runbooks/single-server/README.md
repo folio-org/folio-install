@@ -40,6 +40,7 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 * [Known issues](#known-issues)
 * [Frequently asked questions](#frequently-asked-questions)
 * [Appendix 1: Without vagrant](#appendix-1-without-vagrant)
+* [Appendix 2: Purge and install again](#appendix-2-purge-and-install-again)
 
 ## Build a target Linux host
 
@@ -760,3 +761,47 @@ At the step which posts the Okapi environment variables:
 
 * For the "`DB_HOST`" use the "Private IPv4 address".
 * Post the additional environment variables as explained in the [mod-pubsub README](https://github.com/folio-org/mod-pubsub#environment-variables), i.e. use the "Private IPv4 address" for "`KAFKA_HOST`" and the "`OKAPI_URL`".
+
+## Appendix 2: Purge and install again
+
+Sometimes the operator might miss a step or misconfigure. If that is major then it might be easier to purge the FOLIO installation and start afresh:
+
+Ensure that Okapi is still running:
+
+```
+sudo systemctl restart okapi
+```
+
+Get the list of modules, and append action=disable:
+
+```
+curl -w '\n' -s http://localhost:9130/_/proxy/tenants/diku/modules \
+  | sed 's/"$/", "action": "disable"/' \
+  > okapi-purge.json
+```
+
+Disable and purge all modules:
+
+```
+curl -w '\n' -D - -X POST -H "Content-type: application/json" \
+  -d @okapi-purge.json \
+  http://localhost:9130/_/proxy/tenants/diku/install?purge=true
+```
+
+Stop Okapi:
+
+```
+sudo systemctl stop okapi
+```
+
+Drop and re-create the 'okapi' database:
+
+```
+sudo su -c psql postgres postgres
+postgres=# DROP DATABASE okapi;
+postgres=# CREATE DATABASE okapi WITH OWNER okapi;
+postgres=# \q
+```
+
+Restart Okapi and continue with fresh FOLIO installation.
+
