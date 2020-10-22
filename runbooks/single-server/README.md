@@ -1,6 +1,6 @@
 # FOLIO deployment: single server
 
-** NOTE: 20201019: ** This document is still being adjusted for q3-2020 release.
+** NOTE: 20201022: ** This document is still being adjusted for q3-2020 release.
 See [FOLIO-2832](https://issues.folio.org/browse/FOLIO-2832).
 
 This procedure will establish a FOLIO system based on the "Q3-2020 Honeysuckle" quarterly release.
@@ -17,6 +17,7 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 * This release uses PostgreSQL 10 version.
 * The _minimum_ RAM required for a system based on [platform-core](https://github.com/folio-org/platform-core) is 12 GB. See [why](#frequently-asked-questions). Keep this in mind if you are running on a VM.
 * To instead build a system based on [platform-complete](https://github.com/folio-org/platform-complete) will require approximately 20 GB.
+* This procedure uses Vagrant. See notes for [without vagrant](#appendix-1-without-vagrant).
 
 ## Summary
 
@@ -38,6 +39,7 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 * [Other considerations](#other-considerations)
 * [Known issues](#known-issues)
 * [Frequently asked questions](#frequently-asked-questions)
+* [Appendix 1: Without vagrant](#appendix-1-without-vagrant)
 
 ## Build a target Linux host
 
@@ -737,3 +739,24 @@ For a real system, these would need to be [over-ridden](https://dev.folio.org/gu
 Utilise this document as a guide to apply to your own particular operating system.
 We can only maintain this one procedure document.
 
+## Appendix 1: Without vagrant
+
+These are some hints to follow the above procedure without using Vagrant, for example when using an EC2 instance.
+
+Before commencing, edit some folio-install scripts:
+
+* Edit the `scripts/nginx-stripes*.conf` files:
+  * Modify the "`listen`" port.
+  * Modify the "`server_name`" to be the "Public IPv4 DNS" name.
+  * Modify the "`root`" to be the pathname to the Stripes platform built "output" directory.
+* Edit the `scripts/docker-compose-kafka-zk.yml` file:
+  * Modify the "`KAFKA_ADVERTISED_LISTENERS: INTERNAL`" to use the "Private IPv4 address".
+
+At the step to edit the okapi.conf file, there some additional notes:
+
+* Use the "Private IPv4 address" for "`host`" and "`postgres_host`" and in the "`okapiurl`".
+
+At the step which posts the Okapi environment variables:
+
+* For the "`DB_HOST`" use the "Private IPv4 address".
+* Post the additional environment variables as explained in the [mod-pubsub README](https://github.com/folio-org/mod-pubsub#environment-variables), i.e. use the "Private IPv4 address" for "`KAFKA_HOST`" and the "`OKAPI_URL`".
