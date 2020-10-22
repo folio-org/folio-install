@@ -514,6 +514,8 @@ to load data from sub-directories of the `sample-data` directory, as explained i
 
 ### Load MODS records
 
+This is an optional step for additional test data.
+
 The mod-inventory provides an `/inventory/ingest/mods` endpoint for loading MODS records, which it will use to create instances, holdings, and items with default values. There are sample files in the `sample-data/mod-inventory` directory of this repository.
 
 First login and obtain an Okapi token -- it will be in the x-okapi-token header
@@ -531,6 +533,7 @@ Replace the `<okapi token>` placeholder with the actual token from the previous 
 ```
 for i in /vagrant/sample-data/mod-inventory/*.xml; do curl -w '\n' -D - -X POST -H "Content-type: multipart/form-data" -H "X-Okapi-Tenant: diku" -H "X-Okapi-Token: <okapi token>" -F upload=@${i} http://localhost:9130/inventory/ingest/mods; done
 ```
+
 ## Install and serve edge modules for platform-complete
 
 This section is only relevant for platform-complete.
@@ -756,6 +759,11 @@ Before commencing, edit some folio-install scripts:
 At the step to edit the okapi.conf file, there some additional notes:
 
 * Use the "Private IPv4 address" for "`host`" and "`postgres_host`" and in the "`okapiurl`".
+
+At the step to Configure Stripes, edit the platform's "`stripes.config.js`" file:
+
+* Modify the "okapi url" to use the "Public IPv4 DNS" name.
+* Modify the "tenant" and "branding".
 
 At the step which posts the Okapi environment variables:
 
