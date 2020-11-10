@@ -1,6 +1,6 @@
 # FOLIO deployment: single server
 
-** NOTE: 20201022: ** This document is still being adjusted for q3-2020 release.
+** NOTE: 20201110: ** This document is still being adjusted for q3-2020 release.
 See [FOLIO-2832](https://issues.folio.org/browse/FOLIO-2832).
 
 This procedure will establish a FOLIO system based on the "Q3-2020 Honeysuckle" quarterly release.
@@ -772,7 +772,9 @@ At the step which posts the Okapi environment variables:
 
 ## Appendix 2: Purge and install again
 
-Sometimes the operator might miss a step or misconfigure. If that is major then it might be easier to purge the FOLIO installation and start afresh:
+Sometimes the operator might miss a step or misconfigure. If that is major then it might be easier to purge the FOLIO installation and start afresh.
+
+(Of course if the installation has already been [secured](#secure-the-okapi-api-supertenant) then a supertenant login token needs to be obtained and used with these curl operations.)
 
 Ensure that Okapi is still running:
 
