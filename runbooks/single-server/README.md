@@ -495,6 +495,8 @@ perl /vagrant/scripts/bootstrap-superuser.pl \
   --okapi http://localhost:9130
 ```
 
+Note: Wait for a short time for the permissions cache to update, before attempting to login.
+
 ## Load module reference data
 
 Reference data for various backend modules is already automatically loaded
