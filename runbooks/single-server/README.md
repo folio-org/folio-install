@@ -237,6 +237,7 @@ Note that there is some risk in this, as the latest Okapi release may not have b
     * `host="10.0.2.15"`
     * `storage="postgres"`
     * `okapiurl="http://10.0.2.15:9130"`
+    * `docker_registries` -- Testing shows that a set of Docker Hub credentials is required.
 
 3. Restart Okapi
 
