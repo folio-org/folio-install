@@ -104,6 +104,7 @@ sudo apt-get -y install postgresql-10 postgresql-client-10 postgresql-contrib-10
 4. Configure PostgreSQL to listen on all interfaces and allow connections from all addresses (to allow Docker connections)
 
   * Edit file `/etc/postgresql/10/main/postgresql.conf` to add line `listen_addresses = '*'` in the "Connection Settings" section
+  * Edit file `/etc/postgresql/10/main/postgresql.conf` to increase `max_connections` (e.g. to 500)
   * Edit file `/etc/postgresql/10/main/pg_hba.conf` to add line `host  all  all  0.0.0.0/0  md5`
   * Restart PostgreSQL with command `sudo systemctl restart postgresql`
 
