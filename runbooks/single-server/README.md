@@ -1,8 +1,5 @@
 # FOLIO deployment: single server
 
-** NOTE: 20201110: ** This document is still being adjusted for q3-2020 release.
-See [FOLIO-2832](https://issues.folio.org/browse/FOLIO-2832).
-
 This procedure will establish a FOLIO system based on the "Q3-2020 Honeysuckle" quarterly release.
 
 Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ansible
@@ -49,7 +46,7 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 ```
 git clone https://github.com/folio-org/folio-install
 cd folio-install
-git checkout folio-2832-q3-2020-single-server
+git checkout q3-2020
 cd runbooks/single-server
 ```
 
