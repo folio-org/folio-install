@@ -1,6 +1,6 @@
 # FOLIO deployment: single server
 
-This procedure will establish a FOLIO system based on the "Q2-2020 Goldenrod" quarterly release.
+This procedure will establish a FOLIO system based on the "Q3-2020 Honeysuckle" quarterly release.
 
 Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ansible
 
@@ -8,10 +8,13 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 
 * Much of this is already automated as part of the folio-ansible project.
 * This is not considered to be a full production install.
+* This procedure is only for a fresh install. It is not intended for upgrading an existing installation.
+* See section [Other considerations](#other-considerations) for links to notes for each release.
 * There are some steps in the procedure called "sidebar" where one can go beyond the quarterly release to build a snapshot-based system (be careful).
 * This release uses PostgreSQL 10 version.
 * The _minimum_ RAM required for a system based on [platform-core](https://github.com/folio-org/platform-core) is 12 GB. See [why](#frequently-asked-questions). Keep this in mind if you are running on a VM.
 * To instead build a system based on [platform-complete](https://github.com/folio-org/platform-complete) will require approximately 20 GB.
+* This procedure uses Vagrant. See notes for [without vagrant](#appendix-1-without-vagrant).
 
 ## Summary
 
@@ -33,6 +36,8 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 * [Other considerations](#other-considerations)
 * [Known issues](#known-issues)
 * [Frequently asked questions](#frequently-asked-questions)
+* [Appendix 1: Without vagrant](#appendix-1-without-vagrant)
+* [Appendix 2: Purge and install again](#appendix-2-purge-and-install-again)
 
 ## Build a target Linux host
 
@@ -41,11 +46,11 @@ Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ans
 ```
 git clone https://github.com/folio-org/folio-install
 cd folio-install
-git checkout q2-2020
+git checkout q3-2020
 cd runbooks/single-server
 ```
 
-The default procedure will create a VirtualBox VM based on this [Vagrantfile](Vagrantfile), running a generic Ubuntu Xenial OS, with 12 GB RAM and 2 CPUs. Port 9130 of the guest will be forwarded to port 9130 of the host, and port 80 of the guest will be forwarded to port 3000 of the host. The `folio-install/runbooks/single-server` directory on the host will be shared on the guest at the `/vagrant` mount point.
+The default procedure will create a VirtualBox VM based on this [Vagrantfile](Vagrantfile), running a generic Ubuntu Focal Fossa 20.04 OS, with 12 GB RAM and 2 CPUs. Port 9130 of the guest will be forwarded to port 9130 of the host, and port 80 of the guest will be forwarded to port 3000 of the host. The `folio-install/runbooks/single-server` directory on the host will be shared on the guest at the `/vagrant` mount point.
 
 2. Decide between platform-core and platform-complete
 
@@ -69,7 +74,7 @@ vagrant ssh
 
 ## Install and configure required packages
 
-### Runtime requirements: Java 8, nginx, PostgreSQL 10, Docker
+### Runtime requirements: Java 11, nginx, PostgreSQL 10, Docker
 
 1. Update the apt cache
 
@@ -77,18 +82,18 @@ vagrant ssh
 sudo apt-get update
 ```
 
-2. Install Java 8 and nginx, and make Java 8 the system default
+2. Install Java 11 and nginx, and make Java 11 the system default
 
 ```
-sudo apt-get -y install openjdk-8-jdk nginx
-sudo update-java-alternatives --jre-headless --jre --set java-1.8.0-openjdk-amd64
+sudo apt-get -y install openjdk-11-jdk nginx
+sudo update-java-alternatives --jre-headless --jre --set java-1.11.0-openjdk-amd64
 ```
 
 3. Import the PostgreSQL signing key, add the PostgreSQL apt repository, install PostgreSQL
 
 ```
 wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-sudo add-apt-repository "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main"
+sudo add-apt-repository "deb http://apt.postgresql.org/pub/repos/apt/ focal-pgdg main"
 sudo apt-get update
 sudo apt-get -y install postgresql-10 postgresql-client-10 postgresql-contrib-10 libpq-dev
 ```
@@ -96,6 +101,7 @@ sudo apt-get -y install postgresql-10 postgresql-client-10 postgresql-contrib-10
 4. Configure PostgreSQL to listen on all interfaces and allow connections from all addresses (to allow Docker connections)
 
   * Edit file `/etc/postgresql/10/main/postgresql.conf` to add line `listen_addresses = '*'` in the "Connection Settings" section
+  * Edit file `/etc/postgresql/10/main/postgresql.conf` to increase `max_connections` (e.g. to 500)
   * Edit file `/etc/postgresql/10/main/pg_hba.conf` to add line `host  all  all  0.0.0.0/0  md5`
   * Restart PostgreSQL with command `sudo systemctl restart postgresql`
 
@@ -126,7 +132,7 @@ Follow the instructions from [docker](https://docs.docker.com/compose/install/).
 
 ```
 sudo curl -L \
-  "https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)" \
+  "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" \
   -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 ```
@@ -201,9 +207,9 @@ CREATE DATABASE folio WITH OWNER folio;
 
 ```
 wget --quiet -O - https://repository.folio.org/packages/debian/folio-apt-archive-key.asc | sudo apt-key add -
-sudo add-apt-repository "deb https://repository.folio.org/packages/ubuntu xenial/"
+sudo add-apt-repository "deb https://repository.folio.org/packages/ubuntu focal/"
 sudo apt-get update
-sudo apt-get -y install okapi=3.1.2-1
+sudo apt-get -y install okapi=4.3.2-1
 sudo apt-mark hold okapi
 ```
 
@@ -229,6 +235,7 @@ Note that there is some risk in this, as the latest Okapi release may not have b
     * `host="10.0.2.15"`
     * `storage="postgres"`
     * `okapiurl="http://10.0.2.15:9130"`
+    * `docker_registries` -- See explanation in okapi.conf file. Default is unauthenicated.
 
 3. Restart Okapi
 
@@ -284,10 +291,10 @@ git clone https://github.com/folio-org/platform-core
 cd platform-core
 ```
 
-3. Check out the `q2-2020` branch. The HEAD of this branch should reflect the latest release, including any bug fix releases.
+3. Check out the `q3-2020` branch. The HEAD of this branch should reflect the latest release, including any bug fix releases.
 
 ```
-git checkout q2-2020
+git checkout q3-2020
 ```
 
 4. Install npm packages
@@ -487,6 +494,8 @@ perl /vagrant/scripts/bootstrap-superuser.pl \
   --okapi http://localhost:9130
 ```
 
+Note: Wait for a short time for the permissions cache to update, before attempting to login.
+
 ## Load module reference data
 
 Reference data for various backend modules is already automatically loaded
@@ -506,6 +515,8 @@ to load data from sub-directories of the `sample-data` directory, as explained i
 
 ### Load MODS records
 
+This is an optional step for additional test data.
+
 The mod-inventory provides an `/inventory/ingest/mods` endpoint for loading MODS records, which it will use to create instances, holdings, and items with default values. There are sample files in the `sample-data/mod-inventory` directory of this repository.
 
 First login and obtain an Okapi token -- it will be in the x-okapi-token header
@@ -523,6 +534,7 @@ Replace the `<okapi token>` placeholder with the actual token from the previous 
 ```
 for i in /vagrant/sample-data/mod-inventory/*.xml; do curl -w '\n' -D - -X POST -H "Content-type: multipart/form-data" -H "X-Okapi-Tenant: diku" -H "X-Okapi-Token: <okapi token>" -F upload=@${i} http://localhost:9130/inventory/ingest/mods; done
 ```
+
 ## Install and serve edge modules for platform-complete
 
 This section is only relevant for platform-complete.
@@ -705,8 +717,8 @@ Refer to other notes about [Regular FOLIO releases](https://dev.folio.org/guides
 
 ## Known issues
 
-At [issues.folio.org](https://issues.folio.org/) relevant tickets have "Labels" such as "`q2-2020`"
-and various others of the form "`q2-2020-*`".
+At [issues.folio.org](https://issues.folio.org/) relevant tickets have "Labels" such as "`q3-2020`"
+and various others of the form "`q3-2020-*`".
 
 ## Frequently asked questions
 
@@ -731,4 +743,76 @@ For a real system, these would need to be [over-ridden](https://dev.folio.org/gu
 
 Utilise this document as a guide to apply to your own particular operating system.
 We can only maintain this one procedure document.
+
+## Appendix 1: Without vagrant
+
+These are some hints to follow the above procedure without using Vagrant, for example when using an EC2 instance.
+
+Before commencing, edit some folio-install scripts:
+
+* Edit the `scripts/nginx-stripes*.conf` files:
+  * Modify the "`listen`" port.
+  * Modify the "`server_name`" to be the "Public IPv4 DNS" name.
+  * Modify the "`root`" to be the pathname to the Stripes platform built "output" directory.
+* Edit the `scripts/docker-compose-kafka-zk.yml` file:
+  * Modify the "`KAFKA_ADVERTISED_LISTENERS: INTERNAL`" to use the "Private IPv4 address".
+
+At the step to edit the okapi.conf file, there some additional notes:
+
+* Use the "Private IPv4 address" for "`host`" and "`postgres_host`" and in the "`okapiurl`".
+
+At the step to Configure Stripes, edit the platform's "`stripes.config.js`" file:
+
+* Modify the "okapi url" to use the "Public IPv4 DNS" name.
+* Modify the "tenant" and "branding".
+
+At the step which posts the Okapi environment variables:
+
+* For the "`DB_HOST`" use the "Private IPv4 address".
+* Post the additional environment variables as explained in the [mod-pubsub README](https://github.com/folio-org/mod-pubsub#environment-variables), i.e. use the "Private IPv4 address" for "`KAFKA_HOST`" and the "`OKAPI_URL`".
+
+## Appendix 2: Purge and install again
+
+Sometimes the operator might miss a step or misconfigure. If that is major then it might be easier to purge the FOLIO installation and start afresh.
+
+(Of course if the installation has already been [secured](#secure-the-okapi-api-supertenant) then a supertenant login token needs to be obtained and used with these curl operations.)
+
+Ensure that Okapi is still running:
+
+```
+sudo systemctl restart okapi
+```
+
+Get the list of modules, and append action=disable:
+
+```
+curl -w '\n' -s http://localhost:9130/_/proxy/tenants/diku/modules \
+  | sed 's/"$/", "action": "disable"/' \
+  > okapi-purge.json
+```
+
+Disable and purge all modules:
+
+```
+curl -w '\n' -D - -X POST -H "Content-type: application/json" \
+  -d @okapi-purge.json \
+  http://localhost:9130/_/proxy/tenants/diku/install?purge=true
+```
+
+Stop Okapi:
+
+```
+sudo systemctl stop okapi
+```
+
+Drop and re-create the 'okapi' database:
+
+```
+sudo su -c psql postgres postgres
+postgres=# DROP DATABASE okapi;
+postgres=# CREATE DATABASE okapi WITH OWNER okapi;
+postgres=# \q
+```
+
+Restart Okapi and continue with fresh FOLIO installation.
 
