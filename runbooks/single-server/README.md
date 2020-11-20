@@ -209,7 +209,7 @@ CREATE DATABASE folio WITH OWNER folio;
 wget --quiet -O - https://repository.folio.org/packages/debian/folio-apt-archive-key.asc | sudo apt-key add -
 sudo add-apt-repository "deb https://repository.folio.org/packages/ubuntu focal/"
 sudo apt-get update
-sudo apt-get -y install okapi=4.3.2-1
+sudo apt-get -y install okapi=4.3.3-1
 sudo apt-mark hold okapi
 ```
 
@@ -235,7 +235,7 @@ Note that there is some risk in this, as the latest Okapi release may not have b
     * `host="10.0.2.15"`
     * `storage="postgres"`
     * `okapiurl="http://10.0.2.15:9130"`
-    * `docker_registries` -- See explanation in okapi.conf file. Default is unauthenicated.
+    * `docker_registries` -- See explanation in okapi.conf file. Default is unauthenticated.
 
 3. Restart Okapi
 
