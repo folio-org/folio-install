@@ -154,7 +154,7 @@ https://your.private.registry.org
 
 1) Add a Cluster -> select vSphere -> enter a cluster name (folio-dev-cluster) -> Next
 2) Set these cluster options:<br/>
-  a) Kubernetes Version - v1.13.10-rancher1-2<br/>
+  a) Kubernetes Version - v1.18.10-rancher1-2<br/>
   b) Network Provider - Canal<br/>
   c) Project Network Isolation - Enabled<br/>
   d) Nginx Ingress - Enabled<br/>
@@ -205,7 +205,7 @@ ignore_docker_version: true
 #
 ingress:
   provider: "nginx"
-kubernetes_version: "v1.13.10-rancher1-2"
+kubernetes_version: "v1.18.10-rancher1-2"
 monitoring:
   provider: "metrics-server"
 #
