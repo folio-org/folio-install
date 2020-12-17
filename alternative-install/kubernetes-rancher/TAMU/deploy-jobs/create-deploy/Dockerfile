@@ -1,4 +1,4 @@
-FROM alpine:3.8
+FROM alpine:3.11
 
 #Prerequisites
 RUN apk add --no-cache curl perl perl-app-cpanminus perl-json perl-libwww python py-pip
@@ -22,6 +22,7 @@ ENV OKAPI_URL='http://localhost:9130'
 ENV REGISTRY_URL='http://localhost:9130/_/proxy/modules'
 ENV SAMPLE_DATA='false'
 ENV REF_DATA='false'
+ENV IGNORE_ERRORS='false'
 
 #Execute the script on container runtime
 CMD ["/usr/local/bin/folio/create-deploy.sh"]
