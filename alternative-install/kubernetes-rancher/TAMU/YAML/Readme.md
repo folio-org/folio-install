@@ -33,7 +33,7 @@ imagePullSecrets:
 
 ### Importing folio-q3-2020-workloads.yaml into the namespace does the following:
 
--Deploys 50 Workloads representing the Folio Q3 2020 back-end, pulls the folioorg Docker containers for each.<br/>
+-Deploys 60+ Workloads representing the Folio Q3 2020 back-end, pulls the folioorg Docker containers for each.<br/>
 -Creates the 50 Workload's Service Discovery/DNS Records.<br/>
 -Those Workloads that connect to storage will be deployed as StatefulSets, one pod each.<br/>
 -The edge-sip2 Workload gets deployed as a DaemonSet, one pod on every K8s worker node. It also exposes hostport on 1024.<br/>
