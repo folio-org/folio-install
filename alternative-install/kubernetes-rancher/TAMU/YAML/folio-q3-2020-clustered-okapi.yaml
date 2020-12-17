@@ -15,7 +15,7 @@ items:
 - apiVersion: rbac.authorization.k8s.io/v1
   kind: ClusterRoleBinding
   metadata:
-    name: hazelcast-rb-q4-2019
+    name: hazelcast-rb-q3-2020
   roleRef:
     apiGroup: rbac.authorization.k8s.io
     kind: ClusterRole
@@ -23,15 +23,15 @@ items:
   subjects:
   - kind: ServiceAccount
     name: default
-    namespace: folio-q4
-- apiVersion: apps/v1beta2
+    namespace: folio-q3
+- apiVersion: apps/v1
   kind: StatefulSet
   metadata:
     annotations:
       field.cattle.io/creatorId: "null"
     labels:
       cattle.io/creator: norman
-      workload.user.cattle.io/workloadselector: statefulSet-folio-q4-okapi
+      workload.user.cattle.io/workloadselector: statefulSet-folio-q3-okapi
     name: okapi
   spec:
     podManagementPolicy: OrderedReady
@@ -39,14 +39,14 @@ items:
     revisionHistoryLimit: 10
     selector:
       matchLabels:
-        workload.user.cattle.io/workloadselector: statefulSet-folio-q4-okapi
+        workload.user.cattle.io/workloadselector: statefulSet-folio-q3-okapi
     serviceName: okapi
     template:
       metadata:
         annotations:
           field.cattle.io/ports: '[[{"containerPort":9130,"dnsName":"okapi-nodeport","kind":"NodePort","name":"9130tcp01","protocol":"TCP","sourcePort":0},{"containerPort":5701,"dnsName":"okapi","kind":"ClusterIP","name":"5701tcp02","protocol":"TCP","sourcePort":0},{"containerPort":5702,"dnsName":"okapi","kind":"ClusterIP","name":"5702tcp02","protocol":"TCP","sourcePort":0},{"containerPort":5703,"dnsName":"okapi","kind":"ClusterIP","name":"5703tcp02","protocol":"TCP","sourcePort":0},{"containerPort":5704,"dnsName":"okapi","kind":"ClusterIP","name":"5704tcp02","protocol":"TCP","sourcePort":0},{"containerPort":54327,"dnsName":"okapi","kind":"ClusterIP","name":"54327tcp02","protocol":"TCP","sourcePort":0},{"containerPort":9130,"dnsName":"okapi","kind":"ClusterIP","name":"9130tcp02","protocol":"TCP","sourcePort":0}]]'
         labels:
-          workload.user.cattle.io/workloadselector: statefulSet-folio-q4-okapi
+          workload.user.cattle.io/workloadselector: statefulSet-folio-q3-okapi
       spec:
         containers:
         - env:
@@ -76,7 +76,7 @@ items:
           - secretRef:
               name: db-connect-okapi
               optional: true
-          image: <your_registry_IP_FQDN>/folio/okapi:q4-2019
+          image: <your_registry_IP_FQDN>/folio/okapi:q3-2020
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 2
