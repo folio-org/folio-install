@@ -1,12 +1,13 @@
 FROM ubuntu:18.04
 
 #Prerequisites
-RUN apt-get update && apt-get install -y curl gnupg apt-transport-https ca-certificates ssl-cert
+RUN apt-get update && apt-get -y install wget curl nodejs npm gnupg apt-transport-https ca-certificates ssl-cert software-properties-common
+RUN npm install n -g
 
 #Yarn
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-RUN apt-get update && apt-get install -y yarn
+RUN wget --quiet -O - https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN add-apt-repository "deb https://dl.yarnpkg.com/debian/ stable main"
+RUN apt-get update && apt-get -y install yarn
 
 #Create working directory
 RUN mkdir -p /usr/local/bin/folio/stripes
@@ -26,8 +27,9 @@ ARG TENANT_ID=diku
 ARG OKAPI_URL=http://localhost:9130
 
 #Build Stripes
+RUN n lts
 RUN yarn config set @folio:registry https://repository.folio.org/repository/npm-folio/
-RUN yarn install
+RUN yarn install --update-checksums
 RUN yarn build --okapi $OKAPI_URL --tenant $TENANT_ID ./output
 
 #Load balancer
@@ -40,4 +42,3 @@ EXPOSE 3000
 COPY --from=0 /usr/local/bin/folio/stripes/output /usr/share/nginx/html
 COPY --from=0 /usr/local/bin/folio/stripes/yarn.lock /usr/share/nginx/html/yarn.lock 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-
