@@ -76,7 +76,7 @@ items:
           - secretRef:
               name: db-connect-okapi
               optional: true
-          image: <your_registry_IP_FQDN>/folio/okapi:q3-2020
+          image: <your_registry_IP_FQDN>/<repo>/okapi:q3-2020
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 2
