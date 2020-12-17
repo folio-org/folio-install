@@ -585,20 +585,20 @@ HAZELCAST_IP = $(OKAPI_SERVICE_HOST)<br/>
 
 #### Crunchy-postgres Workload environment variables:
 
-WORK_MEM = 4MB<br/>
+WORK_MEM = 64MB<br/>
 PGHOST = /tmp<br/>
 PG_REPLICA_HOST = pgset-replica<br/>
 PG_PRIMARY_HOST = pgset-primary<br/>
 PG_MODE = set<br/>
 PG_LOCALE = en_US.UTF-8<br/>
 PG_DATABASE = okapi<br/>
-MAX_CONNECTIONS = 250<br/>
+MAX_CONNECTIONS = 1000<br/>
 ARCHIVE_MODE = off<br/>
 ARCHIVE_TIMEOUT = 60<br/>
 CRUNCHY_DEBUG = FALSE<br/>
-TEMP_BUFFERS = 16MB<br/>
-SHARED_BUFFERS = 128MB<br/>
-MAX_WAL_SENDERS = 2<br/>
+TEMP_BUFFERS = 64MB<br/>
+SHARED_BUFFERS = 2048MB<br/>
+MAX_WAL_SENDERS = 0<br/>
 
 
 ### Workload Notes
