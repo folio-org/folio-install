@@ -8,33 +8,33 @@ cd deploy-descriptors
 
 cat > deployment-descriptor-users.json <<END
 {
-  "srvcId" : "mod-users-15.6.2",
-  "instId" : "mod-users-15.6.2",
-  "url" : "http://mod-users:8081"
+  "srvcId" : "mod-users-17.2.2",
+  "instId" : "mod-users-17.2.2",
+  "url" : "http://mod-users-17-2-2:8081"
 }
 END
 
 cat > deployment-descriptor-permissions.json <<END
 {
-  "srvcId" : "mod-permissions-5.8.2",
-  "instId" : "mod-permissions-5.8.2",
-  "url" : "http://mod-permissions:8081"
+  "srvcId" : "mod-permissions-5.12.2",
+  "instId" : "mod-permissions-5.12.2",
+  "url" : "http://mod-permissions-5-12-2:8081"
 }
 END
 
 cat > deployment-descriptor-login.json <<END
 {
-  "srvcId" : "mod-login-6.1.1",
-  "instId" : "mod-login-6.1.1",
-  "url" : "http://mod-login:8081"
+  "srvcId" : "mod-login-7.1.1",
+  "instId" : "mod-login-7.1.1",
+  "url" : "http://mod-login-7-1-1:8081"
 }
 END
 
 cat > deployment-descriptor-authtoken.json <<END
 {
-  "srvcId" : "mod-authtoken-2.3.0",
-  "instId" : "mod-authtoken-2.3.0",
-  "url" : "http://mod-authtoken:8081"
+  "srvcId" : "mod-authtoken-2.6.0",
+  "instId" : "mod-authtoken-2.6.0",
+  "url" : "http://mod-authtoken-2-6-0:8081"
 }
 END
 
@@ -73,7 +73,7 @@ $OKAPI_URL/_/proxy/tenants/$TENANT_ID/install?deploy=false\&preRelease=false\&te
 
 cat > /usr/local/bin/folio/permuser.json <<END
 {
-  "userId":"99999999-9999-9999-9999-999999999999",
+  "userId":"99999999-9999-4999-9999-999999999999",
   "permissions":[ "okapi.all" ]
 }
 END
@@ -88,7 +88,7 @@ $OKAPI_URL/perms/users
 
 cat > /usr/local/bin/folio/superuser.json <<END
 {
-  "id":"99999999-9999-9999-9999-999999999999",
+  "id":"99999999-9999-4999-9999-999999999999",
   "username":"$SUPER_USR",
   "active":"true",
   "personal": {
@@ -122,7 +122,7 @@ $OKAPI_URL/authn/credentials
 curl -w '\n' -D - -X POST  \
 -H "Content-type: application/json" \
 -H "X-Okapi-Tenant:supertenant" \
--d '{"id":"mod-authtoken-2.3.0"}' \
+-d '{"id":"mod-authtoken-2.6.0"}' \
 $OKAPI_URL/_/proxy/tenants/$TENANT_ID/modules
 
 echo "Done!"
