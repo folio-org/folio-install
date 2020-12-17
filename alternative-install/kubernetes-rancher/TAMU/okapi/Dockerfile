@@ -1,19 +1,19 @@
-FROM maven:3.6.2-ibmjava-8-alpine
+FROM maven:3.6.3-openjdk-11-slim
 
 #Maven Prerequisites
-RUN apk add --no-cache curl git
+RUN apt-get update && apt-get -y install curl git
 
 #Okapi git clone and Maven build
 RUN mkdir -p /usr/local/bin/folio/
 WORKDIR /usr/local/bin/folio
-RUN git clone  -b "v2.37.0" --recursive https://github.com/folio-org/okapi.git
+RUN git clone  -b "v4.5.2" --recursive https://github.com/folio-org/okapi.git
 RUN cd okapi && mvn clean install -DskipTests
 
 #OpenJDK Alpine
-FROM openjdk:8-alpine
+FROM alpine:3.12.0
 
 #Okapi Prerequisites
-RUN apk add --no-cache curl
+RUN apk add --no-cache curl openjdk11
 
 #Copy in files at this build layer
 RUN mkdir -p /usr/local/bin/folio/
@@ -44,7 +44,7 @@ ENV OKAPI_HOST='localhost'
 ENV OKAPI_CLUSTERHOST='localhost'
 ENV OKAPI_NODENAME='okapi1'
 ENV OKAPI_LOGLEVEL='INFO'
-ENV OKAPI_STORAGE='postgres'
+ENV OKAPI_STORAGE='inmemory'
 ENV HAZELCAST_FILE='/usr/local/bin/folio/okapi/hazelcast.xml'
 ENV HAZELCAST_PORT='5701'
 ENV HAZELCAST_VERTX_PORT='5702'
