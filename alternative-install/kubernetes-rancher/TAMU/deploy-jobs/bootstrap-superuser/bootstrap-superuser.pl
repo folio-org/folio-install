@@ -1,10 +1,12 @@
-# Create a FOLIO "superuser" on a running system
-# This assumes the Okapi API is not secured
+# Create a FOLIO "superuser" for a tenant on a running system
+# THIS IS NOT FOR SECURING THE OPAKI "SUPERTENANT"
+# For that, see secure-supertenant.py
 # Modules required: mod-authtoken, mod-users, mod-login, mod-permissions, mod-inventory-storage, mod-users-bl
 # 1. Disable mod-authtoken
 # 2. Create records in mod-users, mod-login, mod-permissions, mod-inventory-storage
 # 3. Re-enable mod-authtoken
 # 4. Assign all permissions to the superuser
+# If supertenant is secure, use the "st_token" argument to pass a token for the supertenant superuser.
 
 use strict;
 use warnings;
@@ -12,6 +14,7 @@ use Getopt::Long;
 use LWP;
 use JSON;
 use UUID::Tiny qw(:std);
+use Data::Dumper;
 
 $| = 1;
 # Command line
@@ -21,12 +24,14 @@ my $password = 'password';
 my $okapi = 'http://localhost:9130';
 my $no_perms = '';
 my $only_perms = '';
+my $st_token = '';
 GetOptions( 'tenant|t=s' => \$tenant,
             'user|u=s' => \$user,
             'password|p=s' => \$password,
             'okapi=s' => \$okapi,
             'noperms' => \$no_perms,
-            'onlyperms' => \$only_perms );
+            'onlyperms' => \$only_perms,
+            'st_token=s' => \$st_token );
 
 my $ua = LWP::UserAgent->new();
 
@@ -35,6 +40,9 @@ unless ($only_perms) {
   my $header = [
                 'Accept' => 'application/json, text/plain'
                ];
+  if ($st_token) {
+    push(@{$header},( 'X-Okapi-Token' => $st_token, 'X-Okapi-Tenant' => 'supertenant' ));
+  }
   my $req = HTTP::Request->new('GET',"$okapi/_/proxy/tenants/$tenant/interfaces/authtoken",$header);
   my $resp = $ua->request($req);
   die $resp->status_line . "\n" unless $resp->is_success;
@@ -47,6 +55,9 @@ unless ($only_perms) {
              'Content-Type' => 'application/json',
              'Accept' => 'application/json, text/plain'
             ];
+  if ($st_token) {
+    push(@{$header},( 'X-Okapi-Token' => $st_token, 'X-Okapi-Tenant' => 'supertenant' ));
+  }
   $req = HTTP::Request->new('POST',"$okapi/_/proxy/tenants/$tenant/install",$header,encode_json([ $authtoken ]));
   $resp = $ua->request($req);
   die $resp->status_line . "\n" unless $resp->is_success;
@@ -124,10 +135,14 @@ unless ($only_perms) {
              'Content-Type' => 'application/json',
              'Accept' => 'application/json, text/plain'
             ];
+  if ($st_token) {
+    push(@{$header},( 'X-Okapi-Token' => $st_token, 'X-Okapi-Tenant' => 'supertenant' ));
+  }
   $req = HTTP::Request->new('POST',"$okapi/_/proxy/tenants/$tenant/install",$header,encode_json($enable));
   $resp = $ua->request($req);
   die $resp->status_line . "\n" unless $resp->is_success;
   print "OK\n";
+  print "Enabled:\n" . $resp->content . "\n";
 }
 
 unless ($no_perms) {
@@ -146,13 +161,13 @@ unless ($no_perms) {
   my $token = $resp->header('X-Okapi-Token');
   print "OK\n";
 
-  print "Getting list of permissions to assign...";
+  print "Getting list of all permissions excluding okapi.*, modperms.*, and SYS#*...";
   $header = [
              'Accept' => 'application/json, text/plain',
              'X-Okapi-Tenant' => $tenant,
              'X-Okapi-Token' => $token
             ];
-  $req = HTTP::Request->new('GET',"$okapi/perms/permissions?query=childOf%3D%3D%5B%5D&length=500",$header);
+  $req = HTTP::Request->new('GET',"$okapi/perms/permissions?query=cql.allRecords%3D1%20not%20permissionName%3D%3Dokapi.%2A%20not%20permissionName%3D%3Dmodperms.%2A%20not%20permissionName%3D%3DSYS%23%2A&length=5000",$header);
   $resp = $ua->request($req);
   die $resp->status_line . "\n" unless $resp->is_success;
   my $permissions = decode_json($resp->content);
@@ -160,12 +175,23 @@ unless ($no_perms) {
     unless @{$$permissions{permissions}} == $$permissions{totalRecords};
   print "OK\n";
 
-  print "Assigning permissions...\n";
+  print "Selecting top-level permissionSets...";
+  my @top_level_perms;
   foreach my $permission (@{$$permissions{permissions}}) {
-    print "$$permission{permissionName}: ";
+    my $mod_perms = 0;
+    foreach my $childOf (@{$$permission{childOf}}) {
+      $mod_perms++ if ($childOf =~ /^SYS#/ || $childOf =~ /^modperms\./);
+    }
+    push(@top_level_perms,$$permission{permissionName}) if (@{$$permission{childOf}} == $mod_perms);
+  }
+  print "OK\n";
+
+  print "Assigning permissions...\n";
+  foreach my $permission (@top_level_perms) {
+    print "$permission: ";
     my $assigned = 0;
     foreach my $assigned_perm (@{$$login{permissions}{permissions}}) {
-      if ($assigned_perm eq $$permission{permissionName}) {
+      if ($assigned_perm eq $permission) {
         print "OK (already assigned)\n";
         $assigned = 1;
         last;
@@ -178,13 +204,13 @@ unless ($no_perms) {
                  'X-Okapi-Tenant' => $tenant,
                  'X-Okapi-Token' => $token
                 ];
-      my $perms_ref = { permissionName => $$permission{permissionName} };
+      my $perms_ref = { permissionName => $permission };
       $req = HTTP::Request->new('POST',"$okapi/perms/users/$$login{permissions}{id}/permissions",$header,encode_json($perms_ref));
       $resp= $ua->request($req);
       if ($resp->is_success) {
         print "ASSIGNED\n";
       } else {
-        warn "Can't grant permission $$permission{permissionName} to $user: " . $resp->status_line . "\n";
+        warn "Can't grant permission $permission to $user: " . $resp->status_line . "\n";
       }
     }
   }
