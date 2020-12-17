@@ -25,6 +25,6 @@ echo POSTing the list of ALL modules to install for a tenant, and importing data
 
 curl -w '\n' -D - -X POST -H "Content-type: application/json" \
   -d @install/install.json \
-  $OKAPI_URL/_/proxy/tenants/$TENANT_ID/install?deploy=false\&preRelease=false\&tenantParameters=loadSample%3D$SAMPLE_DATA%2CloadReference%3D$REF_DATA
+  $OKAPI_URL/_/proxy/tenants/$TENANT_ID/install?deploy=false\&preRelease=false\&ignoreErrors%3D$IGNORE_ERRORS\&tenantParameters=loadSample%3D$SAMPLE_DATA%2CloadReference%3D$REF_DATA
 
 echo Done!
