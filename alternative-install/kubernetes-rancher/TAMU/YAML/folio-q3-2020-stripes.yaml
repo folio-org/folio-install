@@ -1,27 +1,27 @@
-apiVersion: apps/v1beta2
+apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   annotations:
     field.cattle.io/creatorId: "null"
   labels:
     cattle.io/creator: norman
-    workload.user.cattle.io/workloadselector: daemonSet-folio-q4-stripes
+    workload.user.cattle.io/workloadselector: daemonSet-folio-q3-stripes
   name: stripes
 spec:
   minReadySeconds: 30
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      workload.user.cattle.io/workloadselector: daemonSet-folio-q4-stripes
+      workload.user.cattle.io/workloadselector: daemonSet-folio-q3-stripes
   template:
     metadata:
       annotations:
         field.cattle.io/ports: '[[{"containerPort":3000,"dnsName":"stripes-nodeport","kind":"NodePort","name":"3000tcp01","protocol":"TCP","sourcePort":0}]]'
       labels:
-        workload.user.cattle.io/workloadselector: daemonSet-folio-q4-stripes
+        workload.user.cattle.io/workloadselector: daemonSet-folio-q3-stripes
     spec:
       containers:
-      - image: <your_registry_IP_FQDN>/<repo>/stripes:<image_tag>
+      - image: <your_registry_IP_FQDN>/<repo>/stripes:q3
         imagePullPolicy: Always
         name: stripes
         ports:
