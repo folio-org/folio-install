@@ -2,13 +2,13 @@
 
 ## License
 
-Copyright (C) 2016-2019 The Open Library Foundation
+Copyright (C) 2016-2021 The Open Library Foundation
 
 This software is distributed under the terms of the Apache License, Version 2.0. See the file "[LICENSE](LICENSE)" for more information.
 
 ## Introduction
 
-A collection of Dockerfiles and YAML for Folio Q4 2019 installation on Kubernetes/Rancher 2.x.<br/>
+A collection of Dockerfiles and YAML for Folio Q3 2020 installation on Kubernetes/Rancher 2.x.<br/>
 Latest deployment procedure here: https://wiki.folio.org/pages/viewpage.action?pageId=14458600
 
 ## Contents
@@ -309,7 +309,7 @@ Filesystem Type: xfs<br/>
 
 1) Create cluster via Rancher 2.x with one or more nodes, using Canal network plugin. We are using VMware to provision Oracle Linux VMs at the moment
 2) Create Folio-Project in Rancher 2.x UI
-3) Add folio-q4, postgres-modules-q4, and postgres-okapi-q4 Namespaces for Folio-Project under Namespaces in Rancher 2.x UI
+3) Add folio-q3, postgres-modules-q3, and postgres-okapi-q3 Namespaces for Folio-Project under Namespaces in Rancher 2.x UI
 4) Add Dockerhub and your private Docker registries to the Folio-Project
 5) Add Persistent Volume on the cluster and Persistent Volume Claim for Folio-Project (We are using vSphere Storage Class)<br/>
 
@@ -317,12 +317,12 @@ Filesystem Type: xfs<br/>
 
 6) Create the following Rancher Secrets under Folio-Project:<br/>
 
-db-connect (folio-q4/postgres-modules-q4/postgres-okapi-q4 namespaces)<br/>
-db-connect-okapi (folio-q4 namespace)<br/>
-db-config-modules (postgres-modules-q4 namespace)<br/>
-db-config-okapi (postgres-okapi-q4 namespace)<br/>
+db-connect (folio-q3/postgres-modules-q3/postgres-okapi-q3 namespaces)<br/>
+db-connect-okapi (folio-q3 namespace)<br/>
+db-config-modules (postgres-modules-q3 namespace)<br/>
+db-config-okapi (postgres-okapi-q3 namespace)<br/>
 
-7) Deploy two crunchy-postgres Workload *Stateful sets* via Helm Chart, one each to postgres-okapi-q4 and postgres-modules-q4 namespaces. You will then have one Postgres database for Okapi, and the other for Folio storage modules. Edit each Postgres Workload to tweak the environment variables for use with Okapi and Folio modules - using the corresponding db-config-okapi and db-config-modules Secrets.
+7) Deploy two crunchy-postgres Workload *Stateful sets* via Helm Chart, one each to postgres-okapi-q3 and postgres-modules-q3 namespaces. You will then have one Postgres database for Okapi, and the other for Folio storage modules. Edit each Postgres Workload to tweak the environment variables for use with Okapi and Folio modules - using the corresponding db-config-okapi and db-config-modules Secrets.
 8) Add Record under Service Discovery, named pg-folio, as type *Selector* with Label/Value: *statefulset.kubernetes.io/pod-name = pgset-0*
 9) Deploy create-db Workload *Job* - built from our custom Docker container with DB init scripts - with db-connect Secret
 10) Deploy Okapi Workload *Scalable deployment* of 1 and InitDB environment variable set to true - built from our custom Docker container - with db-connect-okapi Secret
@@ -343,7 +343,7 @@ Run the following in the Rancher GUI - cluster Dashboard using the *Launch kubec
 
 -When using crunchy-postgres, need to execute this command on the cluster for the pgset-sa service account:<br/>
 
-```kubectl create clusterrolebinding pgset-sa --clusterrole=admin --serviceaccount=folio-q4:pgset-sa --namespace=folio-q4```<br/>
+```kubectl create clusterrolebinding pgset-sa --clusterrole=admin --serviceaccount=folio-q3:pgset-sa --namespace=folio-q3```<br/>
 
 -When using Hazelcast discovery Kubernetes plugin for Okapi, need to execute these commands on the cluster for the service account:<br/>
 
@@ -356,7 +356,7 @@ Paste in this code:<br/>
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: hazelcast-rb-q4-2019
+  name: hazelcast-rb-q3-2020
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -364,7 +364,7 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: default
-  namespace: folio-q4
+  namespace: folio-q3
   ```
 
 3) Save
@@ -375,7 +375,7 @@ subjects:
 
 -Each Rancher Secret should only be available to a single Namespace for security and separation.<br/>
 
--The Secrets below were made available to the folio-q4 Namespace:<br/>
+-The Secrets below were made available to the folio-q3 Namespace:<br/>
 
 #### db-connect Secret key-value pairs:
 
@@ -465,7 +465,7 @@ NOTE: You won’t need this until after the Folio system is up, but before you l
 
 X_OKAPI_TOKEN = *Authentication token from Okapi*
 
--The Secrets below were made available to the postgres-modules-q4 Namespace:<br/>
+-The Secrets below were made available to the postgres-modules-q3 Namespace:<br/>
 
 #### db-config-modules Secret key-value pairs:
 
@@ -479,12 +479,12 @@ PG_USER = folio_admin
 
 #### db-connect Secret key-value pairs:
 
-DB_HOST = pg-module-selector-q4<br/>
+DB_HOST = pg-module-selector-q3<br/>
 PG_DATABASE = okapi_modules<br/>
 PG_PASSWORD = password<br/>
 PG_USER = folio_admin
 
--The Secrets below were made available to the postgres-okapi-q4 Namespace:<br/>
+-The Secrets below were made available to the postgres-okapi-q3 Namespace:<br/>
 
 #### db-config-okapi Secret key-value pairs:
 
@@ -498,7 +498,7 @@ PG_USER = okapi
 
 #### db-connect Secret key-value pairs:
 
-DB_HOST = pg-okapi-selector-q4<br/>
+DB_HOST = pg-okapi-selector-q3<br/>
 PG_DATABASE = okapi<br/>
 PG_PASSWORD = password<br/>
 PG_USER = okapi
@@ -536,7 +536,7 @@ PG_USER = spring_folio_admin
 -Hazelcast in Kubernetes requires editing the hazelcast.xml file included with the Okapi repo before you build the Docker container, and setting your Folio namespace and service-name under:
 ```
 <kubernetes enabled="true">
-                <namespace>folio-q4</namespace>
+                <namespace>folio-q3</namespace>
                 <service-name>okapi</service-name>
                 <!--
                 <service-label-name>MY-SERVICE-LABEL-NAME</service-label-name>
@@ -618,7 +618,7 @@ MAX_WAL_SENDERS = 2<br/>
 -One URL is for proxying front-end Stripes and the other is for proxying Okapi traffic.<br/>
 -The Okapi traffic URL is the URL used when building Stripes.<br/>
 -When setting up Load Balancing/Ingress, target the Service name instead of Workload name if you have specific ports you have set in the Workload.<br/>
--For Okapi HA ingress, I have Okapi Service as the target at port 9130, with root path, `/` and `/_/` for the hostname folio-okapi-q4.org<br/>
+-For Okapi HA ingress, I have Okapi Service as the target at port 9130, with root path, `/` and `/_/` for the hostname folio-okapi-q3.org<br/>
 
 -To have default Rancher 2.x Nginx ingress be a little smarter about DNS RR, add annotations in Rancher 2.1 GUI Service Discovery:<br/>
 
@@ -746,4 +746,4 @@ https://repository.folio.org/#browse/welcome
 http://folio-registry.aws.indexdata.com/_/proxy/modules
 
 #### Database export example:
-```psql -U postgres -h pg-folio -w -d okapi_modules --command "SELECT * FROM diku_mod_inventory_storage.item;" > /pgdata/folio-q4/items```
+```psql -U postgres -h pg-folio -w -d okapi_modules --command "SELECT * FROM diku_mod_inventory_storage.item;" > /pgdata/folio-q3/items```
