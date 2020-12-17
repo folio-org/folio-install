@@ -1,4 +1,4 @@
-FROM alpine:3.8
+FROM alpine:3.11
 
 #Prerequisites
 RUN apk add --no-cache make curl perl perl-app-cpanminus perl-json perl-libwww
