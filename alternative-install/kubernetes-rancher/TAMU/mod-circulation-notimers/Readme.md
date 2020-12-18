@@ -54,4 +54,20 @@ curl -w '\n' -D - -X POST -H "Content-type: application/json" \
 -d @et.json \
 $OKAPI_URL/_/proxy/tenants/diku/install?deploy=false\&preRelease=false\&tenantParameters=loadSample%3Dfalse%2CloadReference%3Dfalse
 ```
-8) When your loans migration has completed, re-enable the original mod-circulation module version for your tenant.
+8) When your loans migration has completed, re-enable the original mod-circulation module version for your tenant. To do this, edit the *et.json* from before, changing back the version there. That looks something like this:
+```
+[
+  {
+    "id": "mod-circulation-19.2.8",
+    "action": "enable"
+  }
+]
+```
+
+9) Curl in the above to your Okapi instance, example command below:
+
+```
+curl -w '\n' -D - -X POST -H "Content-type: application/json" \
+-d @et.json \
+$OKAPI_URL/_/proxy/tenants/diku/install?deploy=false\&preRelease=false\&tenantParameters=loadSample%3Dfalse%2CloadReference%3Dfalse
+```
