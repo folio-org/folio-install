@@ -21,7 +21,9 @@ Latest deployment procedure here: https://wiki.folio.org/pages/viewpage.action?p
 * [alter-database Dockerfile Readme](deploy-jobs/alter-database/Readme.md)
 * [create-deploy Dockerfile Readme](deploy-jobs/create-deploy/Readme.md)
 * [create-tenant Dockerfile Readme](deploy-jobs/create-tenant/Readme.md)
-* [secure-okapi Dockerfile Readme](deploy-jobs/secure-okapi)
+* [create-email Dockerfile Readme](deploy-jobs/create-email/Readme.md)
+* [secure-okapi Dockerfile Readme](deploy-jobs/secure-okapi/Readme.md)
+* [mod-circulation-notimers Readme](mod-circulation-notimers/Readme.md)
 
 ## Prerequisites for Rancher Server
 
@@ -328,7 +330,7 @@ postgres-setup-sql<br/>
 x-okapi-token<br/>
 
 6) If you are using an external database host, ignore this step. Otherwise deploy two crunchy-postgres *Stateful set* Workloads to the *folio-q3* namespace. Name one *pg-okapi* for Okapi's *okapi* database, and the other *pg-folio* for Folio's *okapi_modules* database. Edit each of these Workloads to set environment variables - clicking *Add From Source* to choose the corresponding db-config-okapi and db-config-modules Secrets. Configure your persistent volumes, any resource reservations and limits, as well as the Postgres UID and GID (26) at this time.
-7) Install Apache Kafka and Apache ZooKeeper through Helm Chart under Folio-Project - Apps.
+7) Install Apache Kafka and Apache ZooKeeper through a Helm Chart under Folio-Project - Apps - Launch. Currently using the helm-incubator Kafka app.
 8) Deploy Okapi Workload *Scalable deployment* of 1 and InitDB environment variable set to true - built from our custom Docker container - with db-connect-okapi Secret. Once it is running, edit the Okapi Workload and set InitDB environment variable to *false*, it will redeploy.
 9) Deploy Folio module Workloads as *Scalable deployment* between 1 and 3 (one Workload per Folio module) - with db-connect Secret for those modules that need a connection to the database. Import the folio-q3-2020-workloads.yaml file in Rancher for this step.
 10) Deploy Stripes Workload as *Run one pod on each node* – built from our custom Docker container.
