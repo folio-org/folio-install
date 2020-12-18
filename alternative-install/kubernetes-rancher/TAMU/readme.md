@@ -486,7 +486,7 @@ ALTER EXTENSION pg_trgm SET SCHEMA public;
 ```
 
 #### x-okapi-token Secret Key-Value pairs:
-NOTE: You won’t need this until after the Folio system is up, but before you load sample data. Log in to the Folio System via the GUI, go to *Settings - Developer - Set Token* and copy it out from there.<br/>
+NOTE: You won’t need this until after the Folio system is up, but before you secure Okapi. Log in to the Folio System via the GUI, go to *Settings - Developer - Set Token* and copy it out from there.<br/>
 
 X_OKAPI_TOKEN = *Authentication token from Okapi*
 
