@@ -509,7 +509,9 @@ TENANT_NAME = TAMU Libraries
 
 #### ldp-conf Secret key-value pairs:
 
-ldpconf.json =  ```{
+ldpconf.json =
+```
+{
     "deployment_environment": "development",
     "ldp_database": {
         "odbc_database": "ldp"
@@ -533,7 +535,8 @@ ldpconf.json =  ```{
             "direct_database_password": "password"
         }
     }
-}```
+}
+```
 
 #### db-connect-migration Secret key-value pairs:
 
