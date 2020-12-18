@@ -626,12 +626,34 @@ HAZELCAST_VERTX_PORT = 5702<br/>
 HAZELCAST_PORT = 5701<br/>
 HAZELCAST_IP = $(OKAPI_SERVICE_HOST)<br/>
 
-### HA Postgres in Kubernetes/Rancher Notes:
+### Crunchy-Postgres in Kubernetes/Rancher Notes:
 
 -Currently testing out crunchy-postgres Kubernetes solution.<br/>
 -Running as a Kubernetes *Stateful Set*, with one primary and two replica pods. Replica pods are read-only.<br/>
--Using a *Persistent Volume Claim* for Rancher Folio-Project, provisioned with vSphere Storage Class.<br/>
+-Using *Persistent Volume Claims* for Rancher Folio-Project, provisioned with vSphere Storage Class.<br/>
 -Not sure if we would run like this in Production yet, as we haven't load tested it. It is a possibility for those looking for a complete Rancher/Kubernetes/Container solution, and being actively developed.<br/>
+-Volumes for persistent data as well as SQL execution need to be added to the pg-folio and pg-okapi Workloads:<br/>
+
+Volume Name: pgdata<br/>
+Persistent Volume Claim: folio-q3:pgdata-pvc<br/>
+Mount Point: /pgdata<br/>
+
+Volume Name: backrestrepo<br/>
+Persistent Volume Claim: folio-q3:backrestrepo-pvc<br/><br/>
+Mount Point: /backrestrepo<br/>
+
+Volume Name: recover<br/>
+Persistent Volume Claim: folio-q3:recover-pvc<br/><br/>
+Mount Point: /recover<br/>
+
+Volume Name: pgwal<br/>
+Persistent Volume Claim: folio-q3:pgwalpvc<br/><br/>
+Mount Point: /pgwal<br/>
+
+Volume Name: pgconf<br/>
+Default Mode: 755<br/>
+Secret: postgres-setup-sql<br/>
+Mount Point: /pgconf<br/>
 
 #### Crunchy-postgres Workload environment variables:
 
