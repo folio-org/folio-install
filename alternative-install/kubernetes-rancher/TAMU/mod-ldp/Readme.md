@@ -1,3 +1,7 @@
+## Build Docker image
+
+`docker build -t mod-ldp .`
+
 ## Environment variables
 
 When you start the `mod-ldp` image, you can adjust the configuration of the ldp instance by passing one or more environment variables on the `docker run` command line. This assumes you have a Docker network `folio-clustered` created.

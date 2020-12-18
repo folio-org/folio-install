@@ -416,7 +416,7 @@ PG_USER = okapi
 ADMIN_PASSWORD = admin<br/>
 ADMIN_USER = diku_admin<br/>
 IGNORE_ERRORS = true<br/>
-OKAPI_URL = http://okapi:9130<br/>
+OKAPI_URL = `http://okapi:9130`<br/>
 PURGE_DATA = true<br/>
 REF_DATA = true<br/>
 REGISTRY_URL = `http://okapi:9130/_/proxy/modules`<br/>
@@ -488,7 +488,7 @@ ALTER EXTENSION pg_trgm SET SCHEMA public;
 #### x-okapi-token Secret Key-Value pairs:
 NOTE: You won’t need this until after the Folio system is up, but before you secure Okapi. Log in to the Folio System via the GUI, go to *Settings - Developer - Set Token* and copy it out from there.<br/>
 
-X_OKAPI_TOKEN = *Authentication token from Okapi*
+X_OKAPI_TOKEN = *<Authentication token from Okapi>*
 
 
 ### The Secrets below are being used for Tamu's specific Folio deployment, migration tooling and the LDP deployment. They are included here as a reference.
@@ -498,7 +498,7 @@ X_OKAPI_TOKEN = *Authentication token from Okapi*
 ADMIN_PASSWORD = admin<br/>
 ADMIN_USER = tamu_admin<br/>
 IGNORE_ERRORS = true<br/>
-OKAPI_URL = http://okapi:9130<br/>
+OKAPI_URL = `http://okapi:9130`<br/>
 PURGE_DATA = true<br/>
 REF_DATA = true<br/>
 REGISTRY_URL = `http://okapi:9130/_/proxy/modules`<br/>
@@ -617,7 +617,7 @@ DB_USERNAME = ldpadmin
 
 #### Okapi Workload environment variables:
 
-OKAPI_URL = http://okapi:9130<br/>
+OKAPI_URL = `http://okapi:9130`<br/>
 OKAPI_STORAGE = postgres<br/>
 OKAPI_PORT = 9130<br/>
 OKAPI_LOGLEVEL = INFO<br/>
