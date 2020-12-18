@@ -2,10 +2,6 @@
 
 `docker build -t mod-ldp .`
 
-## Environment variables
-
-When you start the `mod-ldp` image, you can adjust the configuration of the ldp instance by passing one or more environment variables on the `docker run` command line. This assumes you have a Docker network `folio-clustered` created.
-
 
 ### Linux console run command ###
 
@@ -19,8 +15,9 @@ There are two steps that need to take place for LDP to properly run:
 2) Start the LDP server: ```server -D /var/lib/ldp --trace```
 
 
-### Dockerfile and variables explained below ###
+## Environment variables
 
+When you start the `mod-ldp` image, you can adjust the configuration of the ldp instance by passing one or more environment variables on the `docker run` command line. This assumes you have a Docker network `folio-clustered` created.
 
 ### DATADIR
 
