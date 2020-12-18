@@ -314,7 +314,7 @@ After creating the cluster as above via Rancher 2.x...<br/>
 3) Add Dockerhub and your private Docker registries to the Folio-Project.
 4) Add Persistent Volume on the cluster and Persistent Volume Claim for Folio-Project (We are using vSphere Storage Class).<br/>
 
-(The rest of these steps are from within the Folio-Project in Rancher 2.x)<br/>
+The rest of these steps are from within the Folio-Project in Rancher 2.x...<br/>
 
 5) Create the following Secrets in Rancher under the Folio-Project for the *folio-q3* namespace:<br/>
 
@@ -684,7 +684,7 @@ MAX_WAL_SENDERS = 3<br/>
 
 #### Modules that require the db-connect Secret:
 
-*mod-agreements, mod-audit, mod-audit-filter, mod-calendar, mod-circulation-storage, mod-configuration, mod-data-import, mod-email, mod-erm-usage, mod-erm-usage-harvester, mod-event-config, mod-feesfines, mod-finance-storage, mod-inventory-storage, mod-kb-ebsco-java, mod-licenses, mod-login, mod-notes, mod-notify, mod-oai-pmh, mod-orders-storage, mod-organizations-storage, mod-password-validator, mod-permissions, mod-sender, mod-source-record-manager, mod-source-record-storage, mod-tags, mod-template-engine, mod-users*
+*mod-agreements, mod-aes, mod-audit, mod-audit-filter, mod-calendar, mod-circulation-storage, mod-configuration, mod-courses, mod-data-export, mod-data-import, mod-data-import-converter-storage, mod-email, mod-erm-usage, mod-erm-usage-harvester, mod-event-config, mod-feesfines, mod-finance-storage, mod-inventory-storage, mod-invoice-storage, mod-kb-ebsco-java, mod-licenses, mod-login, mod-notes, mod-notify, mod-oai-pmh, mod-orders-storage, mod-organizations-storage, mod-password-validator, mod-patron-blocks, mod-permissions, mod-pubsub, mod-sender, mod-source-record-manager, mod-source-record-storage, mod-tags, mod-template-engine, mod-users*
 
 
 ### Ingress Notes:
