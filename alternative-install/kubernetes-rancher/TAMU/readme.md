@@ -322,17 +322,18 @@ db-connect<br/>
 db-connect-okapi<br/>
 db-config-modules<br/>
 db-config-okapi<br/>
-tamu-tenant-config<br/>
 diku-tenant-config<br/>
+edge-securestore-props<br/>
+postgres-setup-sql<br/>
 x-okapi-token<br/>
 
-6) If you are using an external database host, ignore this step. Otherwise deploy two crunchy-postgres *Stateful set* Workloads to the *folio-q3* namespace. Name one *pg-okapi* for Okapi's *okapi* database, and the other *pg-folio* for Folio's *okapi_modules* database. Edit each of these Workloads to set environment variables - clicking *Add From Source* to choose the corresponding db-config-okapi and db-config-modules Secrets. Configure your persistent volumes, any resource reservations and limits, as well as the Postgres UID and GID (26) at this time. 
+6) If you are using an external database host, ignore this step. Otherwise deploy two crunchy-postgres *Stateful set* Workloads to the *folio-q3* namespace. Name one *pg-okapi* for Okapi's *okapi* database, and the other *pg-folio* for Folio's *okapi_modules* database. Edit each of these Workloads to set environment variables - clicking *Add From Source* to choose the corresponding db-config-okapi and db-config-modules Secrets. Configure your persistent volumes, any resource reservations and limits, as well as the Postgres UID and GID (26) at this time.
 7) Deploy Okapi Workload *Scalable deployment* of 1 and InitDB environment variable set to true - built from our custom Docker container - with db-connect-okapi Secret. Once it is running, edit the Okapi Workload and set InitDB environment variable to *false*, it will redeploy.
 8) Deploy Folio module Workloads as *Scalable deployment* between 1 and 3 (one Workload per Folio module) - with db-connect Secret for those modules that need a connection to the database. Import the folio-q3-2020-workloads.yaml file in Rancher for this step.
 9) Deploy Stripes Workload as *Run one pod on each node* – built from our custom Docker container.
-10) Deploy create-tenant Workload as *Job* – built from our custom Docker container with scripts - with tamu-tenant-config/diku-tenant-config Secret.
-11) Deploy create-deploy Workload as *Job*, to enable modules for `/proxy/modules`, `/discovery/modules`, and tenants – built from our custom Docker container with scripts - with tamu-tenant-config/diku-tenant-config Secret.
-12) Deploy bootstrap-superuser Workload as *Job* – built from our custom Docker container with scripts - with tamu-tenant-config/diku-tenant-config Secret.
+10) Deploy create-tenant Workload as *Job* – built from our custom Docker container with scripts - with diku-tenant-config Secret.
+11) Deploy create-deploy Workload as *Job*, to enable modules for `/proxy/modules`, `/discovery/modules`, and tenants – built from our custom Docker container with scripts - diku-tenant-config Secret.
+12) Deploy bootstrap-superuser Workload as *Job* – built from our custom Docker container with scripts - with diku-tenant-config Secret.
 13) Scale up Okapi pods to 3 (for HA) using Rancher 2.x + button.
 14) Add Ingresses under Load Balancing for Okapi and Stripes using URLs for `/` and `/_/`.
 
@@ -424,6 +425,71 @@ TENANT_DESC = Danish Library Technology Institute<br/>
 TENANT_ID = diku<br/>
 TENANT_NAME = Datalogisk Institut
 
+#### edge-securestore-props Secret key-value pairs:
+
+edge-ephemeral.properties =  ```secureStore.type=Ephemeral
+# a comma separated list of tenants
+tenants=diku
+#######################################################
+# For each tenant, the institutional user password...
+#
+# Note: this is intended for development purposes only
+#######################################################
+# format: tenant=username,password
+diku=edgeuser,password```
+
+#### postgres-setup-sql Secret key-value pairs:
+
+setup.sql =
+```
+--- System Setup
+SET application_name="container_setup";
+
+CREATE EXTENSION IF NOT EXISTS pg_stat_statements;
+
+ALTER USER postgres PASSWORD 'PG_ROOT_PASSWORD';
+
+CREATE USER "PG_PRIMARY_USER" WITH REPLICATION;
+ALTER USER "PG_PRIMARY_USER" PASSWORD 'PG_PRIMARY_PASSWORD';
+
+CREATE USER "PG_USER" LOGIN;
+ALTER USER "PG_USER" PASSWORD 'PG_PASSWORD';
+
+CREATE DATABASE "PG_DATABASE";
+GRANT ALL PRIVILEGES ON DATABASE "PG_DATABASE" TO "PG_USER";
+
+CREATE TABLE IF NOT EXISTS primarytable (key varchar(20), value varchar(20));
+GRANT ALL ON primarytable TO "PG_PRIMARY_USER";
+
+--- PG_DATABASE Setup
+
+\c "PG_DATABASE"
+
+CREATE EXTENSION IF NOT EXISTS pg_stat_statements;
+
+--- Verify permissions via PG_USER
+
+\c "PG_DATABASE" "PG_USER";
+
+CREATE SCHEMA IF NOT EXISTS "PG_USER";
+
+\c postgres postgres
+
+ALTER USER "PG_USER" with SUPERUSER;
+ALTER ROLE "PG_USER" CREATEDB;
+ALTER DATABASE "PG_DATABASE" OWNER TO "PG_USER";
+CREATE EXTENSION pg_trgm;
+ALTER EXTENSION pg_trgm SET SCHEMA public;
+```
+
+#### x-okapi-token Secret Key-Value pairs:
+NOTE: You won’t need this until after the Folio system is up, but before you load sample data. Log in to the Folio System via the GUI, go to *Settings - Developer - Set Token* and copy it out from there.<br/>
+
+X_OKAPI_TOKEN = *Authentication token from Okapi*
+
+
+### The Secrets below are being used for Tamu's specific Folio deployment, migration tooling and the LDP deployment. They are included here as a reference.
+
 #### tamu-tenant-config Secret key-value pairs:
 
 ADMIN_PASSWORD = admin<br/>
@@ -437,14 +503,6 @@ SAMPLE_DATA = false<br/>
 TENANT_DESC = Texas A&M University Libraries<br/>
 TENANT_ID = tamu<br/>
 TENANT_NAME = TAMU Libraries
-
-#### x-okapi-token Secret Key-Value pairs:
-NOTE: You won’t need this until after the Folio system is up, but before you load sample data. Log in to the Folio System via the GUI, go to *Settings - Developer - Set Token* and copy it out from there.<br/>
-
-X_OKAPI_TOKEN = *Authentication token from Okapi*
-
-
-### The Secrets below are being used for Tamu specific migration tooling and the LDP deployment. They are included here as a reference.
 
 #### ldp-conf Secret key-value pairs:
 
@@ -509,6 +567,17 @@ PG_PRIMARY_PORT = 5432<br/>
 PG_PRIMARY_USER = primaryuser<br/>
 PG_ROOT_PASSWORD = password<br/>
 PG_USER = ldpadmin
+
+#### db-connect-ldp Secret key-value pairs:
+
+DB_CHARSET = UTF-8<br/>
+DB_DATABASE = ldp<br/>
+DB_HOST = pg-ldp<br/>
+DB_MAXPOOLSIZE = 20<br/>
+DB_PASSWORD = password<br/>
+DB_PORT = 5432<br/>
+DB_QUERYTIMEOUT = 120000<br/>
+DB_USERNAME = ldpadmin
 
 ### Okapi Notes:
 
