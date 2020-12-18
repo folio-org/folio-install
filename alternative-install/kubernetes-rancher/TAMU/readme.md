@@ -328,14 +328,16 @@ postgres-setup-sql<br/>
 x-okapi-token<br/>
 
 6) If you are using an external database host, ignore this step. Otherwise deploy two crunchy-postgres *Stateful set* Workloads to the *folio-q3* namespace. Name one *pg-okapi* for Okapi's *okapi* database, and the other *pg-folio* for Folio's *okapi_modules* database. Edit each of these Workloads to set environment variables - clicking *Add From Source* to choose the corresponding db-config-okapi and db-config-modules Secrets. Configure your persistent volumes, any resource reservations and limits, as well as the Postgres UID and GID (26) at this time.
-7) Deploy Okapi Workload *Scalable deployment* of 1 and InitDB environment variable set to true - built from our custom Docker container - with db-connect-okapi Secret. Once it is running, edit the Okapi Workload and set InitDB environment variable to *false*, it will redeploy.
-8) Deploy Folio module Workloads as *Scalable deployment* between 1 and 3 (one Workload per Folio module) - with db-connect Secret for those modules that need a connection to the database. Import the folio-q3-2020-workloads.yaml file in Rancher for this step.
-9) Deploy Stripes Workload as *Run one pod on each node* – built from our custom Docker container.
-10) Deploy create-tenant Workload as *Job* – built from our custom Docker container with scripts - with diku-tenant-config Secret.
-11) Deploy create-deploy Workload as *Job*, to enable modules for `/proxy/modules`, `/discovery/modules`, and tenants – built from our custom Docker container with scripts - diku-tenant-config Secret.
-12) Deploy bootstrap-superuser Workload as *Job* – built from our custom Docker container with scripts - with diku-tenant-config Secret.
-13) Scale up Okapi pods to 3 (for HA) using Rancher 2.x + button.
-14) Add Ingresses under Load Balancing for Okapi and Stripes using URLs for `/` and `/_/`.
+7) Install Apache Kafka and Apache ZooKeeper through Helm Chart under Folio-Project - Apps.
+8) Deploy Okapi Workload *Scalable deployment* of 1 and InitDB environment variable set to true - built from our custom Docker container - with db-connect-okapi Secret. Once it is running, edit the Okapi Workload and set InitDB environment variable to *false*, it will redeploy.
+9) Deploy Folio module Workloads as *Scalable deployment* between 1 and 3 (one Workload per Folio module) - with db-connect Secret for those modules that need a connection to the database. Import the folio-q3-2020-workloads.yaml file in Rancher for this step.
+10) Deploy Stripes Workload as *Run one pod on each node* – built from our custom Docker container.
+11) Deploy create-tenant Workload as *Job* – built from our custom Docker container with scripts - with diku-tenant-config Secret.
+12) Deploy create-deploy Workload as *Job*, to enable modules for `/proxy/modules`, `/discovery/modules`, and tenants – built from our custom Docker container with scripts - diku-tenant-config Secret.
+13) Deploy bootstrap-superuser Workload as *Job* – built from our custom Docker container with scripts - with diku-tenant-config Secret.
+14) Scale up Okapi pods to 3 (for HA) using Rancher 2.x + button.
+15) Add Ingresses under Load Balancing for Okapi and Stripes using URLs for `/` and `/_/`.
+16) Future LDP deployment documentation here.
 
 ### Cluster Service Accounts Notes
 Run the following in the Rancher GUI - cluster Dashboard using the *Launch kubectl* button:<br/>
