@@ -632,22 +632,22 @@ HAZELCAST_IP = $(OKAPI_SERVICE_HOST)<br/>
 -Running as a Kubernetes *Stateful Set*, with one primary and two replica pods. Replica pods are read-only.<br/>
 -Using *Persistent Volume Claims* for Rancher Folio-Project, provisioned with vSphere Storage Class.<br/>
 -Not sure if we would run like this in Production yet, as we haven't load tested it. It is a possibility for those looking for a complete Rancher/Kubernetes/Container solution, and being actively developed.<br/>
--Volumes for persistent data as well as SQL execution need to be added to the pg-folio and pg-okapi Workloads:<br/>
+-Volumes for persistent data as well as SQL execution need to be added to the pg-folio and pg-okapi *statefulset* Workloads:<br/>
 
 Volume Name: pgdata<br/>
 Persistent Volume Claim: folio-q3:pgdata-pvc<br/>
 Mount Point: /pgdata<br/>
 
 Volume Name: backrestrepo<br/>
-Persistent Volume Claim: folio-q3:backrestrepo-pvc<br/><br/>
+Persistent Volume Claim: folio-q3:backrestrepo-pvc<br/>
 Mount Point: /backrestrepo<br/>
 
 Volume Name: recover<br/>
-Persistent Volume Claim: folio-q3:recover-pvc<br/><br/>
+Persistent Volume Claim: folio-q3:recover-pvc<br/>
 Mount Point: /recover<br/>
 
 Volume Name: pgwal<br/>
-Persistent Volume Claim: folio-q3:pgwalpvc<br/><br/>
+Persistent Volume Claim: folio-q3:pgwal-pvc<br/>
 Mount Point: /pgwal<br/>
 
 Volume Name: pgconf<br/>
