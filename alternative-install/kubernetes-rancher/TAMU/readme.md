@@ -427,7 +427,9 @@ TENANT_NAME = Datalogisk Institut
 
 #### edge-securestore-props Secret key-value pairs:
 
-edge-ephemeral.properties =  ```secureStore.type=Ephemeral
+edge-ephemeral.properties =
+```
+secureStore.type=Ephemeral
 # a comma separated list of tenants
 tenants=diku
 #######################################################
@@ -436,7 +438,8 @@ tenants=diku
 # Note: this is intended for development purposes only
 #######################################################
 # format: tenant=username,password
-diku=edgeuser,password```
+diku=edgeuser,password
+```
 
 #### postgres-setup-sql Secret key-value pairs:
 
