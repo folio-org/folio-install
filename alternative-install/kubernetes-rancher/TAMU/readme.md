@@ -162,7 +162,7 @@ https://your.private.registry.org
   f) Pod Security Policy Support - Enabled<br/>
   g) Docker version on nodes - Allow unsupported versions<br/>
   h) Docker Root Directory - /var/lib/docker<br/>
-  i) Default Pod Security Policy - unrestricted (You can change this later for the cluster as well as the Namespaces once Pod Security Policies have been established)<br/>
+  i) Default Pod Security Policy - unrestricted (You can change this later for the cluster as well as the namespaces once Pod Security Policies have been established)<br/>
   j) Cloud Provider - Custom<br/>
   k) Private Registries - Disabled<br/>
   l) etcd Snapshot Backup Target - local<br/>
@@ -301,51 +301,45 @@ Thin<br/>
 Datastore: kube<br/>
 Filesystem Type: xfs<br/>
 
-4) Click Save
+5) Click Save
 
 ## FOLIO in Rancher/Kubernetes
 
-### Set-up order overview (Our Rancher-exported YAML can be looked at under the YAML folder):
+### Folio deployment overview (Our Rancher-exported YAML can be looked at under the YAML folder):
 
-1) Create cluster via Rancher 2.x with one or more nodes, using Canal network plugin. We are using VMware to provision Oracle Linux VMs at the moment
-2) Create Folio-Project in Rancher 2.x UI
-3) Add folio-q3, postgres-modules-q3, and postgres-okapi-q3 Namespaces for Folio-Project under Namespaces in Rancher 2.x UI
-4) Add Dockerhub and your private Docker registries to the Folio-Project
-5) Add Persistent Volume on the cluster and Persistent Volume Claim for Folio-Project (We are using vSphere Storage Class)<br/>
+After creating the cluster as above via Rancher 2.x...<br/>
+
+1) Create Folio-Project in Rancher 2.x UI.
+2) Add *folio-q3* namespace for Folio-Project under *Namespaces* in Rancher 2.x UI.
+3) Add Dockerhub and your private Docker registries to the Folio-Project.
+4) Add Persistent Volume on the cluster and Persistent Volume Claim for Folio-Project (We are using vSphere Storage Class).<br/>
 
 (The rest of these steps are from within the Folio-Project in Rancher 2.x)<br/>
 
-6) Create the following Rancher Secrets under Folio-Project:<br/>
+5) Create the following Secrets in Rancher under the Folio-Project for the *folio-q3* namespace:<br/>
 
-db-connect (folio-q3/postgres-modules-q3/postgres-okapi-q3 namespaces)<br/>
-db-connect-okapi (folio-q3 namespace)<br/>
-db-config-modules (postgres-modules-q3 namespace)<br/>
-db-config-okapi (postgres-okapi-q3 namespace)<br/>
+db-connect<br/>
+db-connect-okapi<br/>
+db-config-modules<br/>
+db-config-okapi<br/>
+tamu-tenant-config<br/>
+diku-tenant-config<br/>
+x-okapi-token<br/>
 
-7) Deploy two crunchy-postgres Workload *Stateful sets* via Helm Chart, one each to postgres-okapi-q3 and postgres-modules-q3 namespaces. You will then have one Postgres database for Okapi, and the other for Folio storage modules. Edit each Postgres Workload to tweak the environment variables for use with Okapi and Folio modules - using the corresponding db-config-okapi and db-config-modules Secrets.
-8) Add Record under Service Discovery, named pg-folio, as type *Selector* with Label/Value: *statefulset.kubernetes.io/pod-name = pgset-0*
-9) Deploy create-db Workload *Job* - built from our custom Docker container with DB init scripts - with db-connect Secret
-10) Deploy Okapi Workload *Scalable deployment* of 1 and InitDB environment variable set to true - built from our custom Docker container - with db-connect-okapi Secret
-11) Deploy Folio module Workloads *Scalable deployment* between 1 and 3 (one Workload per Folio module) - with db-connect Secret for those modules that need a connection to the database. (Import the workloads.yaml file in Rancher for this, it will deploy all of the Folio back-end containers in Rancher)
-12) Deploy Stripes Workload *Run one pod on each node* – built from our custom Docker container
-13) Create tamu-tenant-config, diku-tenant-config and x-okapi-token Rancher Secrets under Folio-Project - Resources - Secrets
-14) Deploy create-tenant Workload *Job* – built from our custom Docker container with scripts - with tamu-tenant-config/diku-tenant-config Secret
-15) Deploy create-deploy Workload *Job*, to enable modules for `/proxy/modules`, `/discovery/modules`, and tenants – built from our custom Docker container with scripts - with tamu-tenant-config/diku-tenant-config Secret
-16) Deploy bootstrap-superuser Workload *Job* – built from our custom Docker container with scripts - with tamu-tenant-config/diku-tenant-config Secret
-17) Deploy create-refdata Workload *Job* – built from our custom Docker container with scripts - with tamu-tenant-config/diku-tenant-config Secret
-18) Deploy create-sampdata Workload *Job* – built from our custom Docker container with scripts - with x-okapi-token Secret AND diku-tenant-config Secret
-19) Edit Okapi Workload, set InitDB environment variable to false
-20) Scale up Okapi pods to 3 using Rancher 2.x + button
-21) Add Ingress under Load Balancing for Okapi and Stripes using URLs for `/` and `/_/`
+6) If you are using an external database host, ignore this step. Otherwise deploy two crunchy-postgres *Stateful set* Workloads to the *folio-q3* namespace. Name one *pg-okapi* for Okapi's *okapi* database, and the other *pg-folio* for Folio's *okapi_modules* database. Edit each of these Workloads to set environment variables - clicking *Add From Source* to choose the corresponding db-config-okapi and db-config-modules Secrets. Configure your persistent volumes, any resource reservations and limits, as well as the Postgres UID and GID (26) at this time. 
+7) Deploy Okapi Workload *Scalable deployment* of 1 and InitDB environment variable set to true - built from our custom Docker container - with db-connect-okapi Secret. Once it is running, edit the Okapi Workload and set InitDB environment variable to *false*, it will redeploy.
+8) Deploy Folio module Workloads as *Scalable deployment* between 1 and 3 (one Workload per Folio module) - with db-connect Secret for those modules that need a connection to the database. Import the folio-q3-2020-workloads.yaml file in Rancher for this step.
+9) Deploy Stripes Workload as *Run one pod on each node* – built from our custom Docker container.
+10) Deploy create-tenant Workload as *Job* – built from our custom Docker container with scripts - with tamu-tenant-config/diku-tenant-config Secret.
+11) Deploy create-deploy Workload as *Job*, to enable modules for `/proxy/modules`, `/discovery/modules`, and tenants – built from our custom Docker container with scripts - with tamu-tenant-config/diku-tenant-config Secret.
+12) Deploy bootstrap-superuser Workload as *Job* – built from our custom Docker container with scripts - with tamu-tenant-config/diku-tenant-config Secret.
+13) Scale up Okapi pods to 3 (for HA) using Rancher 2.x + button.
+14) Add Ingresses under Load Balancing for Okapi and Stripes using URLs for `/` and `/_/`.
 
 ### Cluster Service Accounts Notes
 Run the following in the Rancher GUI - cluster Dashboard using the *Launch kubectl* button:<br/>
 
--When using crunchy-postgres, need to execute this command on the cluster for the pgset-sa service account:<br/>
-
-```kubectl create clusterrolebinding pgset-sa --clusterrole=admin --serviceaccount=folio-q3:pgset-sa --namespace=folio-q3```<br/>
-
--When using Hazelcast discovery Kubernetes plugin for Okapi, need to execute these commands on the cluster for the service account:<br/>
+-When using Hazelcast discovery Kubernetes plugin for Okapi, you need to execute these commands on the cluster for the service account:<br/>
 
 1) ```touch rbac.yaml```<br/>
 2) ```vi rbac.yaml```<br/>
@@ -367,24 +361,26 @@ subjects:
   namespace: folio-q3
   ```
 
-3) Save
+3) Save and exit
 4) Run: ```kubectl apply -f rbac.yaml```
 
 
 ### Rancher Secrets Notes:
 
--Each Rancher Secret should only be available to a single Namespace for security and separation.<br/>
+-In production, unique Secrets should only be available to a single namespace for security and separation. If you choose, Secrets can be made available to all namespaces for testing and development.<br/>
 
--The Secrets below were made available to the folio-q3 Namespace:<br/>
+-The Secrets below to be created in the *folio-q3* namespace:<br/>
 
 #### db-connect Secret key-value pairs:
 
+DB_CHARSET = UTF-8<br/>
 DB_DATABASE = okapi_modules<br/>
 DB_HOST = pg-folio<br/>
 DB_MAXPOOLSIZE = 20<br/>
 DB_PASSWORD = password<br/>
 DB_PORT = 5432<br/>
-DB_USERNAME = folio_admin<br/>
+DB_QUERYTIMEOUT = 120000<br/>
+DB_USERNAME = folio_admin
 
 #### db-connect-okapi Secret key-value pairs:
 
@@ -394,10 +390,31 @@ PG_PASSWORD = password<br/>
 PG_PORT = 5432<br/>
 PG_USERNAME = okapi
 
+#### db-config-modules Secret key-value pairs:
+
+PG_DATABASE = okapi_modules<br/>
+PG_PASSWORD = password<br/>
+PG_PRIMARY_PASSWORD = password<br/>
+PG_PRIMARY_PORT = 5432<br/>
+PG_PRIMARY_USER = primaryuser<br/>
+PG_ROOT_PASSWORD = password<br/>
+PG_USER = folio_admin
+
+#### db-config-okapi Secret key-value pairs:
+
+PG_DATABASE = okapi<br/>
+PG_PASSWORD = password<br/>
+PG_PRIMARY_PASSWORD = password<br/>
+PG_PRIMARY_PORT = 5432<br/>
+PG_PRIMARY_USER = primaryuser<br/>
+PG_ROOT_PASSWORD = password<br/>
+PG_USER = okapi
+
 #### diku-tenant-config Secret key-value pairs:
 
 ADMIN_PASSWORD = admin<br/>
 ADMIN_USER = diku_admin<br/>
+IGNORE_ERRORS = true<br/>
 OKAPI_URL = http://okapi:9130<br/>
 PURGE_DATA = true<br/>
 REF_DATA = true<br/>
@@ -411,6 +428,7 @@ TENANT_NAME = Datalogisk Institut
 
 ADMIN_PASSWORD = admin<br/>
 ADMIN_USER = tamu_admin<br/>
+IGNORE_ERRORS = true<br/>
 OKAPI_URL = http://okapi:9130<br/>
 PURGE_DATA = true<br/>
 REF_DATA = true<br/>
@@ -420,33 +438,41 @@ TENANT_DESC = Texas A&M University Libraries<br/>
 TENANT_ID = tamu<br/>
 TENANT_NAME = TAMU Libraries
 
-#### tern-tenant-config Secret key-value pairs:
+#### x-okapi-token Secret Key-Value pairs:
+NOTE: You won’t need this until after the Folio system is up, but before you load sample data. Log in to the Folio System via the GUI, go to *Settings - Developer - Set Token* and copy it out from there.<br/>
 
-ADMIN_PASSWORD = admin<br/>
-ADMIN_USER = tern_admin<br/>
-OKAPI_URL = http://okapi:9130<br/>
-PURGE_DATA = true<br/>
-REF_DATA = true<br/>
-REGISTRY_URL = `http://okapi:9130/_/proxy/modules`<br/>
-SAMPLE_DATA = false<br/>
-TENANT_DESC = Texas A&M University Libraries Development<br/>
-TENANT_ID = tern<br/>
-TENANT_NAME = TAMU Libraries Dev
+X_OKAPI_TOKEN = *Authentication token from Okapi*
+
+
+### The Secrets below are being used for Tamu specific migration tooling and the LDP deployment. They are included here as a reference.
 
 #### ldp-conf Secret key-value pairs:
 
-ldp.conf =  ```[folio]<br/>
-            url = http://okapi:9130<br/>
-            tenant = tamu<br/>
-            user = tamu_admin<br/>
-            password = password<br/>
-            [default-database]<br/>
-            dbtype = postgres<br/>
-            host = pg-ldp<br/>
-            port = 5432<br/>
-            user = ldpadmin<br/>
-            password = password<br/>
-            dbname = ldp```
+ldpconf.json =  ```{
+    "deployment_environment": "development",
+    "ldp_database": {
+        "odbc_database": "ldp"
+    },
+    "enable_sources": ["my_library"],
+    "sources": {
+        "my_library": {
+            "okapi_url": "http://okapi:9130",
+            "okapi_tenant": "tamu",
+            "okapi_user": "tamu_admin",
+            "okapi_password": "password",
+            "direct_tables": [
+                "inventory_holdings",
+                "inventory_instances",
+                "inventory_items"
+            ],
+            "direct_database_name": "okapi_modules",
+            "direct_database_host": "pg-folio",
+            "direct_database_port": 5432,
+            "direct_database_user": "folio_admin",
+            "direct_database_password": "password"
+        }
+    }
+}```
 
 #### db-connect-migration Secret key-value pairs:
 
@@ -454,74 +480,15 @@ CAMUNDA_BPM_ADMIN_USER_ID = admin<br/>
 CAMUNDA_BPM_ADMIN_USER_PASSWORD = password<br/>
 EXTRACTION_DATASOURCE_PASSWORD = password<br/>
 EXTRACTION_DATASOURCE_USERNAME = db<br/>
-OKAPI_PASSWORD = admin<br/>
-OKAPI_USERNAME = tern_admin<br/>
+OKAPI_PASSWORD = password<br/>
+OKAPI_USERNAME = tamu_admin<br/>
 SPRING_DATASOURCE_PASSWORD = password<br/>
 SPRING_DATASOURCE_USERNAME = spring_folio_admin<br/>
-TENANT_DEFAULT_TENANT = tern
+TENANT_DEFAULT_TENANT = tamu
 
-#### x-okapi-token Secret Key-Value pairs:
-NOTE: You won’t need this until after the Folio system is up, but before you load sample data. Log in to the Folio System via the GUI, go to *Settings - Developer - Set Token* and copy it out from there.<br/>
+#### db-config-migration Secret key-value pairs:
 
-X_OKAPI_TOKEN = *Authentication token from Okapi*
-
--The Secrets below were made available to the postgres-modules-q3 Namespace:<br/>
-
-#### db-config-modules Secret key-value pairs:
-
-PG_DATABASE = okapi_modules<br/>
-PG_PASSWORD = password<br/>
-PG_PRIMARY_PASSWORD = password<br/>
-PG_PRIMARY_PORT = 5432<br/>
-PG_PRIMARY_USER = primaryuser<br/>
-PG_ROOT_PASSWORD = password<br/>
-PG_USER = folio_admin
-
-#### db-connect Secret key-value pairs:
-
-DB_HOST = pg-module-selector-q3<br/>
-PG_DATABASE = okapi_modules<br/>
-PG_PASSWORD = password<br/>
-PG_USER = folio_admin
-
--The Secrets below were made available to the postgres-okapi-q3 Namespace:<br/>
-
-#### db-config-okapi Secret key-value pairs:
-
-PG_DATABASE = okapi<br/>
-PG_PASSWORD = password<br/>
-PG_PRIMARY_PASSWORD = password<br/>
-PG_PRIMARY_PORT = 5432<br/>
-PG_PRIMARY_USER = primaryuser<br/>
-PG_ROOT_PASSWORD = password<br/>
-PG_USER = okapi
-
-#### db-connect Secret key-value pairs:
-
-DB_HOST = pg-okapi-selector-q3<br/>
-PG_DATABASE = okapi<br/>
-PG_PASSWORD = password<br/>
-PG_USER = okapi
-
--The Secrets below were made available to the postgres-ldp Namespace:<br/>
-
-#### db-config-ldp Secret key-value pairs:
-
-DB_HOST = pg-ldp-selector<br/>
-PG_DATABASE = ldp<br/>
-PG_PASSWORD = password<br/>
-PG_PRIMARY_PASSWORD = password<br/>
-PG_PRIMARY_PORT = 5432<br/>
-PG_PRIMARY_USER = primaryuser<br/>
-PG_ROOT_PASSWORD = password<br/>
-PG_USER = ldp_admin
-
--The Secrets below were made available to the postgres-folio-migration Namespace:<br/>
-
-#### db-config-migration-modules Secret key-value pairs:
-
-DB_HOST = pg-folio-migration-selector<br/>
-PG_DATABASE = migration_modules<br/>
+PG_DATABASE = mod_data_migration<br/>
 PG_PASSWORD = password<br/>
 PG_PRIMARY_PASSWORD = password<br/>
 PG_PRIMARY_PORT = 5432<br/>
@@ -529,6 +496,19 @@ PG_PRIMARY_USER = primaryuser<br/>
 PG_ROOT_PASSWORD = password<br/>
 PG_USER = spring_folio_admin
 
+#### db-config-ldp Secret key-value pairs:
+
+LDP_CONFIG_PASSWORD = password<br/>
+LDP_CONFIG_USER = ldpconfig<br/>
+LDP_USER = ldp<br/>
+LDP_USER_PASSWORD = password<br/>
+PG_DATABASE = ldp<br/>
+PG_PASSWORD = password<br/>
+PG_PRIMARY_PASSWORD = password<br/>
+PG_PRIMARY_PORT = 5432<br/>
+PG_PRIMARY_USER = primaryuser<br/>
+PG_ROOT_PASSWORD = password<br/>
+PG_USER = ldpadmin
 
 ### Okapi Notes:
 
@@ -544,28 +524,27 @@ PG_USER = spring_folio_admin
                 -->
             </kubernetes>
 ```
--When a single Okapi pod has been initialized, edit and set Okapi's Workload environment variable for InitDB to false, and it will respin up for future pod scalability with data persistence.<br/>
+-After a single Okapi pod has been initialized, edit and set Okapi's Workload environment variable for InitDB to false, and it will respin up for future pod scalability with data persistence.<br/>
 -After initially spinning up one Okapi pod, then doing the InitDB variable switch above, execute the deployment K8s Jobs to deploy the Folio tenants and modules.<br/>
 -Scale out Okapi's pods for clustering after finishing your tenant setup, they will each get and manage the shared data of your Folio deployment.<br/>
--*ClusterIP* port mapping for Okapi port 9130, and the Hazelcast ports (5701 - 5704, 54327). Also add a *NodePort* portmap for 9130 when exposing Okapi via a Load Balancing/Ingress entry.<br/>
+-Use *ClusterIP* port mapping for Okapi port 9130, and the Hazelcast ports (5701 - 5704, 54327). Also add a *NodePort* port map for 9130 when exposing Okapi via a Load Balancing/Ingress entry.<br/>
 
 #### Configuration and observations for containerized Okapi:
 
--Built using Tamu's Dockerfile vs the Folioorg Dockerhub artifact, as it provides us with a bit more flexibility when running (defined environment variables, ability to pass hazelcast config, ability to initialize the database or not).<br/>
--At minimum ran as a single cluster of 3 containers per Folio instance, at an odd number of members so a quorum is established (3, 5, 7, etc). You can run as a single node cluster, but you lose the benefits of multiple Okapis providing redundancy and the overhead that allows you for handling multiple, simultaneous and large requests<br/>
+-Built using Tamu's Dockerfile vs the Folioorg Dockerhub artifact, as it provides us with a bit more flexibility when running (defined environment variables easily allow ability to pass hazelcast config, and to initialize the database or not on startup).<br/>
+-For minimal HA we run as a single cluster of 3 containers per Folio instance, at an odd number of members so a quorum is established (3, 5, 7, etc). You can run as a single node cluster, but you lose the benefits of multiple Okapis providing redundancy and the overhead that allows you for handling multiple, simultaneous and large requests<br/>
 -The Okapi cluster is spawned from a single Workload as a K8s statefulset deployment, then scaled out. This is done to allow Okapi nodes to have consistent names, to handle upgrading members on-the-fly, and to facilitate scaling up and down with more consistency and stability.<br/>
--As stated above, we define in the hazelcast.xml config file a unique group name, namespace the service-name of the deployment in K8s.<br/>
+-As stated above, we define in the hazelcast.xml config file a unique group name, namespace, and the service name of the deployment in K8s.<br/>
 -Hazelcast overhead seems low. Members and their config are stored in a memory map in each Okapi node from my understanding.<br/>
 -I have seen performance drawbacks with large numbers of Okapi. This appears to stem from the Timers function.<br/>
 -In K8s networking, the Okapi pods are round-robin load-balanced so not a single member gets overwhelmed. This does have a benefit in our testing: Loading data through the APIs doesn’t overload any single K8s node where an Okapi pod instance may be running. This also means that other tenants, where heavy requests may be taking place, do not see as much of a performance impact of the system when multiple tenants are being accessed and used within the same instance of Folio.<br/>
--It has been our experience that running a separate database for Okapi, and not lumping it in with the Folio modules database, improves performance for us.<br/>
+-It has been our experience that running a separate *okapi* database host for Okapi, and not combining it with the Folio *okapi_modules* database improves performance for us.<br/>
 
 #### Okapi Workload environment variables:
 
 OKAPI_URL = http://okapi:9130<br/>
 OKAPI_STORAGE = postgres<br/>
 OKAPI_PORT = 9130<br/>
-OKAPI_NODENAME = okapi1<br/>
 OKAPI_LOGLEVEL = INFO<br/>
 OKAPI_HOST = okapi<br/>
 OKAPI_COMMAND = cluster<br/>
@@ -577,9 +556,8 @@ HAZELCAST_IP = $(OKAPI_SERVICE_HOST)<br/>
 
 ### HA Postgres in Kubernetes/Rancher Notes:
 
--Currently testing out crunchy-postgres Helm Chart HA Kubernetes solution.<br/>
+-Currently testing out crunchy-postgres Kubernetes solution.<br/>
 -Running as a Kubernetes *Stateful Set*, with one primary and two replica pods. Replica pods are read-only.<br/>
--For Postgres *Service Discovery*, created a *Selector* type called *pg-folio* that targets the master pgset-0 Postgres pod via a label.<br/>
 -Using a *Persistent Volume Claim* for Rancher Folio-Project, provisioned with vSphere Storage Class.<br/>
 -Not sure if we would run like this in Production yet, as we haven't load tested it. It is a possibility for those looking for a complete Rancher/Kubernetes/Container solution, and being actively developed.<br/>
 
@@ -593,12 +571,12 @@ PG_MODE = set<br/>
 PG_LOCALE = en_US.UTF-8<br/>
 PG_DATABASE = okapi<br/>
 MAX_CONNECTIONS = 1000<br/>
-ARCHIVE_MODE = off<br/>
+ARCHIVE_MODE = on<br/>
 ARCHIVE_TIMEOUT = 60<br/>
 CRUNCHY_DEBUG = FALSE<br/>
 TEMP_BUFFERS = 64MB<br/>
 SHARED_BUFFERS = 2048MB<br/>
-MAX_WAL_SENDERS = 0<br/>
+MAX_WAL_SENDERS = 3<br/>
 
 
 ### Workload Notes
@@ -609,7 +587,7 @@ MAX_WAL_SENDERS = 0<br/>
 
 #### Modules that require the db-connect Secret:
 
-*mod-agreements, mod-audit, mod-audit-filter, mod-calendar, mod-circulation-storage, mod-configuration, mod-data-import, mod-email, mod-erm-usage, mod-erm-usage-harvester, mod-event-config, mod-feesfines, mod-finance-storage, mod-inventory-storage, mod-kb-ebsco-java, mod-licenses, mod-login, mod-notes, mod-notify, mod-orders-storage, mod-organizations-storage, mod-password-validator, mod-permissions, mod-sender, mod-source-record-manager, mod-source-record-storage, mod-tags, mod-template-engine, mod-users*
+*mod-agreements, mod-audit, mod-audit-filter, mod-calendar, mod-circulation-storage, mod-configuration, mod-data-import, mod-email, mod-erm-usage, mod-erm-usage-harvester, mod-event-config, mod-feesfines, mod-finance-storage, mod-inventory-storage, mod-kb-ebsco-java, mod-licenses, mod-login, mod-notes, mod-notify, mod-oai-pmh, mod-orders-storage, mod-organizations-storage, mod-password-validator, mod-permissions, mod-sender, mod-source-record-manager, mod-source-record-storage, mod-tags, mod-template-engine, mod-users*
 
 
 ### Ingress Notes:
@@ -620,7 +598,7 @@ MAX_WAL_SENDERS = 0<br/>
 -When setting up Load Balancing/Ingress, target the Service name instead of Workload name if you have specific ports you have set in the Workload.<br/>
 -For Okapi HA ingress, I have Okapi Service as the target at port 9130, with root path, `/` and `/_/` for the hostname folio-okapi-q3.org<br/>
 
--To have default Rancher 2.x Nginx ingress be a little smarter about DNS RR, add annotations in Rancher 2.1 GUI Service Discovery:<br/>
+-To have default Rancher 2.x Nginx ingress be a little smarter about DNS round-robin, add annotations in Rancher GUI under Service Discovery:<br/>
 
 nginx.ingress.kubernetes.io/upstream-fail-timeout = 30<br/>
 nginx.ingress.kubernetes.io/upstream-max-fails = 1<br/>
@@ -670,6 +648,14 @@ enableSyncDriver = false
 #### To find out which orphaned Replicasets need deleting that have 0 pods (Run this in Rancher using Launch kubectl):
 
 ```kubectl get --all-namespaces rs -o json|jq -r '.items[] | select(.spec.replicas | contains(0)) | "kubectl delete rs --namespace=\(.metadata.namespace) \(.metadata.name)"'```
+
+#### To scale all deployments to 0 in a namespace (Run this in Rancher using Launch kubectl):
+
+```kubectl get deploy -n <namespace> -o name | xargs -I % kubectl scale % --replicas=0 -n <namespace>```
+
+#### To scale all statefulsets to 0 in a namespace (Run this in Rancher using Launch kubectl):
+
+```kubectl get statefulsets -n <namespace> -o name | xargs -I % kubectl scale % --replicas=0 -n <namespace>```
 
 #### Enable Recurring etcd Snapshots on the cluster:
 
