@@ -456,6 +456,7 @@ curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"DB
 curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"DB_DATABASE\",\"value\":\"folio\"}" http://localhost:9130/_/env
 curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"DB_USERNAME\",\"value\":\"folio\"}" http://localhost:9130/_/env
 curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"DB_PASSWORD\",\"value\":\"folio123\"}" http://localhost:9130/_/env
+curl -w '\n' -D - -X POST -H "Content-Type: application/json" -d "{\"name\":\"DB_MAXPOOLSIZE\",\"value\":\"20\"}" http://localhost:9130/_/env
 ```
 
 5. Post the list of backend modules to deploy and enable (as noted above, it will take a long time)
