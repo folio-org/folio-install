@@ -339,8 +339,9 @@ x-okapi-token<br/>
 13) Deploy bootstrap-superuser Workload as *Job* – built from our custom Docker container with scripts - with diku-tenant-config Secret.
 14) Scale up Okapi pods to 3 (for HA) using Rancher 2.x + button.
 15) Add Ingresses under Load Balancing for Okapi and Stripes using URLs for `/` and `/_/`.
-16) *Future Folio configuration deployment documentation using create-email files here.*
-17) *Future Folio LDP deployment documentation using mod-ldp files here.*
+16) *Future Folio post-install configuration deployment documentation using create-email files here.*
+17) *Future Folio post-install LDP deployment documentation using mod-ldp files here.*
+18) *Future Folio post-install tenant configuration documentation regarding the edge user and permissions, patron groups for system and tenant admin users, timezone and plugin selection here.*
 
 ### Cluster Service Accounts Notes
 Run the following in the Rancher GUI - cluster Dashboard using the *Launch kubectl* button:<br/>
