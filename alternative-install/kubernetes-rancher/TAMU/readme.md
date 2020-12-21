@@ -342,6 +342,7 @@ x-okapi-token<br/>
 16) *Future Folio post-install configuration deployment documentation using create-email files here.*
 17) *Future Folio post-install LDP deployment documentation using mod-ldp files here.*
 18) *Future Folio post-install tenant configuration documentation regarding the edge user and permissions, patron groups for system and tenant admin users, timezone and plugin selection here.*
+19) *Future Folio post-install Rancher Load balancing Ingress configuration documentation here.*
 
 ### Cluster Service Accounts Notes
 Run the following in the Rancher GUI - cluster Dashboard using the *Launch kubectl* button:<br/>
