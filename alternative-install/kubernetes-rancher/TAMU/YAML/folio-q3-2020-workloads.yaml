@@ -31,8 +31,7 @@ items:
         containers:
         - env:
           - name: JAVA_OPTIONS
-            value: -XX:MaxRAMPercentage=66.0 -Dokapi_url=http://okapi:9130 -Dsecure_store=Ephemeral -Dsecure_store_props=/etc/folio/edge/edge-ephemeral.properties
-              -XX:MaxRAMPercentage=66.0
+            value: -XX:MaxRAMPercentage=66.0 -Dokapi_url=http://okapi:9130 -Dsecure_store=Ephemeral -Dsecure_store_props=/etc/folio/edge/edge-ephemeral.properties -Dapi_key_sources=PARAM,HEADER,PATH
           image: folioorg/edge-oai-pmh:2.3.0
           imagePullPolicy: Always
           name: edge-oai-pmh-2-3-0
@@ -41,7 +40,7 @@ items:
               cpu: 500m
               memory: 1Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 270Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -100,8 +99,7 @@ items:
         containers:
         - env:
           - name: JAVA_OPTIONS
-            value: -XX:MaxRAMPercentage=66.0 -Dokapi_url=http://okapi:9130 -Dsecure_store=Ephemeral -Dsecure_store_props=/etc/folio/edge/edge-ephemeral.properties
-              -XX:MaxRAMPercentage=66.0
+            value: -XX:MaxRAMPercentage=66.0 -Dokapi_url=http://okapi:9130 -Dsecure_store=Ephemeral -Dsecure_store_props=/etc/folio/edge/edge-ephemeral.properties -Dapi_key_sources=PARAM,HEADER,PATH
           image: folioorg/edge-ncip:1.4.0
           imagePullPolicy: Always
           name: edge-ncip-1-4-0
@@ -110,7 +108,7 @@ items:
               cpu: 500m
               memory: 1Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -169,8 +167,7 @@ items:
         containers:
         - env:
           - name: JAVA_OPTIONS
-            value: -Dokapi_url=http://okapi:9130 -Dsecure_store=Ephemeral -Dsecure_store_props=/etc/folio/edge/edge-ephemeral.properties
-              -XX:MaxRAMPercentage=66.0
+            value: -XX:MaxRAMPercentage=66.0 -Dokapi_url=http://okapi:9130 -Dsecure_store=Ephemeral -Dsecure_store_props=/etc/folio/edge/edge-ephemeral.properties -Dapi_key_sources=PARAM,HEADER,PATH
           image: folioorg/edge-orders:2.3.0
           imagePullPolicy: Always
           name: edge-orders-2-3-0
@@ -179,7 +176,7 @@ items:
               cpu: 500m
               memory: 1Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 260Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -238,8 +235,7 @@ items:
         containers:
         - env:
           - name: JAVA_OPTIONS
-            value: -Dokapi_url=http://okapi:9130 -Dsecure_store=Ephemeral -Dsecure_store_props=/etc/folio/edge/edge-ephemeral.properties
-              -XX:MaxRAMPercentage=66.0
+            value: -XX:MaxRAMPercentage=66.0 -Dokapi_url=http://okapi:9130 -Dsecure_store=Ephemeral -Dsecure_store_props=/etc/folio/edge/edge-ephemeral.properties -Dapi_key_sources=PARAM,HEADER,PATH
           image: folioorg/edge-patron:4.3.0
           imagePullPolicy: Always
           name: edge-patron-4-3-0
@@ -248,7 +244,7 @@ items:
               cpu: 500m
               memory: 1Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 128Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -307,8 +303,7 @@ items:
         containers:
         - env:
           - name: JAVA_OPTIONS
-            value: -Dokapi_url=http://okapi:9130 -Dsecure_store=Ephemeral -Dsecure_store_props=/etc/folio/edge/edge-ephemeral.properties
-              -XX:MaxRAMPercentage=66.0
+            value: -XX:MaxRAMPercentage=66.0 -Dokapi_url=http://okapi:9130 -Dsecure_store=Ephemeral -Dsecure_store_props=/etc/folio/edge/edge-ephemeral.properties -Dapi_key_sources=PARAM,HEADER,PATH
           image: folioorg/edge-rtac:2.1.1
           imagePullPolicy: Always
           name: edge-rtac-2-1-1
@@ -317,7 +312,7 @@ items:
               cpu: 500m
               memory: 1Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 270Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -458,7 +453,7 @@ items:
               cpu: "1"
               memory: 2Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -520,7 +515,7 @@ items:
               cpu: "1"
               memory: 2Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -578,7 +573,7 @@ items:
               cpu: "1"
               memory: 2Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -660,7 +655,7 @@ items:
               cpu: 1000m
               memory: 1Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -723,7 +718,7 @@ items:
               cpu: 500m
               memory: 2Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -801,7 +796,7 @@ items:
               cpu: 500m
               memory: 3Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 540Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -881,7 +876,7 @@ items:
               cpu: 500m
               memory: 1Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -959,7 +954,7 @@ items:
               cpu: 500m
               memory: 2Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -1037,7 +1032,7 @@ items:
               cpu: 500m
               memory: 1Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -1119,7 +1114,7 @@ items:
               cpu: 500m
               memory: 1Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -1201,7 +1196,7 @@ items:
               cpu: 500m
               memory: 1Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -1285,7 +1280,7 @@ items:
               cpu: "1"
               memory: 4Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 540Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -1371,7 +1366,7 @@ items:
               cpu: "1"
               memory: 4Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -1449,7 +1444,7 @@ items:
               cpu: "1"
               memory: 4Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -1533,7 +1528,7 @@ items:
               cpu: 500m
               memory: 1Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -1615,7 +1610,7 @@ items:
               cpu: 500m
               memory: 2Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -1679,7 +1674,7 @@ items:
               cpu: 500m
               memory: 2Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -1761,7 +1756,7 @@ items:
               cpu: 500m
               memory: 1Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -1843,7 +1838,7 @@ items:
               cpu: 500m
               memory: 1Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -1921,7 +1916,7 @@ items:
               cpu: 500m
               memory: 4Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -2001,7 +1996,7 @@ items:
               cpu: 500m
               memory: 1Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -2064,7 +2059,7 @@ items:
               cpu: "1"
               memory: 3Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 128Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -2142,7 +2137,7 @@ items:
               cpu: "1"
               memory: 3Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 720Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -2228,7 +2223,7 @@ items:
               cpu: 500m
               memory: 1Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -2381,7 +2376,7 @@ items:
               cpu: 500m
               memory: 1Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -2459,7 +2454,7 @@ items:
               cpu: 500m
               memory: 1Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -2517,7 +2512,7 @@ items:
               cpu: 500m
               memory: 1Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -2599,7 +2594,7 @@ items:
               cpu: 500m
               memory: 1Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -2681,7 +2676,7 @@ items:
               cpu: 500m
               memory: 1Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -2763,7 +2758,7 @@ items:
               cpu: 500m
               memory: 1Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -2841,7 +2836,7 @@ items:
               cpu: 500m
               memory: 1Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -2919,7 +2914,7 @@ items:
               cpu: 500m
               memory: 3Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -3003,7 +2998,7 @@ items:
               cpu: 500m
               memory: 1Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -3081,7 +3076,7 @@ items:
               cpu: 500m
               memory: 1Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -3163,7 +3158,7 @@ items:
               cpu: "1"
               memory: 2Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 720Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -3251,7 +3246,7 @@ items:
               cpu: 500m
               memory: 4Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 1024Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -3329,7 +3324,7 @@ items:
               cpu: 500m
               memory: 1Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -3411,7 +3406,7 @@ items:
               cpu: 500m
               memory: 1Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 540Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -3495,7 +3490,7 @@ items:
               cpu: 500m
               memory: 6Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 720Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -3575,7 +3570,7 @@ items:
               cpu: 500m
               memory: 6Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 600Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -3659,7 +3654,7 @@ items:
               cpu: 500m
               memory: 1Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -3743,7 +3738,7 @@ items:
               cpu: 500m
               memory: 1Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -3821,7 +3816,7 @@ items:
               cpu: "1"
               memory: 4Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -3903,7 +3898,7 @@ items:
               cpu: "1"
               memory: 2Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 540Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -3981,7 +3976,7 @@ items:
               cpu: "1"
               memory: 2Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -4059,7 +4054,7 @@ items:
               cpu: 500m
               memory: 4Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -4139,7 +4134,7 @@ items:
               cpu: 500m
               memory: 4Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -4219,7 +4214,7 @@ items:
               cpu: 500m
               memory: 2Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -4297,7 +4292,7 @@ items:
               cpu: 500m
               memory: 2Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -4357,7 +4352,7 @@ items:
               cpu: 500m
               memory: 1Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 270Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -4450,7 +4445,7 @@ items:
               cpu: 500m
               memory: 3Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -4530,7 +4525,7 @@ items:
               cpu: 500m
               memory: 2Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -4608,7 +4603,7 @@ items:
               cpu: 500m
               memory: 2Gi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 360Mi
           securityContext:
             allowPrivilegeEscalation: false
