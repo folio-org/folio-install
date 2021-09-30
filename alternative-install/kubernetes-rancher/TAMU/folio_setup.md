@@ -19,7 +19,7 @@ Our Rancher-exported YAML can be looked at under the YAML folder. After creating
 1) Create a Folio Project in Rancher 2.x UI.
 2) Add *folio-r2* namespace for your Folio Project under *Namespaces* in Rancher 2.x UI.
 3) Add Dockerhub and your private Docker registries to the Folio Project.
-4) Add Persistent Volume on the cluster and Persistent Volume Claim for the Folio Project (We are using vSphere Storage Class).<br/>
+4) Add Persistent Volumes on the cluster and Persistent Volume Claims for the Folio Project (We are using vSphere Storage Class).<br/>
 
 The rest of these steps are from within the Folio Project in Rancher 2.x...<br/>
 
