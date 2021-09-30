@@ -405,19 +405,19 @@ tamu-tenant-config<br/>
 x-okapi-token<br/>
 
 6) If you are using an external database host, ignore this step. Otherwise deploy two crunchy-postgres *Stateful set* Workloads to the *folio-r2* namespace. Name one *pg-okapi* for Okapi's *okapi* database, and the other *pg-folio* for Folio's *okapi_modules* database. Edit each of these Workloads to set environment variables - clicking *Add From Source* to choose the corresponding db-config-okapi and db-config-modules Secrets. Configure your persistent volumes, any resource reservations and limits, as well as the Postgres UID and GID (26) at this time.
-7) Install Apache Kafka and Apache ZooKeeper through a Helm Chart under your Folio Project - Apps - Launch. Currently using the helm-incubator Kafka app.
-8) Deploy Okapi Workload *Scalable deployment* of 1 and InitDB environment variable set to true - built from our custom Docker container - with db-connect-okapi Secret. Once it is running, edit the Okapi Workload and set InitDB environment variable to *false*, it will redeploy.
-9) Deploy Folio module Workloads as *Scalable deployment* between 1 and 3 (one Workload per Folio module) - with db-connect Secret for those modules that need a connection to the database. Import the folio-r2-2021-workloads.yaml file in Rancher for this step.
-10) Deploy Stripes Workload as *Run one pod on each node* – built from our custom Docker container.
-11) Deploy create-tenant Workload as *Job* – built from our custom Docker container with scripts - with tamu-tenant-config Secret.
-12) Deploy create-deploy Workload as *Job*, to enable modules for `/proxy/modules`, `/discovery/modules`, and tenants – built from our custom Docker container with scripts - tamu-tenant-config Secret.
-13) Deploy bootstrap-superuser Workload as *Job* – built from our custom Docker container with scripts - with tamu-tenant-config Secret.
-14) Scale up Okapi pods to 3 (for HA) using Rancher 2.x + button.
-15) Add Ingresses under Load Balancing for Okapi and Stripes using URLs for `/` and `/_/`.
-16) *Future Folio post-install configuration deployment documentation using create-email files here.*
-17) *Future Folio post-install LDP deployment documentation using mod-ldp files here.*
-18) *Future Folio post-install tenant configuration documentation regarding the edge user and permissions, patron groups for system and tenant admin users, timezone and plugin selection here.*
-19) *Future Folio post-install Rancher Load balancing Ingress configuration documentation here.*
+7) Install Apache Kafka and Apache ZooKeeper through a Helm Chart under your Folio Project - Apps - Launch. Currently using the Bitnami Kafka app.
+8) Install Elasticsearch through a Helm Chart under your Folio Project - Apps - Launch. Currently using the Bitnami Elasticsearch app.
+9) Deploy Okapi Workload *Scalable deployment* of 1 and InitDB environment variable set to true - built from our custom Docker container - with db-connect-okapi Secret. Once it is running, edit the Okapi Workload and set InitDB environment variable to *false*, it will redeploy.
+10) Deploy Folio module Workloads as *Scalable deployment* between 1 and 3 (one Workload per Folio module) - with db-connect Secret for those modules that need a connection to the database. Import the folio-r2-2021-workloads.yaml file in Rancher for this step.
+11) Deploy Stripes Workload as *Run one pod on each node* – built from our custom Docker container.
+12) Deploy create-tenant Workload as *Job* – built from our custom Docker container with scripts - with tamu-tenant-config Secret.
+13) Deploy create-deploy Workload as *Job*, to enable modules for `/proxy/modules`, `/discovery/modules`, and tenants – built from our custom Docker container with scripts - tamu-tenant-config Secret.
+14) Deploy bootstrap-superuser Workload as *Job* – built from our custom Docker container with scripts - with tamu-tenant-config Secret.
+15) Deploy create-email Workload as *Job* – built from our custom Docker container with scripts - with tamu-tenant-config Secret.
+16) Scale up Okapi pods to 3 (for HA) using Rancher 2.x + button.
+17) Add Ingresses and annotations under Load Balancing for Okapi and Stripes using URLs for `/` and `/_/`.
+18) *Future Folio post-install LDP deployment documentation using mod-ldp files here.*
+19) *Future Folio post-install tenant configuration documentation regarding the edge user and permissions, patron groups for system and tenant admin users, timezone and plugin selection here.*
 
 ### Cluster Service Accounts Notes
 Run the following in the Rancher GUI - cluster Dashboard using the *Launch kubectl* button:<br/>
@@ -447,6 +447,104 @@ subjects:
 3) Save and exit
 4) Run: ```kubectl apply -f rbac.yaml```
 
+### Kafka and Elasticsearch Helm Chart Notes
+ 1) In the Rancher GUI Global view, add the bitnami Helm v3 catalog under Tools - Catalogs: `https://charts.bitnami.com/bitnami`
+ 2) Paste the following in when deploying the Helm charts<br/>
+
+#### Kafka Helm Chart Answer Yaml:
+```
+---
+  autoCreateTopicsEnable: true
+  defaultReplicationFactor: "3"
+  auth: 
+    clientProtocol: "plaintext"
+    interBrokerProtocol: "tls"
+    tls: 
+      autoGenerated: true
+      type: "pem"
+  externalAccess: 
+    enabled: false
+  global: 
+    storageClass: "vsphere-datastore"
+  heapOpts: "-Xmx2048m -Xms2048m"
+  logFlushIntervalMs: "3600000"
+  logRetentionHours: "24"
+  numIoThreads: "8"
+  numNetworkThreads: "5"
+  numPartitions: "1"
+  persistence: 
+    accessMode: "ReadWriteOnce"
+    enabled: true
+    size: "300Gi"
+    storageClass: "vsphere-datastore"
+  replicaCount: "3"
+  socketReceiveBufferBytes: "102400"
+  socketRequestMaxBytes: "104857600"
+  socketSendBufferBytes: "102400"
+  zookeeper: 
+    enabled: true
+    allowAnonymousLogin: false
+    auth:
+      enabled: true
+      serverUsers: "zookeeper_admin"
+      serverPasswords: "password"
+      clientUser: "zookeeper_user"
+      clientPassword: "password"
+    replicaCount: "3"
+    persistence: 
+      enabled: true
+      size: "50Gi"
+      dataLogDir:
+        size: "20Gi"
+  zookeeperConnectionTimeoutMs: "60000"
+```
+
+#### Elasticsearch Helm Chart Answer key-value pairs:
+```
+coordinating.heapsize = 256m      
+coordinating.livenessProbe.enabled = false      
+coordinating.readinessProbe.enabled = false       
+coordinating.replicas = 2       
+coordinating.securityContext.enabled = true       
+coordinating.securityContext.fsGroup = 1001       
+coordinating.securityContext.runAsUser = 1001       
+coordinating.service.port = 9200      
+coordinating.serviceAccount.create = true       
+coordinating.startupProbe.enabled = false       
+data.heapSize = 2048m       
+data.livenessProbe.enabled = false      
+data.persistence.enabled = true       
+data.persistence.size = 200Gi       
+data.readinessProbe.enabled = false       
+data.replicas = 2       
+data.securityContext.enabled = true       
+data.securityContext.fsGroup = 1001       
+data.securityContext.runAsUser = 1001       
+data.serviceAccount.create = true       
+data.startupProbe.enabled = false       
+global.coordinating.name = es-conn      
+global.kibanaEnabled = true       
+global.storageClass = "vsphere-datastore"       
+image.debug = false       
+ingest.service.port = 9300      
+ingest.service.type = ClusterIP       
+kibana.elasticsearch.hosts = {elasticsearch-r2-es-conn}      
+kibana.elasticsearch.port = 9200      
+master.heapSize = 512m      
+master.livenessProbe.enabled = false      
+master.persistence.enabled = true       
+master.persistence.size = 20Gi      
+master.readinessProbe.enabled = false       
+master.replicas = 3       
+master.securityContext.enabled = true       
+master.securityContext.fsGroup = 1001       
+master.securityContext.runAsUser = 1001       
+master.service.port = 9300      
+master.service.type = ClusterIP       
+master.serviceAccount.create = true       
+master.startupProbe.enabled = false       
+plugins = analysis-icu,analysis-kuromoji,analysis-smartcn,analysis-nori,analysis-phonetic
+```
 
 ### Rancher Secrets Notes:
 
@@ -474,7 +572,7 @@ region = us-east-1
 DB_CHARSET = UTF-8<br/>
 DB_DATABASE = okapi_modules<br/>
 DB_HOST = pg-folio<br/>
-DB_MAXPOOLSIZE = 20<br/>
+DB_MAXPOOLSIZE = 10<br/>
 DB_PASSWORD = password<br/>
 DB_PORT = 5432<br/>
 DB_QUERYTIMEOUT = 120000<br/>
@@ -504,8 +602,11 @@ PG_USER = spring_folio_admin
 
 #### db-config-ldp Secret key-value pairs:
 
+DB_HOST = pg-ldp<br/>
 LDP_CONFIG_PASSWORD = password<br/>
 LDP_CONFIG_USER = ldpconfig<br/>
+LDP_REPORT_PASSWORD = password<br/>
+LDP_REPORT_USER = ldpreport<br/>
 LDP_USER = ldp<br/>
 LDP_USER_PASSWORD = password<br/>
 PG_DATABASE = ldp<br/>
@@ -521,7 +622,7 @@ PG_USER = ldpadmin
 DB_CHARSET = UTF-8<br/>
 DB_DATABASE = ldp<br/>
 DB_HOST = pg-ldp<br/>
-DB_MAXPOOLSIZE = 20<br/>
+DB_MAXPOOLSIZE = 10<br/>
 DB_PASSWORD = password<br/>
 DB_PORT = 5432<br/>
 DB_QUERYTIMEOUT = 120000<br/>
@@ -529,6 +630,7 @@ DB_USERNAME = ldpadmin
 
 #### db-connect-okapi Secret key-value pairs:
 
+DB_MAXPOOLSIZE = 10<br/>
 PG_DATABASE = okapi<br/>
 PG_HOST = pg-okapi<br/>
 PG_PASSWORD = password<br/>
