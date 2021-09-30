@@ -577,10 +577,12 @@ AWS_BUCKET = folio-data-export<br/>
 AWS_REGION = us-east-1<br/>
 AWS_SECRET_ACCESS_KEY = secret<br/>
 AWS_URL = minio.library.tamu.edu<br/>
-config = ```[default]
+config = ```
+[default]
 aws_access_key_id = key
 aws_secret_access_key = secret
-region = us-east-1```<br/>
+region = us-east-1
+```<br/>
 
 
 #### db-connect-migration Secret key-value pairs:
