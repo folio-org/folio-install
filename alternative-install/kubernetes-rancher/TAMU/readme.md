@@ -613,7 +613,6 @@ ACS_TENANT_CONFIG =
 ```
 {\"supportedMessages\": [{\"messageName\": \"REQUEST_SC_ACS_RESEND\",\"isSupported\": \"Y\"},{\"messageName\": \"PATRON_STATUS_REQUEST\",\"isSupported\": \"N\"},{\"messageName\": \"CHECKOUT\",\"isSupported\": \"Y\"},{\"messageName\": \"CHECKIN\",\"isSupported\": \"Y\"},{\"messageName\": \"BLOCK_PATRON\",\"isSupported\": \"N\"},{\"messageName\": \"SC_ACS_STATUS\",\"isSupported\": \"Y\"},{\"messageName\": \"LOGIN\",\"isSupported\": \"Y\"},{\"messageName\": \"PATRON_INFORMATION\",\"isSupported\": \"Y\"},{\"messageName\": \"END_PATRON_SESSION\",\"isSupported\": \"Y\"},{\"messageName\": \"FEE_PAID\",\"isSupported\": \"N\"},{\"messageName\": \"ITEM_INFORMATION\",\"isSupported\": \"N\"},{\"messageName\": \"ITEM_STATUS_UPDATE\",\"isSupported\": \"N\"},{\"messageName\": \"PATRON_ENABLE\",\"isSupported\": \"N\"},{\"messageName\": \"HOLD\",\"isSupported\": \"N\"},{\"messageName\": \"RENEW\",\"isSupported\": \"N\"},{\"messageName\": \"RENEW_ALL\",\"isSupported\": \"N\"}],\"statusUpdateOk\": false,\"offlineOk\": false,\"currencyType\" : \"USD\",\"language\" : \"en\",\"patronPasswordVerificationRequired\" : false}
 ```
-<br/>
 ADMIN_PASSWORD = admin<br/>
 ADMIN_USER = tamu_admin<br/>
 EMAIL_FROM = folio_admin@library.tamu.edu<br/>
@@ -633,11 +632,9 @@ REF_DATA = true<br/>
 REGISTRY_URL = `http://okapi:9130/_/proxy/modules`<br/>
 SAMPLE_DATA = false<br/>
 SELF_CHECKOUT_CONFIG =
-
 ```
 {\"timeoutPeriod\": 30,\"retriesAllowed\": 3,\"terminalDelimeter\" : \"\\r\",\"fieldDelimeter\" : \"|\",\"errorDetectionEnabled\" : true,\"charset\" : \"UTF8\",\"SCtimeZone\" : \"EDT\",\"checkinOk\": true,\"checkoutOk\": true,\"acsRenewalPolicy\": false,\"maxPrintWidth\" : 200,\"libraryName\": \"evans\",\"terminalLocation\": \"3b80cfdf-438b-48c1-aadc-57965a0d7680\"}
 ```
-
 SERVICE_POINT = 3b80cfdf-438b-48c1-aadc-57965a0d7680<br/>
 TENANT_DESC = Texas A&M University Libraries<br/>
 TENANT_ID = tamu<br/>
