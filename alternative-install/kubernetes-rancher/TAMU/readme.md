@@ -428,6 +428,185 @@ PG_PRIMARY_USER = primaryuser<br/>
 PG_ROOT_PASSWORD = password<br/>
 PG_USER = okapi
 
+#### mod-graphql:
+
+CONSOLE_TRACE = 1<br/>
+GRAPHQL_OPTIONS = <br/>
+LOGGING_CATEGORIES = <br/>
+NODE_OPTIONS = --no-deprecation<br/>
+OKAPI_TENANT = tamu<br/>
+OKAPI_TOKEN = token<br/>
+OKAPI_URL = `http://okapi:9130`<br/>
+PROXY_OKAPI_URL = `https://folio-okapi.library.tamu.edu`<br/>
+RAML_DIR = <br/>
+RAML_EXCLUDE = <br/>
+RAML_MATCH = <br/>
+RAML_SKIP = <br/>
+
+#### mod-pubsub:
+
+JAVA_OPTIONS = -XX:MaxRAMPercentage=66.0<br/>
+KAFKA_HOST = `http://kafka-r2`<br/>
+KAFKA_PORT = 9092<br/>
+OKAPI_URL = `http://okapi:9130`<br/>
+SYSTEM_USER_NAME = pub-sub<br/>
+SYSTEM_USER_PASSWORD = password<br/>
+
+#### mod-search:
+
+ELASTICSEARCH_PASSWORD = <br/>
+ELASTICSEARCH_USERNAME = <br/>
+ELASTICSEARCH_URL = `http://elasticsearch-r2-es-conn:9200`<br/>
+ENV = folio-r2<br/>
+INITIAL_LANGUAGES = eng,spa,fre,ger<br/>
+JAVA_OPTIONS = -XX:MaxRAMPercentage=66.0<br/>
+KAFKA_HOST = `http://kafka-r2`<br/>
+KAFKA_PORT = 9092<br/>
+KAFKA_SECURITY_PROTOCOL = PLAINTEXT<br/>
+KAFKA_SSL_KEYSTORE_LOCATION = <br/>
+KAFKA_SSL_KEYSTORE_PASSWORD = <br/>
+KAFKA_SSL_TRUSTSTORE_LOCATION = <br/>
+KAFKA_SSL_TRUSTSTORE_PASSWORD = <br/>
+OKAPI_URL = `http://okapi:9130`<br/>
+SYSTEM_USER_PASSWORD = password<br/>
+
+#### mod-z3950:
+
+config.Default.json = 
+```
+{
+  "okapi": {
+    "url": "http://okapi:9130",
+    "tenant": "tamu"
+  },
+  "login": {
+    "username": "edgeuser",
+    "password": "password"
+  },
+  "indexMap": {
+    "1": "author",
+    "7": "identifiers/@value/@identifierTypeId=\"8261054f-be78-422d-bd51-4ed9f33c3422\"",
+    "4": "title",
+    "12": {
+      "cql": "hrid",
+      "relation": "==",
+      "omitSortIndexModifiers": ["missing", "case"]
+    },
+    "21": "subject",
+    "1016": "author,title,hrid,subject"
+  },
+  "queryFilter": "source==marc NOT discoverySuppress==true",
+  "graphqlQuery": "instances.graphql-query",
+  "chunkSize": 5,
+  "marcHoldings": {
+    "restrictToItem": 0,
+    "field": "952",
+    "indicators": [" ", " "],
+    "holdingsElements": {
+      "t": "copyNumber"
+    },
+    "itemElements": {
+      "b": "itemId",
+      "k": "_callNumberPrefix",
+      "h": "_callNumber",
+      "m": "_callNumberSuffix",
+      "v": "_volume",
+      "e": "_enumeration",
+      "y": "_yearCaption",
+      "c": "_chronology"
+    }
+  },
+  "postProcessing": {
+    "marc": {
+      "008": {
+        "op": "regsub",
+        "pattern": "([13579])",
+        "replacement": "[$1]",
+        "flags": "g"
+      },
+      "245$a": [{
+          "op": "stripDiacritics"
+        },
+        {
+          "op": "regsub",
+          "pattern": "[abc]",
+          "replacement": "*",
+          "flags": "g"
+        }
+      ]
+    }
+  }
+}
+```
+<br/>
+config.tamu.json = 
+```
+{
+  "okapi": {
+    "url": "http://okapi:9130",
+    "tenant": "tamu"
+  },
+  "login": {
+    "username": "edgeuser",
+    "password": "password"
+  },
+  "indexMap": {
+    "1": "author",
+    "7": "identifiers/@value/@identifierTypeId=\"8261054f-be78-422d-bd51-4ed9f33c3422\"",
+    "4": "title",
+    "12": {
+      "cql": "hrid",
+      "relation": "==",
+      "omitSortIndexModifiers": ["missing", "case"]
+    },
+    "21": "subject",
+    "1016": "author,title,hrid,subject"
+  },
+  "queryFilter": "source==marc NOT discoverySuppress==true",
+  "graphqlQuery": "instances.graphql-query",
+  "chunkSize": 5,
+  "marcHoldings": {
+    "restrictToItem": 0,
+    "field": "952",
+    "indicators": [" ", " "],
+    "holdingsElements": {
+      "t": "copyNumber"
+    },
+    "itemElements": {
+      "b": "itemId",
+      "k": "_callNumberPrefix",
+      "h": "_callNumber",
+      "m": "_callNumberSuffix",
+      "v": "_volume",
+      "e": "_enumeration",
+      "y": "_yearCaption",
+      "c": "_chronology"
+    }
+  },
+  "postProcessing": {
+    "marc": {
+      "008": {
+        "op": "regsub",
+        "pattern": "([13579])",
+        "replacement": "[$1]",
+        "flags": "g"
+      },
+      "245$a": [{
+          "op": "stripDiacritics"
+        },
+        {
+          "op": "regsub",
+          "pattern": "[abc]",
+          "replacement": "*",
+          "flags": "g"
+        }
+      ]
+    }
+  }
+}
+```
+<br/>
+
 #### tamu-tenant-config Secret key-value pairs:
 
 ADMIN_PASSWORD = admin<br/>
@@ -548,6 +727,21 @@ ldpconf.json =
 #### ldp-odbc Secret key-value pairs:
 
 odbc.ini =
+```
+[ldp]
+Description = ldp
+Driver = PostgreSQL
+Database = ldp
+Servername = pg-ldp
+UserName = ldpadmin
+Password = password
+Port = 5432
+SSLMode = disable
+```
+
+#### ldp-odbc-prefix Secret key-value pairs:
+
+.odbc.ini =
 ```
 [ldp]
 Description = ldp
