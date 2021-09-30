@@ -387,7 +387,7 @@ subjects:
 
 -In production, unique Secrets should only be available to a single namespace for security and separation. If you choose, Secrets can be made available to all namespaces for testing and development.<br/>
 
-### The Secrets below are to be created in the *folio-r2* namespaceare, and are being used for Tamu's specific Folio deployment, Minio bucket, migration tooling and the LDP deployment. They are included here as a reference.
+### The Secrets below are to be created in the *folio-r2* namespace, and are being used for Tamu's specific deployment of Folio, Minio, Kafka, Elasticsearch, migration tooling and the LDP. They are included here as a reference.
 
 #### db-connect Secret key-value pairs:
 
@@ -618,7 +618,7 @@ ADMIN_PASSWORD = admin<br/>
 ADMIN_USER = tamu_admin<br/>
 EMAIL_FROM = `folio_admin@library.tamu.edu`<br/>
 EMAIL_PASSWORD = password<br/>
-EMAIL_SMTP_HOST = relay.tamu.edu<br/>
+EMAIL_SMTP_HOST = `relay.tamu.edu`<br/>
 EMAIL_SMTP_LOGIN_OPTION = DISABLED<br/>
 EMAIL_SMTP_PORT = 25<br/>
 EMAIL_SMTP_SSL = false<br/>
@@ -636,7 +636,6 @@ SELF_CHECKOUT_CONFIG =
 ```
 {\"timeoutPeriod\": 30,\"retriesAllowed\": 3,\"terminalDelimeter\" : \"\\r\",\"fieldDelimeter\" : \"|\",\"errorDetectionEnabled\" : true,\"charset\" : \"UTF8\",\"SCtimeZone\" : \"EDT\",\"checkinOk\": true,\"checkoutOk\": true,\"acsRenewalPolicy\": false,\"maxPrintWidth\" : 200,\"libraryName\": \"evans\",\"terminalLocation\": \"3b80cfdf-438b-48c1-aadc-57965a0d7680\"}
 ```
-<br/>
 SERVICE_POINT = 3b80cfdf-438b-48c1-aadc-57965a0d7680<br/>
 TENANT_DESC = Texas A&M University Libraries<br/>
 TENANT_ID = tamu<br/>
