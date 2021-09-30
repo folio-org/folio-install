@@ -645,7 +645,7 @@ Driver = /usr/lib/x86_64-linux-gnu/odbc/psqlodbcw.so
 FileUsage = 1
 ```
 
-#### mod-graphql:
+#### mod-graphql Secret key-value pairs:
 
 CONSOLE_TRACE = 1<br/>
 GRAPHQL_OPTIONS = <br/>
@@ -660,7 +660,7 @@ RAML_EXCLUDE = <br/>
 RAML_MATCH = <br/>
 RAML_SKIP =
 
-#### mod-pubsub:
+#### mod-pubsub Secret key-value pairs:
 
 JAVA_OPTIONS = -XX:MaxRAMPercentage=66.0<br/>
 KAFKA_HOST = `http://kafka-r2`<br/>
@@ -669,7 +669,7 @@ OKAPI_URL = `http://okapi:9130`<br/>
 SYSTEM_USER_NAME = pub-sub<br/>
 SYSTEM_USER_PASSWORD = password
 
-#### mod-search:
+#### mod-search Secret key-value pairs:
 
 ELASTICSEARCH_PASSWORD = <br/>
 ELASTICSEARCH_USERNAME = <br/>
@@ -687,7 +687,7 @@ KAFKA_SSL_TRUSTSTORE_PASSWORD = <br/>
 OKAPI_URL = `http://okapi:9130`<br/>
 SYSTEM_USER_PASSWORD = password
 
-#### mod-z3950:
+#### mod-z3950 Secret key-value pairs:
 
 config.Default.json =
 ```
@@ -988,7 +988,7 @@ PG_REPLICA_HOST = pgset-replica<br/>
 PG_PRIMARY_HOST = pgset-primary<br/>
 PG_MODE = set<br/>
 PG_LOCALE = en_US.UTF-8<br/>
-PG_DATABASE = okapi<br/>
+PG_DATABASE = okapi_modules<br/>
 MAX_CONNECTIONS = 1000<br/>
 ARCHIVE_MODE = on<br/>
 ARCHIVE_TIMEOUT = 60<br/>
@@ -1015,21 +1015,17 @@ MAX_WAL_SENDERS = 3<br/>
 -One URL is for proxying front-end Stripes and the other is for proxying Okapi traffic.<br/>
 -The Okapi traffic URL is the URL used when building Stripes.<br/>
 -When setting up Load Balancing/Ingress, target the Service name instead of Workload name if you have specific ports you have set in the Workload.<br/>
--For Okapi HA ingress, I have Okapi Service as the target at port 9130, with root path, `/` and `/_/` for the hostname folio-okapi-q3.org<br/>
+-For Okapi HA ingress, I have Okapi Service as the target at port 9130, with root path, `/` and `/_/` for the hostname folio-okapi.org<br/>
 
--To have default Rancher 2.x Nginx ingress be a little smarter about DNS round-robin, add annotations in Rancher GUI under Service Discovery:<br/>
-
-nginx.ingress.kubernetes.io/upstream-fail-timeout = 30<br/>
-nginx.ingress.kubernetes.io/upstream-max-fails = 1<br/>
-nginx.ingress.kubernetes.io/proxy-connect-timeout = 60<br/>
-nginx.ingress.kubernetes.io/proxy-read-timeout = 600<br/>
-nginx.ingress.kubernetes.io/proxy-send-timeout = 600<br/>
-
--To allow larger chunks of data, add annotations in Rancher 2.x GUI Service Discovery:<br/>
+-To have default Rancher 2.x Nginx ingress be a little smarter about DNS round-robin, and larger chunks of data, add annotations in Rancher GUI under Service Discovery:<br/>
 
 nginx.ingress.kubernetes.io/client-body-buffer-size = 512M<br/>
-nginx.ingress.kubernetes.io/proxy-body-size = 2048M
-
+nginx.ingress.kubernetes.io/proxy-body-size = 8192M<br/>
+nginx.ingress.kubernetes.io/upstream-fail-timeout = 120<br/>
+nginx.ingress.kubernetes.io/upstream-max-fails = 2<br/>
+nginx.ingress.kubernetes.io/proxy-connect-timeout = 600<br/>
+nginx.ingress.kubernetes.io/proxy-read-timeout = 600<br/>
+nginx.ingress.kubernetes.io/proxy-send-timeout = 600<br/>
 
 
 ## Kubernetes Pro Tips
@@ -1063,6 +1059,10 @@ enableSyncDriver = false
 #### To remove dangling images from nodes that have failed:
 
 ```docker rmi $(docker images -aq --filter dangling=true)```
+
+#### To get a token for use against the cluster to authenticate with (Run this in Rancher using Launch kubectl):
+
+```kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep admin-user | awk '{print $1}')```
 
 #### To find out which orphaned Replicasets need deleting that have 0 pods (Run this in Rancher using Launch kubectl):
 
@@ -1144,6 +1144,21 @@ curl -w '\n' -D - -X POST -H "Content-type: application/json" -d '{"urls":["http
 curl -w '\n' -X POST -D - -H "Content-type: application/json" -d @enable-docker.json http://okapi:9130/_/proxy/tenants/tamu/install?simulate=true
 ```
 
+#### Re-index Elasticsearch with Okapi request:
+```
+curl -w '\n' -D - -X POST $OKAPI_URL/search/index/inventory/reindex -H "X-Okapi-Tenant: tamu" -H "Content-Type: application/json" -H "X-Okapi-Token: <Okapi Token>" -d '{"recreateIndex": true}'
+```
+
+#### Get an Elasticsearch job ID with Okapi request:
+```
+curl -w '\n' -D - -X GET -H "X-Okapi-Tenant: tamu" -H "X-Okapi-Token: <Okapi Token>" $OKAPI_URL/search/index/inventory/reindex
+```
+
+#### Monitor an Elasticsearch job with Okapi request:
+```
+curl -w '\n' -D - -X GET -H "X-Okapi-Tenant: tamu" -H "X-Okapi-Token: <Okapi Token>" $OKAPI_URL/instance-storage/reindex/<reindex job id>
+```
+
 #### Front-end folioci repo:
 https://repository.folio.org/#browse/welcome
 
@@ -1152,3 +1167,10 @@ http://folio-registry.aws.indexdata.com/_/proxy/modules
 
 #### Database export example:
 ```psql -U postgres -h pg-folio -w -d okapi_modules --command "SELECT * FROM tamu_mod_inventory_storage.item;" > /pgdata/folio-r2/items```
+
+#### Database number of module connections:
+```SELECT count(*) FROM pg_stat_activity WHERE usename = 'tenantId_mod_whatever';```
+
+#### Database number of Okapi connections:
+```SELECT count(*) FROM pg_stat_activity WHERE usename = 'okapi';```
+
