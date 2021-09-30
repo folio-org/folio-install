@@ -472,7 +472,7 @@ SYSTEM_USER_PASSWORD = password<br/>
 
 #### mod-z3950:
 
-config.Default.json = 
+config.Default.json =
 ```
 {
   "okapi": {
@@ -539,7 +539,7 @@ config.Default.json =
 }
 ```
 <br/>
-config.tamu.json = 
+config.tamu.json =
 ```
 {
   "okapi": {
