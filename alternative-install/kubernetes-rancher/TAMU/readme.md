@@ -9,7 +9,6 @@ This software is distributed under the terms of the Apache License, Version 2.0.
 ## Introduction
 
 A collection of Dockerfiles and YAML for Folio R2 2021 installation on Kubernetes/Rancher 2.x.<br/>
-Latest deployment procedure here: https://wiki.folio.org/pages/viewpage.action?pageId=14458600
 
 ## Contents
 
@@ -1276,4 +1275,3 @@ http://folio-registry.aws.indexdata.com/_/proxy/modules
 
 #### Database number of Okapi connections:
 ```SELECT count(*) FROM pg_stat_activity WHERE usename = 'okapi';```
-
