@@ -387,7 +387,7 @@ subjects:
 
 -In production, unique Secrets should only be available to a single namespace for security and separation. If you choose, Secrets can be made available to all namespaces for testing and development.<br/>
 
--The Secrets below to be created in the *folio-r2* namespace:<br/>
+### The Secrets below are to be created in the *folio-r2* namespaceare, and are being used for Tamu's specific Folio deployment, Minio bucket, migration tooling and the LDP deployment. They are included here as a reference.
 
 #### db-connect Secret key-value pairs:
 
@@ -609,17 +609,39 @@ config.tamu.json =
 
 #### tamu-tenant-config Secret key-value pairs:
 
+ACS_TENANT_CONFIG =
+```
+{\"supportedMessages\": [{\"messageName\": \"REQUEST_SC_ACS_RESEND\",\"isSupported\": \"Y\"},{\"messageName\": \"PATRON_STATUS_REQUEST\",\"isSupported\": \"N\"},{\"messageName\": \"CHECKOUT\",\"isSupported\": \"Y\"},{\"messageName\": \"CHECKIN\",\"isSupported\": \"Y\"},{\"messageName\": \"BLOCK_PATRON\",\"isSupported\": \"N\"},{\"messageName\": \"SC_ACS_STATUS\",\"isSupported\": \"Y\"},{\"messageName\": \"LOGIN\",\"isSupported\": \"Y\"},{\"messageName\": \"PATRON_INFORMATION\",\"isSupported\": \"Y\"},{\"messageName\": \"END_PATRON_SESSION\",\"isSupported\": \"Y\"},{\"messageName\": \"FEE_PAID\",\"isSupported\": \"N\"},{\"messageName\": \"ITEM_INFORMATION\",\"isSupported\": \"N\"},{\"messageName\": \"ITEM_STATUS_UPDATE\",\"isSupported\": \"N\"},{\"messageName\": \"PATRON_ENABLE\",\"isSupported\": \"N\"},{\"messageName\": \"HOLD\",\"isSupported\": \"N\"},{\"messageName\": \"RENEW\",\"isSupported\": \"N\"},{\"messageName\": \"RENEW_ALL\",\"isSupported\": \"N\"}],\"statusUpdateOk\": false,\"offlineOk\": false,\"currencyType\" : \"USD\",\"language\" : \"en\",\"patronPasswordVerificationRequired\" : false}
+```
+<br/>
 ADMIN_PASSWORD = admin<br/>
 ADMIN_USER = tamu_admin<br/>
+EMAIL_FROM = `folio_admin@library.tamu.edu`<br/>
+EMAIL_PASSWORD = password<br/>
+EMAIL_SMTP_HOST = relay.tamu.edu<br/>
+EMAIL_SMTP_LOGIN_OPTION = DISABLED<br/>
+EMAIL_SMTP_PORT = 25<br/>
+EMAIL_SMTP_SSL = false<br/>
+EMAIL_START_TLS_OPTIONS = OPTIONAL<br/>
+EMAIL_TRUST_ALL = true<br/>
+EMAIL_USERNAME = login_user<br/>
+FOLIO_HOST = `https://folio.library.tamu.edu`<br/>
 IGNORE_ERRORS = true<br/>
 OKAPI_URL = `http://okapi:9130`<br/>
 PURGE_DATA = true<br/>
 REF_DATA = true<br/>
 REGISTRY_URL = `http://okapi:9130/_/proxy/modules`<br/>
-SAMPLE_DATA = true<br/>
-TENANT_DESC = Danish Library Technology Institute<br/>
+SAMPLE_DATA = false<br/>
+SELF_CHECKOUT_CONFIG =
+```
+{\"timeoutPeriod\": 30,\"retriesAllowed\": 3,\"terminalDelimeter\" : \"\\r\",\"fieldDelimeter\" : \"|\",\"errorDetectionEnabled\" : true,\"charset\" : \"UTF8\",\"SCtimeZone\" : \"EDT\",\"checkinOk\": true,\"checkoutOk\": true,\"acsRenewalPolicy\": false,\"maxPrintWidth\" : 200,\"libraryName\": \"evans\",\"terminalLocation\": \"3b80cfdf-438b-48c1-aadc-57965a0d7680\"}
+```
+<br/>
+SERVICE_POINT = 3b80cfdf-438b-48c1-aadc-57965a0d7680<br/>
+TENANT_DESC = Texas A&M University Libraries<br/>
 TENANT_ID = tamu<br/>
-TENANT_NAME = Datalogisk Institut
+TENANT_NAME = TAMU Libraries<br/>
+X_OKAPI_TOKEN = token
 
 #### edge-securestore-props Secret key-value pairs:
 
@@ -685,10 +707,6 @@ ALTER EXTENSION pg_trgm SET SCHEMA public;
 NOTE: You won’t need this until after the Folio system is up, but before you secure Okapi. Log in to the Folio System via the GUI, go to *Settings - Developer - Set Token* and copy it out from there.<br/>
 
 X_OKAPI_TOKEN = `<Authentication token from Okapi>`
-
-
-### The Secrets below are being used for Tamu's specific Folio deployment, Minio bucket, migration tooling and the LDP deployment. They are included here as a reference.
-
 
 #### ldp-conf Secret key-value pairs:
 
@@ -779,7 +797,6 @@ aws_secret_access_key = secret
 region = us-east-1
 ```
 <br/>
-
 
 #### db-connect-migration Secret key-value pairs:
 
