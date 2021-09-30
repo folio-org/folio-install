@@ -508,7 +508,7 @@ NOTE: You won’t need this until after the Folio system is up, but before you s
 X_OKAPI_TOKEN = `<Authentication token from Okapi>`
 
 
-### The Secrets below are being used for Tamu's specific Folio deployment, migration tooling and the LDP deployment. They are included here as a reference.
+### The Secrets below are being used for Tamu's specific Folio deployment, Minio bucket, migration tooling and the LDP deployment. They are included here as a reference.
 
 
 #### ldp-conf Secret key-value pairs:
@@ -544,6 +544,44 @@ ldpconf.json =
     }
 }
 ```
+
+#### ldp-odbc Secret key-value pairs:
+
+odbc.ini =
+```
+[ldp]
+Description = ldp
+Driver = PostgreSQL
+Database = ldp
+Servername = pg-ldp
+UserName = ldpadmin
+Password = password
+Port = 5432
+SSLMode = disable
+```
+
+#### ldp-odbcinst Secret key-value pairs:
+
+odbcinst.ini =
+```
+[PostgreSQL]
+Description = PostgreSQL
+Driver = /usr/lib/x86_64-linux-gnu/odbc/psqlodbcw.so
+FileUsage = 1
+```
+
+#### data-export-aws-config Secret key-value pairs:
+
+AWS_ACCESS_KEY_ID = key<br/>
+AWS_BUCKET = folio-data-export<br/>
+AWS_REGION = us-east-1<br/>
+AWS_SECRET_ACCESS_KEY = secret<br/>
+AWS_URL = minio.library.tamu.edu<br/>
+config = ```[default]
+aws_access_key_id = key
+aws_secret_access_key = secret
+region = us-east-1```<br/>
+
 
 #### db-connect-migration Secret key-value pairs:
 
