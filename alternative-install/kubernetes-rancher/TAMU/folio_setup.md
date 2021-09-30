@@ -190,8 +190,7 @@ plugins = analysis-icu,analysis-kuromoji,analysis-smartcn,analysis-nori,analysis
 ### Rancher Secrets Notes:
 
 -In production, unique Secrets should only be available to a single namespace for security and separation. If you choose, Secrets can be made available to all namespaces for testing and development.<br/>
-
-### The Secrets below are to be created in the *folio-r2* namespace, and are being used for Tamu's specific deployment of Folio, Minio, Kafka, Elasticsearch, migration tooling and the LDP. They are included here as a reference.
+-The Secrets below are to be created in the *folio-r2* namespace, and are being used for Tamu's specific deployment of Folio, Minio, Kafka, Elasticsearch, migration tooling and the LDP. They are included here as a reference.
 
 #### data-export-aws-config Secret key-value pairs:
 
