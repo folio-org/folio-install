@@ -389,6 +389,21 @@ subjects:
 
 ### The Secrets below are to be created in the *folio-r2* namespace, and are being used for Tamu's specific deployment of Folio, Minio, Kafka, Elasticsearch, migration tooling and the LDP. They are included here as a reference.
 
+#### data-export-aws-config Secret key-value pairs:
+
+AWS_ACCESS_KEY_ID = key<br/>
+AWS_BUCKET = folio-data-export<br/>
+AWS_REGION = us-east-1<br/>
+AWS_SECRET_ACCESS_KEY = secret<br/>
+AWS_URL = minio.library.tamu.edu<br/>
+config = 
+```
+[default]
+aws_access_key_id = key
+aws_secret_access_key = secret
+region = us-east-1
+```
+
 #### db-connect Secret key-value pairs:
 
 DB_CHARSET = UTF-8<br/>
@@ -399,6 +414,53 @@ DB_PASSWORD = password<br/>
 DB_PORT = 5432<br/>
 DB_QUERYTIMEOUT = 120000<br/>
 DB_USERNAME = folio_admin
+
+#### db-connect-migration Secret key-value pairs:
+
+CAMUNDA_BPM_ADMIN_USER_ID = admin<br/>
+CAMUNDA_BPM_ADMIN_USER_PASSWORD = password<br/>
+EXTRACTION_DATASOURCE_PASSWORD = password<br/>
+EXTRACTION_DATASOURCE_USERNAME = db<br/>
+OKAPI_PASSWORD = password<br/>
+OKAPI_USERNAME = tamu_admin<br/>
+SPRING_DATASOURCE_PASSWORD = password<br/>
+SPRING_DATASOURCE_USERNAME = spring_folio_admin<br/>
+TENANT_DEFAULT_TENANT = tamu
+
+#### db-config-migration Secret key-value pairs:
+
+PG_DATABASE = mod_data_migration<br/>
+PG_PASSWORD = password<br/>
+PG_PRIMARY_PASSWORD = password<br/>
+PG_PRIMARY_PORT = 5432<br/>
+PG_PRIMARY_USER = primaryuser<br/>
+PG_ROOT_PASSWORD = password<br/>
+PG_USER = spring_folio_admin
+
+#### db-config-ldp Secret key-value pairs:
+
+LDP_CONFIG_PASSWORD = password<br/>
+LDP_CONFIG_USER = ldpconfig<br/>
+LDP_USER = ldp<br/>
+LDP_USER_PASSWORD = password<br/>
+PG_DATABASE = ldp<br/>
+PG_PASSWORD = password<br/>
+PG_PRIMARY_PASSWORD = password<br/>
+PG_PRIMARY_PORT = 5432<br/>
+PG_PRIMARY_USER = primaryuser<br/>
+PG_ROOT_PASSWORD = password<br/>
+PG_USER = ldpadmin
+
+#### db-connect-ldp Secret key-value pairs:
+
+DB_CHARSET = UTF-8<br/>
+DB_DATABASE = ldp<br/>
+DB_HOST = pg-ldp<br/>
+DB_MAXPOOLSIZE = 20<br/>
+DB_PASSWORD = password<br/>
+DB_PORT = 5432<br/>
+DB_QUERYTIMEOUT = 120000<br/>
+DB_USERNAME = ldpadmin
 
 #### db-connect-okapi Secret key-value pairs:
 
@@ -427,6 +489,96 @@ PG_PRIMARY_PORT = 5432<br/>
 PG_PRIMARY_USER = primaryuser<br/>
 PG_ROOT_PASSWORD = password<br/>
 PG_USER = okapi
+
+#### edge-securestore-props Secret key-value pairs:
+
+edge-ephemeral.properties =
+```
+secureStore.type=Ephemeral
+# a comma separated list of tenants
+tenants=tamu
+#######################################################
+# For each tenant, the institutional user password...
+#
+# Note: this is intended for development purposes only
+#######################################################
+# format: tenant=username,password
+tamu=edgeuser,password
+```
+
+#### ldp-conf Secret key-value pairs:
+
+ldpconf.json =
+```
+{
+    "anonymize": false,
+    "deployment_environment": "production",
+    "ldp_database": {
+        "odbc_database": "ldp"
+    },
+    "enable_sources": ["tamu_library"],
+    "sources": {
+        "tamu_library": {
+            "okapi_url": "http://okapi:9130",
+            "okapi_tenant": "tamu",
+            "okapi_user": "tamu_admin",
+            "okapi_password": "password",
+            "direct_tables": [
+                "inventory_holdings",
+                "inventory_instances",
+                "inventory_items",
+                "srs_marc",
+                "srs_records"
+            ],
+            "direct_database_name": "okapi_modules",
+            "direct_database_host": "pg-folio",
+            "direct_database_port": 5432,
+            "direct_database_user": "folio_admin",
+            "direct_database_password": "password"
+        }
+    }
+}
+```
+
+#### ldp-odbc Secret key-value pairs:
+
+odbc.ini =
+```
+[ldp]
+Description = ldp
+Driver = PostgreSQL
+Database = ldp
+Servername = pg-ldp
+UserName = ldpadmin
+Password = password
+Port = 5432
+SSLMode = disable
+```
+
+#### ldp-odbc-prefix Secret key-value pairs:
+
+.odbc.ini =
+```
+[ldp]
+Description = ldp
+Driver = PostgreSQL
+Database = ldp
+Servername = pg-ldp
+UserName = ldpadmin
+Password = password
+Port = 5432
+SSLMode = disable
+```
+
+#### ldp-odbcinst Secret key-value pairs:
+
+odbcinst.ini =
+```
+[PostgreSQL]
+Description = PostgreSQL
+Driver = /usr/lib/x86_64-linux-gnu/odbc/psqlodbcw.so
+FileUsage = 1
+```
 
 #### mod-graphql:
 
@@ -538,7 +690,6 @@ config.Default.json =
   }
 }
 ```
-<br/>
 
 config.tamu.json =
 ```
@@ -607,56 +758,6 @@ config.tamu.json =
 }
 ```
 
-#### tamu-tenant-config Secret key-value pairs:
-
-ACS_TENANT_CONFIG =
-```
-{\"supportedMessages\": [{\"messageName\": \"REQUEST_SC_ACS_RESEND\",\"isSupported\": \"Y\"},{\"messageName\": \"PATRON_STATUS_REQUEST\",\"isSupported\": \"N\"},{\"messageName\": \"CHECKOUT\",\"isSupported\": \"Y\"},{\"messageName\": \"CHECKIN\",\"isSupported\": \"Y\"},{\"messageName\": \"BLOCK_PATRON\",\"isSupported\": \"N\"},{\"messageName\": \"SC_ACS_STATUS\",\"isSupported\": \"Y\"},{\"messageName\": \"LOGIN\",\"isSupported\": \"Y\"},{\"messageName\": \"PATRON_INFORMATION\",\"isSupported\": \"Y\"},{\"messageName\": \"END_PATRON_SESSION\",\"isSupported\": \"Y\"},{\"messageName\": \"FEE_PAID\",\"isSupported\": \"N\"},{\"messageName\": \"ITEM_INFORMATION\",\"isSupported\": \"N\"},{\"messageName\": \"ITEM_STATUS_UPDATE\",\"isSupported\": \"N\"},{\"messageName\": \"PATRON_ENABLE\",\"isSupported\": \"N\"},{\"messageName\": \"HOLD\",\"isSupported\": \"N\"},{\"messageName\": \"RENEW\",\"isSupported\": \"N\"},{\"messageName\": \"RENEW_ALL\",\"isSupported\": \"N\"}],\"statusUpdateOk\": false,\"offlineOk\": false,\"currencyType\" : \"USD\",\"language\" : \"en\",\"patronPasswordVerificationRequired\" : false}
-```
-ADMIN_PASSWORD = admin<br/>
-ADMIN_USER = tamu_admin<br/>
-EMAIL_FROM = `folio_admin@library.tamu.edu`<br/>
-EMAIL_PASSWORD = password<br/>
-EMAIL_SMTP_HOST = relay.tamu.edu<br/>
-EMAIL_SMTP_LOGIN_OPTION = DISABLED<br/>
-EMAIL_SMTP_PORT = 25<br/>
-EMAIL_SMTP_SSL = false<br/>
-EMAIL_START_TLS_OPTIONS = OPTIONAL<br/>
-EMAIL_TRUST_ALL = true<br/>
-EMAIL_USERNAME = login_user<br/>
-FOLIO_HOST = `https://folio.library.tamu.edu`<br/>
-IGNORE_ERRORS = true<br/>
-OKAPI_URL = `http://okapi:9130`<br/>
-PURGE_DATA = true<br/>
-REF_DATA = true<br/>
-REGISTRY_URL = `http://okapi:9130/_/proxy/modules`<br/>
-SAMPLE_DATA = false<br/>
-SELF_CHECKOUT_CONFIG =
-```
-{\"timeoutPeriod\": 30,\"retriesAllowed\": 3,\"terminalDelimeter\" : \"\\r\",\"fieldDelimeter\" : \"|\",\"errorDetectionEnabled\" : true,\"charset\" : \"UTF8\",\"SCtimeZone\" : \"EDT\",\"checkinOk\": true,\"checkoutOk\": true,\"acsRenewalPolicy\": false,\"maxPrintWidth\" : 200,\"libraryName\": \"evans\",\"terminalLocation\": \"3b80cfdf-438b-48c1-aadc-57965a0d7680\"}
-```
-SERVICE_POINT = 3b80cfdf-438b-48c1-aadc-57965a0d7680<br/>
-TENANT_DESC = Texas A&M University Libraries<br/>
-TENANT_ID = tamu<br/>
-TENANT_NAME = TAMU Libraries<br/>
-X_OKAPI_TOKEN = token
-
-#### edge-securestore-props Secret key-value pairs:
-
-edge-ephemeral.properties =
-```
-secureStore.type=Ephemeral
-# a comma separated list of tenants
-tenants=tamu
-#######################################################
-# For each tenant, the institutional user password...
-#
-# Note: this is intended for development purposes only
-#######################################################
-# format: tenant=username,password
-tamu=edgeuser,password
-```
-
 #### postgres-setup-sql Secret key-value pairs:
 
 setup.sql =
@@ -701,147 +802,44 @@ CREATE EXTENSION pg_trgm;
 ALTER EXTENSION pg_trgm SET SCHEMA public;
 ```
 
+#### tamu-tenant-config Secret key-value pairs:
+
+ACS_TENANT_CONFIG =
+```
+{\"supportedMessages\": [{\"messageName\": \"REQUEST_SC_ACS_RESEND\",\"isSupported\": \"Y\"},{\"messageName\": \"PATRON_STATUS_REQUEST\",\"isSupported\": \"N\"},{\"messageName\": \"CHECKOUT\",\"isSupported\": \"Y\"},{\"messageName\": \"CHECKIN\",\"isSupported\": \"Y\"},{\"messageName\": \"BLOCK_PATRON\",\"isSupported\": \"N\"},{\"messageName\": \"SC_ACS_STATUS\",\"isSupported\": \"Y\"},{\"messageName\": \"LOGIN\",\"isSupported\": \"Y\"},{\"messageName\": \"PATRON_INFORMATION\",\"isSupported\": \"Y\"},{\"messageName\": \"END_PATRON_SESSION\",\"isSupported\": \"Y\"},{\"messageName\": \"FEE_PAID\",\"isSupported\": \"N\"},{\"messageName\": \"ITEM_INFORMATION\",\"isSupported\": \"N\"},{\"messageName\": \"ITEM_STATUS_UPDATE\",\"isSupported\": \"N\"},{\"messageName\": \"PATRON_ENABLE\",\"isSupported\": \"N\"},{\"messageName\": \"HOLD\",\"isSupported\": \"N\"},{\"messageName\": \"RENEW\",\"isSupported\": \"N\"},{\"messageName\": \"RENEW_ALL\",\"isSupported\": \"N\"}],\"statusUpdateOk\": false,\"offlineOk\": false,\"currencyType\" : \"USD\",\"language\" : \"en\",\"patronPasswordVerificationRequired\" : false}
+```
+ADMIN_PASSWORD = admin<br/>
+ADMIN_USER = tamu_admin<br/>
+EMAIL_FROM = `folio_admin@library.tamu.edu`<br/>
+EMAIL_PASSWORD = password<br/>
+EMAIL_SMTP_HOST = relay.tamu.edu<br/>
+EMAIL_SMTP_LOGIN_OPTION = DISABLED<br/>
+EMAIL_SMTP_PORT = 25<br/>
+EMAIL_SMTP_SSL = false<br/>
+EMAIL_START_TLS_OPTIONS = OPTIONAL<br/>
+EMAIL_TRUST_ALL = true<br/>
+EMAIL_USERNAME = login_user<br/>
+FOLIO_HOST = `https://folio.library.tamu.edu`<br/>
+IGNORE_ERRORS = true<br/>
+OKAPI_URL = `http://okapi:9130`<br/>
+PURGE_DATA = true<br/>
+REF_DATA = true<br/>
+REGISTRY_URL = `http://okapi:9130/_/proxy/modules`<br/>
+SAMPLE_DATA = false<br/>
+SELF_CHECKOUT_CONFIG =
+```
+{\"timeoutPeriod\": 30,\"retriesAllowed\": 3,\"terminalDelimeter\" : \"\\r\",\"fieldDelimeter\" : \"|\",\"errorDetectionEnabled\" : true,\"charset\" : \"UTF8\",\"SCtimeZone\" : \"EDT\",\"checkinOk\": true,\"checkoutOk\": true,\"acsRenewalPolicy\": false,\"maxPrintWidth\" : 200,\"libraryName\": \"evans\",\"terminalLocation\": \"3b80cfdf-438b-48c1-aadc-57965a0d7680\"}
+```
+SERVICE_POINT = 3b80cfdf-438b-48c1-aadc-57965a0d7680<br/>
+TENANT_DESC = Texas A&M University Libraries<br/>
+TENANT_ID = tamu<br/>
+TENANT_NAME = TAMU Libraries<br/>
+X_OKAPI_TOKEN = token
+
 #### x-okapi-token Secret Key-Value pairs:
 NOTE: You won’t need this until after the Folio system is up, but before you secure Okapi. Log in to the Folio System via the GUI, go to *Settings - Developer - Set Token* and copy it out from there.<br/>
 
 X_OKAPI_TOKEN = `<Authentication token from Okapi>`
-
-#### ldp-conf Secret key-value pairs:
-
-ldpconf.json =
-```
-{
-    "anonymize": false,
-    "deployment_environment": "production",
-    "ldp_database": {
-        "odbc_database": "ldp"
-    },
-    "enable_sources": ["tamu_library"],
-    "sources": {
-        "tamu_library": {
-            "okapi_url": "http://okapi:9130",
-            "okapi_tenant": "tamu",
-            "okapi_user": "tamu_admin",
-            "okapi_password": "password",
-            "direct_tables": [
-                "inventory_holdings",
-                "inventory_instances",
-                "inventory_items",
-                "srs_marc",
-                "srs_records"
-            ],
-            "direct_database_name": "okapi_modules",
-            "direct_database_host": "pg-folio",
-            "direct_database_port": 5432,
-            "direct_database_user": "folio_admin",
-            "direct_database_password": "password"
-        }
-    }
-}
-```
-
-#### ldp-odbc Secret key-value pairs:
-
-odbc.ini =
-```
-[ldp]
-Description = ldp
-Driver = PostgreSQL
-Database = ldp
-Servername = pg-ldp
-UserName = ldpadmin
-Password = password
-Port = 5432
-SSLMode = disable
-```
-
-#### ldp-odbc-prefix Secret key-value pairs:
-
-.odbc.ini =
-```
-[ldp]
-Description = ldp
-Driver = PostgreSQL
-Database = ldp
-Servername = pg-ldp
-UserName = ldpadmin
-Password = password
-Port = 5432
-SSLMode = disable
-```
-
-#### ldp-odbcinst Secret key-value pairs:
-
-odbcinst.ini =
-```
-[PostgreSQL]
-Description = PostgreSQL
-Driver = /usr/lib/x86_64-linux-gnu/odbc/psqlodbcw.so
-FileUsage = 1
-```
-
-#### data-export-aws-config Secret key-value pairs:
-
-AWS_ACCESS_KEY_ID = key<br/>
-AWS_BUCKET = folio-data-export<br/>
-AWS_REGION = us-east-1<br/>
-AWS_SECRET_ACCESS_KEY = secret<br/>
-AWS_URL = minio.library.tamu.edu<br/>
-config = 
-```
-[default]
-aws_access_key_id = key
-aws_secret_access_key = secret
-region = us-east-1
-```
-<br/>
-
-#### db-connect-migration Secret key-value pairs:
-
-CAMUNDA_BPM_ADMIN_USER_ID = admin<br/>
-CAMUNDA_BPM_ADMIN_USER_PASSWORD = password<br/>
-EXTRACTION_DATASOURCE_PASSWORD = password<br/>
-EXTRACTION_DATASOURCE_USERNAME = db<br/>
-OKAPI_PASSWORD = password<br/>
-OKAPI_USERNAME = tamu_admin<br/>
-SPRING_DATASOURCE_PASSWORD = password<br/>
-SPRING_DATASOURCE_USERNAME = spring_folio_admin<br/>
-TENANT_DEFAULT_TENANT = tamu
-
-#### db-config-migration Secret key-value pairs:
-
-PG_DATABASE = mod_data_migration<br/>
-PG_PASSWORD = password<br/>
-PG_PRIMARY_PASSWORD = password<br/>
-PG_PRIMARY_PORT = 5432<br/>
-PG_PRIMARY_USER = primaryuser<br/>
-PG_ROOT_PASSWORD = password<br/>
-PG_USER = spring_folio_admin
-
-#### db-config-ldp Secret key-value pairs:
-
-LDP_CONFIG_PASSWORD = password<br/>
-LDP_CONFIG_USER = ldpconfig<br/>
-LDP_USER = ldp<br/>
-LDP_USER_PASSWORD = password<br/>
-PG_DATABASE = ldp<br/>
-PG_PASSWORD = password<br/>
-PG_PRIMARY_PASSWORD = password<br/>
-PG_PRIMARY_PORT = 5432<br/>
-PG_PRIMARY_USER = primaryuser<br/>
-PG_ROOT_PASSWORD = password<br/>
-PG_USER = ldpadmin
-
-#### db-connect-ldp Secret key-value pairs:
-
-DB_CHARSET = UTF-8<br/>
-DB_DATABASE = ldp<br/>
-DB_HOST = pg-ldp<br/>
-DB_MAXPOOLSIZE = 20<br/>
-DB_PASSWORD = password<br/>
-DB_PORT = 5432<br/>
-DB_QUERYTIMEOUT = 120000<br/>
-DB_USERNAME = ldpadmin
 
 ### Okapi Notes:
 
