@@ -616,26 +616,28 @@ ACS_TENANT_CONFIG =
 <br/>
 ADMIN_PASSWORD = admin<br/>
 ADMIN_USER = tamu_admin<br/>
-EMAIL_FROM = ``folio_admin@library.tamu.edu``<br/>
+EMAIL_FROM = folio_admin@library.tamu.edu<br/>
 EMAIL_PASSWORD = password<br/>
-EMAIL_SMTP_HOST = ``relay.tamu.edu``<br/>
+EMAIL_SMTP_HOST = relay.tamu.edu<br/>
 EMAIL_SMTP_LOGIN_OPTION = DISABLED<br/>
 EMAIL_SMTP_PORT = 25<br/>
 EMAIL_SMTP_SSL = false<br/>
 EMAIL_START_TLS_OPTIONS = OPTIONAL<br/>
 EMAIL_TRUST_ALL = true<br/>
 EMAIL_USERNAME = login_user<br/>
-FOLIO_HOST = ``https://folio.library.tamu.edu``<br/>
+FOLIO_HOST = https://folio.library.tamu.edu<br/>
 IGNORE_ERRORS = true<br/>
-OKAPI_URL = ``http://okapi:9130``<br/>
+OKAPI_URL = http://okapi:9130<br/>
 PURGE_DATA = true<br/>
 REF_DATA = true<br/>
-REGISTRY_URL = ``http://okapi:9130/_/proxy/modules``<br/>
+REGISTRY_URL = `http://okapi:9130/_/proxy/modules`<br/>
 SAMPLE_DATA = false<br/>
 SELF_CHECKOUT_CONFIG =
+
 ```
 {\"timeoutPeriod\": 30,\"retriesAllowed\": 3,\"terminalDelimeter\" : \"\\r\",\"fieldDelimeter\" : \"|\",\"errorDetectionEnabled\" : true,\"charset\" : \"UTF8\",\"SCtimeZone\" : \"EDT\",\"checkinOk\": true,\"checkoutOk\": true,\"acsRenewalPolicy\": false,\"maxPrintWidth\" : 200,\"libraryName\": \"evans\",\"terminalLocation\": \"3b80cfdf-438b-48c1-aadc-57965a0d7680\"}
 ```
+
 SERVICE_POINT = 3b80cfdf-438b-48c1-aadc-57965a0d7680<br/>
 TENANT_DESC = Texas A&M University Libraries<br/>
 TENANT_ID = tamu<br/>
