@@ -384,26 +384,26 @@ After creating the cluster as above via Rancher 2.x...<br/>
 The rest of these steps are from within the Folio Project in Rancher 2.x...<br/>
 
 5) Create the following Secrets in Rancher under the Folio Project for the *folio-r2* namespace:<br/>
-
-data-export-aws-config<br/>
-db-connect<br/>
-db-connect-ldp<br/>
-db-connect-okapi<br/>
-db-config-modules<br/>
-db-config-okapi<br/>
-edge-securestore-props<br/>
-ldp-conf<br/>
-ldp-odbc<br/>
-ldp-odbc-prefix<br/>
-ldp-odbcinst<br/>
-mod-graphql<br/>
-mod-pubsub<br/>
-mod-search<br/>
-mod-z3950<br/>
-postgres-setup-sql<br/>
-tamu-tenant-config<br/>
-x-okapi-token<br/>
-
+```
+data-export-aws-config
+db-connect
+db-connect-ldp
+db-connect-okapi
+db-config-modules
+db-config-okapi
+edge-securestore-props
+ldp-conf
+ldp-odbc
+ldp-odbc-prefix
+ldp-odbcinst
+mod-graphql
+mod-pubsub
+mod-search
+mod-z3950
+postgres-setup-sql
+tamu-tenant-config
+x-okapi-token
+```
 6) If you are using an external database host, ignore this step. Otherwise deploy two crunchy-postgres *Stateful set* Workloads to the *folio-r2* namespace. Name one *pg-okapi* for Okapi's *okapi* database, and the other *pg-folio* for Folio's *okapi_modules* database. Edit each of these Workloads to set environment variables - clicking *Add From Source* to choose the corresponding db-config-okapi and db-config-modules Secrets. Configure your persistent volumes, any resource reservations and limits, as well as the Postgres UID and GID (26) at this time.
 7) Install Apache Kafka and Apache ZooKeeper through a Helm Chart under your Folio Project - Apps - Launch. Currently using the Bitnami Kafka app.
 8) Install Elasticsearch through a Helm Chart under your Folio Project - Apps - Launch. Currently using the Bitnami Elasticsearch app.
@@ -411,13 +411,14 @@ x-okapi-token<br/>
 10) Deploy Folio module Workloads as *Scalable deployment* between 1 and 3 (one Workload per Folio module) - with db-connect Secret for those modules that need a connection to the database. Import the folio-r2-2021-workloads.yaml file in Rancher for this step.
 11) Deploy Stripes Workload as *Run one pod on each node* – built from our custom Docker container.
 12) Deploy create-tenant Workload as *Job* – built from our custom Docker container with scripts - with tamu-tenant-config Secret.
-13) Deploy create-deploy Workload as *Job*, to enable modules for `/proxy/modules`, `/discovery/modules`, and tenants – built from our custom Docker container with scripts - tamu-tenant-config Secret.
+13) Deploy create-deploy Workload as *Job*, to enable modules for `/proxy/modules`, `/discovery/modules`, and tenants – built from our custom Docker container with scripts - with tamu-tenant-config Secret.
 14) Deploy bootstrap-superuser Workload as *Job* – built from our custom Docker container with scripts - with tamu-tenant-config Secret.
 15) Deploy create-email Workload as *Job* – built from our custom Docker container with scripts - with tamu-tenant-config Secret.
 16) Scale up Okapi pods to 3 (for HA) using Rancher 2.x + button.
-17) Add Ingresses and annotations under Load Balancing for Okapi and Stripes using URLs for `/` and `/_/`.
-18) *Future Folio post-install LDP deployment documentation using mod-ldp files here.*
-19) *Future Folio post-install tenant configuration documentation regarding the edge user and permissions, patron groups for system and tenant admin users, timezone and plugin selection here.*
+17) Add Ingresses and their Nginx annotations under Load Balancing for Okapi and Stripes using your URLs for `/` and `/_/` paths.
+18) *Future Folio post-install tenant configuration documentation regarding the edge user and permissions, patron groups for system and tenant admin users, timezone and plugin selection here.*
+19) *Future Folio post-install LDP deployment documentation using mod-ldp files here.*
+
 
 ### Cluster Service Accounts Notes
 Run the following in the Rancher GUI - cluster Dashboard using the *Launch kubectl* button:<br/>
