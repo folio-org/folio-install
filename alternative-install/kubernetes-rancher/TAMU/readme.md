@@ -441,7 +441,7 @@ PROXY_OKAPI_URL = `https://folio-okapi.library.tamu.edu`<br/>
 RAML_DIR = <br/>
 RAML_EXCLUDE = <br/>
 RAML_MATCH = <br/>
-RAML_SKIP = <br/>
+RAML_SKIP =
 
 #### mod-pubsub:
 
@@ -450,7 +450,7 @@ KAFKA_HOST = `http://kafka-r2`<br/>
 KAFKA_PORT = 9092<br/>
 OKAPI_URL = `http://okapi:9130`<br/>
 SYSTEM_USER_NAME = pub-sub<br/>
-SYSTEM_USER_PASSWORD = password<br/>
+SYSTEM_USER_PASSWORD = password
 
 #### mod-search:
 
@@ -468,7 +468,7 @@ KAFKA_SSL_KEYSTORE_PASSWORD = <br/>
 KAFKA_SSL_TRUSTSTORE_LOCATION = <br/>
 KAFKA_SSL_TRUSTSTORE_PASSWORD = <br/>
 OKAPI_URL = `http://okapi:9130`<br/>
-SYSTEM_USER_PASSWORD = password<br/>
+SYSTEM_USER_PASSWORD = password
 
 #### mod-z3950:
 
@@ -606,7 +606,6 @@ config.tamu.json =
   }
 }
 ```
-<br/>
 
 #### tamu-tenant-config Secret key-value pairs:
 
