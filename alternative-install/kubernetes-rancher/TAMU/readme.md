@@ -173,120 +173,185 @@ https://your.private.registry.org
   o) Recurring etcd Snapshot Retention Count - 6<br/>
 3) Click Edit as YAML button and add this code to the very bottom under Services section:
 ```
-addon_job_timeout: 30
-authentication:
-  strategy: "x509"
-bastion_host:
-  ssh_agent_auth: false
-cloud_provider:
-  name: "vsphere"
-  vsphereCloudProvider:
-    global:
-      datacenters: "DC1, DC2"
-      insecure-flag: true
-      soap-roundtrip-count: 0
-      user: "username"
-      password: "password"
-    virtual_center:
-      vsphere.org:
-        datacenters: "DC1, DC2"
-        soap-roundtrip-count: 0
-    workspace:
-      datacenter: "DC1"
-      default-datastore: "kube"
-      folder: "kubevols"
-      server: "vsphere.org"
-ignore_docker_version: true
-#
-#   # Currently only nginx ingress provider is supported.
-#   # To disable ingress controller, set `provider: none`
-#   # To enable ingress on specific nodes, use the node_selector, eg:
-#      provider: nginx
-#      node_selector:
-#        app: ingress
-#
-ingress:
-  provider: "nginx"
-kubernetes_version: "v1.18.10-rancher1-2"
-monitoring:
-  provider: "metrics-server"
-#
-#   # If you are using calico on AWS
-#
-#      network:
-#        plugin: calico
-#        calico_network_provider:
-#          cloud_provider: aws
-#
-#   # To specify flannel interface
-#
-#      network:
-#        plugin: flannel
-#        flannel_network_provider:
-#          iface: eth1
-#
-#   # To specify flannel interface for canal plugin
-#
-#      network:
-#        plugin: canal
-#        canal_network_provider:
-#          iface: eth1
-#
-network: 
-  options: 
-    flannel_backend_type: "vxlan"
-  plugin: "canal"
-restore: 
-  restore: false
-#
-#      services:
-#        kube_api:
-#          service_cluster_ip_range: 10.43.0.0/16
-#        kube_controller:
-#          cluster_cidr: 10.42.0.0/16
-#          service_cluster_ip_range: 10.43.0.0/16
-#        kubelet:
-#          cluster_domain: cluster.local
-#          cluster_dns_server: 10.43.0.10
-#
-services: 
-  etcd: 
-    backup_config: 
-      enabled: true
-      interval_hours: 12
-      retention: 6
-    creation: "12h"
-    extra_args: 
-      election-timeout: "5000"
-      heartbeat-interval: "1000"
-    retention: "72h"
-    snapshot: false
-  kube-api: 
-    always_pull_images: false
-    pod_security_policy: true
-    service_node_port_range: "30000-32767"
-  kube-controller: 
-    extra_args: 
-      node-monitor-grace-period: "60s"
-      node-monitor-period: "10s"
-      pod-eviction-timeout: "120s"
-  kubelet: 
-    extra_args: 
-      node-status-update-frequency: "5s"
-    fail_swap_on: false
-ssh_agent_auth: false
-default_pod_security_policy_template_id: "unrestricted"
-description: "Cluster for Folio deployments in the development environment."
 # 
-#   # Rancher Config
+# Cluster Config
 # 
-docker_root_dir: "/var/lib/docker"
+default_pod_security_policy_template_id: unrestricted
+docker_root_dir: /var/lib/docker
 enable_cluster_alerting: true
 enable_cluster_monitoring: true
 enable_network_policy: true
-local_cluster_auth_endpoint: 
+local_cluster_auth_endpoint:
   enabled: false
-name: "folio-dev-cluster"
+# 
+# Rancher Config
+# 
+rancher_kubernetes_engine_config:
+  addon_job_timeout: 30
+  addons: |-
+    ---
+    kind: StorageClass
+    apiVersion: storage.k8s.io/v1
+    metadata:
+      name: vsphere-datastore
+    provisioner: kubernetes.io/vsphere-volume
+    reclaimPolicy: Delete
+    parameters:
+      diskformat: thin
+      datastore: kube
+      fstype: xfs
+    ---
+    apiVersion: rbac.authorization.k8s.io/v1
+    kind: ClusterRoleBinding
+    metadata:
+      name: admin-user
+    roleRef:
+      apiGroup: rbac.authorization.k8s.io
+      kind: ClusterRole
+      name: cluster-admin
+    subjects:
+    - kind: ServiceAccount
+      name: admin-user
+      namespace: kubernetes-dashboard
+  addons_include:
+    - >-
+      https://raw.githubusercontent.com/kubernetes/dashboard/master/aio/deploy/recommended.yaml
+  authentication:
+    strategy: x509
+  cloud_provider:
+    name: vsphere
+    vsphere_cloud_provider:
+      global:
+        datacenters: 'DC1, DC2'
+        insecure-flag: true
+        soap-roundtrip-count: 0
+        user: 'rancher'
+        password: 'password'
+      virtual_center:
+        vsphere.org:
+          datacenters: 'DC1, DC2'
+          soap-roundtrip-count: 0
+      workspace:
+        datacenter: DC1
+        default-datastore: kube
+        folder: /DC1/vms/Linux
+        server: vsphere.org
+  ignore_docker_version: true
+# 
+# # Currently only nginx ingress provider is supported.
+# # To disable ingress controller, set `provider: none`
+# # To enable ingress on specific nodes, use the node_selector, eg:
+#    provider: nginx
+#    node_selector:
+#      app: ingress
+# 
+  ingress:
+    http_port: 0
+    https_port: 0
+    options:
+      compute-full-forwarded-for: 'true'
+      hsts-include-subdomains: 'false'
+      hsts-max-age: '31536000'
+      use-forwarded-headers: 'true'
+    provider: nginx
+  kubernetes_version: v1.18.20-rancher1-1
+  monitoring:
+    provider: metrics-server
+    replicas: 1
+# 
+#   If you are using calico on AWS
+# 
+#    network:
+#      plugin: calico
+#      calico_network_provider:
+#        cloud_provider: aws
+# 
+# # To specify flannel interface
+# 
+#    network:
+#      plugin: flannel
+#      flannel_network_provider:
+#      iface: eth1
+# 
+# # To specify flannel interface for canal plugin
+# 
+#    network:
+#      plugin: canal
+#      canal_network_provider:
+#        iface: eth1
+# 
+  network:
+    mtu: 0
+    options:
+      flannel_backend_type: vxlan
+    plugin: canal
+# 
+#    services:
+#      kube-api:
+#        service_cluster_ip_range: 10.43.0.0/16
+#      kube-controller:
+#        cluster_cidr: 10.42.0.0/16
+#        service_cluster_ip_range: 10.43.0.0/16
+#      kubelet:
+#        cluster_domain: cluster.local
+#        cluster_dns_server: 10.43.0.10
+# 
+  services:
+    etcd:
+      backup_config:
+        enabled: true
+        interval_hours: 12
+        retention: 14
+        safe_timestamp: false
+        timeout: 300
+      creation: 12h
+      extra_args:
+        election-timeout: '5000'
+        heartbeat-interval: '500'
+      gid: 0
+      retention: 72h
+      snapshot: false
+      uid: 0
+    kube_api:
+      always_pull_images: false
+      extra_args:
+        default-not-ready-toleration-seconds: '60'
+        default-unreachable-toleration-seconds: '120'
+      pod_security_policy: true
+      service_node_port_range: 30000-32767
+    kube_controller:
+      extra_args:
+        node-monitor-grace-period: 60s
+        node-monitor-period: 10s
+        v: '3'
+    kubelet:
+      extra_args:
+        node-status-update-frequency: 5s
+      fail_swap_on: false
+      generate_serving_certificate: false
+  ssh_agent_auth: false
+  upgrade_strategy:
+    drain: false
+    max_unavailable_controlplane: '1'
+    max_unavailable_worker: 10%
+    node_drain_input:
+      delete_local_data: false
+      force: false
+      grace_period: -1
+      ignore_daemon_sets: true
+      timeout: 120
+scheduled_cluster_scan:
+  enabled: true
+  scan_config:
+    cis_scan_config:
+      debug_master: false
+      debug_worker: false
+      override_benchmark_version: rke-cis-1.5
+      profile: permissive
+  schedule_config:
+    cron_schedule: 0 19 * * *
+    retention: 7
+windows_prefered_cluster: false
 ```
 4) Add Node Pools.
 5) For the Node Pool name Prefix, type kubenode# (0-10), select the corresponding Node Template, and check which roles you want for each node.
@@ -311,14 +376,14 @@ Filesystem Type: xfs<br/>
 
 After creating the cluster as above via Rancher 2.x...<br/>
 
-1) Create Folio-Project in Rancher 2.x UI.
-2) Add *folio-r2* namespace for Folio-Project under *Namespaces* in Rancher 2.x UI.
-3) Add Dockerhub and your private Docker registries to the Folio-Project.
-4) Add Persistent Volume on the cluster and Persistent Volume Claim for Folio-Project (We are using vSphere Storage Class).<br/>
+1) Create a Folio Project in Rancher 2.x UI.
+2) Add *folio-r2* namespace for your Folio Project under *Namespaces* in Rancher 2.x UI.
+3) Add Dockerhub and your private Docker registries to the Folio Project.
+4) Add Persistent Volume on the cluster and Persistent Volume Claim for the Folio Project (We are using vSphere Storage Class).<br/>
 
-The rest of these steps are from within the Folio-Project in Rancher 2.x...<br/>
+The rest of these steps are from within the Folio Project in Rancher 2.x...<br/>
 
-5) Create the following Secrets in Rancher under the Folio-Project for the *folio-r2* namespace:<br/>
+5) Create the following Secrets in Rancher under the Folio Project for the *folio-r2* namespace:<br/>
 
 data-export-aws-config<br/>
 db-connect<br/>
@@ -340,7 +405,7 @@ tamu-tenant-config<br/>
 x-okapi-token<br/>
 
 6) If you are using an external database host, ignore this step. Otherwise deploy two crunchy-postgres *Stateful set* Workloads to the *folio-r2* namespace. Name one *pg-okapi* for Okapi's *okapi* database, and the other *pg-folio* for Folio's *okapi_modules* database. Edit each of these Workloads to set environment variables - clicking *Add From Source* to choose the corresponding db-config-okapi and db-config-modules Secrets. Configure your persistent volumes, any resource reservations and limits, as well as the Postgres UID and GID (26) at this time.
-7) Install Apache Kafka and Apache ZooKeeper through a Helm Chart under Folio-Project - Apps - Launch. Currently using the helm-incubator Kafka app.
+7) Install Apache Kafka and Apache ZooKeeper through a Helm Chart under your Folio Project - Apps - Launch. Currently using the helm-incubator Kafka app.
 8) Deploy Okapi Workload *Scalable deployment* of 1 and InitDB environment variable set to true - built from our custom Docker container - with db-connect-okapi Secret. Once it is running, edit the Okapi Workload and set InitDB environment variable to *false*, it will redeploy.
 9) Deploy Folio module Workloads as *Scalable deployment* between 1 and 3 (one Workload per Folio module) - with db-connect Secret for those modules that need a connection to the database. Import the folio-r2-2021-workloads.yaml file in Rancher for this step.
 10) Deploy Stripes Workload as *Run one pod on each node* – built from our custom Docker container.
@@ -876,7 +941,7 @@ X_OKAPI_TOKEN = `<Authentication token from Okapi>`
 OKAPI_URL = `http://okapi:9130`<br/>
 OKAPI_STORAGE = postgres<br/>
 OKAPI_PORT = 9130<br/>
-OKAPI_LOGLEVEL = INFO<br/>
+OKAPI_LOGLEVEL = WARN<br/>
 OKAPI_HOST = okapi<br/>
 OKAPI_COMMAND = cluster<br/>
 OKAPI_CLUSTERHOST = $(OKAPI_SERVICE_HOST)<br/>
@@ -884,12 +949,13 @@ INITDB = false<br/>
 HAZELCAST_VERTX_PORT = 5702<br/>
 HAZELCAST_PORT = 5701<br/>
 HAZELCAST_IP = $(OKAPI_SERVICE_HOST)<br/>
+HAZELCAST_FILE = /hazelcast/hazelcast.xml<br/>
 
 ### Crunchy-Postgres in Kubernetes/Rancher Notes:
 
 -Currently testing out crunchy-postgres Kubernetes solution.<br/>
 -Running as a Kubernetes *Stateful Set*, with one primary and two replica pods. Replica pods are read-only.<br/>
--Using *Persistent Volume Claims* for Rancher Folio-Project, provisioned with vSphere Storage Class.<br/>
+-Using *Persistent Volume Claims* for Rancher Folio Project, provisioned with vSphere Storage Class.<br/>
 -Not sure if we would run like this in Production yet, as we haven't load tested it. It is a possibility for those looking for a complete Rancher/Kubernetes/Container solution, and being actively developed.<br/>
 -Volumes for persistent data as well as SQL execution need to be added to the pg-folio and pg-okapi *statefulset* Workloads:<br/>
 
@@ -916,7 +982,7 @@ Mount Point: /pgconf<br/>
 
 #### Crunchy-postgres Workload environment variables:
 
-WORK_MEM = 64MB<br/>
+WORK_MEM = 128MB<br/>
 PGHOST = /tmp<br/>
 PG_REPLICA_HOST = pgset-replica<br/>
 PG_PRIMARY_HOST = pgset-primary<br/>
@@ -927,8 +993,8 @@ MAX_CONNECTIONS = 1000<br/>
 ARCHIVE_MODE = on<br/>
 ARCHIVE_TIMEOUT = 60<br/>
 CRUNCHY_DEBUG = FALSE<br/>
-TEMP_BUFFERS = 64MB<br/>
-SHARED_BUFFERS = 2048MB<br/>
+TEMP_BUFFERS = 128MB<br/>
+SHARED_BUFFERS = 4096MB<br/>
 MAX_WAL_SENDERS = 3<br/>
 
 
@@ -940,7 +1006,7 @@ MAX_WAL_SENDERS = 3<br/>
 
 #### Modules that require the db-connect Secret:
 
-*mod-agreements, mod-aes, mod-audit, mod-audit-filter, mod-calendar, mod-circulation-storage, mod-configuration, mod-courses, mod-data-export, mod-data-import, mod-data-import-converter-storage, mod-email, mod-erm-usage, mod-erm-usage-harvester, mod-event-config, mod-feesfines, mod-finance-storage, mod-inventory-storage, mod-invoice-storage, mod-kb-ebsco-java, mod-licenses, mod-login, mod-notes, mod-notify, mod-oai-pmh, mod-orders-storage, mod-organizations-storage, mod-password-validator, mod-patron-blocks, mod-permissions, mod-pubsub, mod-sender, mod-source-record-manager, mod-source-record-storage, mod-tags, mod-template-engine, mod-users*
+*mod-agreements, mod-aes, mod-audit, mod-calendar, mod-circulation-storage, mod-configuration, mod-copycat, mod-courses, mod-data-export, mod-data-export-spring, mod-data-export-worker, mod-data-import, mod-data-import-converter-storage, mod-ebsconet, mod-email, mod-erm-usage, mod-erm-usage-harvester, mod-event-config, mod-feesfines, mod-finance-storage, mod-inventory-storage, mod-invoice-storage, mod-kb-ebsco-java, mod-licenses, mod-login, mod-notes, mod-notify, mod-oai-pmh, mod-orders-storage, mod-organizations-storage, mod-password-validator, mod-patron-blocks, mod-permissions, mod-pubsub, mod-quick-marc, mod-remote-storage, mod-search, mod-sender, mod-service-interaction, mod-source-record-manager, mod-source-record-storage, mod-tags, mod-template-engine, mod-users*
 
 
 ### Ingress Notes:
