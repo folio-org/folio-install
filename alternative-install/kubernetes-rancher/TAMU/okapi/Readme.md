@@ -1,9 +1,10 @@
-## Build Docker image
+## Environment variables
 
-`docker build -t okapi .`
+When you start the `okapi` image, you can adjust the configuration of the Okapi instance by passing one or more environment variables on the `docker run` command line. This assumes you have a Docker network `folio-clustered` created, and that multicast is enabled for your network interfaces on your Docker host.
 
 
 ### Linux console run command ###
+
 
 `docker run --rm -d --network folio-clustered --name okapi -h okapi -e OKAPI_URL=http://okapi:9130 -e INITDB=true -e PG_HOST=pg-folio -e OKAPI_PORT=9130 -e OKAPI_NODENAME=okapi1 -e OKAPI_CLUSTERHOST=localhost -e OKAPI_HOST=localhost -e HAZELCAST_IP=localhost -e HAZELCAST_VERTX_PORT=5703 -e HAZELCAST_PORT=5701 -p 9130:9130 -p 5701:5701 -p 5703:5703 -p 54327:54327/udp okapi`
 
@@ -14,9 +15,8 @@ You will need to edit the included hazelcast.xml file before building Okapi.
 Change the `<namespace>folio-namespace</namespace>` parameter to be the namespace of your Folio deployment in Rancher/K8s.
 
 
-## Environment variables
+### Dockerfile and variables explained below ###
 
-When you start the `okapi` image, you can adjust the configuration of the Okapi instance by passing one or more environment variables on the `docker run` command line. This assumes you have a Docker network `folio-clustered` created, and that multicast is enabled for your network interfaces on your Docker host.
 
 ### INITDB
 
@@ -24,7 +24,7 @@ Determine whether or not to initialize the database before running Okapi. Defaul
 
 ### PG_HOST
 
-PostgreSQL host. Default `localhost`.
+PostgreSQL host. Default `pg-folio`.
 
 ### PG_PORT
 

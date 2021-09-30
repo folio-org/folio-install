@@ -6,7 +6,7 @@ RUN apt-get update && apt-get -y install curl git
 #Okapi git clone and Maven build
 RUN mkdir -p /usr/local/bin/folio/
 WORKDIR /usr/local/bin/folio
-RUN git clone  -b "v4.5.2" --recursive https://github.com/folio-org/okapi.git
+RUN git clone  -b "v4.8.2" --recursive https://github.com/folio-org/okapi.git
 RUN cd okapi && mvn clean install -DskipTests
 
 #OpenJDK Alpine

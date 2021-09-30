@@ -1,0 +1,56 @@
+apiVersion: apps/v1beta2
+kind: DaemonSet
+metadata:
+  annotations:
+    field.cattle.io/creatorId: "null"
+  labels:
+    cattle.io/creator: norman
+    workload.user.cattle.io/workloadselector: daemonSet-folio-r2-stripes-tamu
+  name: stripes-tamu
+spec:
+  minReadySeconds: 30
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      workload.user.cattle.io/workloadselector: daemonSet-folio-r2-stripes-tamu
+  template:
+    metadata:
+      annotations:
+        field.cattle.io/ports: '[[{"containerPort":3000,"dnsName":"stripes-tamu-nodeport","kind":"NodePort","name":"3000tcp01","protocol":"TCP","sourcePort":0}]]'
+      labels:
+        workload.user.cattle.io/workloadselector: daemonSet-folio-r2-stripes-tamu
+    spec:
+      containers:
+      - image: 10.55.134.48/folio/stripes:q3-tamu
+        imagePullPolicy: Always
+        name: stripes-tamu
+        ports:
+        - containerPort: 3000
+          name: 3000tcp01
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 1m
+            memory: 8Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          privileged: false
+          procMount: Default
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+        stdin: true
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        tty: true
+      dnsConfig: {}
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: vic-teague
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+  updateStrategy:
+    rollingUpdate:
+      maxUnavailable: 1
+    type: RollingUpdate
