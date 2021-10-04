@@ -58,7 +58,7 @@ $OKAPI_URL/_/proxy/tenants/diku/install?deploy=false\&preRelease=false\&tenantPa
 ```
 [
   {
-    "id": "mod-circulation-19.2.8",
+    "id": "mod-circulation-22.0.4",
     "action": "enable"
   }
 ]
