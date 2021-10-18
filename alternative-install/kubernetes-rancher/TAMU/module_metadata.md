@@ -218,7 +218,16 @@ Volume mounts: /usr/verticles/storage/upload
 ### mod-data-import-converter-storage
 Startup Options:<br/>
 JAVA_OPTIONS = -XX:MaxRAMPercentage=66.0<br/>
-test.mode = false<br/>
+Database connection: Yes<br/>
+Port: 8081<br/>
+Health Check endpoint: /admin/health
+
+### mod-ebsconet
+Startup Options:<br/>
+KAFKA_PORT = 9092<br/>
+KAFKA_HOST = http://kafka-r2<br/>
+JAVA_OPTIONS = -XX:MaxRAMPercentage=66.0<br/>
+ENV = folio-r2<br/>
 Database connection: Yes<br/>
 Port: 8081<br/>
 Health Check endpoint: /admin/health
@@ -241,7 +250,7 @@ Health Check endpoint: /admin/health
 Startup Options:<br/>
 JAVA_OPTIONS = -XX:MaxRAMPercentage=66.0<br/>
 CONFIG = {"okapiUrl": "http://okapi:9130"}<br/>
-Database connection: No<br/>
+Database connection: Yes<br/>
 Port: 8081<br/>
 Health Check endpoint: NA
 
@@ -479,4 +488,3 @@ JAVA_OPTIONS = -XX:MaxRAMPercentage=66.0<br/>
 Database connection: No<br/>
 Port: 8081<br/>
 Health Check endpoint: /admin/health
-
