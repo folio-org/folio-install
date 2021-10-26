@@ -88,7 +88,7 @@ GRAILS_SERVER_PORT = 8080<br/>
 GRAILS_SERVER_HOST = mod-agreements<br/>
 Database connection: Yes<br/>
 Port: 8080<br/>
-Health Check endpoint: NA
+Health Check endpoint: /admin/health
 
 ### mod-audit
 Startup Options:<br/>
@@ -343,7 +343,7 @@ GRAILS_SERVER_PORT = 8080<br/>
 GRAILS_SERVER_HOST = mod-licenses-2-0-0<br/>
 Database connection: Yes<br/>
 Port: 8080<br/>
-Health Check endpoint: NA
+Health Check endpoint: /admin/health
 
 ### mod-login
 Startup Options:<br/>
