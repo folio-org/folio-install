@@ -25,13 +25,15 @@ my $okapi = 'http://localhost:9130';
 my $no_perms = '';
 my $only_perms = '';
 my $st_token = '';
+my $perms_users_assign = 0;
 GetOptions( 'tenant|t=s' => \$tenant,
             'user|u=s' => \$user,
             'password|p=s' => \$password,
             'okapi=s' => \$okapi,
             'noperms' => \$no_perms,
             'onlyperms' => \$only_perms,
-            'st_token=s' => \$st_token );
+            'st_token=s' => \$st_token,
+            'perms_users_assign' => \$perms_users_assign );
 
 my $ua = LWP::UserAgent->new();
 
@@ -94,9 +96,13 @@ unless ($only_perms) {
   print "OK\n";
 
   print "Creating permissions user record...";
+  my @permissions = ('perms.all');
+  if ($perms_users_assign) {
+    push(@permissions,('perms.users.assign.immutable','perms.users.assign.mutable'));
+  }
   my $perms_user = {
                     userId => $user_id,
-                    permissions => [ 'perms.all' ]
+                    permissions => \@permissions
                    };
   $req = HTTP::Request->new('POST',"$okapi/perms/users",$header,encode_json($perms_user));
   $resp = $ua->request($req);
