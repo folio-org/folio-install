@@ -173,7 +173,7 @@ unless ($no_perms) {
              'X-Okapi-Tenant' => $tenant,
              'X-Okapi-Token' => $token
             ];
-  $req = HTTP::Request->new('GET',"$okapi/perms/permissions?query=cql.allRecords%3D1%20not%20permissionName%3D%3Dokapi.%2A%20not%20permissionName%3D%3Dmodperms.%2A%20not%20permissionName%3D%3DSYS%23%2A&length=5000",$header);
+  $req = HTTP::Request->new('GET',"$okapi/perms/permissions?query=cql.allRecords%3D1%20not%20permissionName%3D%3Dokapi.%2A%20not%20permissionName%3D%3Dperms.users.assign.okapi%20not%20permissionName%3D%3Dmodperms.%2A%20not%20permissionName%3D%3DSYS%23%2A&length=5000",$header);
   $resp = $ua->request($req);
   die $resp->status_line . "\n" unless $resp->is_success;
   my $permissions = decode_json($resp->content);
