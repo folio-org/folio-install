@@ -12,7 +12,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: hazelcast-rb-q3-2020
+  name: hazelcast-rb-r2-2021
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -20,7 +20,7 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: default
-  namespace: folio-q3-2020
+  namespace: folio-r2
 ```
 
 ### Run:
