@@ -4,6 +4,8 @@ This procedure will establish a FOLIO system based on the "Q3-2020 Honeysuckle" 
 
 Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ansible
 
+[Vagrantfile-complete-provision](Vagrantfile-complete-provision) is a Vagrantfile that provisions the "R1-2021 Iris" quarterly release based on [platform-complete](https://github.com/folio-org/platform-complete); put it into an empty directory, rename it to `Vagrantfile` and run `vagrant up`.
+
 ## Disclaimers/Caveats
 
 * Much of this is already automated as part of the folio-ansible project.

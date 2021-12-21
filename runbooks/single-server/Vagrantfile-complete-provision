@@ -1,0 +1,180 @@
+$provision = <<-'PROVISION'
+sudo apt-get update
+sudo apt-get -y install openjdk-11-jdk nginx
+sudo update-java-alternatives --jre-headless --jre --set java-1.11.0-openjdk-amd64
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+sudo add-apt-repository "deb http://apt.postgresql.org/pub/repos/apt/ focal-pgdg main"
+sudo apt-get update
+sudo apt-get -y install postgresql-10 postgresql-client-10 postgresql-contrib-10 libpq-dev
+sudo sed -i "s/^#\? \?listen_addresses =.*/listen_addresses = '*'/; s/^#\? \?max_connections =.*/max_connections = 500/;" \
+  /etc/postgresql/10/main/postgresql.conf
+sudo grep -qxF        'host all all 0.0.0.0/0 md5'    /etc/postgresql/10/main/pg_hba.conf \
+  || sudo sh -c "echo 'host all all 0.0.0.0/0 md5' >> /etc/postgresql/10/main/pg_hba.conf"
+sudo systemctl restart postgresql
+sudo apt-get -y install apt-transport-https ca-certificates gnupg-agent software-properties-common
+wget --quiet -O - https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+sudo apt-get update
+sudo apt-get -y install docker-ce docker-ce-cli containerd.io
+sudo mkdir -p /etc/systemd/system/docker.service.d
+sudo sh -c "cat > /etc/systemd/system/docker.service.d/docker-opts.conf" << EOF
+[Service]
+ExecStart=
+ExecStart=/usr/bin/dockerd -H fd:// -H tcp://127.0.0.1:4243
+EOF
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+sudo curl -L \
+  "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" \
+  -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+sudo apt-get -y install git curl nodejs npm libjson-perl libwww-perl libuuid-tiny-perl
+sudo npm install n -g
+wget --quiet -O - https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+sudo add-apt-repository "deb https://dl.yarnpkg.com/debian/ stable main"
+sudo apt-get update
+sudo apt-get -y install yarn
+# vm.max_map_count for elasticsearch
+sudo grep -qxF     'vm.max_map_count=262144'     /etc/sysctl.conf \
+  || sudo sh "echo 'vm.max_map_count=262144'" >> /etc/sysctl.conf
+sudo sysctl -w      vm.max_map_count=262144
+sudo mkdir /opt/kafka-zk
+sudo sh -c "cat > /opt/kafka-zk/docker-compose.yml" << EOF
+version: '2'
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper
+    container_name: zookeeper
+    restart: always
+    ports:
+      - "2181:2181"
+  kafka:
+    image: wurstmeister/kafka
+    container_name: kafka
+    restart: always
+    ports:
+      - "9092:9092"
+      - "29092:29092"
+    environment:
+      KAFKA_LISTENERS: INTERNAL://:9092,LOCAL://:29092
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://10.0.2.15:9092,LOCAL://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LOCAL:PLAINTEXT,INTERNAL:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_BROKER_ID: 1
+      KAFKA_LOG_RETENTION_BYTES: -1
+      KAFKA_LOG_RETENTION_HOURS: -1
+  elasticsearch:
+    image: elasticsearch:7.10.1
+    container_name: elasticsearch
+    restart: always
+    ports:
+      - "9301:9200"
+      - "9300:9300"
+    environment:
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    deploy:
+      resources:
+        limits:
+          memory: "1G"
+    volumes:
+      - "/usr/share/elasticsearch/data"
+EOF
+cd /opt/kafka-zk
+sudo docker-compose up -d
+sudo docker exec elasticsearch elasticsearch-plugin install -s analysis-icu analysis-kuromoji analysis-smartcn analysis-nori analysis-phonetic
+cd -
+sudo su -c psql postgres postgres <<EOF
+CREATE ROLE okapi WITH PASSWORD 'okapi25' LOGIN CREATEDB;
+CREATE DATABASE okapi WITH OWNER okapi;
+CREATE ROLE folio WITH PASSWORD 'folio123' LOGIN SUPERUSER;
+CREATE DATABASE folio WITH OWNER folio;
+EOF
+wget --quiet -O - https://repository.folio.org/packages/debian/folio-apt-archive-key.asc | sudo apt-key add -
+sudo add-apt-repository "deb https://repository.folio.org/packages/ubuntu focal/"
+sudo apt-get update
+sudo apt-get -y install okapi=4.8.2-1
+sudo apt-mark hold okapi
+sudo sed -i 's/^role=.*/role="dev"/; s/^port_end=.*/port_end="9230"/; s/^host=.*/host="10.0.2.15"/; s/^storage=.*/storage="postgres"/; s/^okapiurl=.*/okapiurl="http:\/\/10.0.2.15:9130"/; s/^#\? \?deploy_waitIterations=.*/deploy_waitIterations=120/;' /etc/folio/okapi/okapi.conf
+sudo systemctl daemon-reload
+# restart & pull twice, workaround for https://issues.folio.org/browse/OKAPI-1023
+sudo systemctl restart okapi
+curl --retry-connrefused --retry-delay 1 --retry 30 -s -S -o pull1 \
+  -w '\n' -D - -X POST -H "Content-type: application/json" \
+  -d '{ "urls": ["https://folio-registry.dev.folio.org"] }' \
+  http://localhost:9130/_/proxy/pull/modules
+sudo systemctl restart okapi
+curl --retry-connrefused --retry-delay 1 --retry 30 -s -S -o pull2 \
+  -w '\n' -D - -X POST -H "Content-type: application/json" \
+  -d '{ "urls": ["https://folio-registry.dev.folio.org"] }' \
+  http://localhost:9130/_/proxy/pull/modules
+curl -w '\n' -s -S -D - -X POST -H "Content-type: application/json" \
+  -d '{ "id" : "diku", "name" : "Datalogisk Institut", "description" : "Danish Library Technology Institute" }' \
+  http://localhost:9130/_/proxy/tenants
+curl -w '\n' -s -S -D - -X POST -H "Content-type: application/json" \
+  -d '{"id":"okapi"}' \
+  http://localhost:9130/_/proxy/tenants/diku/modules
+sudo n lts
+git clone https://github.com/folio-org/platform-complete
+cd platform-complete
+git checkout R1-2021
+yarn install
+NODE_ENV=production yarn build output
+cd ..
+sudo sh -c "cat > /etc/nginx/sites-available/stripes" << 'EOF'
+server {
+  listen 80;
+  server_name localhost;
+  charset utf-8;
+  # Serve index.html for any request not found
+  location / {
+    # Set path
+    root /home/vagrant/platform-complete/output;
+    include mime.types;
+    types {
+      text/plain lock;
+    }
+    try_files $uri /index.html;
+  }
+}
+EOF
+sudo ln -s /etc/nginx/sites-available/stripes /etc/nginx/sites-enabled/stripes
+sudo rm /etc/nginx/sites-enabled/default
+sudo systemctl restart nginx
+curl -s -S -w '\n' -D - -X POST -H "Content-Type: application/json" -d '{"name":"DB_HOST","value":"10.0.2.15"}' http://localhost:9130/_/env
+curl -s -S -w '\n' -D - -X POST -H "Content-Type: application/json" -d '{"name":"DB_PORT","value":"5432"}' http://localhost:9130/_/env
+curl -s -S -w '\n' -D - -X POST -H "Content-Type: application/json" -d '{"name":"DB_DATABASE","value":"folio"}' http://localhost:9130/_/env
+curl -s -S -w '\n' -D - -X POST -H "Content-Type: application/json" -d '{"name":"DB_USERNAME","value":"folio"}' http://localhost:9130/_/env
+curl -s -S -w '\n' -D - -X POST -H "Content-Type: application/json" -d '{"name":"DB_PASSWORD","value":"folio123"}' http://localhost:9130/_/env
+curl -s -S -w '\n' -D - -X POST -H "Content-Type: application/json" -d '{"name":"DB_MAXPOOLSIZE","value":"20"}' http://localhost:9130/_/en
+curl -s -S -w '\n' -D - -X POST -H "Content-Type: application/json" -d '{"name":"KAFKA_HOST","value":"10.0.2.15"}' http://localhost:9130/_/env
+curl -s -S -w '\n' -D - -X POST -H "Content-Type: application/json" -d '{"name":"KAFKA_PORT","value":"9092"}' http://localhost:9130/_/env
+curl -s -S -w '\n' -D - -X POST -H "Content-Type: application/json" -d '{"name":"ELASTICSEARCH_URL","value":"http://10.0.2.15:9301"}' http://localhost:9130/_/env
+curl -s -S -w '\n' -D - -X POST -H "Content-Type: application/json" -d '{"name":"OKAPI_URL","value":"http://10.0.2.15:9130"}' http://localhost:9130/_/env
+curl -s -S -w '\n' -D - -X POST -H "Content-type: application/json" \
+  -d @platform-complete/okapi-install.json \
+  http://localhost:9130/_/proxy/tenants/diku/install?deploy=true\&preRelease=false\&tenantParameters=loadSample%3Dtrue%2CloadReference%3Dtrue
+curl -s -S -w '\n' -D - -X POST -H "Content-type: application/json" \
+  -d @platform-complete/stripes-install.json \
+  http://localhost:9130/_/proxy/tenants/diku/install?preRelease=false
+wget -nv https://raw.githubusercontent.com/folio-org/folio-install/master/runbooks/single-server/scripts/bootstrap-superuser.pl
+perl ./bootstrap-superuser.pl \
+  --tenant diku --user diku_admin --password admin \
+  --okapi http://localhost:9130
+PROVISION
+
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "bento/ubuntu-20.04"
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = 20480
+    vb.cpus = 2
+  end
+  config.vm.network "forwarded_port", guest:   80, host: 3000
+  config.vm.network "forwarded_port", guest: 9130, host: 9130
+  config.vm.network "forwarded_port", guest: 8130, host: 8130
+  config.vm.provision "shell", inline: $provision
+end
+
