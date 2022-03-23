@@ -5,7 +5,7 @@ use warnings;
 use DBI;
 
 my $dsn = "dbi:Pg:dbname=ldp;host=<LDP_DB_FQDN>";
-my $dbh = DBI->connect($dsn, 'ldpadmin','<password>') or die "Cannot connect to ldp\n";
+my $dbh = DBI->connect($dsn, 'ldpadmin','<ldp_db_password>') or die "Cannot connect to ldp\n";
 my $tdate = qx(date +%Y%m%d);
 my $outfile = "$ENV{HOME}/item_history_update.log.$tdate";
 open(OUT, ">$outfile") or die "Cannot open $outfile\n";
