@@ -17,6 +17,11 @@ All YAML assumes you are deploying in a namespace called `folio-r2`
 `sip2-conf`<br/>
 `sip2-tenants-conf`
 
+### Kubernetes PV/PVCs needed for configuring mod-data-import/export modules to share cache space:
+
+`storage-files-import`<br/>
+`storage-files`
+
 ### Before you import!!!
 
 -Edit the folio-r2-clustered-okapi.yaml file, and set your Docker registry, repo and image tag to pull Okapi from, here:<br/>
