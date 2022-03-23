@@ -18,7 +18,11 @@ All YAML assumes you are deploying in a namespace called `folio-r2`
 
 `image: <your_registry_IP_FQDN>/<repo>/okapi:<image_tag>`<br/>
 
--In the same folio-r2-clustered-okapi.yaml file, edit to point to the Registry Resource Secret in your Rancher environment, here:<br/>
+-Edit the folio-r2-stripes.yaml file, and set your Docker registry, repo and image tag to pull Stripes from, here:<br/>
+
+`image: <your_registry_IP_FQDN>/<repo>/stripes:<image_tag>`<br/>
+
+-In the same folio-r2-clustered-okapi.yaml and folio-r2-stripes.yaml files, edit to point to the Registry Resource Secret in your Rancher environment, here:<br/>
 ```
 imagePullSecrets:
  - name: <your_registry_secret>
