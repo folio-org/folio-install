@@ -21,7 +21,7 @@ spec:
         workload.user.cattle.io/workloadselector: daemonSet-folio-r2-stripes-tamu
     spec:
       containers:
-      - image: <your_registry_IP_FQDN>/folio/stripes:r2-2021
+      - image: <your_registry_IP_FQDN>/<repo>/stripes:r2-2021
         imagePullPolicy: Always
         name: stripes-tamu
         ports:
