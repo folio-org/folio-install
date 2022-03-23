@@ -4,10 +4,13 @@ All YAML assumes you are deploying in a namespace called `folio-r2`
 
 ### Secrets needed for configuring edge modules, Okapi and database connections:
 
-`connect-db`<br/>
+`db-connect`<br/>
 `db-connect-okapi`<br/>
 `edge-securestore-props`<br/>
-`sip2-certs`
+`data-export-aws-config`<br/>
+`mod-graphql`<br/>
+`mod-pubsub`<br/>
+`mod-search`
 
 ### Before you import!!!
 
@@ -29,8 +32,8 @@ imagePullSecrets:
 
 ### Importing folio-r2-2021-workloads.yaml into the folio-r2 namespace does the following:
 
--Deploys 50 Workloads representing the folio q3 back-end, pulls the folioorg Docker containers for each.<br/>
--Creates the 50 Workload's Service Discovery/DNS Records.<br/>
+-Deploys 71 Workloads representing the folio q3 back-end, pulls the folioorg Docker containers for each.<br/>
+-Creates the 71 Workload's Service Discovery/DNS Records.<br/>
 -Those Workloads that connect to storage will be deployed as StatefulSets, one pod each.<br/>
--The edge-sip2 Workload gets deployed as a DaemonSet, one pod on every K8s worker node. It also exposes hostport on 1024.<br/>
+-The edge-sip2 Workload gets deployed as a DaemonSet, one pod on every K8s worker node. It also exposes hostport on 7052.<br/>
 -All other Workloads are deployed as scaleable Deployments, one pod each.
