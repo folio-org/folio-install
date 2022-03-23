@@ -36,4 +36,5 @@ imagePullSecrets:
 -Creates the 71 Workload's Service Discovery/DNS Records.<br/>
 -Those Workloads that connect to storage will be deployed as StatefulSets, one pod each.<br/>
 -The edge-sip2 Workload gets deployed as a DaemonSet, one pod on every K8s worker node. It also exposes hostport on 7052.<br/>
+-The mod-z3950 Workload gets deployed as a DaemonSet, one pod on every K8s worker node. It also exposes hostport on 7090.<br/>
 -All other Workloads are deployed as scaleable Deployments, one pod each.
