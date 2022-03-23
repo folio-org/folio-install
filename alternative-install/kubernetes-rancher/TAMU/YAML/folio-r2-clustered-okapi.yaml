@@ -76,7 +76,7 @@ items:
           - secretRef:
               name: db-connect-okapi
               optional: true
-          image: 10.55.134.48/folio/okapi:r2-2021
+          image: <your_registry_IP_FQDN>/folio/okapi:r2-2021
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 2
