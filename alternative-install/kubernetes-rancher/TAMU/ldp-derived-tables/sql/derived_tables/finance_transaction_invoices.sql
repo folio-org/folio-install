@@ -16,11 +16,11 @@ SELECT
     json_extract_path_text(ft.data, 'expenseClassId') AS transaction_expense_class_id,
     ft.fiscal_year_id AS transaction_fiscal_year_id,
     ft.from_fund_id AS transaction_from_fund_id,
---    ff.name AS transaction_from_fund_name,
---    ff.code AS transaction_from_fund_code,
---    ft.to_fund_id AS transaction_to_fund_id,
---    tf.name AS transaction_to_fund_name,
---    tf.code AS transaction_to_fund_code,
+    ff.name AS transaction_from_fund_name,
+    ff.code AS transaction_from_fund_code,
+    ft.to_fund_id AS transaction_to_fund_id,
+    tf.name AS transaction_to_fund_name,
+    tf.code AS transaction_to_fund_code,
     fb.id AS transaction_from_budget_id,
     fb.name AS transaction_from_budget_name,
     json_extract_path_text(ft.data, 'sourceInvoiceId') AS invoice_id,
@@ -38,9 +38,9 @@ FROM
     finance_transactions AS ft
     LEFT JOIN invoice_invoices AS ii ON json_extract_path_text(ft.data, 'sourceInvoiceId') = ii.id
     LEFT JOIN invoice_lines AS il ON json_extract_path_text(ft.data, 'sourceInvoiceLineId') = il.id
---    LEFT JOIN finance_funds AS ff ON ft.from_fund_id = ff.id
---    LEFT JOIN finance_funds AS tf ON ft.to_fund_id = tf.id
-    LEFT JOIN finance_budgets AS fb ON /*ft.from_fund_id = fb.fund_id AND*/ ft.fiscal_year_id = fb.fiscal_year_id
+    LEFT JOIN finance_funds AS ff ON ft.from_fund_id = ff.id
+    LEFT JOIN finance_funds AS tf ON ft.to_fund_id = tf.id
+    LEFT JOIN finance_budgets AS fb ON ft.from_fund_id = fb.fund_id AND ft.fiscal_year_id = fb.fiscal_year_id
     LEFT JOIN organization_organizations AS oo ON json_extract_path_text(ii.data, 'vendorId') = oo.id
 WHERE
     transaction_type = 'Pending payment'
@@ -59,15 +59,15 @@ CREATE INDEX ON folio_reporting.finance_transaction_invoices (transaction_fiscal
 
 CREATE INDEX ON folio_reporting.finance_transaction_invoices (transaction_from_fund_id);
 
---CREATE INDEX ON folio_reporting.finance_transaction_invoices (transaction_from_fund_name);
+CREATE INDEX ON folio_reporting.finance_transaction_invoices (transaction_from_fund_name);
 
---CREATE INDEX ON folio_reporting.finance_transaction_invoices (transaction_from_fund_code);
+CREATE INDEX ON folio_reporting.finance_transaction_invoices (transaction_from_fund_code);
 
---CREATE INDEX ON folio_reporting.finance_transaction_invoices (transaction_to_fund_id);
+CREATE INDEX ON folio_reporting.finance_transaction_invoices (transaction_to_fund_id);
 
---CREATE INDEX ON folio_reporting.finance_transaction_invoices (transaction_to_fund_name);
+CREATE INDEX ON folio_reporting.finance_transaction_invoices (transaction_to_fund_name);
 
---CREATE INDEX ON folio_reporting.finance_transaction_invoices (transaction_to_fund_code);
+CREATE INDEX ON folio_reporting.finance_transaction_invoices (transaction_to_fund_code);
 
 CREATE INDEX ON folio_reporting.finance_transaction_invoices (transaction_from_budget_id);
 
