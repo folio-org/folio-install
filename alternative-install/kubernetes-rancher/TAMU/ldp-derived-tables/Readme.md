@@ -1,6 +1,6 @@
 ## Before you build!!!
 
--Edit the item_history_update.pl file, and set your LDP database FQDN and ldpadmin password by replacing `<LDP_DB_FQDN>` and `<password>` with your values.<br/>
+-Edit the item_history_update.pl file, and set your LDP database FQDN and ldpadmin user password by replacing `<LDP_DB_FQDN>` and `<password>` with your values.<br/>
 
 ## Build Docker image
 
