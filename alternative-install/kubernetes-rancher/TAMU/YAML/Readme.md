@@ -2,7 +2,7 @@
 
 All YAML assumes you are deploying in a namespace called `folio-r2`
 
-### Secrets needed for configuring edge modules, Okapi and database connections:
+### Secrets needed for configuring edge modules, Kafka, Elasticsearch, Okapi and database connections:
 
 `db-connect`<br/>
 `db-connect-okapi`<br/>
@@ -10,7 +10,12 @@ All YAML assumes you are deploying in a namespace called `folio-r2`
 `data-export-aws-config`<br/>
 `mod-graphql`<br/>
 `mod-pubsub`<br/>
-`mod-search`
+`mod-search`<br/>
+
+### ConfigMaps needed for configuring SIP2 modules:
+
+`sip2-conf`<br/>
+`sip2-tenants-conf`
 
 ### Before you import!!!
 
