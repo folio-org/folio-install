@@ -344,46 +344,6 @@ ldpconf.json =
 }
 ```
 
-#### ldp-odbc Secret key-value pairs:
-
-odbc.ini =
-```
-[ldp]
-Description = ldp
-Driver = PostgreSQL
-Database = ldp
-Servername = pg-ldp
-UserName = ldpadmin
-Password = password
-Port = 5432
-SSLMode = disable
-```
-
-#### ldp-odbc-prefix Secret key-value pairs:
-
-.odbc.ini =
-```
-[ldp]
-Description = ldp
-Driver = PostgreSQL
-Database = ldp
-Servername = pg-ldp
-UserName = ldpadmin
-Password = password
-Port = 5432
-SSLMode = disable
-```
-
-#### ldp-odbcinst Secret key-value pairs:
-
-odbcinst.ini =
-```
-[PostgreSQL]
-Description = PostgreSQL
-Driver = /usr/lib/x86_64-linux-gnu/odbc/psqlodbcw.so
-FileUsage = 1
-```
-
 #### mod-graphql Secret key-value pairs:
 
 CONSOLE_TRACE = 1<br/>
