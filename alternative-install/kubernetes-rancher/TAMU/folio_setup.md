@@ -33,9 +33,6 @@ db-config-modules
 db-config-okapi
 edge-securestore-props
 ldp-conf
-ldp-odbc
-ldp-odbc-prefix
-ldp-odbcinst
 mod-graphql
 mod-pubsub
 mod-search
