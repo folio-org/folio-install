@@ -5,25 +5,25 @@ metadata:
     field.cattle.io/creatorId: "null"
   labels:
     cattle.io/creator: norman
-    workload.user.cattle.io/workloadselector: daemonSet-folio-r2-stripes-tamu
-  name: stripes-tamu
+    workload.user.cattle.io/workloadselector: daemonSet-folio-r2-stripes
+  name: stripes
 spec:
   minReadySeconds: 30
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      workload.user.cattle.io/workloadselector: daemonSet-folio-r2-stripes-tamu
+      workload.user.cattle.io/workloadselector: daemonSet-folio-r2-stripes
   template:
     metadata:
       annotations:
-        field.cattle.io/ports: '[[{"containerPort":3000,"dnsName":"stripes-tamu-nodeport","kind":"NodePort","name":"3000tcp01","protocol":"TCP","sourcePort":0}]]'
+        field.cattle.io/ports: '[[{"containerPort":3000,"dnsName":"stripes-nodeport","kind":"NodePort","name":"3000tcp01","protocol":"TCP","sourcePort":0}]]'
       labels:
-        workload.user.cattle.io/workloadselector: daemonSet-folio-r2-stripes-tamu
+        workload.user.cattle.io/workloadselector: daemonSet-folio-r2-stripes
     spec:
       containers:
       - image: <your_registry_IP_FQDN>/<repo>/stripes:<image_tag>
         imagePullPolicy: Always
-        name: stripes-tamu
+        name: stripes
         ports:
         - containerPort: 3000
           name: 3000tcp01
