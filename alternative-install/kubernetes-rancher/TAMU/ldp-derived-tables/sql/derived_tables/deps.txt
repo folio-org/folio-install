@@ -1,5 +1,0 @@
-users_groups: users_departments_unpacked
-loans_items: locations_libraries
-invoice_adjustments_ext: finance_transaction_invoices
-invoice_adjustments_ext: invoice_adjustments_in_addition_to
-locations_service_points: locations_libraries
