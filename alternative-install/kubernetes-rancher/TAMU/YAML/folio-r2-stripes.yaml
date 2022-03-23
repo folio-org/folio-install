@@ -1,4 +1,4 @@
-apiVersion: apps/v1beta2
+apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   annotations:
@@ -21,7 +21,7 @@ spec:
         workload.user.cattle.io/workloadselector: daemonSet-folio-r2-stripes-tamu
     spec:
       containers:
-      - image: 10.55.134.48/folio/stripes:q3-tamu
+      - image: <your_registry_IP_FQDN>/folio/stripes:r2-2021
         imagePullPolicy: Always
         name: stripes-tamu
         ports:
