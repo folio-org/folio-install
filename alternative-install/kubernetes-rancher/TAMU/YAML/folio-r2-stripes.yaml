@@ -45,7 +45,7 @@ spec:
       dnsConfig: {}
       dnsPolicy: ClusterFirst
       imagePullSecrets:
-      - name: dockerhub
+      - name: <your_registry_secret>
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext: {}
