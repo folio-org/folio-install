@@ -45,7 +45,7 @@ spec:
       dnsConfig: {}
       dnsPolicy: ClusterFirst
       imagePullSecrets:
-      - name: vic-teague
+      - name: dockerhub
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext: {}
