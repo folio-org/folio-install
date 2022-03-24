@@ -24,7 +24,7 @@ items:
   - kind: ServiceAccount
     name: default
     namespace: folio-r2
-- apiVersion: apps/v1beta2
+- apiVersion: apps/v1
   kind: StatefulSet
   metadata:
     annotations:
