@@ -781,6 +781,26 @@ curl -w '\n' -D - -X GET -H "X-Okapi-Tenant: tamu" -H "X-Okapi-Token: <Okapi Tok
 curl -w '\n' -D - -X GET -H "X-Okapi-Tenant: tamu" -H "X-Okapi-Token: <Okapi Token>" $OKAPI_URL/instance-storage/reindex/<reindex job id>
 ```
 
+#### Patch a timer job with Okapi request:
+```
+curl -XPATCH -d'{"delay":"24"}' -H "X-Okapi-Tenant: tamu" -H "X-Okapi-Token: <OKAPI_TOKEN>" http://okapi:9130/_/proxy/tenants/tamu/timers/mod-data-export_1
+```
+
+#### Get the user summary to check for patron blocks:
+```
+curl -w '\n' -D - -X GET -H "X-Okapi-Tenant: tamu" -H "X-Okapi-Token: <OKAPI_TOKEN>" http://okapi:9130/user-summary/<USER_UUID>
+```
+
+#### Get a list of Folio configuration entries:
+```
+curl -i -w '\n' -X GET "http://okapi:9130/configurations/entries?limit=100" -H "X-Okapi-Tenant: tamu" -H "X-Okapi-Token: <OKAPI_TOKEN>"
+```
+
+#### Put an updated configuration entry:
+```
+curl -i -w '\n' -X PUT http://okapi:9130/configurations/entries/<CONFIG_ID> -H "Content-type: application/json" -H "X-Okapi-Tenant: tamu" -H "X-Okapi-Token: <OKAPI_TOKEN>" -d @UPDATED_CONFIG.json
+```
+
 #### Front-end folioci repo:
 https://repository.folio.org/#browse/welcome
 
