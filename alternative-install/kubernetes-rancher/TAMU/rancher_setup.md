@@ -421,6 +421,14 @@ enableSyncDriver = false
 
 ```kubectl get statefulsets -n <namespace> -o name | xargs -I % kubectl scale % --replicas=0 -n <namespace>```
 
+#### To compact etcd keyspace (Run this under the Rancher System Project for the K8s cluster, look for the cattle-node-agent deployment - shell and launch inside the pod running on the etcd nodes only):
+
+```rev=$(docker exec etcd etcdctl endpoint status --write-out json | egrep -o '"revision":[0-9]*' | egrep -o '[0-9]*')docker exec etcd etcdctl compact "$rev"```
+
+#### To defrag etcd (Run this under the Rancher System Project for the K8s cluster, look for the cattle-node-agent deployment - shell and launch inside the pod running on the etcd nodes only):
+
+```docker exec etcd etcdctl defrag```
+
 #### Enable Recurring etcd Snapshots on the cluster:
 
 You can enable this option when you create or edit the cluster. RKE takes a snapshot of etcd running on each etcd node. The file is saved to /opt/rke/etcd-snapshots.
