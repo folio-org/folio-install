@@ -346,6 +346,33 @@ Filesystem Type: xfs<br/>
 5) Click Save
 
 
+
+## Rancher Pro Tips
+
+When the RancherOS nodes for the clusters need rebooting or updating it will need to be done so manually, one at at time, following this procedure:<br/>
+(It is VERY important the nodes be drained before rebooting or deleting them from the cluster - to preserve the persistent data volume vmdks.)
+
+1) In Rancher 2.x server UI, Deactivate the alerts:
+
+   Click the desired Cluster - Tools - Alerts<br/>
+   Select all of the alerts, click Deactivate at the top
+
+2) Cordon and Drain the node to be rebooted or deleted in Rancher 2.x server UI:
+
+   Click the desired Cluster - Nodes<br/>
+   Click one of the Active nodes, click the ellipsis to the right, click Cordon<br/>
+   Click ellipsis again, click Drain
+
+3) Reboot or delete, Uncordon, and repeat:
+
+   Wait for the node to drain. Once drained, reboot the VM via the vSphere web console<br/>
+   When the node returns, Uncordon the node in Rancher 2.x server UI under desired Cluster - Nodes (Click the Cordoned node, click the ellipsis to the right, click Uncordon)<br/>
+   Rinse and repeat for each node to be rebooted or deleted. Only reboot one node at a time to keep the hosted service alive
+
+4) Activate the alerts from step 1.
+
+
+
 ## Kubernetes Pro Tips
 
 #### Config and launch Kubernetes Cluster Dashboard from your workstation (On OSX: Save files and token in /Users/UserName/.kube/):
