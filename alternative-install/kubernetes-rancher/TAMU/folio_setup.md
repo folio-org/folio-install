@@ -195,7 +195,7 @@ AWS_ACCESS_KEY_ID = key<br/>
 AWS_BUCKET = folio-data-export<br/>
 AWS_REGION = us-east-1<br/>
 AWS_SECRET_ACCESS_KEY = secret<br/>
-AWS_URL = minio.library.tamu.edu<br/>
+AWS_URL = minio.tamu.org<br/>
 config = 
 ```
 [default]
@@ -353,7 +353,7 @@ NODE_OPTIONS = --no-deprecation<br/>
 OKAPI_TENANT = tamu<br/>
 OKAPI_TOKEN = token<br/>
 OKAPI_URL = `http://okapi:9130`<br/>
-PROXY_OKAPI_URL = `https://folio-okapi.library.tamu.edu`<br/>
+PROXY_OKAPI_URL = `https://folio-okapi.tamu.org`<br/>
 RAML_DIR = <br/>
 RAML_EXCLUDE = <br/>
 RAML_MATCH = <br/>
@@ -574,16 +574,16 @@ ACS_TENANT_CONFIG =
 ```
 ADMIN_PASSWORD = admin<br/>
 ADMIN_USER = tamu_admin<br/>
-EMAIL_FROM = `folio_admin@library.tamu.edu`<br/>
+EMAIL_FROM = `folio_admin@tamu.org`<br/>
 EMAIL_PASSWORD = password<br/>
-EMAIL_SMTP_HOST = relay.tamu.edu<br/>
+EMAIL_SMTP_HOST = tamu.org<br/>
 EMAIL_SMTP_LOGIN_OPTION = DISABLED<br/>
 EMAIL_SMTP_PORT = 25<br/>
 EMAIL_SMTP_SSL = false<br/>
 EMAIL_START_TLS_OPTIONS = OPTIONAL<br/>
 EMAIL_TRUST_ALL = true<br/>
 EMAIL_USERNAME = login_user<br/>
-FOLIO_HOST = `https://folio.library.tamu.edu`<br/>
+FOLIO_HOST = `https://folio.tamu.org`<br/>
 IGNORE_ERRORS = true<br/>
 OKAPI_URL = `http://okapi:9130`<br/>
 PURGE_DATA = true<br/>
