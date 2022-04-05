@@ -2,7 +2,7 @@
 
 To do this:
 
-1) Pull down the existing version of mod-circulation's module descriptor. This should be in your Okapi instance at *http://okapi:9130/_/proxy/modules/mod-circulation-<#>.<#>.<#>*
+1) Pull down the existing version of mod-circulation's module descriptor. This should be in your Okapi instance at ```*http://okapi:9130/_/proxy/modules/mod-circulation-<#>.<#>.<#>*```
 
 2) Edit this module descriptor in a text editor, removing the section starting with:
 ```
