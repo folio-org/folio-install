@@ -316,9 +316,14 @@ ldpconf.json =
 ```
 {
     "anonymize": false,
-    "deployment_environment": "production",
+    "deployment_environment": "staging",
     "ldp_database": {
-        "odbc_database": "ldp"
+        "database_name": "ldp",
+        "database_host": "pg-ldp",
+        "database_port": 5432,
+        "database_user": "ldpadmin",
+        "database_password": "password",
+        "database_sslmode": "disable"
     },
     "enable_sources": ["tamu_library"],
     "sources": {
