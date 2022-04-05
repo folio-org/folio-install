@@ -58,7 +58,7 @@ http://okapi:9130/_/proxy/tenants/tamu/install?deploy=false\&preRelease=false\&t
 ```
 [
   {
-    "id": "mod-circulation-22.0.4",
+    "id": "mod-circulation-22.0.7",
     "action": "enable"
   }
 ]
