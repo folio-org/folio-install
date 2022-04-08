@@ -850,7 +850,7 @@ nginx.ingress.kubernetes.io/proxy-read-timeout = 600<br/>
 nginx.ingress.kubernetes.io/proxy-send-timeout = 600<br/>
 
 
-### DRAFT Upgrading a Folio instance Notes:
+## DRAFT Upgrading a Folio instance Notes:
 
 1) Grab the install.json and okapi-install.json files from the desired Folio-org's platform-complete release branch: https://github.com/folio-org/platform-complete
 
