@@ -1,6 +1,6 @@
 # Setup Folio on Rancher 2.x/Kubernetes
 
-## Contents
+## Readme Contents
 
 * [Workload YAML Readme](YAML/Readme.md)
 * [Module Metadata notes](module_metadata.md)
