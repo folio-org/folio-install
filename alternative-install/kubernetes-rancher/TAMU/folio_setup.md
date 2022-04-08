@@ -938,7 +938,7 @@ http://folio-registry.aws.indexdata.com/_/proxy/modules
 #### Database number of Okapi connections:
 ```SELECT count(*) FROM pg_stat_activity WHERE usename = 'okapi';```
 
-#### Database number of Okapi connections:
+#### Database commands to remove conditions causing Patron block, and the block itself:
 ```DELETE FROM tamu_mod_circulation_storage.audit_loan WHERE jsonb -> 'loan' ->> 'userId' = '<USER_UUID>' AND jsonb -> 'loan' -> 'status' ->> 'name' = 'Open' and id NOT IN (SELECT id from tamu_mod_circulation_storage.loan where jsonb -> 'status' ->> 'name' = 'Open' and jsonb ->> 'userId' = '<USER_UUID>');```
 
 ```DELETE FROM tamu_mod_patron_blocks.user_summary WHERE jsonb ->> 'userId' = '<USER_UUID>';```
