@@ -29,6 +29,7 @@ data-export-aws-config
 db-connect
 db-connect-ldp
 db-connect-okapi
+db-config-ldp
 db-config-modules
 db-config-okapi
 edge-securestore-props
@@ -38,6 +39,8 @@ mod-pubsub
 mod-search
 mod-z3950
 postgres-setup-sql
+postgres-setup-sql-ldp
+secured-okapi
 tamu-tenant-config
 x-okapi-token
 ```
@@ -53,7 +56,7 @@ x-okapi-token
 15) Deploy create-email Workload as *Job* – built from our custom Docker container with scripts - with tamu-tenant-config Secret.
 16) Scale up Okapi pods to 3 (for HA) using Rancher 2.x + button.
 17) Add Ingresses and their Nginx annotations under Load Balancing for Okapi and Stripes using your URLs for `/` and `/_/` paths.
-18) *Future Folio post-install tenant configuration documentation regarding the edge user and permissions, patron groups for system and tenant admin users, timezone and plugin selection here.*
+18) *Future Folio post-install tenant configuration documentation regarding the edge user and permissions, patron groups for system and tenant admin users, timezone and plugin selection, and securing Okapi here.*
 19) *Future Folio post-install LDP deployment documentation using mod-ldp files here.*
 
 
@@ -594,6 +597,97 @@ CREATE EXTENSION pg_trgm;
 ALTER EXTENSION pg_trgm SET SCHEMA public;
 ```
 
+#### postgres-setup-sql-ldp Secret key-value pairs:
+
+setup.sql =
+```
+/*
+ * Copyright 2016 - 2020 Crunchy Data Solutions, Inc.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+--- System Setup
+SET application_name="container_setup";
+
+CREATE EXTENSION IF NOT EXISTS pg_stat_statements;
+
+ALTER USER postgres PASSWORD 'PG_ROOT_PASSWORD';
+
+CREATE USER "PG_PRIMARY_USER" WITH REPLICATION;
+ALTER USER "PG_PRIMARY_USER" PASSWORD 'PG_PRIMARY_PASSWORD';
+
+CREATE USER "PG_USER" LOGIN;
+ALTER USER "PG_USER" PASSWORD 'PG_PASSWORD';
+
+CREATE DATABASE "PG_DATABASE";
+ALTER DATABASE "PG_DATABASE" SET search_path TO public;
+GRANT ALL PRIVILEGES ON DATABASE "PG_DATABASE" TO "PG_USER";
+
+CREATE TABLE IF NOT EXISTS primarytable (key varchar(20), value varchar(20));
+GRANT ALL ON primarytable TO "PG_PRIMARY_USER";
+
+--- PG_DATABASE Setup
+
+\c "PG_DATABASE"
+
+CREATE EXTENSION IF NOT EXISTS pg_stat_statements;
+
+\c postgres postgres
+
+\set ldp_user `echo "$LDP_USER"`
+\set ldp_config_user `echo "$LDP_CONFIG_USER"`
+\set ldp_report_user `echo "$LDP_REPORT_USER"`
+\set ldp_ro_user `echo "$LDP_RO_USER"`
+
+ALTER DATABASE "PG_DATABASE" OWNER TO "PG_USER";
+CREATE USER :ldp_config_user LOGIN;
+ALTER USER :ldp_config_user PASSWORD 'password';
+CREATE USER :ldp_user LOGIN;
+ALTER USER :ldp_user PASSWORD 'password';
+CREATE USER :ldp_report_user LOGIN;
+ALTER USER :ldp_report_user PASSWORD 'password';
+CREATE USER :ldp_ro_user LOGIN;
+ALTER USER :ldp_ro_user PASSWORD 'password';
+
+\c "PG_DATABASE" postgres
+
+CREATE SCHEMA IF NOT EXISTS folio_reporting;
+ALTER SCHEMA folio_reporting OWNER TO ldpadmin;
+GRANT CREATE, USAGE ON SCHEMA folio_reporting TO ldp;
+GRANT USAGE ON SCHEMA folio_reporting TO ldp;
+GRANT SELECT ON ALL TABLES IN SCHEMA folio_reporting TO ldp;
+ALTER DEFAULT PRIVILEGES IN SCHEMA folio_reporting GRANT SELECT ON TABLES TO ldp;
+GRANT CREATE, USAGE ON SCHEMA folio_reporting TO ldpreport;
+GRANT USAGE ON SCHEMA public TO ldpreport;
+CREATE EXTENSION pg_trgm;
+
+\c "PG_DATABASE" "PG_USER";
+
+REVOKE ALL ON SCHEMA public FROM public;
+GRANT ALL ON SCHEMA public TO "PG_USER";
+GRANT USAGE ON SCHEMA public TO :ldp_config_user;
+GRANT USAGE ON SCHEMA public TO :ldp_user;
+```
+
+#### secured-okapi Secret key-value pairs:
+
+OKAPI_URL = http://okapi:9130<br/>
+REF_DATA = true<br/>
+SAMPLE_DATA = false<br/>
+SUPER_PSSWD = password<br/>
+SUPER_USR = superuser<br/>
+TENANT_ID = supertenant
+
 #### tamu-tenant-config Secret key-value pairs:
 
 ACS_TENANT_CONFIG =
@@ -612,7 +706,7 @@ EMAIL_START_TLS_OPTIONS = OPTIONAL<br/>
 EMAIL_TRUST_ALL = true<br/>
 EMAIL_USERNAME = login_user<br/>
 FOLIO_HOST = `https://folio.tamu.org`<br/>
-IGNORE_ERRORS = true<br/>
+IGNORE_ERRORS = false<br/>
 OKAPI_URL = `http://okapi:9130`<br/>
 PURGE_DATA = true<br/>
 REF_DATA = true<br/>
