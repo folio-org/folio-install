@@ -92,7 +92,7 @@ subjects:
  1) In the Rancher GUI Global view, add the bitnami Helm v3 catalog under Tools - Catalogs: `https://charts.bitnami.com/bitnami`
  2) Paste the following in when deploying the Helm charts<br/>
 
-#### Kafka Helm Chart Answer Yaml:
+#### Kafka Helm Chart Values Yaml:
 ```
 ---
   autoCreateTopicsEnable: true
@@ -143,7 +143,7 @@ subjects:
   zookeeperConnectionTimeoutMs: "60000"
 ```
 
-#### Elasticsearch Helm Chart Answer key-value pairs:
+#### Elasticsearch Helm Chart key-value pairs:
 ```
 coordinating.heapsize = 256m      
 coordinating.livenessProbe.enabled = false      
