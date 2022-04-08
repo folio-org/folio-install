@@ -858,23 +858,17 @@ nginx.ingress.kubernetes.io/proxy-send-timeout = 600<br/>
 
 3) Copy in the json files from the 1st step above to the `../deploy-jobs/create-deploy/install` folder.
 
-4) Update the install.json and okapi-install.json under `../deploy-jobs/create-deploy-pubsub/install` to include only the version of pubsub that is desired.
-
-5) Build and push two create-deploy Docker containers to Harbor: rX-202X-pubsub and rX-202X.
+4) Build and push the create-deploy Docker container to your private container registry with tag: rX-202X.
 
 Docker command examples below:<br/>
 `docker build -t <your_registry_IP_FQDN>/folio/create-deploy:rX-202X .`<br/>
-`docker push <your_registry_IP_FQDN>/folio/create-deploy:rX-202X`<br/>
-`docker build -t <your_registry_IP_FQDN>/folio/create-deploy:rX-202X-pubsub .`<br/>
-`docker push <your_registry_IP_FQDN>/folio/create-deploy:rX-202X-pubsub`
+`docker push <your_registry_IP_FQDN>/folio/create-deploy:rX-202X`
 
-6) In Rancher Dev, deploy the “create-upgrade-pubsub” K8s Job to the appropriate upgrade testing namespace first using the tamu-tenant-config secret and tagged rX-202X-pubsub image mentioned above. For the Job Configuration settings set Completions, Parallelism and Back Off Limit to 1.
+5) In Rancher, deploy the “create-deploy” K8s Job to the appropriate namespace using the tamu-tenant-config secret and tagged rX-202X image mentioned above. For the Job Configuration settings set Completions, Parallelism and Back Off Limit to 1. Set a long Active Deadline Seconds for the Job (I use 10000).
 
-7) If it succeeded, in Rancher Dev deploy the “create-upgrade-tamu” K8s Job to the appropriate upgrade testing namespace second using the tamu-tenant-config secret and the rX-202X image mentioned above. For the Job Configuration settings set Completions, Parallelism and Back Off Limit to 1. Set a long Active Deadline Seconds for the Job (I use 10000).
+6) If any of it fails, get the logs from Splunk Rancher index and/or from the containers themselves and record them. Folio Issue Jiras will need to be filed.
 
-8) If any of it fails, get the logs from Splunk Rancher index and/or from the containers themselves and record them. Folio Issue Jiras will need to be filed.
-
-9) Restart all Folio back-end modules once the upgrade is complete.
+7) Restart all Folio back-end modules once the upgrade is complete.
 
 To roll back:
 
