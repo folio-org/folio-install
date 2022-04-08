@@ -102,6 +102,9 @@ subjects:
       type: "pem"
   externalAccess: 
     enabled: false
+  extraEnvVars:
+  - name: ES_JAVA_OPTS
+    value: "-Dlog4j2.formatMsgNoLookups=true"
   global: 
     storageClass: "vsphere-datastore"
   heapOpts: "-Xmx2048m -Xms2048m"
@@ -209,7 +212,7 @@ region = us-east-1
 DB_CHARSET = UTF-8<br/>
 DB_DATABASE = okapi_modules<br/>
 DB_HOST = pg-folio<br/>
-DB_MAXPOOLSIZE = 10<br/>
+DB_MAXPOOLSIZE = 20<br/>
 DB_PASSWORD = password<br/>
 DB_PORT = 5432<br/>
 DB_QUERYTIMEOUT = 120000<br/>
@@ -217,19 +220,34 @@ DB_USERNAME = folio_admin
 
 #### db-connect-migration Secret key-value pairs:
 
-CAMUNDA_BPM_ADMIN_USER_ID = admin<br/>
-CAMUNDA_BPM_ADMIN_USER_PASSWORD = password<br/>
-EXTRACTION_DATASOURCE_PASSWORD = password<br/>
-EXTRACTION_DATASOURCE_USERNAME = db<br/>
 OKAPI_PASSWORD = password<br/>
 OKAPI_USERNAME = tamu_admin<br/>
 SPRING_DATASOURCE_PASSWORD = password<br/>
 SPRING_DATASOURCE_USERNAME = spring_folio_admin<br/>
-TENANT_DEFAULT_TENANT = tamu
-
+TENANT_DEFAULT_TENANT = tamu<br/>
+SPRING_APPLICATION_JSON =
+```
+{
+  "okapi": {
+    "url": "http://okapi:9130",
+    "credentials": {
+      "username": "tamu_admin",
+      "password": "password"
+    },
+    "modules": {
+      "database": {
+        "url": "jdbc:postgresql://pg-folio/okapi_modules",
+        "username": "folio_admin",
+        "password": "password",
+        "driverClassName": "org.postgresql.Driver"
+      }
+    }
+  }
+}
+```
 #### db-config-migration Secret key-value pairs:
 
-PG_DATABASE = mod_data_migration<br/>
+PG_DATABASE = migration_modules<br/>
 PG_PASSWORD = password<br/>
 PG_PRIMARY_PASSWORD = password<br/>
 PG_PRIMARY_PORT = 5432<br/>
@@ -244,6 +262,8 @@ LDP_CONFIG_PASSWORD = password<br/>
 LDP_CONFIG_USER = ldpconfig<br/>
 LDP_REPORT_PASSWORD = password<br/>
 LDP_REPORT_USER = ldpreport<br/>
+LDP_RO_PASSWORD = password<br/>
+LDP_RO_USER = ro_ldp_user<br/>
 LDP_USER = ldp<br/>
 LDP_USER_PASSWORD = password<br/>
 PG_DATABASE = ldp<br/>
@@ -259,7 +279,7 @@ PG_USER = ldpadmin
 DB_CHARSET = UTF-8<br/>
 DB_DATABASE = ldp<br/>
 DB_HOST = pg-ldp<br/>
-DB_MAXPOOLSIZE = 10<br/>
+DB_MAXPOOLSIZE = 20<br/>
 DB_PASSWORD = password<br/>
 DB_PORT = 5432<br/>
 DB_QUERYTIMEOUT = 120000<br/>
@@ -366,6 +386,8 @@ RAML_SKIP =
 
 #### mod-pubsub Secret key-value pairs:
 
+ELASTICSEARCH_PASSWORD = <br/>
+ELASTICSEARCH_USERNAME = <br/>
 JAVA_OPTIONS = -XX:MaxRAMPercentage=66.0<br/>
 KAFKA_HOST = `http://kafka-r2`<br/>
 KAFKA_PORT = 9092<br/>
@@ -381,6 +403,7 @@ ELASTICSEARCH_URL = `http://elasticsearch-r2-es-conn:9200`<br/>
 ENV = folio-r2<br/>
 INITIAL_LANGUAGES = eng,spa,fre,ger<br/>
 JAVA_OPTIONS = -XX:MaxRAMPercentage=66.0<br/>
+KAFKA_EVENTS_CONSUMER_PATTERN = `(folio-prod\.)(.*\.)inventory\.(instance|holdings-record|item)`<br/>
 KAFKA_HOST = `http://kafka-r2`<br/>
 KAFKA_PORT = 9092<br/>
 KAFKA_SECURITY_PROTOCOL = PLAINTEXT<br/>
