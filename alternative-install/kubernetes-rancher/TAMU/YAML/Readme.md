@@ -1,4 +1,4 @@
-## YAML for deploying Folio R1 2021 back-end modules and clustered Okapi on Kubernetes/Rancher 2.x
+## YAML for deploying Folio R2 2021 back-end modules, clustered Okapi, and Stripes on Kubernetes/Rancher 2.x
 
 All YAML assumes you are deploying in a namespace called `folio-r2`, Okapi is reachable at `http://okapi:9130` and Kafka is reachable at `http://kafka-r2`. Please find-and-replace these values for your environment if they are different.
 
