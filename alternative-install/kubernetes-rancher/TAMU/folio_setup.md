@@ -955,6 +955,11 @@ curl -i -w '\n' -X GET "http://okapi:9130/configurations/entries?limit=100" -H "
 curl -i -w '\n' -X PUT http://okapi:9130/configurations/entries/<CONFIG_ID> -H "Content-type: application/json" -H "X-Okapi-Tenant: tamu" -H "X-Okapi-Token: <OKAPI_TOKEN>" -d @UPDATED_CONFIG.json
 ```
 
+#### Purge deprecated permissions from Folio:
+```
+curl -w '\n' -D - -X POST -H "Content-type: application/json" -H "X-Okapi-Token: <OKAPI_TOKEN>" http://okapi:9130/perms/purge-deprecated
+```
+
 #### Front-end folioci repo:
 https://repository.folio.org/#browse/welcome
 
