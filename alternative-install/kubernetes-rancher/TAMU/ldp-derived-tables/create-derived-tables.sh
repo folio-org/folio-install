@@ -46,6 +46,8 @@ psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "GRANT SELECT ON ALL T
 psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "GRANT SELECT ON ALL TABLES IN SCHEMA public TO ldpreport;" &&\
 psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "GRANT SELECT ON ALL TABLES IN SCHEMA history TO ldpreport;" &&\
 psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "ALTER DEFAULT PRIVILEGES IN SCHEMA mis GRANT SELECT ON TABLES TO ldpreport;" &&\
+psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "GRANT USAGE ON SCHEMA public TO ldp;" &&\
+psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "GRANT SELECT ON ALL TABLES IN SCHEMA public TO ldp;" &&\
 psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO ldp;"
 
 echo Running item history update...
