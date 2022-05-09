@@ -932,7 +932,7 @@ curl -w '\n' -D - -X GET -H "X-Okapi-Tenant: tamu" -H "X-Okapi-Token: <OKAPI_TOK
 
 #### Monitor an Elasticsearch job with Okapi request:
 ```
-curl -w '\n' -D - -X GET -H "X-Okapi-Tenant: tamu" -H "X-Okapi-Token: <OKAPI_TOKEN>" $OKAPI_URL/instance-storage/reindex/<reindex job id>
+curl -w '\n' -D - -X GET -H "X-Okapi-Tenant: tamu" -H "X-Okapi-Token: <OKAPI_TOKEN>" $OKAPI_URL/instance-storage/reindex/<REINDEX_JOB_ID>
 ```
 
 #### Patch a timer job with Okapi request:
