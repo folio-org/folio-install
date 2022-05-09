@@ -8,33 +8,33 @@ cd deploy-descriptors
 
 cat > deployment-descriptor-users.json <<END
 {
-  "srvcId" : "mod-users-18.0.0",
-  "instId" : "mod-users-18.0.0",
-  "url" : "http://mod-users-18-0-0:8081"
+  "srvcId" : "mod-users-18.0.2",
+  "instId" : "mod-users-18.0.2",
+  "url" : "http://mod-users-18-0-2:8081"
 }
 END
 
 cat > deployment-descriptor-permissions.json <<END
 {
-  "srvcId" : "mod-permissions-5.14.0",
-  "instId" : "mod-permissions-5.14.0",
-  "url" : "http://mod-permissions-5-14-0:8081"
+  "srvcId" : "mod-permissions-5.14.4",
+  "instId" : "mod-permissions-5.14.4",
+  "url" : "http://mod-permissions-5-14-4:8081"
 }
 END
 
 cat > deployment-descriptor-login.json <<END
 {
-  "srvcId" : "mod-login-7.4.0",
-  "instId" : "mod-login-7.4.0",
-  "url" : "http://mod-login-7-4-0:8081"
+  "srvcId" : "mod-login-7.5.1",
+  "instId" : "mod-login-7.5.1",
+  "url" : "http://mod-login-7-5-1:8081"
 }
 END
 
 cat > deployment-descriptor-authtoken.json <<END
 {
-  "srvcId" : "mod-authtoken-2.8.0",
-  "instId" : "mod-authtoken-2.8.0",
-  "url" : "http://mod-authtoken-2-8-0:8081"
+  "srvcId" : "mod-authtoken-2.8.2",
+  "instId" : "mod-authtoken-2.8.2",
+  "url" : "http://mod-authtoken-2-8-2:8081"
 }
 END
 
@@ -122,7 +122,7 @@ $OKAPI_URL/authn/credentials
 curl -w '\n' -D - -X POST  \
 -H "Content-type: application/json" \
 -H "X-Okapi-Tenant:supertenant" \
--d '{"id":"mod-authtoken-2.8.0"}' \
+-d '{"id":"mod-authtoken-2.8.2"}' \
 $OKAPI_URL/_/proxy/tenants/$TENANT_ID/modules
 
 echo "Done!"
