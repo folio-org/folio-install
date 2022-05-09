@@ -922,17 +922,17 @@ curl -w '\n' -X POST -D - -H "Content-type: application/json" -d @enable-docker.
 
 #### Re-index Elasticsearch with Okapi request:
 ```
-curl -w '\n' -D - -X POST $OKAPI_URL/search/index/inventory/reindex -H "X-Okapi-Tenant: tamu" -H "Content-Type: application/json" -H "X-Okapi-Token: <Okapi Token>" -d '{"recreateIndex": true}'
+curl -w '\n' -D - -X POST $OKAPI_URL/search/index/inventory/reindex -H "X-Okapi-Tenant: tamu" -H "Content-Type: application/json" -H "X-Okapi-Token: <OKAPI_TOKEN>" -d '{"recreateIndex": true}'
 ```
 
 #### Get an Elasticsearch job ID with Okapi request:
 ```
-curl -w '\n' -D - -X GET -H "X-Okapi-Tenant: tamu" -H "X-Okapi-Token: <Okapi Token>" $OKAPI_URL/search/index/inventory/reindex
+curl -w '\n' -D - -X GET -H "X-Okapi-Tenant: tamu" -H "X-Okapi-Token: <OKAPI_TOKEN>" $OKAPI_URL/search/index/inventory/reindex
 ```
 
 #### Monitor an Elasticsearch job with Okapi request:
 ```
-curl -w '\n' -D - -X GET -H "X-Okapi-Tenant: tamu" -H "X-Okapi-Token: <Okapi Token>" $OKAPI_URL/instance-storage/reindex/<reindex job id>
+curl -w '\n' -D - -X GET -H "X-Okapi-Tenant: tamu" -H "X-Okapi-Token: <OKAPI_TOKEN>" $OKAPI_URL/instance-storage/reindex/<reindex job id>
 ```
 
 #### Patch a timer job with Okapi request:
