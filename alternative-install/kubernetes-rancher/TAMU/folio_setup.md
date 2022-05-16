@@ -960,6 +960,11 @@ curl -i -w '\n' -X PUT http://okapi:9130/configurations/entries/<CONFIG_ID> -H "
 curl -w '\n' -D - -X POST -H "Content-type: application/json" -H "X-Okapi-Token: <OKAPI_TOKEN>" http://okapi:9130/perms/purge-deprecated
 ```
 
+#### Query mod-email logs in Folio:
+```
+curl -i -w '\n' -X GET -H "X-Okapi-Tenant: tamu" -H "X-Okapi-Token: <OKAPI_TOKEN>" http://okapi:9130/email?limit=1000
+```
+
 #### Front-end folioci repo:
 https://repository.folio.org/#browse/welcome
 
