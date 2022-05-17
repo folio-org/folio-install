@@ -1,8 +1,16 @@
 # FOLIO deployment: single server
 
+**Note**: This document is no longer maintained.
+Content has moved to https://docs.folio.org/docs/getting-started/installation/singleserverwithcontainers/
+(where there is a branch for each flower release).
+
+---
+
 This procedure will establish a FOLIO system based on the "Q3-2020 Honeysuckle" quarterly release.
 
 Largely derived from Ansible playbooks at https://github.com/folio-org/folio-ansible
+
+[Vagrantfile-complete-provision](Vagrantfile-complete-provision) is a Vagrantfile that provisions the "R1-2021 Iris" quarterly release based on [platform-complete](https://github.com/folio-org/platform-complete); put it into an empty directory, rename it to `Vagrantfile` and run `vagrant up`.
 
 ## Disclaimers/Caveats
 
