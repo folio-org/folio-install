@@ -2,7 +2,7 @@
 
 To do this:
 
-1) Pull down the existing version of mod-circulation's module descriptor. This should be in your Okapi instance at *$OKAPI_URL/_/proxy/modules/mod-circulation-<#>.<#>.<#>*
+1) Pull down the existing version of mod-circulation's module descriptor. This should be in your Okapi instance at ```http://okapi:9130/_/proxy/modules/mod-circulation-<#>.<#>.<#>```
 
 2) Edit this module descriptor in a text editor, removing the section starting with:
 ```
@@ -45,20 +45,20 @@ Save this as *et.json*
 
 ```
 curl -i -w '\n' -X POST -H 'Content-type: application/json' \
--d @md.json $OKAPI_URL/_/proxy/modules
+-d @md.json http://okapi:9130/_/proxy/modules
 
 curl -i -w '\n' -X POST -H 'Content-type: application/json' \
--d @dd.json $OKAPI_URL/_/discovery/modules
+-d @dd.json http://okapi:9130/_/discovery/modules
 
 curl -w '\n' -D - -X POST -H "Content-type: application/json" \
 -d @et.json \
-$OKAPI_URL/_/proxy/tenants/diku/install?deploy=false\&preRelease=false\&tenantParameters=loadSample%3Dfalse%2CloadReference%3Dfalse
+http://okapi:9130/_/proxy/tenants/tamu/install?deploy=false\&preRelease=false\&tenantParameters=loadSample%3Dfalse%2CloadReference%3Dfalse
 ```
 8) When your loans migration has completed, re-enable the original mod-circulation module version for your tenant. To do this, edit the *et.json* from before, changing back the version there. That looks something like this:
 ```
 [
   {
-    "id": "mod-circulation-19.2.8",
+    "id": "mod-circulation-22.0.7",
     "action": "enable"
   }
 ]
@@ -69,5 +69,5 @@ $OKAPI_URL/_/proxy/tenants/diku/install?deploy=false\&preRelease=false\&tenantPa
 ```
 curl -w '\n' -D - -X POST -H "Content-type: application/json" \
 -d @et.json \
-$OKAPI_URL/_/proxy/tenants/diku/install?deploy=false\&preRelease=false\&tenantParameters=loadSample%3Dfalse%2CloadReference%3Dfalse
+http://okapi:9130/_/proxy/tenants/tamu/install?deploy=false\&preRelease=false\&tenantParameters=loadSample%3Dfalse%2CloadReference%3Dfalse
 ```

@@ -1,4 +1,4 @@
-FROM alpine:3.11
+FROM alpine:3.15.0
 
 #Prerequisites
 RUN apk add --no-cache curl

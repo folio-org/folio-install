@@ -27,7 +27,7 @@ ARG TENANT_ID=tamu
 ARG OKAPI_URL=http://localhost:9130
 
 #Build Stripes
-RUN n lts
+RUN n 14
 RUN yarn config set @folio:registry https://repository.folio.org/repository/npm-folio/
 RUN yarn install --update-checksums
 RUN yarn build --okapi $OKAPI_URL --tenant $TENANT_ID ./output

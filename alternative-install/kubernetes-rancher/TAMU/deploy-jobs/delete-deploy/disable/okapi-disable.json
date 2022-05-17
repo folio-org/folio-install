@@ -1,214 +1,198 @@
 [
   {
-    "id": "mod-orders-storage-11.1.4",
+    "id": "mod-agreements-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-configuration-5.5.0",
+    "id": "mod-calendar-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-inventory-storage-19.4.4",
+    "id": "mod-inventory-storage-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-users-17.2.2",
+    "id": "mod-circulation-storage-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-login-7.1.1",
+    "id": "mod-users-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-permissions-5.12.2",
+    "id": "mod-event-config-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-pubsub-1.3.3",
+    "id": "mod-template-engine-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-circulation-storage-12.1.4",
+    "id": "mod-configuration-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-source-record-storage-4.1.3",
+    "id": "mod-email-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-inventory-16.1.3",
+    "id": "mod-sender-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-organizations-storage-3.2.2",
+    "id": "mod-notify-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-finance-storage-6.0.1",
+    "id": "mod-circulation-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-finance-4.0.1",
+    "id": "mod-source-record-storage-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-calendar-1.10.1",
+    "id": "mod-source-record-manager-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-event-config-1.6.1",
+    "id": "mod-data-import-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-template-engine-1.12.0",
+    "id": "mod-kb-ebsco-java-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-email-1.9.1",
+    "id": "mod-vendors-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-sender-1.4.0",
+    "id": "mod-erm-usage-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-notify-2.7.1",
+    "id": "mod-finance-storage-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-feesfines-15.9.2",
+    "id": "mod-inventory-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-patron-blocks-1.1.4",
+    "id": "mod-licenses-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-notes-2.10.2",
+    "id": "mod-orders-storage-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-circulation-19.2.8",
+    "id": "mod-orders-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-orders-11.1.2",
+    "id": "mod-authtoken-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-agreements-3.0.1",
+    "id": "mod-login-saml-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-licenses-3.0.1",
+    "id": "mod-codex-mux-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-audit-1.0.4",
+    "id": "mod-permissions-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-courses-1.1.1",
+    "id": "mod-login-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-data-export-3.0.4",
+    "id": "mod-password-validator-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-data-import-converter-storage-1.9.2",
+    "id": "mod-users-bl-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-source-record-manager-2.4.3",
+    "id": "mod-notes-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-data-import-1.11.1",
+    "id": "mod-tags-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-kb-ebsco-java-3.6.3",
+    "id": "mod-feesfines-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-tags-0.7.2",
+    "id": "mod-codex-inventory-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-erm-usage-3.0.2",
+    "id": "mod-codex-ekb-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-invoice-storage-4.1.2",
+    "id": "mod-data-import-converter-storage-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-invoice-4.1.2",
+    "id": "mod-erm-usage-harvester-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-organizations-1.1.1",
+    "id": "mod-audit-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-oai-pmh-3.2.4",
+    "id": "mod-audit-filter-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-quick-marc-1.2.2",
+    "id": "edge-rtac-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-codex-mux-2.9.2",
+    "id": "edge-oai-pmh-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-password-validator-1.8.2",
+    "id": "mod-rtac-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-authtoken-2.6.0",
+    "id": "mod-oai-pmh-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-users-bl-6.1.1",
+    "id": "mod-gobi-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-login-saml-2.0.1",
+    "id": "mod-patron-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-ncip-1.6.3",
+    "id": "edge-patron-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-gobi-1.11.1",
+    "id": "edge-orders-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-patron-4.3.0",
+    "id": "mod-user-import-<version>",
     "action": "disable"
   },
   {
-    "id": "mod-rtac-2.0.1",
-    "action": "disable"
-  },
-  {
-    "id": "mod-codex-inventory-1.8.0",
-    "action": "disable"
-  },
-  {
-    "id": "mod-codex-ekb-1.7.2",
-    "action": "disable"
-  },
-  {
-    "id": "mod-erm-usage-harvester-2.0.2",
-    "action": "disable"
-  },
-  {
-    "id": "mod-user-import-3.2.1",
+    "id": "mod-graphql-<version>",
     "action": "disable"
   }
 ]

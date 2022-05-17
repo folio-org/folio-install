@@ -29,7 +29,7 @@
            xsi:schemaLocation="http://www.hazelcast.com/schema/config
            http://www.hazelcast.com/schema/config/hazelcast-config-4.0.xsd">
 
-    <cluster-name>folio-q3</cluster-name>
+    <cluster-name>folio-r2</cluster-name>
 
     <network>
         <port auto-increment="true" port-count="100">5701</port>
@@ -75,7 +75,7 @@
                 <group-name>RESOURCE-GROUP-NAME</group-name>
             </azure>
             <kubernetes enabled="true">
-                <namespace>folio-q3</namespace>
+                <namespace>folio-r2</namespace>
                 <service-name>okapi</service-name>
                 <!--
                 <service-label-name>MY-SERVICE-LABEL-NAME</service-label-name>

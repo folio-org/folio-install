@@ -1,0 +1,5676 @@
+apiVersion: v1
+items:
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-edge-caiasoft-1-0-2
+    name: edge-caiasoft-1-0-2
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-edge-caiasoft-1-0-2
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-edge-caiasoft-1-0-2
+          app: edge-caiasoft
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Drequest_timeout_ms=7200000 -Dokapi_url=http://okapi:9130 -Dsecure_store=Ephemeral -Dsecure_store_props=/etc/folio/edge/edge-ephemeral.properties -Dlog4j2.formatMsgNoLookups=true
+          image: folioorg/edge-caiasoft:1.0.2
+          imagePullPolicy: Always
+          name: edge-caiasoft-1-0-2
+          ports:
+          - containerPort: 8081
+            name: 8081tcp1
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 10m
+              memory: 270Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+          volumeMounts:
+          - mountPath: /etc/folio/edge
+            name: edge-ephemeral
+            readOnly: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        volumes:
+        - name: edge-ephemeral
+          secret:
+            defaultMode: 420
+            optional: true
+            secretName: edge-securestore-props
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-edge-dematic-1-2-4
+    name: edge-dematic-1-2-4
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-edge-dematic-1-2-4
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-edge-dematic-1-2-4
+          app: edge-dematic
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Drequest_timeout_ms=7200000 -Dokapi_url=http://okapi:9130 -Dsecure_store=Ephemeral -Dsecure_store_props=/etc/folio/edge/edge-ephemeral.properties -Dlog4j2.formatMsgNoLookups=true
+          image: folioorg/edge-dematic:1.2.4
+          imagePullPolicy: Always
+          name: edge-dematic-1-2-4
+          ports:
+          - containerPort: 8081
+            name: 8081tcp1
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 10m
+              memory: 270Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+          volumeMounts:
+          - mountPath: /etc/folio/edge
+            name: edge-ephemeral
+            readOnly: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        volumes:
+        - name: edge-ephemeral
+          secret:
+            defaultMode: 420
+            optional: true
+            secretName: edge-securestore-props
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-edge-connexion-1-0-4
+    name: edge-connexion-1-0-4
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-edge-connexion-1-0-4
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-edge-connexion-1-0-4
+          app: edge-connexion
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dokapi_url=http://okapi:9130 -Dsecure_store=Ephemeral -Dsecure_store_props=/etc/folio/edge/edge-ephemeral.properties -Dlog4j2.formatMsgNoLookups=true
+          image: folioorg/edge-connexion:1.0.4
+          imagePullPolicy: Always
+          name: edge-connexion-1-0-4
+          ports:
+          - containerPort: 9000
+            name: 9000tcp1
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 10m
+              memory: 270Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+          volumeMounts:
+          - mountPath: /etc/folio/edge
+            name: edge-ephemeral
+            readOnly: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        volumes:
+        - name: edge-ephemeral
+          secret:
+            defaultMode: 420
+            optional: true
+            secretName: edge-securestore-props
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-edge-oai-pmh-2-3-3
+    name: edge-oai-pmh-2-3-3
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-edge-oai-pmh-2-3-3
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-edge-oai-pmh-2-3-3
+          app: edge-oai-pmh
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dokapi_url=http://okapi:9130 -Dsecure_store=Ephemeral -Dsecure_store_props=/etc/folio/edge/edge-ephemeral.properties -Dapi_key_sources=PARAM,HEADER,PATH -Dlog4j2.formatMsgNoLookups=true
+          image: folioorg/edge-oai-pmh:2.3.3
+          imagePullPolicy: Always
+          name: edge-oai-pmh-2-3-3
+          ports:
+          - containerPort: 8081
+            name: 8081tcp1
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 10m
+              memory: 270Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+          volumeMounts:
+          - mountPath: /etc/folio/edge
+            name: edge-ephemeral
+            readOnly: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        volumes:
+        - name: edge-ephemeral
+          secret:
+            defaultMode: 420
+            optional: true
+            secretName: edge-securestore-props
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-edge-ncip-1-6-2
+    name: edge-ncip-1-6-2
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-edge-ncip-1-6-2
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-edge-ncip-1-6-2
+          app: edge-ncip
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dokapi_url=http://okapi:9130 -Dsecure_store=Ephemeral -Dsecure_store_props=/etc/folio/edge/edge-ephemeral.properties -Dapi_key_sources=PARAM,HEADER,PATH -Dlog4j2.formatMsgNoLookups=true
+          image: folioorg/edge-ncip:1.6.2
+          imagePullPolicy: Always
+          name: edge-ncip-1-6-2
+          ports:
+          - containerPort: 8081
+            name: 8081tcp1
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+          volumeMounts:
+          - mountPath: /etc/folio/edge
+            name: edge-ephemeral
+            readOnly: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        volumes:
+        - name: edge-ephemeral
+          secret:
+            defaultMode: 420
+            optional: true
+            secretName: edge-securestore-props
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-edge-orders-2-4-2
+    name: edge-orders-2-4-2
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-edge-orders-2-4-2
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-edge-orders-2-4-2
+          app: edge-orders
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dokapi_url=http://okapi:9130 -Dsecure_store=Ephemeral -Dsecure_store_props=/etc/folio/edge/edge-ephemeral.properties -Dapi_key_sources=PARAM,HEADER,PATH -Dlog4j2.formatMsgNoLookups=true
+          image: folioorg/edge-orders:2.4.2
+          imagePullPolicy: Always
+          name: edge-orders-2-4-2
+          ports:
+          - containerPort: 8081
+            name: 8081tcp1
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 10m
+              memory: 260Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+          volumeMounts:
+          - mountPath: /etc/folio/edge
+            name: edge-ephemeral
+            readOnly: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        volumes:
+        - name: edge-ephemeral
+          secret:
+            defaultMode: 420
+            optional: true
+            secretName: edge-securestore-props
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-edge-patron-4-5-2
+    name: edge-patron-4-5-2
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-edge-patron-4-5-2
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-edge-patron-4-5-2
+          app: edge-patron
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dokapi_url=http://okapi:9130 -Dsecure_store=Ephemeral -Dsecure_store_props=/etc/folio/edge/edge-ephemeral.properties -Dapi_key_sources=PARAM,HEADER,PATH -Dlog4j2.formatMsgNoLookups=true
+          image: folioorg/edge-patron:4.5.2
+          imagePullPolicy: Always
+          name: edge-patron-4-5-2
+          ports:
+          - containerPort: 8081
+            name: 8081tcp1
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 10m
+              memory: 128Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+          volumeMounts:
+          - mountPath: /etc/folio/edge
+            name: edge-ephemeral
+            readOnly: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        volumes:
+        - name: edge-ephemeral
+          secret:
+            defaultMode: 420
+            optional: true
+            secretName: edge-securestore-props
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-edge-rtac-2-2-2
+    name: edge-rtac-2-2-2
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-edge-rtac-2-2-2
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-edge-rtac-2-2-2
+          app: edge-rtac
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dokapi_url=http://okapi:9130 -Dsecure_store=Ephemeral -Dsecure_store_props=/etc/folio/edge/edge-ephemeral.properties -Dapi_key_sources=PARAM,HEADER,PATH -Dlog4j2.formatMsgNoLookups=true
+          image: folioorg/edge-rtac:2.2.2
+          imagePullPolicy: Always
+          name: edge-rtac-2-2-2
+          ports:
+          - containerPort: 8081
+            name: 8081tcp1
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 10m
+              memory: 270Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+          volumeMounts:
+          - mountPath: /etc/folio/edge
+            name: edge-ephemeral
+            readOnly: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        volumes:
+        - name: edge-ephemeral
+          secret:
+            defaultMode: 420
+            optional: true
+            secretName: edge-securestore-props
+- apiVersion: apps/v1
+  kind: StatefulSet
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: statefulSet-folio-r2-mod-agreements-4-1-1
+    name: mod-agreements-4-1-1
+  spec:
+    podManagementPolicy: OrderedReady
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: statefulSet-folio-r2-mod-agreements-4-1-1
+    serviceName: mod-agreements-4-1-1
+    template:
+      metadata:
+        annotations:
+          field.cattle.io/ports: '[[{"containerPort":8080,"dnsName":"mod-agreements-4-1-1","kind":"ClusterIP","name":"8080tcp1","protocol":"TCP"}]]'
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: statefulSet-folio-r2-mod-agreements-4-1-1
+          app: mod-agreements
+      spec:
+        containers:
+        - env:
+          - name: GRAILS_SERVER_HOST
+            value: mod-agreements-4-1-1
+          - name: GRAILS_SERVER_PORT
+            value: "8080"
+          - name: JAVA_OPTIONS
+            value: -server -XX:+UseContainerSupport -XX:MaxRAMPercentage=50.0 -XX:+PrintFlagsFinal -Dlog4j2.formatMsgNoLookups=true
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          image: folioorg/mod-agreements:4.1.1
+          imagePullPolicy: Always
+          name: mod-agreements-4-1-1
+          ports:
+          - containerPort: 8080
+            name: 8080tcp1
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 3Gi
+            requests:
+              cpu: 100m
+              memory: 880Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+    updateStrategy:
+      type: RollingUpdate
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-audit-2-1-1
+    name: mod-audit-2-1-1
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-audit-2-1-1
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-audit-2-1-1
+          app: mod-audit
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          image: folioorg/mod-audit:2.1.1
+          imagePullPolicy: Always
+          name: mod-audit-2-1-1
+          resources:
+            limits:
+              cpu: "1"
+              memory: 2Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-authtoken-2-8-2
+    name: mod-authtoken-2-8-2
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-authtoken-2-8-2
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-authtoken-2-8-2
+          app: mod-authtoken
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -Djwt.signing.key=WrongElectricDonkeyPaperclip -XX:MaxRAMPercentage=66.0 -Dcache.permissions=true -Dlog.level=warn -Dperm.lookup.timeout=10 -Duser.cache.seconds=60 -Duser.cache.purge.seconds=43200 -Dsys.perm.cache.seconds=259200 -Dport=8081 -Dlog4j2.formatMsgNoLookups=true
+          image: folioorg/mod-authtoken:2.8.2
+          imagePullPolicy: Always
+          name: mod-authtoken-2-8-2
+          resources:
+            limits:
+              cpu: "1"
+              memory: 2Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-calendar-1-12-1
+    name: mod-calendar-1-12-1
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-calendar-1-12-1
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-calendar-1-12-1
+          app: mod-calendar
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          image: folioorg/mod-calendar:1.12.1
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-calendar-1-12-1
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 1Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-circulation-22-0-7
+    name: mod-circulation-22-0-7
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-circulation-22-0-7
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          field.cattle.io/ports: '[[{"containerPort":9801,"dnsName":"mod-circulation-22-0-7","kind":"ClusterIP","name":"9801tcp1","protocol":"TCP"}]]'
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-circulation-22-0-7
+          app: mod-circulation
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          image: folioorg/mod-circulation:22.0.7
+          imagePullPolicy: Always
+          name: mod-circulation-22-0-7
+          ports:
+          - containerPort: 9801
+            name: 9801tcp1
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 2Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: StatefulSet
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: statefulSet-folio-r2-mod-circulation-storage-13-0-1
+    name: mod-circulation-storage-13-0-1
+  spec:
+    podManagementPolicy: OrderedReady
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: statefulSet-folio-r2-mod-circulation-storage-13-0-1
+    serviceName: mod-circulation-storage-13-0-1
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: statefulSet-folio-r2-mod-circulation-storage-13-0-1
+          app: mod-circulation-storage
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          image: folioorg/mod-circulation-storage:13.0.1
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-circulation-storage-13-0-1
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 500m
+              memory: 3Gi
+            requests:
+              cpu: 10m
+              memory: 540Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+    updateStrategy:
+      type: RollingUpdate
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-codex-ekb-1-9-1
+    name: mod-codex-ekb-1-9-1
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-codex-ekb-1-9-1
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-codex-ekb-1-9-1
+          app: mod-codex-ekb
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          image: folioorg/mod-codex-ekb:1.9.1
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-codex-ekb-1-9-1
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-codex-inventory-2-0-1
+    name: mod-codex-inventory-2-0-1
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-codex-inventory-2-0-1
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-codex-inventory-2-0-1
+          app: mod-codex-inventory
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          image: folioorg/mod-codex-inventory:2.0.1
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-codex-inventory-2-0-1
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 500m
+              memory: 2Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-codex-mux-2-11-1
+    name: mod-codex-mux-2-11-1
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-codex-mux-2-11-1
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-codex-mux-2-11-1
+          app: mod-codex-mux
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          image: folioorg/mod-codex-mux:2.11.1
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-codex-mux-2-11-1
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-configuration-5-7-4
+    name: mod-configuration-5-7-4
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-configuration-5-7-4
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-configuration-5-7-4
+          app: mod-configuration
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          image: folioorg/mod-configuration:5.7.4
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-configuration-5-7-4
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-courses-1-4-3
+    name: mod-courses-1-4-3
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-courses-1-4-3
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-courses-1-4-3
+          app: mod-courses
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          image: folioorg/mod-courses:1.4.3
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-courses-1-4-3
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-data-export-4-1-2
+    name: mod-data-export-4-1-2
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-data-export-4-1-2
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-data-export-4-1-2
+          app: mod-data-export
+      spec:
+        containers:
+        - args:
+          - -Dbucket.name=folio-data-export
+          env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          - secretRef:
+              name: data-export-aws-config
+          image: folioorg/mod-data-export:4.1.2
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-data-export-4-1-2
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: "1"
+              memory: 4Gi
+            requests:
+              cpu: 10m
+              memory: 540Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+          volumeMounts:
+          - mountPath: /usr/verticles/storage/files
+            name: storage-files
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        volumes:
+        - name: storage-files
+          persistentVolumeClaim:
+            claimName: storage-files
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-data-import-2-1-5
+    name: mod-data-import-2-1-5
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-data-import-2-1-5
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-data-import-2-1-5
+          app: mod-data-import
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          - name: data.import.storage.type
+            value: LOCAL_STORAGE
+          - name: data.import.storage.path
+            value: /storage/upload
+          - name: KAFKA_HOST
+            value: http://kafka-r2
+          - name: KAFKA_PORT
+            value: "9092"
+          - name: ENV
+            value: folio-r2
+          - name: file.processing.buffer.chunk.size
+            value: "50"
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          image: folioorg/mod-data-import:2.1.5
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-data-import-2-1-5
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: "1"
+              memory: 4Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+          volumeMounts:
+          - mountPath: /usr/verticles/storage/upload
+            name: storage-files-import
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        volumes:
+        - name: storage-files-import
+          persistentVolumeClaim:
+            claimName: storage-files-import
+- apiVersion: apps/v1
+  kind: StatefulSet
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: statefulSet-folio-r2-mod-data-import-converter-storage-1-11-4
+    name: mod-data-import-converter-storage-1-11-4
+  spec:
+    podManagementPolicy: OrderedReady
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: statefulSet-folio-r2-mod-data-import-converter-storage-1-11-4
+    serviceName: mod-data-import-converter-storage-1-11-4
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: statefulSet-folio-r2-mod-data-import-converter-storage-1-11-4
+          app: mod-data-import-converter-storage
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          image: folioorg/mod-data-import-converter-storage:1.11.4
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-data-import-converter-storage-1-11-4
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: "1"
+              memory: 4Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+    updateStrategy:
+      type: RollingUpdate
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-ebsconet-1-0-3
+    name: mod-ebsconet-1-0-3
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-ebsconet-1-0-3
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-ebsconet-1-0-3
+          app: mod-ebsconet
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=80.0 -Dlog4j2.formatMsgNoLookups=true
+          - name: ENV
+            value: folio-r2
+          - name: KAFKA_HOST
+            value: http://kafka-r2
+          - name: KAFKA_PORT
+            value: "9092"
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          image: folioorg/mod-ebsconet:1.0.3
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-ebsconet-1-0-3
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-email-1-11-1
+    name: mod-email-1-11-1
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-email-1-11-1
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-email-1-11-1
+          app: mod-email
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          image: folioorg/mod-email:1.11.1
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-email-1-11-1
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-erm-usage-4-1-1
+    name: mod-erm-usage-4-1-1
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-erm-usage-4-1-1
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-erm-usage-4-1-1
+          app: mod-erm-usage
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          image: folioorg/mod-erm-usage:4.1.1
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-erm-usage-4-1-1
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 500m
+              memory: 2Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-erm-usage-harvester-3-1-4
+    name: mod-erm-usage-harvester-3-1-4
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-erm-usage-harvester-3-1-4
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-erm-usage-harvester-3-1-4
+          app: mod-erm-usage-harvester
+      spec:
+        containers:
+        - env:
+          - name: CONFIG
+            value: '{"okapiUrl": "http://okapi:9130"}'
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          image: folioorg/mod-erm-usage-harvester:3.1.4
+          imagePullPolicy: Always
+          name: mod-erm-usage-harvester-3-1-4
+          resources:
+            limits:
+              cpu: 500m
+              memory: 2Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-event-config-2-1-1
+    name: mod-event-config-2-1-1
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-event-config-2-1-1
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-event-config-2-1-1
+          app: mod-event-config
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          image: folioorg/mod-event-config:2.1.1
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-event-config-2-1-1
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-feesfines-16-1-2
+    name: mod-feesfines-16-1-2
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-feesfines-16-1-2
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-feesfines-16-1-2
+          app: mod-feesfines
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          image: folioorg/mod-feesfines:16.1.2
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-feesfines-16-1-2
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: StatefulSet
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: statefulSet-folio-r2-mod-finance-storage-7-1-2
+    name: mod-finance-storage-7-1-2
+  spec:
+    podManagementPolicy: OrderedReady
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: statefulSet-folio-r2-mod-finance-storage-7-1-2
+    serviceName: mod-finance-storage-7-1-2
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: statefulSet-folio-r2-mod-finance-storage-7-1-2
+          app: mod-finance-storage
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          image: folioorg/mod-finance-storage:7.1.2
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-finance-storage-7-1-2
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 500m
+              memory: 4Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+    updateStrategy:
+      type: RollingUpdate
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-gobi-2-1-2
+    name: mod-gobi-2-1-2
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-gobi-2-1-2
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-gobi-2-1-2
+          app: mod-gobi
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          image: folioorg/mod-gobi:2.1.2
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-gobi-2-1-2
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-inventory-17-0-9
+    name: mod-inventory-17-0-9
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-inventory-17-0-9
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          field.cattle.io/ports: '[[{"containerPort":9403,"dnsName":"mod-inventory-17-0-9","kind":"ClusterIP","name":"9403tcp1","protocol":"TCP"}]]'
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-inventory-17-0-9
+          app: mod-inventory
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dorg.folio.metadata.inventory.storage.type=okapi -Dlog4j2.formatMsgNoLookups=true
+          - name: ENV
+            value: folio-r2
+          - name: KAFKA_HOST
+            value: http://kafka-r2
+          - name: KAFKA_PORT
+            value: "9092"
+          - name: inventory.kafka.DataImportConsumerVerticle.instancesNumber
+            value: "10"
+          - name: inventory.kafka.MarcBibInstanceHridSetConsumerVerticle.instancesNumber
+            value: "10"
+          - name: kafka.consumer.max.poll.records
+            value: "10"
+          image: folioorg/mod-inventory:17.0.9
+          imagePullPolicy: Always
+          name: mod-inventory-17-0-9
+          ports:
+          - containerPort: 9403
+            name: 9403tcp1
+            protocol: TCP
+          resources:
+            limits:
+              cpu: "1"
+              memory: 3Gi
+            requests:
+              cpu: 10m
+              memory: 128Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: StatefulSet
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: statefulSet-folio-r2-mod-inventory-storage-21-0-10
+    name: mod-inventory-storage-21-0-10
+  spec:
+    podManagementPolicy: OrderedReady
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: statefulSet-folio-r2-mod-inventory-storage-21-0-10
+    serviceName: mod-inventory-storage-21-0-10
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: statefulSet-folio-r2-mod-inventory-storage-21-0-10
+          app: mod-inventory-storage
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          - name: KAFKA_HOST
+            value: http://kafka-r2
+          - name: KAFKA_PORT
+            value: "9092"
+          - name: REPLICATION_FACTOR
+            value: "3"
+          - name: ENV
+            value: folio-r2
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          image: folioorg/mod-inventory-storage:21.0.10
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-inventory-storage-21-0-10
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: "1"
+              memory: 3Gi
+            requests:
+              cpu: 10m
+              memory: 720Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+    updateStrategy:
+      type: RollingUpdate
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-kb-ebsco-java-3-8-1
+    name: mod-kb-ebsco-java-3-8-1
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-kb-ebsco-java-3-8-1
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-kb-ebsco-java-3-8-1
+          app: mod-kb-ebsco-java
+      spec:
+        containers:
+        - env:
+          - name: EBSCO_RMAPI_BASE_URL
+            value: https://sandbox.ebsco.io
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          image: folioorg/mod-kb-ebsco-java:3.8.1
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-kb-ebsco-java-3-8-1
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: StatefulSet
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: statefulSet-folio-r2-mod-licenses-3-2-0
+    name: mod-licenses-3-2-0
+  spec:
+    podManagementPolicy: OrderedReady
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: statefulSet-folio-r2-mod-licenses-3-2-0
+    serviceName: mod-licenses-3-2-0
+    template:
+      metadata:
+        annotations:
+          field.cattle.io/ports: '[[{"containerPort":8080,"dnsName":"mod-licenses-3-2-0","kind":"ClusterIP","name":"8080tcp1","protocol":"TCP"}]]'
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: statefulSet-folio-r2-mod-licenses-3-2-0
+          app: mod-licenses
+      spec:
+        containers:
+        - env:
+          - name: GRAILS_SERVER_HOST
+            value: mod-licenses-3-2-0
+          - name: GRAILS_SERVER_PORT
+            value: "8080"
+          - name: JAVA_OPTIONS
+            value: -server -XX:+UseContainerSupport -XX:MaxRAMPercentage=50.0 -XX:+PrintFlagsFinal -Dlog4j2.formatMsgNoLookups=true
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          image: folioorg/mod-licenses:3.2.0
+          imagePullPolicy: Always
+          name: mod-licenses-3-2-0
+          ports:
+          - containerPort: 8080
+            name: 8080tcp1
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 4Gi
+            requests:
+              cpu: 100m
+              memory: 810Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+    updateStrategy:
+      type: RollingUpdate
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-login-7-5-1
+    name: mod-login-7-5-1
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-login-7-5-1
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-login-7-5-1
+          app: mod-login
+      spec:
+        containers:
+        - args:
+          - verify.user=true
+          env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          image: folioorg/mod-login:7.5.1
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-login-7-5-1
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-login-saml-2-4-1
+    name: mod-login-saml-2-4-1
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-login-saml-2-4-1
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-login-saml-2-4-1
+          app: login-saml
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          image: folioorg/mod-login-saml:2.4.1
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-login-saml-2-4-1
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-ncip-1-8-1
+    name: mod-ncip-1-8-1
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-ncip-1-8-1
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-ncip-1-8-1
+          app: mod-ncip
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          image: folioorg/mod-ncip:1.8.1
+          imagePullPolicy: Always
+          name: mod-ncip-1-8-1
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-notes-2-12-1
+    name: mod-notes-2-12-1
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-notes-2-12-1
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-notes-2-12-1
+          app: mod-notes
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          image: folioorg/mod-notes:2.12.1
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-notes-2-12-1
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-notify-2-9-1
+    name: mod-notify-2-9-1
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-notify-2-9-1
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-notify-2-9-1
+          app: mod-notify
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          image: folioorg/mod-notify:2.9.1
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-notify-2-9-1
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-oai-pmh-3-5-1
+    name: mod-oai-pmh-3-5-1
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-oai-pmh-3-5-1
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-oai-pmh-3-5-1
+          app: mod-oai-pmh
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          image: folioorg/mod-oai-pmh:3.5.1
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-oai-pmh-3-5-1
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-orders-12-1-4
+    name: mod-orders-12-1-4
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-orders-12-1-4
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-orders-12-1-4
+          app: mod-orders
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          image: folioorg/mod-orders:12.1.4
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-orders-12-1-4
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: StatefulSet
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: statefulSet-folio-r2-mod-orders-storage-13-0-5
+    name: mod-orders-storage-13-0-5
+  spec:
+    podManagementPolicy: OrderedReady
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: statefulSet-folio-r2-mod-orders-storage-13-0-5
+    serviceName: mod-orders-storage-13-0-5
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: statefulSet-folio-r2-mod-orders-storage-13-0-5
+          app: mod-orders-storage
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          image: folioorg/mod-orders-storage:13.0.5
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-orders-storage-13-0-5
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 500m
+              memory: 3Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+    updateStrategy:
+      type: RollingUpdate
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-password-validator-2-1-1
+    name: mod-password-validator-2-1-1
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-password-validator-2-1-1
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-password-validator-2-1-1
+          app: mod-password-validator
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          image: folioorg/mod-password-validator:2.1.1
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-password-validator-2-1-1
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-patron-4-5-3
+    name: mod-patron-4-5-3
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-patron-4-5-3
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-patron-4-5-3
+          app: mod-patron
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          image: folioorg/mod-patron:4.5.3
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-patron-4-5-3
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-permissions-5-14-4
+    name: mod-permissions-5-14-4
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-permissions-5-14-4
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-permissions-5-14-4
+          app: mod-permissions
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          image: folioorg/mod-permissions:5.14.4
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-permissions-5-14-4
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: "1"
+              memory: 2Gi
+            requests:
+              cpu: 10m
+              memory: 720Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-pubsub-2-3-5
+    name: mod-pubsub-2-3-5
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-pubsub-2-3-5
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-pubsub-2-3-5
+          app: mod-pubsub
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          - secretRef:
+              name: mod-pubsub
+              optional: true
+          image: folioorg/mod-pubsub:2.3.5
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-pubsub-2-3-5
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 500m
+              memory: 4Gi
+            requests:
+              cpu: 10m
+              memory: 1024Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-rtac-3-0-3
+    name: mod-rtac-3-0-3
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-rtac-3-0-3
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-rtac-3-0-3
+          app: mod-rtac
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          image: folioorg/mod-rtac:3.0.3
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-rtac-3-0-3
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-sender-1-6-1
+    name: mod-sender-1-6-1
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-sender-1-6-1
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-sender-1-6-1
+          app: mod-sender
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          image: folioorg/mod-sender:1.6.1
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-sender-1-6-1
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 10m
+              memory: 540Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-service-interaction-1-0-0
+    name: mod-service-interaction-1-0-0
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-service-interaction-1-0-0
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-service-interaction-1-0-0
+          app: mod-service-interaction
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -server -XX:+UseContainerSupport -XX:MaxRAMPercentage=55.0 -XX:+PrintFlagsFinal -Dlog4j2.formatMsgNoLookups=true
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          image: folioorg/mod-service-interaction:1.0.0
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-service-interaction-1-0-0
+          ports:
+          - containerPort: 8080
+            name: 8080tcp1
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-source-record-manager-3-1-4
+    name: mod-source-record-manager-3-1-4
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-source-record-manager-3-1-4
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-source-record-manager-3-1-4
+          app: mod-source-record-manager
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          - name: test.mode
+            value: "false"
+          - name: KAFKA_HOST
+            value: http://kafka-r2
+          - name: KAFKA_PORT
+            value: "9092"
+          - name: ENV
+            value: folio-r2
+          - name: MAX_REQUEST_SIZE
+            value: "8000000"
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          image: folioorg/mod-source-record-manager:3.1.4
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-source-record-manager-3-1-4
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 500m
+              memory: 6Gi
+            requests:
+              cpu: 10m
+              memory: 720Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: StatefulSet
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: statefulSet-folio-r2-mod-source-record-storage-5-1-9
+    name: mod-source-record-storage-5-1-9
+  spec:
+    podManagementPolicy: OrderedReady
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: statefulSet-folio-r2-mod-source-record-storage-5-1-9
+    serviceName: mod-source-record-storage-5-1-9
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: statefulSet-folio-r2-mod-source-record-storage-5-1-9
+          app: mod-source-record-storage
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          - name: test.mode
+            value: "false"
+          - name: KAFKA_HOST
+            value: http://kafka-r2
+          - name: KAFKA_PORT
+            value: "9092"
+          - name: ENV
+            value: folio-r2
+          - name: MAX_REQUEST_SIZE
+            value: "8000000"
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          image: folioorg/mod-source-record-storage:5.1.9
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-source-record-storage-5-1-9
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 500m
+              memory: 6Gi
+            requests:
+              cpu: 10m
+              memory: 600Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+    updateStrategy:
+      type: RollingUpdate
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-tags-0-9-1
+    name: mod-tags-0-9-1
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-tags-0-9-1
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-tags-0-9-1
+          app: mod-tags
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          image: folioorg/mod-tags:0.9.1
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-tags-0-9-1
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-template-engine-1-14-1
+    name: mod-template-engine-1-14-1
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-template-engine-1-14-1
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-template-engine-1-14-1
+          app: mod-template-engine
+      spec:
+        containers:
+        - args:
+          - verify.user=true
+          env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          image: folioorg/mod-template-engine:1.14.1
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-template-engine-1-14-1
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-user-import-3-6-3
+    name: mod-user-import-3-6-3
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-user-import-3-6-3
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-user-import-3-6-3
+          app: mod-user-import
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          image: folioorg/mod-user-import:3.6.3
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-user-import-3-6-3
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: "1"
+              memory: 4Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-users-18-0-2
+    name: mod-users-18-0-2
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-users-18-0-2
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-users-18-0-2
+          app: mod-users
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          image: folioorg/mod-users:18.0.2
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-users-18-0-2
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: "1"
+              memory: 2Gi
+            requests:
+              cpu: 10m
+              memory: 540Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-users-bl-7-0-1
+    name: mod-users-bl-7-0-1
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-users-bl-7-0-1
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-users-bl-7-0-1
+          app: mod-users-bl
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          image: folioorg/mod-users-bl:7.0.1
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-users-bl-7-0-1
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: "1"
+              memory: 2Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: StatefulSet
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: statefulSet-folio-r2-mod-organizations-storage-4-1-1
+    name: mod-organizations-storage-4-1-1
+  spec:
+    podManagementPolicy: OrderedReady
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: statefulSet-folio-r2-mod-organizations-storage-4-1-1
+    serviceName: mod-organizations-storage-4-1-1
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: statefulSet-folio-r2-mod-organizations-storage-4-1-1
+          app: mod-organizations-storage
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          image: folioorg/mod-organizations-storage:4.1.1
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-organizations-storage-4-1-1
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 500m
+              memory: 4Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+    updateStrategy:
+      type: RollingUpdate
+- apiVersion: apps/v1
+  kind: StatefulSet
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: statefulSet-folio-r2-mod-invoice-storage-5-1-2
+    name: mod-invoice-storage-5-1-2
+  spec:
+    podManagementPolicy: OrderedReady
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: statefulSet-folio-r2-mod-invoice-storage-5-1-2
+    serviceName: mod-invoice-storage-5-1-2
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: statefulSet-folio-r2-mod-invoice-storage-5-1-2
+          app: mod-invoice-storage
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          image: folioorg/mod-invoice-storage:5.1.2
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-invoice-storage-5-1-2
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 500m
+              memory: 4Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+    updateStrategy:
+      type: RollingUpdate
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-invoice-5-1-11
+    name: mod-invoice-5-1-11
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-invoice-5-1-11
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-invoice-5-1-11
+          app: mod-invoice
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          - name: KAFKA_HOST
+            value: http://kafka-r2
+          - name: KAFKA_PORT
+            value: "9092"
+          - name: ENV
+            value: folio-r2
+          - name: dataimport.consumer.verticle.mandatory
+            value: "false"
+          image: folioorg/mod-invoice:5.1.11
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-invoice-5-1-11
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 500m
+              memory: 2Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-finance-4-2-2
+    name: mod-finance-4-2-2
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-finance-4-2-2
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-finance-4-2-2
+          app: mod-finance
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          image: folioorg/mod-finance:4.2.2
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-finance-4-2-2
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 500m
+              memory: 2Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: DaemonSet
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: daemonSet-folio-r2-edge-sip2-2-1-2
+    name: edge-sip2-2-1-2
+  spec:
+    minReadySeconds: 0
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: daemonSet-folio-r2-edge-sip2-2-1-2
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: daemonSet-folio-r2-edge-sip2-2-1-2
+          app: edge-sip2
+      spec:
+        containers:
+        - args:
+          - -conf
+          - sip2.conf
+          env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          image: folioorg/edge-sip2:2.1.2
+          imagePullPolicy: Always
+          name: edge-sip2-2-1-2
+          ports:
+          - containerPort: 7052
+            hostPort: 7052
+            name: 7052tcp1
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 10m
+              memory: 270Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities: {}
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+          volumeMounts:
+          - mountPath: /usr/verticles/sip2.conf
+            name: sip2-conf
+            subPath: sip2.conf
+          - mountPath: /usr/verticles/sip2-tenants.conf
+            name: sip2-tenants-conf
+            subPath: sip2-tenants.conf
+        dnsConfig: {}
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        volumes:
+        - configMap:
+            defaultMode: 420
+            name: sip2-conf
+            optional: false
+          name: sip2-conf
+        - configMap:
+            defaultMode: 420
+            name: sip2-tenants-conf
+            optional: false
+          name: sip2-tenants-conf
+    updateStrategy:
+      rollingUpdate:
+        maxUnavailable: 1
+      type: RollingUpdate
+- apiVersion: apps/v1
+  kind: StatefulSet
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: statefulSet-folio-r2-mod-patron-blocks-1-3-4
+    name: mod-patron-blocks-1-3-4
+  spec:
+    podManagementPolicy: OrderedReady
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: statefulSet-folio-r2-mod-patron-blocks-1-3-4
+    serviceName: mod-patron-blocks-1-3-4
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: statefulSet-folio-r2-mod-patron-blocks-1-3-4
+          app: mod-patron-blocks
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          image: folioorg/mod-patron-blocks:1.3.4
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-patron-blocks-1-3-4
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 500m
+              memory: 3Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+    updateStrategy:
+      type: RollingUpdate
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-organizations-1-3-1
+    name: mod-organizations-1-3-1
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-organizations-1-3-1
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-organizations-1-3-1
+          app: mod-organizations
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          image: folioorg/mod-organizations:1.3.1
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-organizations-1-3-1
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 500m
+              memory: 2Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-quick-marc-2-1-2
+    name: mod-quick-marc-2-1-2
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-quick-marc-2-1-2
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-quick-marc-2-1-2
+          app: mod-quick-marc
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=85.0 -Dlog4j2.formatMsgNoLookups=true
+          - name: KAFKA_HOST
+            value: http://kafka-r2
+          - name: KAFKA_PORT
+            value: "9092"
+          - name: ENV
+            value: folio-r2
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          image: folioorg/mod-quick-marc:2.1.2
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-quick-marc-2-1-2
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 500m
+              memory: 2Gi
+            requests:
+              cpu: 10m
+              memory: 360Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-data-export-spring-1-1-4
+    name: mod-data-export-spring-1-1-4
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-data-export-spring-1-1-4
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-data-export-spring-1-1-4
+          app: mod-data-export-spring
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          - name: KAFKA_HOST
+            value: http://kafka-r2
+          - name: KAFKA_PORT
+            value: "9092"
+          - name: OKAPI_URL
+            value: http://okapi:9130
+          - name: ENV
+            value: folio-r2
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          image: folioorg/mod-data-export-spring:1.1.4
+          imagePullPolicy: Always
+          name: mod-data-export-spring-1-1-4
+          resources:
+            limits:
+              cpu: "1"
+              memory: 4Gi
+            requests:
+              cpu: 10m
+              memory: 540Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-search-1-4-4
+    name: mod-search-1-4-4
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-search-1-4-4
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-search-1-4-4
+          app: mod-search
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          - secretRef:
+              name:   mod-search
+              optional: true
+          image: folioorg/mod-search:1.4.4
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-search-1-4-4
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: "1"
+              memory: 4Gi
+            requests:
+              cpu: 10m
+              memory: 540Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-remote-storage-1-3-4
+    name: mod-remote-storage-1-3-4
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-remote-storage-1-3-4
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-remote-storage-1-3-4
+          app: mod-remote-storage
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=75.0 -Dlog4j2.formatMsgNoLookups=true
+          - name: KAFKA_HOST
+            value: http://kafka-r2
+          - name: KAFKA_PORT
+            value: "9092"
+          - name: ENV
+            value: folio-r2
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          image: folioorg/mod-remote-storage:1.3.4
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-remote-storage-1-3-4
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: "1"
+              memory: 4Gi
+            requests:
+              cpu: 10m
+              memory: 720Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-copycat-1-1-2
+    name: mod-copycat-1-1-2
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-copycat-1-1-2
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-copycat-1-1-2
+          app: mod-copycat
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          image: folioorg/mod-copycat:1.1.2
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: mod-copycat-1-1-2
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /admin/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: "1"
+              memory: 4Gi
+            requests:
+              cpu: 10m
+              memory: 540Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-data-export-worker-1-1-8
+    name: mod-data-export-worker-1-1-8
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-data-export-worker-1-1-8
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-data-export-worker-1-1-8
+          app: mod-data-export-worker
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          - name: KAFKA_HOST
+            value: http://kafka-r2
+          - name: KAFKA_PORT
+            value: "9092"
+          - name: ENV
+            value: folio-r2
+          envFrom:
+          - secretRef:
+              name: db-connect
+              optional: true
+          - secretRef:
+              name: data-export-aws-config
+              optional: true
+          image: folioorg/mod-data-export-worker:1.1.8
+          imagePullPolicy: Always
+          name: mod-data-export-worker-1-1-8
+          resources:
+            limits:
+              cpu: "1"
+              memory: 4Gi
+            requests:
+              cpu: 10m
+              memory: 540Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-z3950-2-4-0
+    name: mod-z3950-2-4-0
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-z3950-2-4-0
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-z3950-2-4-0
+          app: mod-z3950
+      spec:
+        containers:
+        - args:
+          - perl
+          - -I
+          - lib
+          - bin/z2folio
+          - -c
+          - etc/config
+          - --
+          - -f
+          - etc/yazgfs.xml
+          - -v-session
+          env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          image: folioorg/mod-z3950:2.4.0
+          imagePullPolicy: Always
+          name: mod-z3950-2-4-0
+          ports:
+          - containerPort: 9997
+            hostPort: 7090
+            name: 9997tcp7090tcp1
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 2Gi
+            requests:
+              cpu: 10m
+              memory: 400Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+          volumeMounts:
+          - mountPath: /usr/src/app/etc/config.tamu.json
+            name: config
+            subPath: config.tamu.json
+          - mountPath: /usr/src/app/etc/config.Default.json
+            name: config
+            subPath: config.Default.json
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        volumes:
+        - name: config
+          secret:
+            defaultMode: 420
+            optional: true
+            secretName: mod-z3950
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      field.cattle.io/creatorId: "null"
+    labels:
+      cattle.io/creator: norman
+      workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-graphql-1-9-0
+    name: mod-graphql-1-9-0
+  spec:
+    minReadySeconds: 0
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-graphql-1-9-0
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        labels:
+          workload: folio_module
+          workload.user.cattle.io/workloadselector: deployment-folio-r2-mod-graphql-1-9-0
+          app: mod-graphql
+      spec:
+        containers:
+        - env:
+          - name: JAVA_OPTIONS
+            value: -XX:MaxRAMPercentage=66.0 -Dlog4j2.formatMsgNoLookups=true
+          envFrom:
+          - secretRef:
+              name: mod-graphql
+              optional: true
+          image: folioorg/mod-graphql:1.9.0
+          imagePullPolicy: Always
+          name: mod-graphql-1-9-0
+          ports:
+          - containerPort: 3001
+            name: 3001tcp1
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 2Gi
+            requests:
+              cpu: 10m
+              memory: 400Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          stdin: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: dockerhub
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+kind: List
