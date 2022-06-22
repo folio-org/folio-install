@@ -1,7 +1,7 @@
 FROM ubuntu:18.04
 
 #Prerequisites
-RUN apt-get update && apt-get -y install wget curl nodejs npm gnupg apt-transport-https ca-certificates ssl-cert software-properties-common
+RUN apt-get update && apt-get -y install git wget curl nodejs npm gnupg apt-transport-https ca-certificates ssl-cert software-properties-common
 RUN npm install n -g
 
 #Yarn
