@@ -1,7 +1,11 @@
 FROM alpine:3.15.0
 
+#Upgrade all packages: https://pythonspeed.com/articles/security-updates-in-docker/
 #Prerequisites
-RUN apk add --no-cache make curl perl perl-app-cpanminus perl-json perl-libwww
+RUN apk upgrade \
+ && apk add \
+      make curl perl perl-app-cpanminus perl-json perl-libwww \
+ && rm -rf /var/cache/apk/*
 RUN cpanm UUID::Tiny
 
 #Create working directory

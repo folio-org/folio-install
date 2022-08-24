@@ -35,6 +35,9 @@ RUN yarn build --okapi $OKAPI_URL --tenant $TENANT_ID ./output
 #Load balancer
 FROM nginx:stable-alpine
 
+#Install latest patch versions of packages: https://pythonspeed.com/articles/security-updates-in-docker/
+RUN apk upgrade --no-cache
+
 #Expose the Stripes Nginx port
 EXPOSE 3000
 
