@@ -10,10 +10,15 @@ RUN git clone  -b "v4.11.1" --recursive https://github.com/folio-org/okapi.git
 RUN cd okapi && mvn clean install -DskipTests
 
 #OpenJDK Alpine
-FROM alpine:3.15.0
+FROM alpine:3.15.6
 
+#Install latest patch versions of packages: https://pythonspeed.com/articles/security-updates-in-docker/
 #Okapi Prerequisites
-RUN apk add --no-cache curl openjdk11
+RUN apk upgrade \
+ && apk add \
+      curl \
+      openjdk11 \
+ && rm -rf /var/cache/apk/*
 
 #Copy in files at this build layer
 RUN mkdir -p /usr/local/bin/folio/

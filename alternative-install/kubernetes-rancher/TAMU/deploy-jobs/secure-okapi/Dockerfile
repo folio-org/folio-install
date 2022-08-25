@@ -1,7 +1,11 @@
 FROM alpine:3.15.0
 
+#Upgrade all packages: https://pythonspeed.com/articles/security-updates-in-docker/
 #Prerequisites
-RUN apk add --no-cache curl
+RUN apk upgrade \
+ && apk add \
+      curl \
+ && rm -rf /var/cache/apk/*
 
 #Create working directory
 RUN mkdir -p /usr/local/bin/folio/install

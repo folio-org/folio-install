@@ -1,7 +1,8 @@
 FROM debian:buster-slim
 
+#Upgrade all packages: https://pythonspeed.com/articles/security-updates-in-docker/
 #LDP Derived Tables Prerequisites
-RUN apt update -y && apt install -y postgresql-client libcurl4-openssl-dev perl libdbi-perl libdbd-pg-perl
+RUN apt update -y && apt upgrade -y && apt install -y postgresql-client libcurl4-openssl-dev perl libdbi-perl libdbd-pg-perl
 
 #Create folders in container
 RUN mkdir -p /usr/local/bin/ldp/sql/derived_tables
