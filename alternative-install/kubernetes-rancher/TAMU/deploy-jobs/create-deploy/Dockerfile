@@ -1,12 +1,11 @@
-FROM alpine:3.11
+FROM python:3-alpine
 
 #Upgrade all packages: https://pythonspeed.com/articles/security-updates-in-docker/
 #Prerequisites
 RUN apk upgrade \
  && apk add \
-      curl perl perl-app-cpanminus perl-json perl-libwww python py-pip \
+      curl perl perl-app-cpanminus perl-json perl-libwww \
  && rm -rf /var/cache/apk/*
-RUN pip install --upgrade pip
 RUN pip install requests
 
 #Create folders in container
