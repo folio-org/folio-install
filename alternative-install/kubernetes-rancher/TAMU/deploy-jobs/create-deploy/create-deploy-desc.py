@@ -34,13 +34,12 @@ headers = {"Content-type": "application/json"}
 
 # Load list of backend modules, parse with logic, and POST to /_/discovery/modules
 
-data = json.loads(open("install/okapi-install.json",'r').read())
+data = json.load(open("install/okapi-install.json",'r'))
 for itm in data:
-    deploy_descriptor = {"srvcId": itm["id"], "instId": itm["id"], "url": "'"}
     count = len(itm['id'].split('-'))
     module = itm['id'][:findnth(itm['id'], '-', count-2)]
     tag = itm['id'][findnth(itm['id'], '-', count-2)+1:]
-    deploy_descriptor = {"srvcId": itm["id"].encode("ascii"), "instId": itm["id"].encode("ascii"), "url": getModuleUrl(module, tag)}
+    deploy_descriptor = {"srvcId": itm["id"], "instId": itm["id"], "url": getModuleUrl(module, tag)}
     req = requests.post("{0}/_/discovery/modules".format(os.environ.get('OKAPI_URL_PY')), data=json.dumps(deploy_descriptor), headers=headers)
 
 # Uncomment to see output or errors
