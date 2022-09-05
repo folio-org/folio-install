@@ -1,4 +1,4 @@
-FROM alpine:3.15.0
+FROM alpine:3.16
 
 #Upgrade all packages: https://pythonspeed.com/articles/security-updates-in-docker/
 #Prerequisites
