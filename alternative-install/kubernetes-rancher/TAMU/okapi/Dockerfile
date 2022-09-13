@@ -10,7 +10,7 @@ RUN git clone  -b "v4.11.1" --recursive https://github.com/folio-org/okapi.git
 RUN cd okapi && mvn clean install -DskipTests
 
 #OpenJDK Alpine
-FROM alpine:3.15.6
+FROM alpine:3.16
 
 #Install latest patch versions of packages: https://pythonspeed.com/articles/security-updates-in-docker/
 #Okapi Prerequisites
