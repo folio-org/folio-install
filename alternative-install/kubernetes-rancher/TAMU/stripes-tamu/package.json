@@ -102,6 +102,6 @@
     "rxjs": "^5.4.3",
     "@folio/react-intl-safe-html": "3.0.0",
     "minimist": "^1.2.3",
-    "moment": "~2.29.1"
+    "moment": "~2.29.4"
   }
 }
