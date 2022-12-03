@@ -13,7 +13,7 @@ Startup Options:<br/>
 JAVA_OPTIONS = -XX:MaxRAMPercentage=66.0 -Drequest_timeout_ms=7200000 -Dokapi_url=http://okapi:9130 -Dhttp.port=8081 -Dsecure_store=Ephemeral -Dsecure_store_props=/etc/folio/edge/edge-ephemeral.properties -Dcaia_soft_client=tamu_admin<br/>
 Database connection: No<br/>
 Port: 8081<br/>
-Health Check endpoint: NA<br/>
+Health Check endpoint: /admin/health<br/>
 Volume mounts: /etc/folio/edge
 
 ### edge-connexion
@@ -29,7 +29,7 @@ Startup Options:<br/>
 JAVA_OPTIONS = -XX:MaxRAMPercentage=66.0 -Drequest_timeout_ms=7200000 -Dokapi_url=http://okapi:9130 -Dhttp.port=8081 -Dsecure_store=Ephemeral -Dsecure_store_props=/etc/folio/edge/edge-ephemeral.properties -Dstaging_director_client=tamu_admin<br/>
 Database connection: No<br/>
 Port: 8081<br/>
-Health Check endpoint: NA<br/>
+Health Check endpoint: /admin/health<br/>
 Volume mounts: /etc/folio/edge
 
 ### edge-ncip
@@ -95,14 +95,14 @@ Startup Options:<br/>
 JAVA_OPTIONS = -XX:MaxRAMPercentage=66.0<br/>
 Database connection: Yes<br/>
 Port: 8081<br/>
-Health Check endpoint: NA
+Health Check endpoint: /admin/health
 
 ### mod-authtoken
 Startup Options:<br/>
 JAVA_OPTIONS = -Djwt.signing.key=foo -XX:MaxRAMPercentage=66.0 -Dcache.permissions=true -Dlog.level=warn -Dperm.lookup.timeout=10 -Duser.cache.seconds=60 -Duser.cache.purge.seconds=43200 -Dsys.perm.cache.seconds=259200 -Dport=8081<br/>
 Database connection: No<br/>
 Port: 8081<br/>
-Health Check endpoint: NA
+Health Check endpoint: /admin/health
 
 ### mod-calendar
 Startup Options:<br/>
@@ -184,7 +184,7 @@ KAFKA_PORT = 9092<br/>
 KAFKA_HOST = http://kafka-r2<br/>
 Database connection: Yes<br/>
 Port: 8081<br/>
-Health Check endpoint: NA
+Health Check endpoint: /admin/health
 
 ### mod-data-export-worker
 Startup Options:<br/>
@@ -199,7 +199,7 @@ AWS_SECRET_ACCESS_KEY = key<br/>
 AWS_URL = minio.org<br/>
 Database connection: Yes<br/>
 Port: 8081<br/>
-Health Check endpoint: NA
+Health Check endpoint: /admin/health
 
 ### mod-data-import
 Startup Options:<br/>
@@ -252,7 +252,7 @@ JAVA_OPTIONS = -XX:MaxRAMPercentage=66.0<br/>
 CONFIG = {"okapiUrl": "http://okapi:9130"}<br/>
 Database connection: Yes<br/>
 Port: 8081<br/>
-Health Check endpoint: NA
+Health Check endpoint: /admin/health
 
 ### mod-event-config
 Startup Options:<br/>
@@ -297,14 +297,14 @@ OKAPI_TENANT = diku<br/>
 LOGGING_CATEGORIES = ramlpath<br/>
 Database connection: No<br/>
 Port: 3001<br/>
-Health Check endpoint: NA
+Health Check endpoint: /admin/health
 
 ### mod-inventory
 Startup Options:<br/>
 JAVA_OPTIONS = -XX:MaxRAMPercentage=66.0 -Dorg.folio.metadata.inventory.storage.type=okapi<br/>
 Database connection: No<br/>
 Port: 9403<br/>
-Health Check endpoint: NA
+Health Check endpoint: /admin/health
 
 ### mod-inventory-storage
 Startup Options:<br/>
