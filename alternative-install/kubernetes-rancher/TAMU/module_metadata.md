@@ -116,7 +116,7 @@ Startup Options:<br/>
 JAVA_OPTIONS = -XX:MaxRAMPercentage=66.0<br/>
 Database connection: No<br/>
 Port: 9801<br/>
-Health Check endpoint: NA
+Health Check endpoint: /admin/health
 
 ### mod-circulation-storage
 Startup Options:<br/>
