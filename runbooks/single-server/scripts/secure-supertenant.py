@@ -10,7 +10,6 @@ import uuid
 
 SUPERUSER_PERMISSIONS = [
     "okapi.all",
-    "okapi.proxy.pull.modules.post",
     "perms.all",
     "login.all",
     "users.all"
