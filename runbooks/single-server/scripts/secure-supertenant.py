@@ -134,11 +134,12 @@ def fetch_module_ids(module_names, okapi_url):
 
 def enable_module(module_id, okapi_url, tenant=None):
     tenant = tenant or 'supertenant'
-    payload = json.dumps({
-                'id' : module_id
-            }).encode('UTF-8')
+    payload = json.dumps([{
+                'id' : module_id,
+                'action': 'enable'
+            }]).encode('UTF-8')
     return okapi_post(okapi_url +
-                      '/_/proxy/tenants/{}/modules'.format(tenant),
+                      '/_/proxy/tenants/{}/install?deploy=false&preRelease=false&tenantParameters=loadSample%3Dfalse%2CloadReference%3Dfalse'.format(tenant),
                       payload)
 
 def create_user_mod_users(username, okapi_url, id=None, tenant=None):
