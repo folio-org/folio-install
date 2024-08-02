@@ -60,7 +60,7 @@ unless ($only_perms) {
   if ($st_token) {
     push(@{$header},( 'X-Okapi-Token' => $st_token, 'X-Okapi-Tenant' => 'supertenant' ));
   }
-  $req = HTTP::Request->new('POST',"$okapi/_/proxy/tenants/$tenant/install",$header,encode_json([ $authtoken ]));
+  $req = HTTP::Request->new('POST',"$okapi/_/proxy/tenants/$tenant/install?depCheck=false",$header,encode_json([ $authtoken ]));
   $resp = $ua->request($req);
   die $resp->status_line . "\n" unless $resp->is_success;
   my $disabled = decode_json($resp->content);
@@ -144,7 +144,7 @@ unless ($only_perms) {
   if ($st_token) {
     push(@{$header},( 'X-Okapi-Token' => $st_token, 'X-Okapi-Tenant' => 'supertenant' ));
   }
-  $req = HTTP::Request->new('POST',"$okapi/_/proxy/tenants/$tenant/install",$header,encode_json($enable));
+  $req = HTTP::Request->new('POST',"$okapi/_/proxy/tenants/$tenant/install?depCheck=false",$header,encode_json($enable));
   $resp = $ua->request($req);
   die $resp->status_line . "\n" unless $resp->is_success;
   print "OK\n";
