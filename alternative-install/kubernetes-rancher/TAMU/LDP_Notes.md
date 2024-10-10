@@ -305,7 +305,7 @@ Cron settings:
 3) Download the desired branch of SQL for the derived-tables using this matrix: [folio-analytics Readme](https://github.com/folio-org/folio-analytics/blob/main/README.md)
 4) Merge and update TAMU's existing derived-tables queries in use under the `../ldp-derived-tables` folder, with the new queries. This will take the efforts of the data analyst and a developer and/or a database administrator.
 5) Build, tag and push to Harbor the new ldp-derived-tables container, from the working directory of your local machine where the Git repos have been pulled in.
-* Readme: [Nolana derived-tables](/ldp-derived-tables/Readme.md)
+* Readme: [Nolana derived-tables](ldp-derived-tables/Readme.md)
 * Edit the *item_history_update.pl* file, and set your LDP database FQDN and ldpadmin user password by replacing **<LDP_DB_FQDN>** and **<ldp_db_password>** with the appropriate values before you build<br/>
 Docker command examples below:<br/>
 `docker build -t harbor.tamu.org/folio/ldp-derived-tables:envX-folioX-vX .`<br/>
