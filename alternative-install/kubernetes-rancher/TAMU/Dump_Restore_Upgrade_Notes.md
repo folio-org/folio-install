@@ -205,8 +205,8 @@ curl -w '\n' -D - -X PUT $OKAPI_URL/ldp/config/dbinfo -H "X-Okapi-Tenant: tamu" 
 
 #### Update Settings in Folio UI
 * The target Folio instance *Settings - Tenant - SSO settings - Identity Provider URL* configuration may need to be updated if the environment you're cloning to is for staging/testing.<br/>
-Testing IDP URL: `https://tamu.org/shibboleth`<br/>
-Pre/Prod IDP URL: `https://tamu.org/shibboleth-test`
+Testing IDP URL: `https://tamu.org/shibboleth-test`<br/>
+Pre/Prod IDP URL: `https://tamu.org/shibboleth`
 * The target Folio instance *Settings - OAI-PMH - General - Base URL* configuration will need to be updated to reflect the edge URL for that instance.<br/>
 Dev/Test/Pre URL: `https://folio-edge-<dev/test/pre>.tamu.org/oai`<br/>
 Prod URL: `https://folio-edge.tamu.org/oai`
@@ -483,6 +483,7 @@ Where the contents of `okapi-install.json` are:<br/>
 
 * In Rancher if new Folio back-end modules are constantly restarting before you perform an upgrade - check their connection to the database, and the availability of the Okapi deployment.
 * On occasion module changes may introduce a Kafka dependency or Elasticsearch dependency - and the module's environment variables or K8s Secret will need to be updated to connect to the Kafka or Elasticsearch instance in the namespace.
+* On occasion an Okapi pod will crash and/or drop from the Okapi cluster due to a network issue and the Okapi cluster will fail to reform properly. In this scenario, the whole deployment must be scaled to 0 pods. Then scaled back up to 3 pods to re-form the Okapi cluster.
 * If Data Import/Export stop functioning for Librarians - it may be necessary to re-deploy Kafka. After doing so, all back-end modules that connect to Kafka will have to be restarted.<br/>
 **These are:** mod-circulation-storage, mod-data-export-spring, mod-data-export-worker, mod-data-import, mod-ebsconet, mod-source-record-manager, mod-source-record-storage, mod-inventory, mod-inventory-storage, mod-invoice, mod-pubsub, mod-quick-marc, mod-remote-storage, mod-search
 * Data Import Troubleshooting links:<br/>
