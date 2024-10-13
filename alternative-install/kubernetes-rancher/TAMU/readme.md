@@ -8,7 +8,7 @@ This software is distributed under the terms of the Apache License, Version 2.0.
 
 ## Introduction
 
-This extensive how-to guide is spread across six documents and describes how Texas A&M University Libraries Folio infrastructure is configured and deployed. We maintain many of our own artifacts and configurations for Folio deployments including Docker containers for back-end modules, Okapi, and Stripes. There are also community-provided K8s Helm charts that Folio relies on such as Bitnami Kafka, Elasticsearch and MinIO.<br/>
+This extensive how-to guide is spread across seven documents and describes how Texas A&M University Libraries Folio infrastructure is configured and deployed. We maintain many of our own artifacts and configurations for Folio deployments including Docker containers for back-end modules, Okapi, and Stripes. There are also community-provided K8s Helm charts that Folio relies on such as Bitnami Kafka, Elasticsearch and MinIO.<br/>
 
 I assume the reader has extensive knowledge in using Rancher, Docker and Kubernetes as well as a basic understanding of how Folio functions. My goal is to be descriptive on how things are done through the Rancher UI, more advanced users can interact directly with the K8s cluster via kubectl.<br/>
 
