@@ -850,37 +850,6 @@ nginx.ingress.kubernetes.io/proxy-read-timeout = 600<br/>
 nginx.ingress.kubernetes.io/proxy-send-timeout = 600<br/>
 
 
-## DRAFT Upgrading a Folio instance Notes:
-
-1) Grab the install.json and okapi-install.json files from the desired Folio-org's platform-complete release branch: https://github.com/folio-org/platform-complete
-
-2) Git Clone the appropriate TAMU Folio release repo or branch from here: https://github.com/folio-org/folio-install
-
-3) Copy in the json files from the 1st step above to the `../deploy-jobs/create-deploy/install` folder.
-
-4) Build and push the create-deploy Docker container to your private container registry with tag: rX-202X.
-
-Docker command examples below:<br/>
-`docker build -t <your_registry_IP_FQDN>/folio/create-deploy:rX-202X .`<br/>
-`docker push <your_registry_IP_FQDN>/folio/create-deploy:rX-202X`
-
-5) In Rancher, deploy the “create-deploy” K8s Job to the appropriate namespace using the tamu-tenant-config secret and tagged rX-202X image mentioned above. For the Job Configuration settings set Completions, Parallelism and Back Off Limit to 1. Set a long Active Deadline Seconds for the Job (I use 10000).
-
-6) If any of it fails, get the logs from Splunk Rancher index and/or from the containers themselves and record them. Folio Issue Jiras will need to be filed.
-
-7) Restart all Folio back-end modules once the upgrade is complete.
-
-To roll back:
-
-1) In Rancher, spin down the Okapi container in the appropriate namespace to 0, and spin down the Postgres Okapi database and Postgres Folio modules database containers in their corresponding namespaces.
-
-2) Restore the Postgres data volumes in vSphere as they were snapshot the night before. You can find the volume names for the databases under the Volumes tab in Rancher - Folio Project.
-
-3) In Rancher, spin back up the two database containers to 1 pod each, then the Okapi container to 1 pod.
-
-Note: If any new modules need deploying, copy an existing older version of the Workload in Rancher, and update the name and tag. You can also update the "workloads.yaml" provided in the appropriate Folio Git repo for Libraries under the YAML folder, and import it to the appropriate namespace in Rancher.
-
-
 ## Folio Pro Tips
 
 #### Disable module for tenant:
