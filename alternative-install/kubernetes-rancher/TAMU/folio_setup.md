@@ -1,4 +1,4 @@
-# Setup Folio on Rancher 2.x/Kubernetes
+# Setup FOLIO on Rancher 2.x/Kubernetes
 
 ## Readme Contents
 
@@ -14,17 +14,17 @@
 * [secure-okapi Dockerfile Readme](deploy-jobs/secure-okapi/Readme.md)
 * [mod-circulation-notimers Readme](mod-circulation-notimers/Readme.md)
 
-### Folio deployment overview:
+### FOLIO deployment overview:
 Our Rancher-exported YAML can be looked at under the YAML folder. After creating the cluster via Rancher 2.x...<br/>
 
-1) Create a Folio Project in Rancher 2.x UI.
-2) Add *folio-r2* namespace for your Folio Project under *Namespaces* in Rancher 2.x UI.
-3) Add Dockerhub and your private Docker registries to the Folio Project.
-4) Add Persistent Volumes on the cluster and Persistent Volume Claims for the Folio Project (We are using vSphere Storage Class).<br/>
+1) Create a FOLIO Project in Rancher 2.x UI.
+2) Add *folio-prod* namespace for your FOLIO Project under *Namespaces* in Rancher 2.x UI.
+3) Add Dockerhub and your private Docker registries to the FOLIO Project.
+4) Add Persistent Volumes on the cluster and Persistent Volume Claims for the FOLIO Project (We are using vSphere Storage Class).<br/>
 
-The rest of these steps are from within the Folio Project in Rancher 2.x...<br/>
+The rest of these steps are from within the FOLIO Project in Rancher 2.x...<br/>
 
-5) Create the following Secrets in Rancher under the Folio Project for the *folio-r2* namespace:<br/>
+5) Create the following Secrets in Rancher under the FOLIO Project for the *folio-prod* namespace:<br/>
 ```
 data-export-aws-config
 db-connect
@@ -45,11 +45,11 @@ secured-okapi
 tamu-tenant-config
 x-okapi-token
 ```
-6) If you are using an external database host, ignore this step. Otherwise deploy two crunchy-postgres *Stateful set* Workloads to the *folio-r2* namespace. Name one *pg-okapi* for Okapi's *okapi* database, and the other *pg-folio* for Folio's *okapi_modules* database. Edit each of these Workloads to set environment variables - clicking *Add From Source* to choose the corresponding db-config-okapi and db-config-modules Secrets. Configure your persistent volumes, any resource reservations and limits, as well as the Postgres UID and GID (26) at this time.
-7) Install Apache Kafka and Apache ZooKeeper through a Helm Chart under your Folio Project - Apps - Launch. Currently using the Bitnami Kafka app.
-8) Install Elasticsearch through a Helm Chart under your Folio Project - Apps - Launch. Currently using the Bitnami Elasticsearch app.
+6) If you are using an external database host, ignore this step. Otherwise deploy two crunchy-postgres *Stateful set* Workloads to the *folio-prod* namespace. Name one *pg-okapi* for Okapi's *okapi* database, and the other *pg-folio* for FOLIO's *okapi_modules* database. Edit each of these Workloads to set environment variables - clicking *Add From Source* to choose the corresponding db-config-okapi and db-config-modules Secrets. Configure your persistent volumes, any resource reservations and limits, as well as the Postgres UID and GID (26) at this time.
+7) Install Apache Kafka and Apache ZooKeeper through a Helm Chart under your FOLIO Project - Apps - Launch. Currently using the Bitnami Kafka app.
+8) Install Elasticsearch through a Helm Chart under your FOLIO Project - Apps - Launch. Currently using the Bitnami Elasticsearch app.
 9) Deploy Okapi Workload *Scalable deployment* of 1 and InitDB environment variable set to true - built from our custom Docker container - with db-connect-okapi Secret. Once it is running, edit the Okapi Workload and set InitDB environment variable to *false*, it will redeploy.
-10) Deploy Folio module Workloads as *Scalable deployment* between 1 and 3 (one Workload per Folio module) - with db-connect Secret for those modules that need a connection to the database. Import the folio-r2-2021-workloads.yaml file in Rancher for this step.
+10) Deploy FOLIO module Workloads as *Scalable deployment* between 1 and 3 (one Workload per FOLIO module) - with db-connect Secret for those modules that need a connection to the database. Import the folio-<release>-workloads.yaml file in Rancher for this step.
 11) Deploy Stripes Workload as *Run one pod on each node* – built from our custom Docker container.
 12) Deploy create-tenant Workload as *Job* – built from our custom Docker container with scripts - with tamu-tenant-config Secret.
 13) Deploy create-deploy Workload as *Job*, to enable modules for `/proxy/modules`, `/discovery/modules`, and tenants – built from our custom Docker container with scripts - with tamu-tenant-config Secret.
@@ -57,8 +57,8 @@ x-okapi-token
 15) Deploy create-email Workload as *Job* – built from our custom Docker container with scripts - with tamu-tenant-config Secret.
 16) Scale up Okapi pods to 3 (for HA) using Rancher 2.x + button.
 17) Add Ingresses and their Nginx annotations under Load Balancing for Okapi and Stripes using your URLs for `/` and `/_/` paths.
-18) *Future Folio post-install tenant configuration documentation regarding the edge user and permissions, patron groups for system and tenant admin users, timezone and plugin selection, and securing Okapi here.*
-19) *Future Folio post-install LDP deployment documentation using mod-ldp files here.*
+18) FOLIO post-install tenant configuration regarding the edge user, permissions, patron groups for system and tenant admin users, timezone and plugin selection, and securing Okapi.
+19) Set up the LDP and configure it for FOLIO UI access.
 
 
 ### Cluster Service Accounts Notes
@@ -83,7 +83,7 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: default
-  namespace: folio-r2
+  namespace: folio-prod
   ```
 
 3) Save and exit
@@ -194,7 +194,7 @@ plugins = analysis-icu,analysis-kuromoji,analysis-smartcn,analysis-nori,analysis
 ### Rancher Secrets Notes:
 
 -In production, unique Secrets should only be available to a single namespace for security and separation. If you choose, Secrets can be made available to all namespaces for testing and development.<br/>
--The Secrets below are to be created in the *folio-r2* namespace, and are being used for Tamu's specific deployment of Folio, Minio, Kafka, Elasticsearch, migration tooling and the LDP. They are included here as a reference.
+-The Secrets below are to be created in the *folio-prod* namespace, and are being used for Tamu's specific deployment of FOLIO, MinIO, Kafka, Elasticsearch, migration tooling and the LDP. They are included here as a reference.
 
 #### data-export-aws-config Secret key-value pairs:
 
@@ -404,7 +404,7 @@ SYSTEM_USER_PASSWORD = password
 ELASTICSEARCH_PASSWORD = <br/>
 ELASTICSEARCH_USERNAME = <br/>
 ELASTICSEARCH_URL = `http://elasticsearch-r2-es-conn:9200`<br/>
-ENV = folio-r2<br/>
+ENV = folio-prod<br/>
 INITIAL_LANGUAGES = eng,spa,fre,ger<br/>
 JAVA_OPTIONS = -XX:MaxRAMPercentage=66.0<br/>
 KAFKA_EVENTS_CONSUMER_PATTERN = `(folio-prod\.)(.*\.)inventory\.(instance|holdings-record|item)`<br/>
@@ -724,7 +724,7 @@ TENANT_NAME = TAMU Libraries<br/>
 X_OKAPI_TOKEN = token
 
 #### x-okapi-token Secret Key-Value pairs:
-NOTE: You won’t need this until after the Folio system is up, but before you secure Okapi. Log in to the Folio System via the GUI, go to *Settings - Developer - Set Token* and copy it out from there.<br/>
+NOTE: You won’t need this until after the FOLIO system is up, but before you secure Okapi. Log in to the FOLIO system via the UI, go to *Settings - Developer - Set Token* and copy it out from there.<br/>
 
 X_OKAPI_TOKEN = `<Authentication token from Okapi>`
 
@@ -734,7 +734,7 @@ X_OKAPI_TOKEN = `<Authentication token from Okapi>`
 -Hazelcast in Kubernetes requires editing the hazelcast.xml file included with the Okapi repo before you build the Docker container, and setting your Folio namespace and service-name under:
 ```
 <kubernetes enabled="true">
-                <namespace>folio-r2</namespace>
+                <namespace>folio-prod</namespace>
                 <service-name>okapi</service-name>
                 <!--
                 <service-label-name>MY-SERVICE-LABEL-NAME</service-label-name>
@@ -743,20 +743,20 @@ X_OKAPI_TOKEN = `<Authentication token from Okapi>`
             </kubernetes>
 ```
 -After a single Okapi pod has been initialized, edit and set Okapi's Workload environment variable for InitDB to false, and it will respin up for future pod scalability with data persistence.<br/>
--After initially spinning up one Okapi pod, then doing the InitDB variable switch above, execute the deployment K8s Jobs to deploy the Folio tenants and modules.<br/>
--Scale out Okapi's pods for clustering after finishing your tenant setup, they will each get and manage the shared data of your Folio deployment.<br/>
+-After initially spinning up one Okapi pod, then doing the InitDB variable switch above, execute the deployment K8s Jobs to deploy the FOLIO tenants and modules.<br/>
+-Scale out Okapi's pods for clustering after finishing your tenant setup, they will each get and manage the shared data of your FOLIO deployment.<br/>
 -Use *ClusterIP* port mapping for Okapi port 9130, and the Hazelcast ports (5701 - 5704, 54327). Also add a *NodePort* port map for 9130 when exposing Okapi via a Load Balancing/Ingress entry.<br/>
 
 #### Configuration and observations for containerized Okapi:
 
--Built using Tamu's Dockerfile vs the Folioorg Dockerhub artifact, as it provides us with a bit more flexibility when running (defined environment variables easily allow ability to pass hazelcast config, and to initialize the database or not on startup).<br/>
--For minimal HA we run as a single cluster of 3 containers per Folio instance, at an odd number of members so a quorum is established (3, 5, 7, etc). You can run as a single node cluster, but you lose the benefits of multiple Okapis providing redundancy and the overhead that allows you for handling multiple, simultaneous and large requests<br/>
+-Built using Tamu's Dockerfile vs the FOLIO-org Dockerhub artifact, as it provides us with a bit more flexibility when running (defined environment variables easily allow ability to pass hazelcast config, and to initialize the database or not on startup).<br/>
+-For minimal HA we run as a single cluster of 3 containers per FOLIO instance, at an odd number of members so a quorum is established (3, 5, 7, etc). You can run as a single node cluster, but you lose the benefits of multiple Okapis providing redundancy and the overhead that allows you for handling multiple, simultaneous and large requests<br/>
 -The Okapi cluster is spawned from a single Workload as a K8s statefulset deployment, then scaled out. This is done to allow Okapi nodes to have consistent names, to handle upgrading members on-the-fly, and to facilitate scaling up and down with more consistency and stability.<br/>
 -As stated above, we define in the hazelcast.xml config file a unique group name, namespace, and the service name of the deployment in K8s.<br/>
 -Hazelcast overhead seems low. Members and their config are stored in a memory map in each Okapi node from my understanding.<br/>
 -I have seen performance drawbacks with large numbers of Okapi. This appears to stem from the Timers function.<br/>
--In K8s networking, the Okapi pods are round-robin load-balanced so not a single member gets overwhelmed. This does have a benefit in our testing: Loading data through the APIs doesn’t overload any single K8s node where an Okapi pod instance may be running. This also means that other tenants, where heavy requests may be taking place, do not see as much of a performance impact of the system when multiple tenants are being accessed and used within the same instance of Folio.<br/>
--It has been our experience that running a separate *okapi* database host for Okapi, and not combining it with the Folio *okapi_modules* database improves performance for us.<br/>
+-In K8s networking, the Okapi pods are round-robin load-balanced so not a single member gets overwhelmed. This does have a benefit in our testing: Loading data through the APIs doesn’t overload any single K8s node where an Okapi pod instance may be running. This also means that other tenants, where heavy requests may be taking place, do not see as much of a performance impact of the system when multiple tenants are being accessed and used within the same instance of FOLIO.<br/>
+-It has been our experience that running a separate *okapi* database host for Okapi, and not combining it with the FOLIO *okapi_modules* database improves performance for us.<br/>
 
 #### Okapi Workload environment variables:
 
@@ -777,24 +777,24 @@ HAZELCAST_FILE = /hazelcast/hazelcast.xml<br/>
 
 -Currently testing out crunchy-postgres Kubernetes solution.<br/>
 -Running as a Kubernetes *Stateful Set*, with one primary and two replica pods. Replica pods are read-only.<br/>
--Using *Persistent Volume Claims* for Rancher Folio Project, provisioned with vSphere Storage Class.<br/>
+-Using *Persistent Volume Claims* for Rancher FOLIO Project, provisioned with vSphere Storage Class.<br/>
 -Not sure if we would run like this in Production yet, as we haven't load tested it. It is a possibility for those looking for a complete Rancher/Kubernetes/Container solution, and being actively developed.<br/>
 -Volumes for persistent data as well as SQL execution need to be added to the pg-folio and pg-okapi *statefulset* Workloads:<br/>
 
 Volume Name: pgdata<br/>
-Persistent Volume Claim: folio-r2:pgdata-pvc<br/>
+Persistent Volume Claim: folio-prod:pgdata-pvc<br/>
 Mount Point: /pgdata<br/>
 
 Volume Name: backrestrepo<br/>
-Persistent Volume Claim: folio-r2:backrestrepo-pvc<br/>
+Persistent Volume Claim: folio-prod:backrestrepo-pvc<br/>
 Mount Point: /backrestrepo<br/>
 
 Volume Name: recover<br/>
-Persistent Volume Claim: folio-r2:recover-pvc<br/>
+Persistent Volume Claim: folio-prod:recover-pvc<br/>
 Mount Point: /recover<br/>
 
 Volume Name: pgwal<br/>
-Persistent Volume Claim: folio-r2:pgwal-pvc<br/>
+Persistent Volume Claim: folio-prod:pgwal-pvc<br/>
 Mount Point: /pgwal<br/>
 
 Volume Name: pgconf<br/>
@@ -850,7 +850,7 @@ nginx.ingress.kubernetes.io/proxy-read-timeout = 600<br/>
 nginx.ingress.kubernetes.io/proxy-send-timeout = 600<br/>
 
 
-## Folio Pro Tips
+## FOLIO Pro Tips
 
 #### Disable module for tenant:
 ```curl -i -w '\n' -X DELETE http://okapi:9130/_/proxy/tenants/tamu/modules/<module-id>```
@@ -914,7 +914,7 @@ curl -XPATCH -d'{"delay":"24"}' -H "X-Okapi-Tenant: tamu" -H "X-Okapi-Token: <OK
 curl -w '\n' -D - -X GET -H "X-Okapi-Tenant: tamu" -H "X-Okapi-Token: <OKAPI_TOKEN>" http://okapi:9130/user-summary/<USER_UUID>
 ```
 
-#### Get a list of Folio configuration entries:
+#### Get a list of FOLIO configuration entries:
 ```
 curl -i -w '\n' -X GET "http://okapi:9130/configurations/entries?limit=100" -H "X-Okapi-Tenant: tamu" -H "X-Okapi-Token: <OKAPI_TOKEN>"
 ```
@@ -924,24 +924,24 @@ curl -i -w '\n' -X GET "http://okapi:9130/configurations/entries?limit=100" -H "
 curl -i -w '\n' -X PUT http://okapi:9130/configurations/entries/<CONFIG_ID> -H "Content-type: application/json" -H "X-Okapi-Tenant: tamu" -H "X-Okapi-Token: <OKAPI_TOKEN>" -d @UPDATED_CONFIG.json
 ```
 
-#### Purge deprecated permissions from Folio:
+#### Purge deprecated permissions from FOLIO:
 ```
 curl -w '\n' -D - -X POST -H "Content-type: application/json" -H "X-Okapi-Token: <OKAPI_TOKEN>" http://okapi:9130/perms/purge-deprecated
 ```
 
-#### Query mod-email logs in Folio:
+#### Query mod-email logs in FOLIO:
 ```
 curl -i -w '\n' -X GET -H "X-Okapi-Tenant: tamu" -H "X-Okapi-Token: <OKAPI_TOKEN>" http://okapi:9130/email?limit=1000
 ```
 
-#### Front-end folioci repo:
+#### Front-end FOLIO-CI repo:
 https://repository.folio.org/#browse/welcome
 
 #### Indexdata Okapi module registry:
 http://folio-registry.aws.indexdata.com/_/proxy/modules
 
 #### Database export example:
-```psql -U postgres -h pg-folio -w -d okapi_modules --command "SELECT * FROM tamu_mod_inventory_storage.item;" > /pgdata/folio-r2/items```
+```psql -U postgres -h pg-folio -w -d okapi_modules --command "SELECT * FROM tamu_mod_inventory_storage.item;" > /pgdata/folio-prod/items```
 
 #### Database number of module connections:
 ```SELECT count(*) FROM pg_stat_activity WHERE usename = 'tenantId_mod_whatever';```
