@@ -38,7 +38,7 @@ END``
 
 8 core CPU<br/>
 16GB of memory<br/>
-40GB disk<br/>
+60GB disk<br/>
 
 #### In Oracle Linux, install correct version of Docker:
 
@@ -131,7 +131,7 @@ https://your.private.registry.org
 
 1) Add a Cluster -> select vSphere -> enter a cluster name (folio-cluster) -> Next
 2) Set these cluster options:<br/>
-  a) Kubernetes Version - v1.18.10-rancher1-2<br/>
+  a) Kubernetes Version - v1.20.15-rancher2-1<br/>
   b) Network Provider - Canal<br/>
   c) Project Network Isolation - Enabled<br/>
   d) Nginx Ingress - Enabled<br/>
@@ -146,7 +146,8 @@ https://your.private.registry.org
   m) Recurring etcd Snapshot Enabled - Yes<br/>
   n) Recurring etcd Snapshot Creation Period - 12<br/>
   o) Recurring etcd Snapshot Retention Count - 6<br/>
-3) Click Edit as YAML button and add this code to the very bottom under Services section:
+3) Click Edit as YAML button and add this code to the very bottom under Services section<br/>
+(Don't forget to re-set the RancherSA password when editing an existing template!):
 ```
 # 
 # Cluster Config
@@ -162,19 +163,8 @@ local_cluster_auth_endpoint:
 # Rancher Config
 # 
 rancher_kubernetes_engine_config:
-  addon_job_timeout: 30
+  addon_job_timeout: 60
   addons: |-
-    ---
-    kind: StorageClass
-    apiVersion: storage.k8s.io/v1
-    metadata:
-      name: vsphere-datastore
-    provisioner: kubernetes.io/vsphere-volume
-    reclaimPolicy: Delete
-    parameters:
-      diskformat: thin
-      datastore: kube
-      fstype: xfs
     ---
     apiVersion: rbac.authorization.k8s.io/v1
     kind: ClusterRoleBinding
@@ -193,23 +183,24 @@ rancher_kubernetes_engine_config:
       https://raw.githubusercontent.com/kubernetes/dashboard/master/aio/deploy/recommended.yaml
   authentication:
     strategy: x509
+  bastion_host:
+    ssh_agent_auth: false
   cloud_provider:
     name: vsphere
     vsphere_cloud_provider:
       global:
-        datacenters: 'DC1, DC2'
         insecure-flag: true
         soap-roundtrip-count: 0
-        user: 'rancher'
-        password: 'password'
       virtual_center:
         vsphere.org:
-          datacenters: 'DC1, DC2'
+          datacenters: '/DC1, /DC2'
           soap-roundtrip-count: 0
+          user: rancher
+          password: '<PASSWORD>'
       workspace:
-        datacenter: DC1
+        datacenter: /DC1
         default-datastore: kube
-        folder: /DC1/vms/Linux
+        folder: /DC1/path/to/VMs
         server: vsphere.org
   ignore_docker_version: true
 # 
@@ -221,15 +212,17 @@ rancher_kubernetes_engine_config:
 #      app: ingress
 # 
   ingress:
+    default_backend: true
     http_port: 0
     https_port: 0
     options:
       compute-full-forwarded-for: 'true'
       hsts-include-subdomains: 'false'
       hsts-max-age: '31536000'
+      proxy-body-size: '0'
       use-forwarded-headers: 'true'
     provider: nginx
-  kubernetes_version: v1.18.20-rancher1-1
+  kubernetes_version: v1.20.15-rancher2-1
   monitoring:
     provider: metrics-server
     replicas: 1
@@ -260,6 +253,9 @@ rancher_kubernetes_engine_config:
     options:
       flannel_backend_type: vxlan
     plugin: canal
+  restore:
+    restore: false
+  rotate_encryption_key: false
 # 
 #    services:
 #      kube-api:
@@ -316,7 +312,7 @@ rancher_kubernetes_engine_config:
       ignore_daemon_sets: true
       timeout: 120
 scheduled_cluster_scan:
-  enabled: true
+  enabled: false
   scan_config:
     cis_scan_config:
       debug_master: false
@@ -349,7 +345,7 @@ Filesystem Type: xfs<br/>
 
 ## Rancher Pro Tips
 
-When the RancherOS nodes for the clusters need rebooting or updating it will need to be done so manually, one at at time, following this procedure:<br/>
+When the BurmillaOS nodes for the clusters need rebooting or updating it will need to be done so manually, one at at time, following this procedure:<br/>
 (It is VERY important the nodes be drained before rebooting or deleting them from the cluster - to preserve the persistent data volume vmdks.)
 
 1) In Rancher 2.x server UI, Deactivate the alerts:
@@ -423,7 +419,8 @@ enableSyncDriver = false
 
 #### To compact etcd keyspace (Run this under the Rancher System Project for the K8s cluster, look for the cattle-node-agent deployment - shell and launch inside the pod running on the etcd nodes only):
 
-```rev=$(docker exec etcd etcdctl endpoint status --write-out json | egrep -o '"revision":[0-9]*' | egrep -o '[0-9]*') docker exec etcd etcdctl compact "$rev"```
+```rev=$(docker exec etcd etcdctl endpoint status --write-out json | egrep -o '"revision":[0-9]*' | egrep -o '[0-9]*')```
+```docker exec etcd etcdctl compact "$rev"```
 
 #### To defrag etcd (Run this under the Rancher System Project for the K8s cluster, look for the cattle-node-agent deployment - shell and launch inside the pod running on the etcd nodes only):
 
@@ -455,4 +452,3 @@ You can enable this option when you create or edit the cluster. RKE takes a snap
 
 #### Run command on container:
 ```docker exec -it <container name> <command>```
-
