@@ -7,7 +7,6 @@
 * [Okapi Dockerfile Readme](okapi/Readme.md)
 * [Stripes Dockerfile Readme](stripes-tamu/Readme.md)
 * [bootstrap-superuser Dockerfile Readme](deploy-jobs/bootstrap-superuser/Readme.md)
-* [alter-database Dockerfile Readme](deploy-jobs/alter-database/Readme.md)
 * [create-deploy Dockerfile Readme](deploy-jobs/create-deploy/Readme.md)
 * [create-tenant Dockerfile Readme](deploy-jobs/create-tenant/Readme.md)
 * [create-email Dockerfile Readme](deploy-jobs/create-email/Readme.md)
