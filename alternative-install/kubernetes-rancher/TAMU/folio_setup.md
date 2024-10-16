@@ -41,7 +41,7 @@ postgres-setup-sql
 postgres-setup-sql-ldp
 secured-okapi
 tamu-tenant-config
-x-okapi-token
+x-okapi-
 ```
 6) If you are using an external database host, ignore this step. Otherwise deploy two crunchy-postgres *Stateful set* Workloads to the *folio-prod* namespace. Name one *pg-okapi* for Okapi's *okapi* database, and the other *pg-folio* for FOLIO's *okapi_modules* database. Edit each of these Workloads to set environment variables - clicking *Add From Source* to choose the corresponding db-config-okapi and db-config-modules Secrets. Configure your persistent volumes, any resource reservations and limits, as well as the Postgres UID and GID (26) at this time.
 7) Install Apache Kafka and Apache ZooKeeper through a Helm Chart under your FOLIO Project - Apps - Launch. Currently using the Bitnami Kafka app v19.1.5.
@@ -424,7 +424,7 @@ GRAPHQL_OPTIONS = <br/>
 LOGGING_CATEGORIES = <br/>
 NODE_OPTIONS = --no-deprecation<br/>
 OKAPI_TENANT = tamu<br/>
-OKAPI_TOKEN = <BLANK><br/>
+OKAPI_ = <BLANK><br/>
 OKAPI_URL = `http://okapi:9130`<br/>
 PROXY_OKAPI_URL = `https://folio-okapi.tamu.org`<br/>
 RAML_DIR = <br/>
@@ -836,12 +836,12 @@ SERVICE_POINT = <TAMU_UUID><br/>
 TENANT_DESC = Texas A&M University Libraries<br/>
 TENANT_ID = tamu<br/>
 TENANT_NAME = TAMU Libraries<br/>
-X_OKAPI_TOKEN = token
+X_OKAPI_TOKEN = <OKAPI_TOKEN>
 
 #### x-okapi-token Secret Key-Value pairs:
 NOTE: You won’t need this until after the FOLIO system is up, but before you secure Okapi. Log in to the FOLIO System via the GUI, go to *Settings - Developer - Set Token* and copy it out from there.<br/>
 
-X_OKAPI_TOKEN = `<Authentication token from Okapi>`
+X_OKAPI_TOKEN = `<OKAPI_TOKEN>`
 
 ### Okapi Notes:
 
@@ -1006,17 +1006,17 @@ curl -w '\n' -X POST -D - -H "Content-type: application/json" -d @enable-docker.
 
 #### Re-index Elasticsearch with Okapi request:
 ```
-curl -w '\n' -D - -X POST $OKAPI_URL/search/index/inventory/reindex -H "X-Okapi-Tenant: tamu" -H "Content-Type: application/json" -H "X-Okapi-Token: <Okapi Token>" -d '{"recreateIndex": true}'
+curl -w '\n' -D - -X POST $OKAPI_URL/search/index/inventory/reindex -H "X-Okapi-Tenant: tamu" -H "Content-Type: application/json" -H "X-Okapi-Token: <OKAPI_TOKEN>" -d '{"recreateIndex": true}'
 ```
 
 #### Get an Elasticsearch job ID with Okapi request:
 ```
-curl -w '\n' -D - -X GET -H "X-Okapi-Tenant: tamu" -H "X-Okapi-Token: <Okapi Token>" $OKAPI_URL/search/index/inventory/reindex
+curl -w '\n' -D - -X GET -H "X-Okapi-Tenant: tamu" -H "X-Okapi-Token: <OKAPI_TOKEN>" $OKAPI_URL/search/index/inventory/reindex
 ```
 
 #### Monitor an Elasticsearch job with Okapi request:
 ```
-curl -w '\n' -D - -X GET -H "X-Okapi-Tenant: tamu" -H "X-Okapi-Token: <Okapi Token>" $OKAPI_URL/instance-storage/reindex/<reindex job id>
+curl -w '\n' -D - -X GET -H "X-Okapi-Tenant: tamu" -H "X-Okapi-Token: <OKAPI_TOKEN>" $OKAPI_URL/instance-storage/reindex/<reindex job id>
 ```
 
 #### Patch a timer job with Okapi request:
