@@ -1,0 +1,88 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  annotations:
+    field.cattle.io/creatorId: "null"
+  labels:
+    cattle.io/creator: norman
+  managedFields:
+  - apiVersion: batch/v1beta1
+    manager: rancher
+    operation: Update
+  - apiVersion: batch/v1beta1
+    manager: kube-controller-manager
+    operation: Update
+  name: ldp-marc-data-update
+  namespace: folio-prod
+spec:
+  concurrencyPolicy: Allow
+  failedJobsHistoryLimit: 7
+  jobTemplate:
+    metadata:
+      creationTimestamp: null
+    spec:
+      activeDeadlineSeconds: 40000
+      backoffLimit: 0
+      completions: 1
+      parallelism: 1
+      template:
+        metadata:
+          annotations:
+          creationTimestamp: null
+        spec:
+          containers:
+          - args:
+            - -D
+            - /var/lib/ldp
+            - -u
+            - ldpadmin
+            image: ghcr.io/library-data-platform/ldpmarc:v1.6.3
+            imagePullPolicy: Always
+            name: ldp-marc-data-update
+            resources:
+              requests:
+                cpu: 100m
+                memory: 256Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities: {}
+              privileged: false
+              readOnlyRootFilesystem: false
+              runAsNonRoot: false
+            stdin: true
+            terminationMessagePath: /dev/termination-log
+            terminationMessagePolicy: File
+            tty: true
+            volumeMounts:
+            - mountPath: /var/lib/ldp/ldpconf.json
+              name: ldp-conf
+              subPath: ldpconf.json
+            - mountPath: /var/lib/ldp
+              name: ldp-marc-data
+          dnsConfig: {}
+          dnsPolicy: ClusterFirst
+          restartPolicy: Never
+          schedulerName: default-scheduler
+          securityContext: {}
+          terminationGracePeriodSeconds: 30
+          tolerations:
+          - effect: NoSchedule
+            key: spring
+            operator: Equal
+            value: "true"
+          - effect: NoSchedule
+            key: db
+            operator: Equal
+            value: "true"
+          volumes:
+          - name: ldp-conf
+            secret:
+              defaultMode: 420
+              optional: false
+              secretName: ldp-conf
+          - name: ldp-marc-data
+            persistentVolumeClaim:
+              claimName: ldp-marc-data
+  schedule: 0 7 * * *
+  successfulJobsHistoryLimit: 7
+  suspend: false
