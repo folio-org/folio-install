@@ -55,7 +55,7 @@ x-okapi-token
 15) Deploy create-email Workload as *Job* – built from our custom Docker container with scripts - with tamu-tenant-config Secret.
 16) Scale up Okapi pods to 3 (for HA) using Rancher 2.x + button.
 17) Add Ingresses and their Nginx annotations under Load Balancing for Okapi and Stripes using your URLs for `/` and `/_/` paths.
-18) *FOLIO post-install configuration documentation [HERE](Dump_Restore_Upgrade_Notes.md#upgrade-folio-notes)
+18) *FOLIO post-install configuration documentation [HERE](Dump_Restore_Upgrade_Notes.md#upgrade-folio-notes) at step 15
 19) *FOLIO post-install LDP deployment documentation using mod-ldp files [HERE](LDP_Notes.md)
 
 
