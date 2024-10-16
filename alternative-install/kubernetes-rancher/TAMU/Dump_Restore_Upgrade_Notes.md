@@ -1,24 +1,24 @@
 # Contents
 * [Useful Links](#useful-links)
-* [Dump and Restore Folio Prod to Pre Notes](#dump-and-restore-folio-prod-to-pre-notes)
-* [Upgrade Folio Notes](#upgrade-folio-notes)
-* [Roll-back Folio Notes](#roll-back-folio-notes)
+* [Dump and Restore FOLIO Prod to Pre Notes](#dump-and-restore-folio-prod-to-pre-notes)
+* [Upgrade FOLIO Notes](#upgrade-folio-notes)
+* [Roll-back FOLIO Notes](#roll-back-folio-notes)
 * [Other Notes](#other-notes)
-* [Troubleshooting Folio](#troubleshooting-folio)
+* [Troubleshooting FOLIO](#troubleshooting-folio)
 
 # Useful Links
 
-* [Folio API Documentation](https://dev.folio.org/reference/api/)
-* [Folio Community Module Registry](http://folio-registry.aws.indexdata.com/_/proxy/modules)
-* [Folio Docs](https://docs.folio.org/docs/)
-* [Folio Install Guide on Github](https://github.com/folio-org/folio-install)
-* [Folio Jira](https://folio-org.atlassian.net/jira)
-* [Folio Modules on Dockerhub](https://hub.docker.com/u/folioorg/)
-* [Folio Platform Complete on Github](https://github.com/folio-org/platform-complete)
-* [Folio Vagrant](https://app.vagrantup.com/folio)
+* [FOLIO API Documentation](https://dev.folio.org/reference/api/)
+* [FOLIO Community Module Registry](http://folio-registry.aws.indexdata.com/_/proxy/modules)
+* [FOLIO Docs](https://docs.folio.org/docs/)
+* [FOLIO Install Guide on Github](https://github.com/folio-org/folio-install)
+* [FOLIO Jira](https://folio-org.atlassian.net/jira)
+* [FOLIO Modules on Dockerhub](https://hub.docker.com/u/folioorg/)
+* [FOLIO Platform Complete on Github](https://github.com/folio-org/platform-complete)
+* [FOLIO Vagrant](https://app.vagrantup.com/folio)
 * [Okapi API Gateway on Github](https://github.com/folio-org/okapi/blob/master/README.md)
 
-# Dump and Restore Folio Prod to Pre Notes
+# Dump and Restore FOLIO Prod to Pre Notes
 
 ## Prepare a Crunchy Patroni Prod database cluster Replica for the Database Dump
 (ssh to Prod cpg replica host)
@@ -35,10 +35,10 @@
 
 *Before a large data import, restore or data change it is generally a good idea to pause the cluster and disable replication.*
 
-## Prepare Folio Pre Environment for the Database Restore
+## Prepare FOLIO Pre Environment for the Database Restore
 (ssh to Pre cpg leader host)
-#### Scale down Folio backend on the folio-pre K8s cluster:
-(Replace `<NAMESPACE>` with the corresponding K8s Folio namespace)<br/>
+#### Scale down FOLIO backend on the folio-pre K8s cluster:
+(Replace `<NAMESPACE>` with the corresponding K8s FOLIO namespace)<br/>
 ```kubectl get deploy -n <NAMESPACE> -o name | xargs -I % kubectl scale % --replicas=0 -n <NAMESPACE>```<br/>
 ```kubectl get statefulsets -n <NAMESPACE> -o name | xargs -I % kubectl scale % --replicas=0 -n <NAMESPACE>```
 
@@ -113,15 +113,15 @@ SET jsonb = Jsonb_set(jsonb, '{personal, email}', '"folio_user@tamu.org"')
 WHERE jsonb -> 'personal' ->> 'email' != 'folio_user@tamu.org';
  ```
 
-#### Scale up Folio backend on the folio-pre K8s cluster:
-(Replace `<NAMESPACE>` with the corresponding K8s Folio namespace)<br/>
+#### Scale up FOLIO backend on the folio-pre K8s cluster:
+(Replace `<NAMESPACE>` with the corresponding K8s FOLIO namespace)<br/>
 ```kubectl get deploy -n <NAMESPACE> -o name | xargs -I % kubectl scale % --replicas=1 -n <NAMESPACE>```<br/>
 ```kubectl get statefulsets -n <NAMESPACE> -o name | xargs -I % kubectl scale % --replicas=1 -n <NAMESPACE>```
 
-#### Update Folio Pre database role passwords, Folio Pre System/Admin user passwords - See the list below.
+#### Update FOLIO Pre database role passwords, FOLIO Pre System/Admin user passwords - See the list below.
 
-#### Update E-mail URL and void SMTP-RELAY settings for Folio Pre tenant:
-(I perform the following exec'd into the Okapi container on the K8s cluster of the Folio Pre instance)<br/>
+#### Update E-mail URL and void SMTP-RELAY settings for FOLIO Pre tenant:
+(I perform the following exec'd into the Okapi container on the K8s cluster of the FOLIO Pre instance)<br/>
 `touch folio_host.json`<br/>
 `vi folio_host.json`
 
@@ -159,7 +159,7 @@ WHERE jsonb -> 'personal' ->> 'email' != 'folio_user@tamu.org';
 }
 ```
 
-#### Get UUIDs of Folio Pre configs to compare and match:
+#### Get UUIDs of FOLIO Pre configs to compare and match:
 ```
 curl -i -w '\n' -X GET "$OKAPI_URL/configurations/entries?limit=100" \
 -H "X-Okapi-Tenant: tamu" \
@@ -171,8 +171,8 @@ curl -i -w '\n' -X GET "$OKAPI_URL/smtp-configuration?limit=100" \
 -H "X-Okapi-Token: <OKAPI_TOKEN>"
 ```
 
-#### Post the configs to Folio Pre with tamu_admin UI session token:
-(Replace `<OKAPI_TOKEN>` with the tamu_admin user token from Folio Pre UI *Settings - Developer - Set token*)<br/>
+#### Post the configs to FOLIO Pre with tamu_admin UI session token:
+(Replace `<OKAPI_TOKEN>` with the tamu_admin user token from FOLIO Pre UI *Settings - Developer - Set token*)<br/>
 ```
 curl -i -w '\n' -X PUT $OKAPI_URL/configurations/entries/<TAMU_UUID> \
 -H "Content-type: application/json" \
@@ -188,13 +188,13 @@ curl -i -w '\n' -X PUT $OKAPI_URL/smtp-configuration/<TAMU_UUID> \
 -d @email_smtp_host.json
 ```
 
-#### Reindex Elasticsearch for Folio Pre:
+#### Reindex Elasticsearch for FOLIO Pre:
 ```
 curl -w '\n' -D - -X POST $OKAPI_URL/search/index/inventory/reindex -H "X-Okapi-Tenant: tamu" -H "Content-Type: application/json" -H "X-Okapi-Token: <OKAPI_TOKEN>" -d '{"recreateIndex": true}'
 ```
 
 #### Post LDP Pre application config:
-(Replace `<PASSWORD>` with the Folio Pre ldp user's database password)<br/>
+(Replace `<PASSWORD>` with the FOLIO Pre ldp user's database password)<br/>
 ```
 curl -w '\n' -D - -X PUT $OKAPI_URL/ldp/config/dbinfo -H "X-Okapi-Tenant: tamu" -H "Content-Type: application/json" -H "X-Okapi-Token: <OKAPI_TOKEN>" -d '{
   "key":"dbinfo",
@@ -203,11 +203,11 @@ curl -w '\n' -D - -X PUT $OKAPI_URL/ldp/config/dbinfo -H "X-Okapi-Tenant: tamu" 
 }'
 ```
 
-#### Update Settings in Folio UI
-* The target Folio instance *Settings - Tenant - SSO settings - Identity Provider URL* configuration may need to be updated if the environment you're cloning to is for staging/testing.<br/>
+#### Update Settings in FOLIO UI
+* The target FOLIO instance *Settings - Tenant - SSO settings - Identity Provider URL* configuration may need to be updated if the environment you're cloning to is for staging/testing.<br/>
 Testing IDP URL: `https://tamu.org/shibboleth-test`<br/>
 Pre/Prod IDP URL: `https://tamu.org/shibboleth`
-* The target Folio instance *Settings - OAI-PMH - General - Base URL* configuration will need to be updated to reflect the edge URL for that instance.<br/>
+* The target FOLIO instance *Settings - OAI-PMH - General - Base URL* configuration will need to be updated to reflect the edge URL for that instance.<br/>
 Dev/Test/Pre URL: `https://folio-edge-<dev/test/pre>.tamu.org/oai`<br/>
 Prod URL: `https://folio-edge.tamu.org/oai`
 
@@ -236,8 +236,8 @@ role "postgres"<br/>
 role "replicator"<br/>
 role "spring_folio_admin"
 
-#### These Folio System Accounts need their passwords updated after restoring a dump:
-(In the Folio UI)<br/>
+#### These FOLIO System Accounts need their passwords updated after restoring a dump:
+(In the FOLIO UI)<br/>
 backup_admin<br/>
 data-export-system-user<br/>
 ebsco_services<br/>
@@ -249,23 +249,23 @@ system-user<br/>
 tamu_admin<br/>
 vufind
 
-# Upgrade Folio Notes
+# Upgrade FOLIO Notes
 
-Be sure to read over the Folio Flower release notes here: [https://folio-org.atlassian.net/wiki/spaces/REL/overview](https://folio-org.atlassian.net/wiki/spaces/REL/overview)<br/>
+Be sure to read over the FOLIO Flower release notes here: [https://folio-org.atlassian.net/wiki/spaces/REL/overview](https://folio-org.atlassian.net/wiki/spaces/REL/overview)<br/>
 Pay very close attention to the *Important upgrade considerations* and *Changes and required actions* sections of each release.<br/>
-New Folio back-end modules may need to be added to the deployment namespace; and existing Folio module configs, environment variables, and/or database configs may need to change.<br/>
+New FOLIO back-end modules may need to be added to the deployment namespace; and existing FOLIO module configs, environment variables, and/or database configs may need to change.<br/>
 
 **Prerequisites**
 * Always be sure to back up your database before performing any upgrades!
-* In the Folio UI logged in as the tamu_admin user, add the **Okapi All** permission set to the tamu_admin user before the upgrade in the Users app by editing it. When the upgrade is verified as successful, remove this permission set from the tamu_admin user.
-* After the **Okapi All** permission set is added to the tamu_admin user, log out of Folio and back in with it. In *Settings - Developer - Set token*, copy out this token. You will need it later for disabling mod-authtoken for the supertenant.
-* On the Nginx Plus load balancer dashboard on Manager22, edit and mark the appropriate HTTP upstream Folio cluster nodes as Down so it is not accessible from the outside while performing an upgrade.
-* Scale the Okapi Workload to 1 pod in the appropriate Rancher UI - Folio Cluster - Folio Namespace.
-* Suspend LDP ldp-data-update, ldp-marc-data-update and ldp-derived-tables K8s cron jobs in the appropriate Rancher UI - Folio Cluster - Folio Namespace.
-* Scale down the mod-camunda, mod-data-mig, mod-spine-o-matic, and mod-workflow Workloads in the appropriate Rancher UI - Folio Cluster - Folio Namespace.
+* In the FOLIO UI logged in as the tamu_admin user, add the **Okapi All** permission set to the tamu_admin user before the upgrade in the Users app by editing it. When the upgrade is verified as successful, remove this permission set from the tamu_admin user.
+* After the **Okapi All** permission set is added to the tamu_admin user, log out of FOLIO and back in with it. In *Settings - Developer - Set token*, copy out this token. You will need it later for disabling mod-authtoken for the supertenant.
+* On the Nginx Plus load balancer dashboard on Manager22, edit and mark the appropriate HTTP upstream FOLIO cluster nodes as Down so it is not accessible from the outside while performing an upgrade.
+* Scale the Okapi Workload to 1 pod in the appropriate Rancher UI - FOLIO Cluster - FOLIO Namespace.
+* Suspend LDP ldp-data-update, ldp-marc-data-update and ldp-derived-tables K8s cron jobs in the appropriate Rancher UI - FOLIO Cluster - FOLIO Namespace.
+* Scale down the mod-camunda, mod-data-mig, mod-spine-o-matic, and mod-workflow Workloads in the appropriate Rancher UI - FOLIO Cluster - FOLIO Namespace.
 * Disable mod-authtoken for the supertenant before upgrading. See notes on how at the bottom of this Readme.
 
-#### Check Folio okapi_modules database schema for duplicate barcodes from Postgres:
+#### Check FOLIO okapi_modules database schema for duplicate barcodes from Postgres:
 ```
 SET search_path TO tamu_mod_inventory_storage;
 SELECT lower(jsonb->>'barcode')
@@ -282,7 +282,7 @@ WHERE lower(jsonb->>'barcode') in (
   HAVING count(*) > 1);
 ```
 
-#### Check Folio okapi_modules database schema for duplicate external IDs from Postgres:
+#### Check FOLIO okapi_modules database schema for duplicate external IDs from Postgres:
 ```
 SET search_path TO tamu_mod_users;
 SELECT left(lower(f_unaccent( jsonb->>'externalSystemId')), 600)
@@ -292,20 +292,20 @@ HAVING count(*) > 1;
 ```
 *If any duplicates are found, the appropriate Librarian over that data's functional area will need to be consulted, along with a developer to mitigate the bad data.*
 
-### Upgrading the Folio instance:
+### Upgrading the FOLIO instance:
 
-1) Grab the following files from the desired Folio-org's platform-complete release branch at https://github.com/folio-org/platform-complete:
+1) Grab the following files from the desired FOLIO org's platform-complete release branch at https://github.com/folio-org/platform-complete:
 * install.json
 * okapi-install.json
 * package.json
 * stripes.config.js
 * yarn.lock
 
-2) Git Clone the appropriate TAMU Folio release repo or branch from here as a baseline: https://github.com/TAMULib/folio
+2) Git Clone the appropriate TAMU FOLIO release repo or branch from here as a baseline: https://github.com/TAMULib/folio
 
-3) Copy in the install.json and okapi-install.json files from the 1st step above to the `../deploy-jobs/create-deploy/install` folder of the cloned TAMU Folio release repo.
+3) Copy in the install.json and okapi-install.json files from the 1st step above to the `../deploy-jobs/create-deploy/install` folder of the cloned TAMU FOLIO release repo.
 
-4) Copy in the package.json and yarn.lock files from the 1st step above to the `../stripes-tamu` folder of the cloned TAMU Folio release repo.
+4) Copy in the package.json and yarn.lock files from the 1st step above to the `../stripes-tamu` folder of the cloned TAMU FOLIO release repo.
 
 5) Merge the configs of the new stripes.config.js from https://github.com/folio-org/platform-complete with the existing file at `../stripes-tamu`<br/>
 (Rename the *tenant*, *welcomeMessage* and *platformName* texts per the environment)<br/>
@@ -348,30 +348,30 @@ Docker command examples below:<br/>
 `docker build -t harbor.tamu.org/folio/stripes:rX-202X-hX-tenantX .`<br/>
 `docker push harbor.tamu.org/folio/stripes:rX-202X-hX-tenantX`
 
-8) Update the Okapi Dockerfile tag at `RUN git clone -b "vX.X.X"` in `../okapi/Dockerfile` of the cloned TAMU Folio release repo, corresponding to what is present in the new platform-complete's install.json file from step #1. Build and push the Okapi Docker container to the Harbor container registry with tag: rX-202X-hX (*release-year-hotfix*).
+8) Update the Okapi Dockerfile tag at `RUN git clone -b "vX.X.X"` in `../okapi/Dockerfile` of the cloned TAMU FOLIO release repo, corresponding to what is present in the new platform-complete's install.json file from step #1. Build and push the Okapi Docker container to the Harbor container registry with tag: rX-202X-hX (*release-year-hotfix*).
 
 Docker command examples below:<br/>
 `docker build -t harbor.tamu.org/folio/okapi:rX-202X-hX .`<br/>
 `docker push harbor.tamu.org/folio/okapi:rX-202X-hX`
 
-9) In Rancher, in the appropriate Folio cluster and namespace - scale the "okapi" Workload down to 0 pods, update the tag to the newly pushed version that was built in step 8, and scale up to 1 pod.
+9) In Rancher, in the appropriate FOLIO cluster and namespace - scale the "okapi" Workload down to 0 pods, update the tag to the newly pushed version that was built in step 8, and scale up to 1 pod.
 
-10) Update the folio-rX-202X-workloads.yaml in `../YAML` of the cloned TAMU Folio release repo
+10) Update the folio-rX-202X-workloads.yaml in `../YAML` of the cloned TAMU FOLIO release repo
 * Replace the version numbers of the image tags as well as the workloadselector/name fields with the new version numbers in the install.json from step 1.
-* Update any config changes in this YAML and/or Rancher's Secrets/ConfigMaps of the Folio namespace in this step.
-* In Rancher, import the updated YAML to the appropriate Folio namespace.
+* Update any config changes in this YAML and/or Rancher's Secrets/ConfigMaps of the FOLIO namespace in this step.
+* In Rancher, import the updated YAML to the appropriate FOLIO namespace.
 * *This will take a while...*
 
-11) In Rancher, in the appropriate Folio cluster and namespace - update the tag for the "stripes-tamu-XXXX" Workload to the newly pushed version that was built in step 7. The pods will auto-redeploy via K8s.
+11) In Rancher, in the appropriate FOLIO cluster and namespace - update the tag for the "stripes-tamu-XXXX" Workload to the newly pushed version that was built in step 7. The pods will auto-redeploy via K8s.
 
-12) In Rancher, in the appropriate Folio cluster and namespace - deploy the “create-deploy” K8s Job using the tamu-tenant-config secret and tagged rX-202X-hX image mentioned in step 6.
+12) In Rancher, in the appropriate FOLIO cluster and namespace - deploy the “create-deploy” K8s Job using the tamu-tenant-config secret and tagged rX-202X-hX image mentioned in step 6.
 * For the Job Configuration settings set *Completions*, *Parallelism* and *Back Off Limit* to 1.
 * Set a long Active Deadline Seconds for the Job (I use 50000).
 * *This will take a while...*
 
-*If any of it fails, get the logs from Rancher containers themselves and record them. This includes the create-deploy Job container for the upgrade, the Okapi containers, as well as the backend Folio module containers related to the error messages that come from the create-deploy Job container. Folio Jira Issues will need to be filed if there is not an apparent mis-configuration after some investigation.*
+*If any of it fails, get the logs from Rancher containers themselves and record them. This includes the create-deploy Job container for the upgrade, the Okapi containers, as well as the backend FOLIO module containers related to the error messages that come from the create-deploy Job container. FOLIO Jira Issues will need to be filed if there is not an apparent mis-configuration after some investigation.*
 
-13) Restart all Folio back-end modules once the upgrade is complete.
+13) Restart all FOLIO back-end modules once the upgrade is complete.
 
 14) Reindex Elasticsearch by posting to Okapi (either from inside the Okapi container in the environment or externally using the FQDN Okapi URL):
 ```
@@ -383,25 +383,25 @@ curl -w '\n' -D - -X POST http://okapi:9130/search/index/inventory/reindex -H "X
 * Scale all other back-end modules out to 1, 2, 5 pods accordingly (Use existing folio-pre/folio-prod instance as a reference).
 * Upgrade the modules for the supertenant, notes below.
 * Re-enable mod-authtoken for the supertenant.
-* Resume LDP ldp-data-update, ldp-marc-data-update and ldp-derived-tables K8s cron jobs in the appropriate Rancher UI - Folio Cluster - Folio Namespace.
-* Scale up to 1 pod each the mod-camunda, mod-data-mig, mod-spine-o-matic, and mod-workflow Workloads in the appropriate Rancher UI - Folio Cluster - Folio Namespace.
-* Delete old/unused Folio back-end modules in the appropriate Rancher UI - Folio Cluster - Folio Namespace.
-* On the Nginx Plus load balancer dashboard on Manager22, edit and mark the appropriate HTTP upstream Folio cluster nodes as back Up so it is accessible from the outside once an upgrade is completed.
+* Resume LDP ldp-data-update, ldp-marc-data-update and ldp-derived-tables K8s cron jobs in the appropriate Rancher UI - FOLIO Cluster - FOLIO Namespace.
+* Scale up to 1 pod each the mod-camunda, mod-data-mig, mod-spine-o-matic, and mod-workflow Workloads in the appropriate Rancher UI - FOLIO Cluster - FOLIO Namespace.
+* Delete old/unused FOLIO back-end modules in the appropriate Rancher UI - FOLIO Cluster - FOLIO Namespace.
+* On the Nginx Plus load balancer dashboard on Manager22, edit and mark the appropriate HTTP upstream FOLIO cluster nodes as back Up so it is accessible from the outside once an upgrade is completed.
 
-16) Try logging in to the Folio instance on the web
-* Check the Folio UI *Settings - Software versions* for any yellow or red.
+16) Try logging in to the FOLIO instance on the web
+* Check the FOLIO UI *Settings - Software versions* for any yellow or red.
 * Click around on the Apps at the top bar and drop-down to check for responsiveness and data feed.
-* In the Folio UI logged in as the tamu_admin user, remove the **Okapi All** permission set from the tamu_admin user.
+* In the FOLIO UI logged in as the tamu_admin user, remove the **Okapi All** permission set from the tamu_admin user.
 
-# Roll-back Folio Notes
+# Roll-back FOLIO Notes
 
-1) Shut down the Folio Okapi API gateway and Postgres databases<br/>
+1) Shut down the FOLIO Okapi API gateway and Postgres databases<br/>
 * In Rancher, spin down the Okapi container in the appropriate namespace to 0 pods.
-* If using a Postgres container: In Rancher, spin down the Postgres Okapi database container (pg-okapi) and Postgres Folio modules database container (pg-folio) in their corresponding namespaces.
+* If using a Postgres container: In Rancher, spin down the Postgres Okapi database container (pg-okapi) and Postgres FOLIO modules database container (pg-folio) in their corresponding namespaces.
 * If using a Crunchy Postgres VM: Pause the Patroni cluster using the command `patronictl -c /etc/patroni/crunchy.yml pause` and shut down the primary VM in vSphere.
 
 2) Restore the Postgres data
-* If using a Postgres container: In vSphere the container volumes were snapshot the night before. You can find the container volume names and which *Kube* vSphere volume they live in for the container databases under the Volumes tab in Rancher - Folio Project.
+* If using a Postgres container: In vSphere the container volumes were snapshot the night before. You can find the container volume names and which *Kube* vSphere volume they live in for the container databases under the Volumes tab in Rancher - FOLIO Project.
 * If using a Crunchy Postgres VM: The VMs and their volumes will need to be restored via the Netapp Plugin for vCenter snapshots/backups in vSphere.
 
 3) In Rancher, spin back up the two database containers (pg-okapi and pg-folio) to 1 pod each, then the Okapi container to 1 pod. If restoring the Crunchy VM, be sure it is powered back on and ready in vSphere. You may need to run the `patronictl -c /etc/patroni/crunchy.yml restart crunchy <node>` command for the Leader node after the VM is up.
@@ -409,22 +409,22 @@ curl -w '\n' -D - -X POST http://okapi:9130/search/index/inventory/reindex -H "X
 4) Redeploy the Bitnami Kafka Helm chart
 * Take care to save the Answer file config before deleting the Helm Chart!
 * Delete the Kafka and Zookeeper Rancher volumes in Rancher after the Helm chart is finished being deleted.
-* Redeploy the Bitnami Kafka Helm Chart from the Catalog in Rancher, choosing the appropriate Folio namespace, and pasting in the contents of the Answer file as YAML.
+* Redeploy the Bitnami Kafka Helm Chart from the Catalog in Rancher, choosing the appropriate FOLIO namespace, and pasting in the contents of the Answer file as YAML.
 
-5) Restart all of the Folio mod-XXXX back-end modules in Rancher
+5) Restart all of the FOLIO mod-XXXX back-end modules in Rancher
 
-6) Reindex Elasticsearch if you intend to keep this state of the Folio system by posting to Okapi (either from inside the Okapi container in the environment or externally using the FQDN Okapi URL):
+6) Reindex Elasticsearch if you intend to keep this state of the FOLIO system by posting to Okapi (either from inside the Okapi container in the environment or externally using the FQDN Okapi URL):
 ```
 curl -w '\n' -D - -X POST http://okapi:9130/search/index/inventory/reindex -H "X-Okapi-Tenant: tamu" -H "Content-Type: application/json" -H "X-Okapi-Token: <OKAPI_TOKEN>" -d '{"recreateIndex": true}'
 ```
 
 # Other Notes
 
-* If any new module versions need deploying temporarily - Copy the existing older version of the Workload in Rancher, and update the name and tag. You can update the "workloads.yaml" provided in the appropriate Folio Git repo for Libraries under the YAML folder later...<br/>
-* I tend to only deploy one instance of new Okapi version and one pod each of the new back-end Folio modules when I upgrade. Then I scale them out after a successful upgrade. This makes log chasing and diagnosing issues easier...
+* If any new module versions need deploying temporarily - Copy the existing older version of the Workload in Rancher, and update the name and tag. You can update the "workloads.yaml" provided in the appropriate FOLIO Git repo for Libraries under the YAML folder later...<br/>
+* I tend to only deploy one instance of new Okapi version and one pod each of the new back-end FOLIO modules when I upgrade. Then I scale them out after a successful upgrade. This makes log chasing and diagnosing issues easier...
 
 **Disable mod-authtoken for the supertenant**<br/>
-Exec into the Okapi pod in the appropriate Rancher UI - Folio Cluster - Folio Namespace and touch a file as **dt.json**. Edit and Save this file as:
+Exec into the Okapi pod in the appropriate Rancher UI - FOLIO Cluster - FOLIO Namespace and touch a file as **dt.json**. Edit and Save this file as:
 ```
 [
   {
@@ -433,7 +433,7 @@ Exec into the Okapi pod in the appropriate Rancher UI - Folio Cluster - Folio Na
   }
 ]
 ```
-Using the token you copied out of Folio earlier under **Prerequisites**, issue this command while Exec'd into the Okapi pod:
+Using the token you copied out of FOLIO earlier under **Prerequisites**, issue this command while Exec'd into the Okapi pod:
 ```
 curl -w '\n' -D - -X POST -H "Content-type: application/json" \
 -H "X-Okapi-Token: <OKAPI_TOKEN>" \
@@ -443,7 +443,7 @@ $OKAPI_URL/_/proxy/tenants/supertenant/install?deploy=false\&preRelease=false\&t
 To re-enable mod-authtoken for the supertenant, perform the same steps above but edit the **dt.json** file and set `"action": "enable"`
 
 **Upgrade the back-end modules for the supertenant**<br/>
-The supertenant can only be logged in to via the command line, there is no Folio UI interface for interacting with it. Because of this, the steps are very similar to upgrading Folio - A list of modules in a json file is posted to the supertenant Okapi install endpoint. Perform these steps exec'd into an Okapi Workload pod in the appropriate Rancher UI - Folio Cluster - Folio Namespace.<br/>
+The supertenant can only be logged in to via the command line, there is no FOLIO UI interface for interacting with it. Because of this, the steps are very similar to upgrading FOLIO - A list of modules in a json file is posted to the supertenant Okapi install endpoint. Perform these steps exec'd into an Okapi Workload pod in the appropriate Rancher UI - FOLIO Cluster - FOLIO Namespace.<br/>
 These modules are:
 * mod-login
 * mod-permissions
@@ -457,7 +457,7 @@ curl -w '\n' -D - -X POST -H "Content-type: application/json" \
 $OKAPI_URL/_/proxy/tenants/supertenant/install?deploy=false\&preRelease=false\&tenantParameters=loadSample%3Dfalse%2CloadReference%3Dfalse
 ```
 Where the contents of `okapi-install.json` are:<br/>
-*(Replace X.X.X with the appropriate version of the module for the release of Folio you are upgrading to)*
+*(Replace X.X.X with the appropriate version of the module for the release of FOLIO you are upgrading to)*
 ```
 [
   {
@@ -479,9 +479,9 @@ Where the contents of `okapi-install.json` are:<br/>
 ]
 ```
 
-# Troubleshooting Folio
+# Troubleshooting FOLIO
 
-* In Rancher if new Folio back-end modules are constantly restarting before you perform an upgrade - check their connection to the database, and the availability of the Okapi deployment.
+* In Rancher if new FOLIO back-end modules are constantly restarting before you perform an upgrade - check their connection to the database, and the availability of the Okapi deployment.
 * On occasion module changes may introduce a Kafka dependency or Elasticsearch dependency - and the module's environment variables or K8s Secret will need to be updated to connect to the Kafka or Elasticsearch instance in the namespace.
 * On occasion an Okapi pod will crash and/or drop from the Okapi cluster due to a network issue and the Okapi cluster will fail to reform properly. In this scenario, the whole deployment must be scaled to 0 pods. Then scaled back up to 3 pods to re-form the Okapi cluster.
 * If Data Import/Export stop functioning for Librarians - it may be necessary to re-deploy Kafka. After doing so, all back-end modules that connect to Kafka will have to be restarted.<br/>
