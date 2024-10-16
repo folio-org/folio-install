@@ -16,7 +16,7 @@
 * https://github.com/library-data-platform/ldpmarc
 * https://github.com/folio-org/folio-analytics
 
-#### Rancher Folio Clusters
+#### Rancher FOLIO Clusters
 1) https://rancher-dev.tamu.org
 * folio-dev-cluster (*folio-dev*/*folio-test* namespaces)
 * folio-pre-cluster (*folio-pre* namespace)
@@ -26,13 +26,13 @@
 # Deployment on Infrastructure
 
 ### Each LDP instance consists of the following pieces:
-*The four Folio environments (Dev/Test/Pre/Prod) run their own LDP instance with dedicated K8s Secrets*
+*The four FOLIO environments (Dev/Test/Pre/Prod) run their own LDP instance with dedicated K8s Secrets*
 * LDP Postgres database (containerized K8s Workload or vSphere VM)
 * Three time-ordered K8s cron jobs for the nightly sync and rebuild
 * LDP "Server" K8s Workload
-* Folio mod-ldp backend module
-* Folio LDP UI App
-* Github repo containing SQL code for the derived tables, and Folio UI LDP saved queries
+* FOLIO mod-ldp backend module
+* FOLIO LDP UI App
+* Github repo containing SQL code for the derived tables, and FOLIO UI LDP saved queries
 
 ### Breakdown of the Pieces:
 
@@ -208,19 +208,19 @@ GRANT USAGE ON SCHEMA public TO :ldp_user;<br/>
 </details><br/>
 
 #### LDP Postgres database
-1) Folio Dev
+1) FOLIO Dev
 * Containerized DB Workload *pg-ldp* in *folio-dev* K8s namespace
 * CNAME URL: folio-ldp-dev.tamu.org
 * Setup SQL K8s Secret *postgres-setup-sql-ldp*
-2) Folio Test
+2) FOLIO Test
 * Containerized DB Workload *pg-ldp* in *folio-test* K8s namespace
 * CNAME URL: folio-ldp-test.tamu.org
 * Setup SQL K8s Secret *postgres-setup-sql-ldp*
-3) Folio Pre
+3) FOLIO Pre
 * Containerized DB Workload *pg-ldp* in *folio-pre* K8s namespace
 * CNAME URL: folio-ldp-pre.tamu.org
 * Setup SQL K8s Secret *postgres-setup-sql-ldp*
-4) Folio Prod
+4) FOLIO Prod
 * vSphere VM srv-pgsql-ldp
 * Symlink'd via K8s Service Discovery *pg-ldp* record
 * URL: ldp.tamu.org / CNAME URL: prod-ldp.tamu.org
@@ -228,49 +228,49 @@ GRANT USAGE ON SCHEMA public TO :ldp_user;<br/>
 
 #### Three time-ordered K8s cron jobs for the nightly sync and rebuild
 1) ldp-data-update
-* Syncs data from Folio using a combo of the Folio API and direct-to-database connection
+* Syncs data from FOLIO using a combo of the FOLIO Okapi API and direct-to-database connection
 * Sync configuration stored as a K8s Secret *ldp-conf*, mounted as a Volume
 * Scratch K8s Volume Claim attached for data cache operations
 * Uses Index Data provided container from *ghcr.io/library-data-platform*
 * When running, the Workload run-time command is `update -D /var/lib/ldp --direct-extraction-no-ssl --trace`
 2) ldp-marc-data-update
-* Syncs data from Folio using a combo of the Folio API and direct-to-database connection
+* Syncs data from FOLIO using a combo of the FOLIO Okapi API and direct-to-database connection
 * Sync configuration stored as a K8s Secret *ldp-conf*, mounted as a Volume
 * Scratch K8s Volume Claim attached for data cache operations
 * Uses Index Data provided container from *ghcr.io/library-data-platform*
 * When running, the Workload run-time command is `-D /var/lib/ldp -u ldpadmin`
 3) ldp-derived-tables
-* Transforms data from Folio sync cron jobs above into relational tables using Bash and Perl scripts
+* Transforms data from FOLIO sync cron jobs above into relational tables using Bash and Perl scripts
 * Connection configuration K8s Secret *db-config-ldp*
 * Uses custom Harbor container image and SQL built from `../ldp-derived-tables` repo folder
 
 #### LDP "Server" K8s Workload
 * Updates LDP database schema on a planned LDP version upgrade
 * Uses Index Data provided container from *ghcr.io/library-data-platform*
-* Exists in the Folio namespace as *ldp-server* Workload
+* Exists in the FOLIO namespace as *ldp-server* Workload
 * Normally does not run (0 pods) unless a schema update is required
 * When scaled to 1 pod, the Workload run-time command is `upgrade-database -D /var/lib/ldp --direct-extraction-no-ssl --trace`
 * Sync configuration stored as a K8s Secret *ldp-conf*, mounted as a Volume
 * Scratch K8s Volume Claim attached for data cache operations
 
-#### Folio mod-ldp backend module
-* Exists in the Folio namespace as *mod-ldp-X-X-X* Workload running 1 pod
-* Connects to Folio okapi_modules database using K8s Secret *db-connect*
-* Deployed with Folio platform-complete or during a Folio upgrade
+#### FOLIO mod-ldp backend module
+* Exists in the FOLIO namespace as *mod-ldp-X-X-X* Workload running 1 pod
+* Connects to FOLIO okapi_modules database using K8s Secret *db-connect*
+* Deployed with FOLIO platform-complete or during a FOLIO upgrade
 * Independent of the LDP itself
 
-#### Folio LDP UI App
+#### FOLIO LDP UI App
 * Allows in-app query building
-* Available in Folio UI as LDP on top bar, or drop-down
+* Available in FOLIO UI as LDP on top bar, or drop-down
 * Configuration settings in UI under Settings - LDP
-* Deployed with Folio platform-complete or during a Folio upgrade
+* Deployed with FOLIO platform-complete or during a FOLIO upgrade
 * Independent of the LDP itself
 
 #### Github repo
 * Located in `../ldp-derived-tables` folder
 * K8s *ldp-derived-tables* cron job container built using this repo, executes *create-derived-tables.sh* SQL and *item_history_update* Perl scripts
 * SQL and execution logic under `../sql/derived_tables` subfolder
-* Folio UI saved queries at `../queries` folder
+* FOLIO UI saved queries at `../queries` folder
 
 # LDP Process Flow
 
