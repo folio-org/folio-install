@@ -189,7 +189,7 @@ Health Check endpoint: /admin/health
 ### mod-data-export-worker
 Startup Options:<br/>
 JAVA_OPTIONS = -XX:MaxRAMPercentage=66.0<br/>
-ENV = folio-r2<br/>
+ENV = <br/>
 KAFKA_PORT = 9092<br/>
 KAFKA_HOST = http://kafka-r2<br/>
 AWS_ACCESS_KEY_ID = key<br/>
@@ -207,7 +207,7 @@ KAFKA_PORT = 9092<br/>
 KAFKA_HOST = http://kafka-r2<br/>
 JAVA_OPTIONS = -XX:MaxRAMPercentage=66.0<br/>
 file.processing.buffer.chunk.size = 50<br/>
-ENV = folio-r2<br/>
+ENV = <br/>
 data.import.storage.type = LOCAL_STORAGE<br/>
 data.import.storage.path = /storage/upload<br/>
 Database connection: Yes<br/>
@@ -227,7 +227,7 @@ Startup Options:<br/>
 KAFKA_PORT = 9092<br/>
 KAFKA_HOST = http://kafka-r2<br/>
 JAVA_OPTIONS = -XX:MaxRAMPercentage=66.0<br/>
-ENV = folio-r2<br/>
+ENV = <br/>
 Database connection: Yes<br/>
 Port: 8081<br/>
 Health Check endpoint: /admin/health
