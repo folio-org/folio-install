@@ -1,17 +1,16 @@
 # Setup FOLIO on Rancher 2.x/Kubernetes
 
 ## Readme Contents
-
-* [Workload YAML Readme](YAML/Readme.md)
-* [Module Metadata notes](module_metadata.md)
-* [Okapi Dockerfile Readme](okapi/Readme.md)
-* [Stripes Dockerfile Readme](stripes-tamu/Readme.md)
-* [bootstrap-superuser Dockerfile Readme](deploy-jobs/bootstrap-superuser/Readme.md)
-* [create-deploy Dockerfile Readme](deploy-jobs/create-deploy/Readme.md)
-* [create-tenant Dockerfile Readme](deploy-jobs/create-tenant/Readme.md)
-* [create-email Dockerfile Readme](deploy-jobs/create-email/Readme.md)
-* [secure-okapi Dockerfile Readme](deploy-jobs/secure-okapi/Readme.md)
-* [mod-circulation-notimers Readme](mod-circulation-notimers/Readme.md)
+* [Workload YAML Readme](<YAML/Readme.md>)
+* [Module Metadata notes](<module_metadata.md>)
+* [Okapi Dockerfile Readme](<okapi/Readme.md>)
+* [Stripes Dockerfile Readme](<stripes-tamu/Readme.md>)
+* [bootstrap-superuser Dockerfile Readme](<deploy-jobs/bootstrap-superuser/Readme.md>)
+* [create-deploy Dockerfile Readme](<deploy-jobs/create-deploy/Readme.md>)
+* [create-tenant Dockerfile Readme](<create-tenant/Readme.md>)
+* [create-email Dockerfile Readme](<deploy-jobs/create-email/Readme.md>)
+* [secure-okapi Dockerfile Readme](<deploy-jobs/secure-okapi/Readme.md>)
+* [mod-circulation-notimers Readme](<mod-circulation-notimers/Readme.md>)
 
 ### FOLIO deployment overview:
 Our Rancher-exported YAML can be looked at under the YAML folder. After creating the cluster via Rancher 2.x...<br/>
@@ -45,10 +44,10 @@ tamu-tenant-config
 x-okapi-token
 ```
 6) If you are using an external database host, ignore this step. Otherwise deploy two crunchy-postgres *Stateful set* Workloads to the *folio-prod* namespace. Name one *pg-okapi* for Okapi's *okapi* database, and the other *pg-folio* for FOLIO's *okapi_modules* database. Edit each of these Workloads to set environment variables - clicking *Add From Source* to choose the corresponding db-config-okapi and db-config-modules Secrets. Configure your persistent volumes, any resource reservations and limits, as well as the Postgres UID and GID (26) at this time.
-7) Install Apache Kafka and Apache ZooKeeper through a Helm Chart under your FOLIO Project - Apps - Launch. Currently using the Bitnami Kafka app.
-8) Install Elasticsearch through a Helm Chart under your FOLIO Project - Apps - Launch. Currently using the Bitnami Elasticsearch app.
+7) Install Apache Kafka and Apache ZooKeeper through a Helm Chart under your FOLIO Project - Apps - Launch. Currently using the Bitnami Kafka app v19.1.5.
+8) Install Elasticsearch through a Helm Chart under your FOLIO Project - Apps - Launch. Currently using the Bitnami Elasticsearch app v17.9.11.
 9) Deploy Okapi Workload *Scalable deployment* of 1 and InitDB environment variable set to true - built from our custom Docker container - with db-connect-okapi Secret. Once it is running, edit the Okapi Workload and set InitDB environment variable to *false*, it will redeploy.
-10) Deploy FOLIO module Workloads as *Scalable deployment* between 1 and 3 (one Workload per FOLIO module) - with db-connect Secret for those modules that need a connection to the database. Import the folio-<release>-workloads.yaml file in Rancher for this step.
+10) Deploy FOLIO module Workloads as *Scalable deployment* between 1 and 3 (one Workload per FOLIO module) - with db-connect Secret for those modules that need a connection to the database. Import the folio-prod-workloads.yaml file in Rancher for this step.
 11) Deploy Stripes Workload as *Run one pod on each node* – built from our custom Docker container.
 12) Deploy create-tenant Workload as *Job* – built from our custom Docker container with scripts - with tamu-tenant-config Secret.
 13) Deploy create-deploy Workload as *Job*, to enable modules for `/proxy/modules`, `/discovery/modules`, and tenants – built from our custom Docker container with scripts - with tamu-tenant-config Secret.
@@ -56,8 +55,8 @@ x-okapi-token
 15) Deploy create-email Workload as *Job* – built from our custom Docker container with scripts - with tamu-tenant-config Secret.
 16) Scale up Okapi pods to 3 (for HA) using Rancher 2.x + button.
 17) Add Ingresses and their Nginx annotations under Load Balancing for Okapi and Stripes using your URLs for `/` and `/_/` paths.
-18) FOLIO post-install tenant configuration regarding the edge user, permissions, patron groups for system and tenant admin users, timezone and plugin selection, and securing Okapi.
-19) Set up the LDP and configure it for FOLIO UI access.
+18) *FOLIO post-install configuration documentation [HERE](Dump_Restore_Upgrade_Notes.md#upgrade-folio-notes)
+19) *FOLIO post-install LDP deployment documentation using mod-ldp files [HERE](LDP_Notes.md)
 
 
 ### Cluster Service Accounts Notes
@@ -74,7 +73,7 @@ Paste in this code:<br/>
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: hazelcast-rb-prod-2021
+  name: hazelcast-rb-prod
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -88,11 +87,11 @@ subjects:
 3) Save and exit
 4) Run: ```kubectl apply -f rbac.yaml```
 
-### Kafka and Elasticsearch Helm Chart Notes
+### Kafka, Elasticsearch and MinIO Helm Chart Notes
  1) In the Rancher GUI Global view, add the bitnami Helm v3 catalog under Tools - Catalogs: `https://charts.bitnami.com/bitnami`
  2) Paste the following in when deploying the Helm charts<br/>
 
-#### Kafka Helm Chart Values Yaml:
+#### Kafka Helm Chart v19.1.5 Values Yaml:
 ```
 ---
   autoCreateTopicsEnable: true
@@ -109,41 +108,59 @@ subjects:
   - name: ES_JAVA_OPTS
     value: "-Dlog4j2.formatMsgNoLookups=true"
   global: 
-    storageClass: "vsphere-datastore"
-  heapOpts: "-Xmx2048m -Xms2048m"
+    storageClass: "vsphere-csi-datastore"
+  heapOpts: "-Xmx4096m -Xms4096m"
   logFlushIntervalMs: "3600000"
   logRetentionHours: "24"
   numIoThreads: "8"
   numNetworkThreads: "5"
-  numPartitions: "1"
+  numPartitions: "12"
   persistence: 
     accessMode: "ReadWriteOnce"
     enabled: true
     size: "300Gi"
-    storageClass: "vsphere-datastore"
+    storageClass: "vsphere-csi-datastore"
   replicaCount: "3"
   socketReceiveBufferBytes: "102400"
   socketRequestMaxBytes: "104857600"
   socketSendBufferBytes: "102400"
+  tolerations: 
+    - key: "db"
+      operator: "Equal"
+      value: "true"
+      effect: "NoSchedule"
+    - key: "spring"
+      operator: "Equal"
+      value: "true"
+      effect: "NoSchedule"
   zookeeper: 
     enabled: true
     allowAnonymousLogin: false
     auth:
       enabled: true
       serverUsers: "zookeeper_admin"
-      serverPasswords: "password"
+      serverPasswords: "<PASSWORD>"
       clientUser: "zookeeper_user"
-      clientPassword: "password"
+      clientPassword: "<PASSWORD>"
     replicaCount: "3"
     persistence: 
       enabled: true
       size: "50Gi"
       dataLogDir:
         size: "20Gi"
+    tolerations: 
+    - key: "db"
+      operator: "Equal"
+      value: "true"
+      effect: "NoSchedule"
+    - key: "spring"
+      operator: "Equal"
+      value: "true"
+      effect: "NoSchedule"
   zookeeperConnectionTimeoutMs: "60000"
 ```
 
-#### Elasticsearch Helm Chart key-value pairs:
+#### Elasticsearch Helm Chart v17.9.11 key-value pairs:
 ```
 coordinating.heapsize = 256m      
 coordinating.livenessProbe.enabled = false      
@@ -168,7 +185,7 @@ data.serviceAccount.create = true
 data.startupProbe.enabled = false       
 global.coordinating.name = es-conn      
 global.kibanaEnabled = true       
-global.storageClass = "vsphere-datastore"       
+global.storageClass = "vsphere-csi-datastore"       
 image.debug = false       
 ingest.service.port = 9300      
 ingest.service.type = ClusterIP       
@@ -188,6 +205,32 @@ master.service.type = ClusterIP
 master.serviceAccount.create = true       
 master.startupProbe.enabled = false       
 plugins = analysis-icu,analysis-kuromoji,analysis-smartcn,analysis-nori,analysis-phonetic
+```
+
+#### MinIO Helm Chart v7.1.1 Values Yaml:
+```
+---
+  global: 
+    minio: 
+      existingSecret: "minio"
+    storageClass: "vsphere-csi-datastore"
+  ingress: 
+    annotations: 
+      nginx.ingress.rnetes.io/proxy-body-size: 2048M
+    enabled: "true"
+    hosts: 
+      - 
+        name: "folio-minio.tamu.org"
+        path: "/"
+        tls: "true"
+        tlsSecret: "library-wildcard"
+  mode: "distributed"
+  persistence: 
+    size: "50Gi"
+  service: 
+    port: "9000"
+  statefulset: 
+    replicaCount: "4"
 ```
 
 ### Rancher Secrets Notes:
@@ -216,16 +259,16 @@ DB_CHARSET = UTF-8<br/>
 DB_DATABASE = okapi_modules<br/>
 DB_HOST = pg-folio<br/>
 DB_MAXPOOLSIZE = 20<br/>
-DB_PASSWORD = password<br/>
+DB_PASSWORD = <PASSWORD><br/>
 DB_PORT = 5432<br/>
 DB_QUERYTIMEOUT = 120000<br/>
 DB_USERNAME = folio_admin
 
 #### db-connect-migration Secret key-value pairs:
 
-OKAPI_PASSWORD = password<br/>
+OKAPI_PASSWORD = <PASSWORD><br/>
 OKAPI_USERNAME = tamu_admin<br/>
-SPRING_DATASOURCE_PASSWORD = password<br/>
+SPRING_DATASOURCE_PASSWORD = <PASSWORD><br/>
 SPRING_DATASOURCE_USERNAME = spring_folio_admin<br/>
 TENANT_DEFAULT_TENANT = tamu<br/>
 SPRING_APPLICATION_JSON =
@@ -235,13 +278,13 @@ SPRING_APPLICATION_JSON =
     "url": "http://okapi:9130",
     "credentials": {
       "username": "tamu_admin",
-      "password": "password"
+      "password": "<PASSWORD>"
     },
     "modules": {
       "database": {
         "url": "jdbc:postgresql://pg-folio/okapi_modules",
         "username": "folio_admin",
-        "password": "password",
+        "password": "<PASSWORD>",
         "driverClassName": "org.postgresql.Driver"
       }
     }
@@ -251,30 +294,32 @@ SPRING_APPLICATION_JSON =
 #### db-config-migration Secret key-value pairs:
 
 PG_DATABASE = migration_modules<br/>
-PG_PASSWORD = password<br/>
-PG_PRIMARY_PASSWORD = password<br/>
+PG_PASSWORD = <PASSWORD><br/>
+PG_PRIMARY_PASSWORD = <PASSWORD><br/>
 PG_PRIMARY_PORT = 5432<br/>
 PG_PRIMARY_USER = primaryuser<br/>
-PG_ROOT_PASSWORD = password<br/>
+PG_ROOT_PASSWORD = <PASSWORD><br/>
 PG_USER = spring_folio_admin
 
 #### db-config-ldp Secret key-value pairs:
 
 DB_HOST = pg-ldp<br/>
-LDP_CONFIG_PASSWORD = password<br/>
+LDP_CONFIG_PASSWORD = <PASSWORD><br/>
 LDP_CONFIG_USER = ldpconfig<br/>
-LDP_REPORT_PASSWORD = password<br/>
+LDP_REPORT_PASSWORD = <PASSWORD><br/>
 LDP_REPORT_USER = ldpreport<br/>
-LDP_RO_PASSWORD = password<br/>
+LDP_RO_PASSWORD = <PASSWORD><br/>
 LDP_RO_USER = ro_ldp_user<br/>
+LDP_RW_PASSWORD = <PASSWORD><br/>
+LDP_RW_USER = rw_ldp_mis_user<br/>
 LDP_USER = ldp<br/>
-LDP_USER_PASSWORD = password<br/>
+LDP_USER_PASSWORD = <PASSWORD><br/>
 PG_DATABASE = ldp<br/>
-PG_PASSWORD = password<br/>
-PG_PRIMARY_PASSWORD = password<br/>
+PG_PASSWORD = <PASSWORD><br/>
+PG_PRIMARY_PASSWORD = <PASSWORD><br/>
 PG_PRIMARY_PORT = 5432<br/>
 PG_PRIMARY_USER = primaryuser<br/>
-PG_ROOT_PASSWORD = password<br/>
+PG_ROOT_PASSWORD = <PASSWORD><br/>
 PG_USER = ldpadmin
 
 #### db-connect-ldp Secret key-value pairs:
@@ -283,7 +328,7 @@ DB_CHARSET = UTF-8<br/>
 DB_DATABASE = ldp<br/>
 DB_HOST = pg-ldp<br/>
 DB_MAXPOOLSIZE = 20<br/>
-DB_PASSWORD = password<br/>
+DB_PASSWORD = <PASSWORD><br/>
 DB_PORT = 5432<br/>
 DB_QUERYTIMEOUT = 120000<br/>
 DB_USERNAME = ldpadmin
@@ -293,28 +338,28 @@ DB_USERNAME = ldpadmin
 DB_MAXPOOLSIZE = 10<br/>
 PG_DATABASE = okapi<br/>
 PG_HOST = pg-okapi<br/>
-PG_PASSWORD = password<br/>
+PG_PASSWORD = <PASSWORD><br/>
 PG_PORT = 5432<br/>
 PG_USERNAME = okapi
 
 #### db-config-modules Secret key-value pairs:
 
 PG_DATABASE = okapi_modules<br/>
-PG_PASSWORD = password<br/>
-PG_PRIMARY_PASSWORD = password<br/>
+PG_PASSWORD = <PASSWORD><br/>
+PG_PRIMARY_PASSWORD = <PASSWORD><br/>
 PG_PRIMARY_PORT = 5432<br/>
 PG_PRIMARY_USER = primaryuser<br/>
-PG_ROOT_PASSWORD = password<br/>
+PG_ROOT_PASSWORD = <PASSWORD><br/>
 PG_USER = folio_admin
 
 #### db-config-okapi Secret key-value pairs:
 
 PG_DATABASE = okapi<br/>
-PG_PASSWORD = password<br/>
-PG_PRIMARY_PASSWORD = password<br/>
+PG_PASSWORD = <PASSWORD><br/>
+PG_PRIMARY_PASSWORD = <PASSWORD><br/>
 PG_PRIMARY_PORT = 5432<br/>
 PG_PRIMARY_USER = primaryuser<br/>
-PG_ROOT_PASSWORD = password<br/>
+PG_ROOT_PASSWORD = <PASSWORD><br/>
 PG_USER = okapi
 
 #### edge-securestore-props Secret key-value pairs:
@@ -330,7 +375,7 @@ tenants=tamu
 # Note: this is intended for development purposes only
 #######################################################
 # format: tenant=username,password
-tamu=edgeuser,password
+tamu=edgeuser,<PASSWORD>
 ```
 
 #### ldp-conf Secret key-value pairs:
@@ -345,7 +390,7 @@ ldpconf.json =
         "database_host": "pg-ldp",
         "database_port": 5432,
         "database_user": "ldpadmin",
-        "database_password": "password",
+        "database_password": "<PASSWORD>",
         "database_sslmode": "disable"
     },
     "enable_sources": ["tamu_library"],
@@ -354,7 +399,7 @@ ldpconf.json =
             "okapi_url": "http://okapi:9130",
             "okapi_tenant": "tamu",
             "okapi_user": "tamu_admin",
-            "okapi_password": "password",
+            "okapi_password": "<PASSWORD>",
             "direct_tables": [
                 "inventory_holdings",
                 "inventory_instances",
@@ -366,7 +411,7 @@ ldpconf.json =
             "direct_database_host": "pg-folio",
             "direct_database_port": 5432,
             "direct_database_user": "folio_admin",
-            "direct_database_password": "password"
+            "direct_database_password": "<PASSWORD>"
         }
     }
 }
@@ -379,7 +424,7 @@ GRAPHQL_OPTIONS = <br/>
 LOGGING_CATEGORIES = <br/>
 NODE_OPTIONS = --no-deprecation<br/>
 OKAPI_TENANT = tamu<br/>
-OKAPI_TOKEN = token<br/>
+OKAPI_TOKEN = <BLANK><br/>
 OKAPI_URL = `http://okapi:9130`<br/>
 PROXY_OKAPI_URL = `https://folio-okapi.tamu.org`<br/>
 RAML_DIR = <br/>
@@ -396,7 +441,7 @@ KAFKA_HOST = `http://kafka-prod`<br/>
 KAFKA_PORT = 9092<br/>
 OKAPI_URL = `http://okapi:9130`<br/>
 SYSTEM_USER_NAME = pub-sub<br/>
-SYSTEM_USER_PASSWORD = password
+SYSTEM_USER_PASSWORD = <PASSWORD>
 
 #### mod-search Secret key-value pairs:
 
@@ -406,7 +451,7 @@ ELASTICSEARCH_URL = `http://elasticsearch-prod-es-conn:9200`<br/>
 ENV = folio-prod<br/>
 INITIAL_LANGUAGES = eng,spa,fre,ger<br/>
 JAVA_OPTIONS = -XX:MaxRAMPercentage=66.0<br/>
-KAFKA_EVENTS_CONSUMER_PATTERN = `(folio-prod\.)(.*\.)inventory\.(instance|holdings-record|item)`<br/>
+KAFKA_EVENTS_CONSUMER_PATTERN = `(folio-prod\.)(.*\.)inventory\.(instance|holdings-record|item|bound-with)`<br/>
 KAFKA_HOST = `http://kafka-prod`<br/>
 KAFKA_PORT = 9092<br/>
 KAFKA_SECURITY_PROTOCOL = PLAINTEXT<br/>
@@ -415,7 +460,7 @@ KAFKA_SSL_KEYSTORE_PASSWORD = <br/>
 KAFKA_SSL_TRUSTSTORE_LOCATION = <br/>
 KAFKA_SSL_TRUSTSTORE_PASSWORD = <br/>
 OKAPI_URL = `http://okapi:9130`<br/>
-SYSTEM_USER_PASSWORD = password
+SYSTEM_USER_PASSWORD = <PASSWORD>
 
 #### mod-z3950 Secret key-value pairs:
 
@@ -428,16 +473,19 @@ config.Default.json =
   },
   "login": {
     "username": "edgeuser",
-    "password": "password"
+    "password": "<PASSWORD>"
   },
   "indexMap": {
     "1": "author",
-    "7": "identifiers/@value/@identifierTypeId=\"8261054f-be78-422d-bd51-4ed9f33c3422\"",
     "4": "title",
+    "7": "identifiers/@value/@identifierTypeId=\"8261054f-be78-422d-bd51-4ed9f33c3422\"",
     "12": {
       "cql": "hrid",
       "relation": "==",
-      "omitSortIndexModifiers": ["missing", "case"]
+      "omitSortIndexModifiers": [
+        "missing",
+        "case"
+      ]
     },
     "21": "subject",
     "1016": "author,title,hrid,subject"
@@ -448,7 +496,10 @@ config.Default.json =
   "marcHoldings": {
     "restrictToItem": 0,
     "field": "952",
-    "indicators": [" ", " "],
+    "indicators": [
+      " ",
+      " "
+    ],
     "holdingsElements": {
       "t": "copyNumber"
     },
@@ -471,13 +522,41 @@ config.Default.json =
         "replacement": "[$1]",
         "flags": "g"
       },
-      "245$a": [{
-          "op": "stripDiacritics"
+      "245$a": [
+        {
+          "op": "regsub",
+          "pattern": "[áäâàã]",
+          "replacement": "a*",
+          "flags": "g"
         },
         {
           "op": "regsub",
-          "pattern": "[abc]",
-          "replacement": "*",
+          "pattern": "[éèêë]",
+          "replacement": "e*",
+          "flags": "g"
+        },
+        {
+          "op": "regsub",
+          "pattern": "[íìîï]",
+          "replacement": "i*",
+          "flags": "g"
+        },
+        {
+          "op": "regsub",
+          "pattern": "[óòôöõ]",
+          "replacement": "o*",
+          "flags": "g"
+        },
+        {
+          "op": "regsub",
+          "pattern": "[úùûü]",
+          "replacement": "u*",
+          "flags": "g"
+        },
+        {
+          "op": "regsub",
+          "pattern": "[ýÿŷ]",
+          "replacement": "y*",
           "flags": "g"
         }
       ]
@@ -495,16 +574,19 @@ config.tamu.json =
   },
   "login": {
     "username": "edgeuser",
-    "password": "password"
+    "password": "<PASSWORD>"
   },
   "indexMap": {
     "1": "author",
-    "7": "identifiers/@value/@identifierTypeId=\"8261054f-be78-422d-bd51-4ed9f33c3422\"",
     "4": "title",
+    "7": "identifiers/@value/@identifierTypeId=\"8261054f-be78-422d-bd51-4ed9f33c3422\"",
     "12": {
       "cql": "hrid",
       "relation": "==",
-      "omitSortIndexModifiers": ["missing", "case"]
+      "omitSortIndexModifiers": [
+        "missing",
+        "case"
+      ]
     },
     "21": "subject",
     "1016": "author,title,hrid,subject"
@@ -515,7 +597,10 @@ config.tamu.json =
   "marcHoldings": {
     "restrictToItem": 0,
     "field": "952",
-    "indicators": [" ", " "],
+    "indicators": [
+      " ",
+      " "
+    ],
     "holdingsElements": {
       "t": "copyNumber"
     },
@@ -538,13 +623,41 @@ config.tamu.json =
         "replacement": "[$1]",
         "flags": "g"
       },
-      "245$a": [{
-          "op": "stripDiacritics"
+      "245$a": [
+        {
+          "op": "regsub",
+          "pattern": "[áäâàã]",
+          "replacement": "a*",
+          "flags": "g"
         },
         {
           "op": "regsub",
-          "pattern": "[abc]",
-          "replacement": "*",
+          "pattern": "[éèêë]",
+          "replacement": "e*",
+          "flags": "g"
+        },
+        {
+          "op": "regsub",
+          "pattern": "[íìîï]",
+          "replacement": "i*",
+          "flags": "g"
+        },
+        {
+          "op": "regsub",
+          "pattern": "[óòôöõ]",
+          "replacement": "o*",
+          "flags": "g"
+        },
+        {
+          "op": "regsub",
+          "pattern": "[úùûü]",
+          "replacement": "u*",
+          "flags": "g"
+        },
+        {
+          "op": "regsub",
+          "pattern": "[ýÿŷ]",
+          "replacement": "y*",
           "flags": "g"
         }
       ]
@@ -648,16 +761,19 @@ CREATE EXTENSION IF NOT EXISTS pg_stat_statements;
 \set ldp_config_user `echo "$LDP_CONFIG_USER"`
 \set ldp_report_user `echo "$LDP_REPORT_USER"`
 \set ldp_ro_user `echo "$LDP_RO_USER"`
+\set ldp_rw_user `echo "$LDP_RW_USER"`
 
 ALTER DATABASE "PG_DATABASE" OWNER TO "PG_USER";
 CREATE USER :ldp_config_user LOGIN;
-ALTER USER :ldp_config_user PASSWORD 'password';
+ALTER USER :ldp_config_user PASSWORD '<PASSWORD>';
 CREATE USER :ldp_user LOGIN;
-ALTER USER :ldp_user PASSWORD 'password';
+ALTER USER :ldp_user PASSWORD '<PASSWORD>';
 CREATE USER :ldp_report_user LOGIN;
-ALTER USER :ldp_report_user PASSWORD 'password';
+ALTER USER :ldp_report_user PASSWORD '<PASSWORD>';
 CREATE USER :ldp_ro_user LOGIN;
-ALTER USER :ldp_ro_user PASSWORD 'password';
+ALTER USER :ldp_ro_user PASSWORD '<PASSWORD>';
+CREATE USER :ldp_rw_user LOGIN;
+ALTER USER :ldp_rw_user PASSWORD '<PASSWORD>';
 
 \c "PG_DATABASE" postgres
 
@@ -684,7 +800,7 @@ GRANT USAGE ON SCHEMA public TO :ldp_user;
 OKAPI_URL = http://okapi:9130<br/>
 REF_DATA = true<br/>
 SAMPLE_DATA = false<br/>
-SUPER_PSSWD = password<br/>
+SUPER_PSSWD = <PASSWORD><br/>
 SUPER_USR = superuser<br/>
 TENANT_ID = supertenant
 
@@ -697,7 +813,7 @@ ACS_TENANT_CONFIG =
 ADMIN_PASSWORD = admin<br/>
 ADMIN_USER = tamu_admin<br/>
 EMAIL_FROM = `folio_admin@tamu.org`<br/>
-EMAIL_PASSWORD = password<br/>
+EMAIL_PASSWORD = <PASSWORD><br/>
 EMAIL_SMTP_HOST = tamu.org<br/>
 EMAIL_SMTP_LOGIN_OPTION = DISABLED<br/>
 EMAIL_SMTP_PORT = 25<br/>
@@ -714,32 +830,32 @@ REGISTRY_URL = `http://okapi:9130/_/proxy/modules`<br/>
 SAMPLE_DATA = false<br/>
 SELF_CHECKOUT_CONFIG =
 ```
-{\"timeoutPeriod\": 30,\"retriesAllowed\": 3,\"terminalDelimeter\" : \"\\r\",\"fieldDelimeter\" : \"|\",\"errorDetectionEnabled\" : true,\"charset\" : \"UTF8\",\"SCtimeZone\" : \"EDT\",\"checkinOk\": true,\"checkoutOk\": true,\"acsRenewalPolicy\": false,\"maxPrintWidth\" : 200,\"libraryName\": \"evans\",\"terminalLocation\": \"3b80cfdf-438b-48c1-aadc-57965a0d7680\"}
+{\"timeoutPeriod\": 30,\"retriesAllowed\": 3,\"terminalDelimeter\" : \"\\r\",\"fieldDelimeter\" : \"|\",\"errorDetectionEnabled\" : true,\"charset\" : \"UTF8\",\"SCtimeZone\" : \"EDT\",\"checkinOk\": true,\"checkoutOk\": true,\"acsRenewalPolicy\": false,\"maxPrintWidth\" : 200,\"libraryName\": \"evans\",\"terminalLocation\": \"<TAMU_UUID>\"}
 ```
-SERVICE_POINT = 3b80cfdf-438b-48c1-aadc-57965a0d7680<br/>
+SERVICE_POINT = <TAMU_UUID><br/>
 TENANT_DESC = Texas A&M University Libraries<br/>
 TENANT_ID = tamu<br/>
 TENANT_NAME = TAMU Libraries<br/>
 X_OKAPI_TOKEN = token
 
 #### x-okapi-token Secret Key-Value pairs:
-NOTE: You won’t need this until after the FOLIO system is up, but before you secure Okapi. Log in to the FOLIO system via the UI, go to *Settings - Developer - Set Token* and copy it out from there.<br/>
+NOTE: You won’t need this until after the FOLIO system is up, but before you secure Okapi. Log in to the FOLIO System via the GUI, go to *Settings - Developer - Set Token* and copy it out from there.<br/>
 
 X_OKAPI_TOKEN = `<Authentication token from Okapi>`
 
 ### Okapi Notes:
 
 -Running in *clustered* mode.<br/>
--Hazelcast in Kubernetes requires editing the hazelcast.xml file included with the Okapi repo before you build the Docker container, and setting your Folio namespace and service-name under:
+-Hazelcast in rnetes requires editing the hazelcast.xml file included with the Okapi repo before you build the Docker container, and setting your FOLIO namespace and service-name under:
 ```
-<kubernetes enabled="true">
+<rnetes enabled="true">
                 <namespace>folio-prod</namespace>
                 <service-name>okapi</service-name>
                 <!--
                 <service-label-name>MY-SERVICE-LABEL-NAME</service-label-name>
                 <service-label-value>MY-SERVICE-LABEL-VALUE</service-label-value>
                 -->
-            </kubernetes>
+            </rnetes>
 ```
 -After a single Okapi pod has been initialized, edit and set Okapi's Workload environment variable for InitDB to false, and it will respin up for future pod scalability with data persistence.<br/>
 -After initially spinning up one Okapi pod, then doing the InitDB variable switch above, execute the deployment K8s Jobs to deploy the FOLIO tenants and modules.<br/>
@@ -748,7 +864,7 @@ X_OKAPI_TOKEN = `<Authentication token from Okapi>`
 
 #### Configuration and observations for containerized Okapi:
 
--Built using Tamu's Dockerfile vs the FOLIO-org Dockerhub artifact, as it provides us with a bit more flexibility when running (defined environment variables easily allow ability to pass hazelcast config, and to initialize the database or not on startup).<br/>
+-Built using Tamu's Dockerfile vs the FOLIO org's Dockerhub artifact, as it provides us with a bit more flexibility when running (defined environment variables easily allow ability to pass hazelcast config, and to initialize the database or not on startup).<br/>
 -For minimal HA we run as a single cluster of 3 containers per FOLIO instance, at an odd number of members so a quorum is established (3, 5, 7, etc). You can run as a single node cluster, but you lose the benefits of multiple Okapis providing redundancy and the overhead that allows you for handling multiple, simultaneous and large requests<br/>
 -The Okapi cluster is spawned from a single Workload as a K8s statefulset deployment, then scaled out. This is done to allow Okapi nodes to have consistent names, to handle upgrading members on-the-fly, and to facilitate scaling up and down with more consistency and stability.<br/>
 -As stated above, we define in the hazelcast.xml config file a unique group name, namespace, and the service name of the deployment in K8s.<br/>
@@ -772,12 +888,12 @@ HAZELCAST_PORT = 5701<br/>
 HAZELCAST_IP = $(OKAPI_SERVICE_HOST)<br/>
 HAZELCAST_FILE = /hazelcast/hazelcast.xml<br/>
 
-### Crunchy-Postgres in Kubernetes/Rancher Notes:
+### Crunchy-Postgres in rnetes/Rancher Notes:
 
--Currently testing out crunchy-postgres Kubernetes solution.<br/>
--Running as a Kubernetes *Stateful Set*, with one primary and two replica pods. Replica pods are read-only.<br/>
+-Currently using crunchy-postgres rnetes solution in Dev/Test.<br/>
+-Running as a rnetes *Stateful Set*, with one primary and two replica pods. Replica pods are read-only.<br/>
 -Using *Persistent Volume Claims* for Rancher FOLIO Project, provisioned with vSphere Storage Class.<br/>
--Not sure if we would run like this in Production yet, as we haven't load tested it. It is a possibility for those looking for a complete Rancher/Kubernetes/Container solution, and being actively developed.<br/>
+-Not sure if we would run like this in Production yet, as we haven't load tested it. It is a possibility for those looking for a complete Rancher/rnetes/Container solution, and being actively developed.<br/>
 -Volumes for persistent data as well as SQL execution need to be added to the pg-folio and pg-okapi *statefulset* Workloads:<br/>
 
 Volume Name: pgdata<br/>
@@ -836,7 +952,7 @@ MAX_WAL_SENDERS = 3<br/>
 -One URL is for proxying front-end Stripes and the other is for proxying Okapi traffic.<br/>
 -The Okapi traffic URL is the URL used when building Stripes.<br/>
 -When setting up Load Balancing/Ingress, target the Service name instead of Workload name if you have specific ports you have set in the Workload.<br/>
--For Okapi HA ingress, I have Okapi Service as the target at port 9130, with root path, `/` and `/_/` for the hostname folio-okapi.org<br/>
+-For Okapi HA ingress, I have Okapi Service as the target at port 9130, with root path, `/` and `/_/` for the hostname folio-okapi.tamu.org<br/>
 
 -To have default Rancher 2.x Nginx ingress be a little smarter about DNS round-robin, and larger chunks of data, add annotations in Rancher GUI under Service Discovery:<br/>
 
@@ -890,17 +1006,17 @@ curl -w '\n' -X POST -D - -H "Content-type: application/json" -d @enable-docker.
 
 #### Re-index Elasticsearch with Okapi request:
 ```
-curl -w '\n' -D - -X POST $OKAPI_URL/search/index/inventory/reindex -H "X-Okapi-Tenant: tamu" -H "Content-Type: application/json" -H "X-Okapi-Token: <OKAPI_TOKEN>" -d '{"recreateIndex": true}'
+curl -w '\n' -D - -X POST $OKAPI_URL/search/index/inventory/reindex -H "X-Okapi-Tenant: tamu" -H "Content-Type: application/json" -H "X-Okapi-Token: <Okapi Token>" -d '{"recreateIndex": true}'
 ```
 
 #### Get an Elasticsearch job ID with Okapi request:
 ```
-curl -w '\n' -D - -X GET -H "X-Okapi-Tenant: tamu" -H "X-Okapi-Token: <OKAPI_TOKEN>" $OKAPI_URL/search/index/inventory/reindex
+curl -w '\n' -D - -X GET -H "X-Okapi-Tenant: tamu" -H "X-Okapi-Token: <Okapi Token>" $OKAPI_URL/search/index/inventory/reindex
 ```
 
 #### Monitor an Elasticsearch job with Okapi request:
 ```
-curl -w '\n' -D - -X GET -H "X-Okapi-Tenant: tamu" -H "X-Okapi-Token: <OKAPI_TOKEN>" $OKAPI_URL/instance-storage/reindex/<REINDEX_JOB_ID>
+curl -w '\n' -D - -X GET -H "X-Okapi-Tenant: tamu" -H "X-Okapi-Token: <Okapi Token>" $OKAPI_URL/instance-storage/reindex/<reindex job id>
 ```
 
 #### Patch a timer job with Okapi request:
@@ -933,22 +1049,27 @@ curl -w '\n' -D - -X POST -H "Content-type: application/json" -H "X-Okapi-Token:
 curl -i -w '\n' -X GET -H "X-Okapi-Tenant: tamu" -H "X-Okapi-Token: <OKAPI_TOKEN>" http://okapi:9130/email?limit=1000
 ```
 
-#### Front-end FOLIO-CI repo:
+#### Expire a stuck Data Export Job:
+```
+curl -L -X POST http://okapi:9130/data-export/expire-jobs -H "X-Okapi-Tenant: tamu" -H "Content-Type: application/json" -H "X-Okapi-Token: <OKAPI_TOKEN>" --data-raw ''
+```
+
+#### Front-end FOLIO CI repo:
 https://repository.folio.org/#browse/welcome
 
-#### Indexdata Okapi module registry:
+#### Index Data Okapi module registry:
 http://folio-registry.aws.indexdata.com/_/proxy/modules
 
 #### Database export example:
-```psql -U postgres -h pg-folio -w -d okapi_modules --command "SELECT * FROM tamu_mod_inventory_storage.item;" > /pgdata/folio-prod/items```
+```psql -U postgres -h pg-folio -w -d okapi_modules --command "SELECT * FROM tamu_mod_inventory_storage.item;" > /pgdata/export/items```
 
 #### Database number of module connections:
-```SELECT count(*) FROM pg_stat_activity WHERE usename = 'tenantId_mod_whatever';```
+```SELECT count(*) FROM pg_stat_activity WHERE usename = '<TENANT_MOD_NAME>';```
 
 #### Database number of Okapi connections:
 ```SELECT count(*) FROM pg_stat_activity WHERE usename = 'okapi';```
 
-#### Database commands to remove conditions causing Patron block, and the block itself:
+#### Database commands to remove conditions causing a Patron block, and the block itself:
 ```DELETE FROM tamu_mod_circulation_storage.audit_loan WHERE jsonb -> 'loan' ->> 'userId' = '<USER_UUID>' AND jsonb -> 'loan' -> 'status' ->> 'name' = 'Open' and id NOT IN (SELECT id from tamu_mod_circulation_storage.loan where jsonb -> 'status' ->> 'name' = 'Open' and jsonb ->> 'userId' = '<USER_UUID>');```
 
 ```DELETE FROM tamu_mod_patron_blocks.user_summary WHERE jsonb ->> 'userId' = '<USER_UUID>';```
