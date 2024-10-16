@@ -8,14 +8,19 @@ All YAML assumes you are deploying in a namespace called `folio-prod`, Okapi is 
 `db-connect-okapi`<br/>
 `edge-securestore-props`<br/>
 `data-export-aws-config`<br/>
+`data-export-spring`<br/>
 `mod-graphql`<br/>
 `mod-pubsub`<br/>
+`mod-remote-storage`<br/>
 `mod-search`<br/>
+`mod-z3950`
 
-### Kubernetes ConfigMaps needed for configuring SIP2 modules:
+### Kubernetes ConfigMaps needed for configuring SIP2 modules and Hazelcast:
 
 `sip2-conf`<br/>
-`sip2-tenants-conf`
+`sip2-tenants-conf`<br/>
+`erm-hazelcast-config`<br/>
+`okapi-hazelcast-config`<br/>
 
 ### Kubernetes PV/PVCs needed for configuring mod-data-import/export modules to share cache space:
 
@@ -44,11 +49,21 @@ imagePullSecrets:
 -Deploys a StatefulSet of 3 clustered Okapi pods in the namespace you import to.<br/>
 -Once imported, you can edit the default values in the `db-connect-okapi` Secret to match your environment.
 
-### Importing folio-prod-workloads.yaml into the folio-prod namespace does the following:
+### Importing folio-<release>workloads.yaml into the folio-prod namespace does the following:
 
--Deploys 71 Workloads representing the FOLIO back-end, pulls the FOLIO org's Docker containers for each.<br/>
--Creates the 71 Workload's Service Discovery/DNS Records for Rancher to use.<br/>
+-Deploys 73 Workloads representing the FOLIO back-end, pulls the FOLIO org Docker containers for each.<br/>
+-Creates the 73 Workload's Service Discovery/DNS Records for Rancher to use.<br/>
 -Those Workloads that connect to storage will be deployed as StatefulSets, one pod each.<br/>
 -The edge-sip2 Workload gets deployed as a DaemonSet, one pod on every K8s worker node. It also exposes hostport on 7052.<br/>
 -The mod-z3950 Workload gets deployed as a DaemonSet, one pod on every K8s worker node. It also exposes hostport on 7090.<br/>
 -All other Workloads are deployed as scaleable Deployments, one pod each.
+
+### LDP Deployment YAML:
+
+I have exported the deployment YAML of each LDP K8s cron job and Workload directly to a file to save its configuration state as:
+* orchid-ldp-data-update-deployment.yaml
+* orchid-ldp-derived-tables-deployment.yaml
+* orchid-ldp-marc-data-update-deployment.yaml
+* orchid-ldp-server-deployment.yaml<br/>
+
+Each of these require the appropriate secrets and volume mounts defined within to exist prior to deployment. More info on how the LDP is deployed can be found [HERE](https://github.com/folio-org/folio-install/blob/master/alternative-install/kubernetes-rancher/TAMU/LDP_Notes.md)
