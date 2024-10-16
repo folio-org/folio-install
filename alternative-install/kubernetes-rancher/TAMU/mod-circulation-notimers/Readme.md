@@ -1,4 +1,4 @@
-### For speedy Folio loans migration via the API, it is necessary to disable the timer interface for mod-circulation.
+### For speedy FOLIO loans migration via the API, it is necessary to disable the timer interface for mod-circulation.
 
 To do this:
 
