@@ -1,4 +1,4 @@
-# Cloning a Folio Tenant
+# Cloning a FOLIO Tenant
 
 It turns out that as long as the module database FOLIO admin role and the tenant IDs are the same, it's fairly trivial to clone a tenant from one FOLIO instance to another using `pg_dump` and `pg_restore`. This procedure can also be used for backup/restore.
 
@@ -81,6 +81,6 @@ curl -w '\n' -D - -X POST http://okapi:9130/search/index/inventory/reindex -H "X
 
 * mod-ldp stores data in a single table in the `public` schema. Manual extraction and insertion is probably the best option, unfortunately.
 
-* The target Folio instance *Settings - Tenant - SSO settings - Identity Provider UR*L configuration may need to be updated if the environment you're cloning to is for staging/testing.
+* The target FOLIO instance *Settings - Tenant - SSO settings - Identity Provider UR*L configuration may need to be updated if the environment you're cloning to is for staging/testing.
 
-* The target Folio instance *Settings - OAI-PMH - General - Base URL* configuration will need to be updated to reflect the edge URL for that instance.
+* The target FOLIO instance *Settings - OAI-PMH - General - Base URL* configuration will need to be updated to reflect the edge URL for that instance.
