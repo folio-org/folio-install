@@ -52,7 +52,7 @@ TLS security mode for the connection. Examples are `NONE`, `OPTIONAL` or `REQUIR
 
 ### SERVICE_POINT
 
-UUID of the service point in Folio you wish to set for SIP2.
+UUID of the service point in FOLIO you wish to set for SIP2.
 
 ### SELF_CHECKOUT_CONFIG
 
@@ -76,4 +76,4 @@ Okapi Token for your tenant. Defaults to `foo`.
 
 ### FOLIO_HOST
 
-Folio URL for your tenant. Defaults to `http://localhost:3000`.
+FOLIO URL for your tenant. Defaults to `http://localhost:3000`.

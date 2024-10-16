@@ -7,7 +7,9 @@ echo Setting schema access for reporting user.
 
 # Alter schema for ldpreport user
 psql -U $PG_USER -h $DB_HOST -d $PG_DATABASE -w --command "GRANT SELECT ON ALL TABLES IN SCHEMA public TO ldpreport;" &&\
-psql -U $PG_USER -h $DB_HOST -d $PG_DATABASE -w --command "ALTER SCHEMA folio_reporting OWNER TO ldpadmin;"
+psql -U $PG_USER -h $DB_HOST -d $PG_DATABASE -w --command "ALTER SCHEMA folio_reporting OWNER TO ldpadmin;" &&\
+psql -U $PG_USER -h $DB_HOST -d $PG_DATABASE -w --command "ALTER SCHEMA mis OWNER TO ldpadmin;" &&\
+psql -U $PG_USER -h $DB_HOST -d $PG_DATABASE -w --command "REASSIGN OWNED BY rw_ldp_mis_user TO ldpadmin;"
 
 # Change directories to run derived table code
 cd /usr/local/bin/ldp/sql/derived_tables
@@ -22,7 +24,7 @@ for f in $( cat runlist.txt ); do
     echo >> logfile
     cat $f > tmpfile
     echo "GRANT SELECT ON ALL TABLES IN SCHEMA folio_reporting TO ldp;" >> tmpfile
-    psql -U $PG_USER -h $DB_HOST -d $PG_DATABASE -a -f tmpfile >> logfile 2>&1
+    psql -U $PG_USER -h $DB_HOST -d $PG_DATABASE -a -c 'set search_path = folio_reporting, public' -f tmpfile >> logfile 2>&1
 done
 
 echo Setting schema access for all other users.
@@ -37,18 +39,38 @@ psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "GRANT SELECT ON ALL T
 psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "GRANT SELECT ON ALL TABLES IN SCHEMA public TO ro_ldp_user;" &&\
 psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "GRANT SELECT ON ALL TABLES IN SCHEMA history TO ro_ldp_user;" &&\
 psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "ALTER DEFAULT PRIVILEGES IN SCHEMA mis GRANT SELECT ON TABLES TO ro_ldp_user;" &&\
+psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "ALTER DEFAULT PRIVILEGES IN SCHEMA folio_reporting GRANT SELECT ON TABLES TO ro_ldp_user;" &&\
+psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO ro_ldp_user;" &&\
+psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "ALTER DEFAULT PRIVILEGES IN SCHEMA history GRANT SELECT ON TABLES TO ro_ldp_user;" &&\
 psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "GRANT USAGE ON SCHEMA mis TO ldpreport;" &&\
 psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "GRANT USAGE ON SCHEMA folio_reporting TO ldpreport;" &&\
 psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "GRANT USAGE ON SCHEMA public TO ldpreport;" &&\
 psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "GRANT USAGE ON SCHEMA history TO ldpreport;" &&\
-psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "GRANT SELECT ON ALL TABLES IN SCHEMA mis TO ldpreport;" &&\
+psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "GRANT SELECT, INSERT, UPDATE, TRUNCATE, DELETE ON ALL TABLES IN SCHEMA mis TO ldpreport;" &&\
 psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "GRANT SELECT ON ALL TABLES IN SCHEMA folio_reporting TO ldpreport;" &&\
 psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "GRANT SELECT ON ALL TABLES IN SCHEMA public TO ldpreport;" &&\
 psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "GRANT SELECT ON ALL TABLES IN SCHEMA history TO ldpreport;" &&\
-psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "ALTER DEFAULT PRIVILEGES IN SCHEMA mis GRANT SELECT ON TABLES TO ldpreport;" &&\
+psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "GRANT CREATE ON SCHEMA mis TO ldpreport;" &&\
+psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "ALTER DEFAULT PRIVILEGES IN SCHEMA mis GRANT SELECT, INSERT, UPDATE, TRUNCATE, DELETE ON TABLES TO ldpreport;" &&\
+psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "ALTER DEFAULT PRIVILEGES IN SCHEMA folio_reporting GRANT SELECT ON TABLES TO ldpreport;" &&\
+psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO ldpreport;" &&\
+psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "ALTER DEFAULT PRIVILEGES IN SCHEMA history GRANT SELECT ON TABLES TO ldpreport;" &&\
 psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "GRANT USAGE ON SCHEMA public TO ldp;" &&\
 psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "GRANT SELECT ON ALL TABLES IN SCHEMA public TO ldp;" &&\
-psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO ldp;"
+psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO ldp;" &&\
+psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "GRANT USAGE ON SCHEMA mis TO rw_ldp_mis_user;" &&\
+psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "GRANT USAGE ON SCHEMA folio_reporting TO rw_ldp_mis_user;" &&\
+psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "GRANT USAGE ON SCHEMA public TO rw_ldp_mis_user;" &&\
+psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "GRANT USAGE ON SCHEMA history TO rw_ldp_mis_user;" &&\
+psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "GRANT SELECT, INSERT, UPDATE, TRUNCATE, DELETE ON ALL TABLES IN SCHEMA mis TO rw_ldp_mis_user;" &&\
+psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "GRANT SELECT ON ALL TABLES IN SCHEMA folio_reporting TO rw_ldp_mis_user;" &&\
+psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "GRANT SELECT ON ALL TABLES IN SCHEMA public TO rw_ldp_mis_user;" &&\
+psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "GRANT SELECT ON ALL TABLES IN SCHEMA history TO rw_ldp_mis_user;" &&\
+psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "GRANT CREATE ON SCHEMA mis TO rw_ldp_mis_user;" &&\
+psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "ALTER DEFAULT PRIVILEGES IN SCHEMA mis GRANT SELECT, INSERT, UPDATE, TRUNCATE, DELETE ON TABLES TO rw_ldp_mis_user;" &&\
+psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "ALTER DEFAULT PRIVILEGES IN SCHEMA folio_reporting GRANT SELECT ON TABLES TO rw_ldp_mis_user;" &&\
+psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO rw_ldp_mis_user;" &&\
+psql -U ldpadmin -h $DB_HOST -d $PG_DATABASE -w --command "ALTER DEFAULT PRIVILEGES IN SCHEMA history GRANT SELECT ON TABLES TO rw_ldp_mis_user;"
 
 echo Running item history update...
 

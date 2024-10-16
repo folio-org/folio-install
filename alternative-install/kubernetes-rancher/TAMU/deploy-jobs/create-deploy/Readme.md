@@ -8,7 +8,7 @@
 
 ### What to deploy
 
-Update the included install/stripes-install.json and install/okapi-install.json files with the modules you wish to deploy to your Folio system's Okapi `/_/proxy/tenants/<tenant_id>/install` endpoint. The initial deploy will take some time, as all of the module descriptors are brought into your Okapi's `/_/proxy/modules` endpoint.
+Update the included install/stripes-install.json and install/okapi-install.json files with the modules you wish to deploy to your FOLIO system's Okapi `/_/proxy/tenants/<tenant_id>/install` endpoint. The initial deploy will take some time, as all of the module descriptors are brought into your Okapi's `/_/proxy/modules` endpoint.
 
 ## Environment variables
 

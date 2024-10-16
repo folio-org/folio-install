@@ -129,7 +129,7 @@ https://your.private.registry.org
 ### Setup Kubernetes cluster using Node Templates on vSphere (From within Rancher GUI):
 
 
-1) Add a Cluster -> select vSphere -> enter a cluster name (folio-dev-cluster) -> Next
+1) Add a Cluster -> select vSphere -> enter a cluster name (folio-cluster) -> Next
 2) Set these cluster options:<br/>
   a) Kubernetes Version - v1.18.10-rancher1-2<br/>
   b) Network Provider - Canal<br/>
