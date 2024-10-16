@@ -7,7 +7,7 @@
 * [Stripes Dockerfile Readme](<stripes-tamu/Readme.md>)
 * [bootstrap-superuser Dockerfile Readme](<deploy-jobs/bootstrap-superuser/Readme.md>)
 * [create-deploy Dockerfile Readme](<deploy-jobs/create-deploy/Readme.md>)
-* [create-tenant Dockerfile Readme](<create-tenant/Readme.md>)
+* [create-tenant Dockerfile Readme](<deploy-jobs/create-tenant/Readme.md>)
 * [create-email Dockerfile Readme](<deploy-jobs/create-email/Readme.md>)
 * [secure-okapi Dockerfile Readme](<deploy-jobs/secure-okapi/Readme.md>)
 * [mod-circulation-notimers Readme](<mod-circulation-notimers/Readme.md>)
