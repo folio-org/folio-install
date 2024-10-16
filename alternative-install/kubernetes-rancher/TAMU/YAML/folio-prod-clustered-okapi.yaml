@@ -15,7 +15,7 @@ items:
 - apiVersion: rbac.authorization.k8s.io/v1
   kind: ClusterRoleBinding
   metadata:
-    name: hazelcast-rb-r2-2021
+    name: hazelcast-rb-prod
   roleRef:
     apiGroup: rbac.authorization.k8s.io
     kind: ClusterRole
@@ -23,7 +23,7 @@ items:
   subjects:
   - kind: ServiceAccount
     name: default
-    namespace: folio-r2
+    namespace: folio-prod
 - apiVersion: apps/v1
   kind: StatefulSet
   metadata:
@@ -31,7 +31,7 @@ items:
       field.cattle.io/creatorId: "null"
     labels:
       cattle.io/creator: norman
-      workload.user.cattle.io/workloadselector: statefulSet-folio-r2-okapi
+      workload.user.cattle.io/workloadselector: statefulSet-folio-prod-okapi
     name: okapi
   spec:
     podManagementPolicy: OrderedReady
@@ -39,14 +39,14 @@ items:
     revisionHistoryLimit: 10
     selector:
       matchLabels:
-        workload.user.cattle.io/workloadselector: statefulSet-folio-r2-okapi
+        workload.user.cattle.io/workloadselector: statefulSet-folio-prod-okapi
     serviceName: okapi
     template:
       metadata:
         annotations:
           field.cattle.io/ports: '[[{"containerPort":9130,"dnsName":"okapi-nodeport","kind":"NodePort","name":"9130tcp01","protocol":"TCP","sourcePort":0},{"containerPort":5701,"dnsName":"okapi","kind":"ClusterIP","name":"5701tcp02","protocol":"TCP","sourcePort":0},{"containerPort":5702,"dnsName":"okapi","kind":"ClusterIP","name":"5702tcp02","protocol":"TCP","sourcePort":0},{"containerPort":5703,"dnsName":"okapi","kind":"ClusterIP","name":"5703tcp02","protocol":"TCP","sourcePort":0},{"containerPort":5704,"dnsName":"okapi","kind":"ClusterIP","name":"5704tcp02","protocol":"TCP","sourcePort":0},{"containerPort":54327,"dnsName":"okapi","kind":"ClusterIP","name":"54327tcp02","protocol":"TCP","sourcePort":0},{"containerPort":9130,"dnsName":"okapi","kind":"ClusterIP","name":"9130tcp02","protocol":"TCP","sourcePort":0}]]'
         labels:
-          workload.user.cattle.io/workloadselector: statefulSet-folio-r2-okapi
+          workload.user.cattle.io/workloadselector: statefulSet-folio-prod-okapi
       spec:
         containers:
         - env:
