@@ -74,7 +74,7 @@ Paste in this code:<br/>
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: hazelcast-rb-r2-2021
+  name: hazelcast-rb-prod-2021
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -172,7 +172,7 @@ global.storageClass = "vsphere-datastore"
 image.debug = false       
 ingest.service.port = 9300      
 ingest.service.type = ClusterIP       
-kibana.elasticsearch.hosts = {elasticsearch-r2-es-conn}      
+kibana.elasticsearch.hosts = {elasticsearch-prod-es-conn}      
 kibana.elasticsearch.port = 9200      
 master.heapSize = 512m      
 master.livenessProbe.enabled = false      
@@ -392,7 +392,7 @@ RAML_SKIP =
 ELASTICSEARCH_PASSWORD = <br/>
 ELASTICSEARCH_USERNAME = <br/>
 JAVA_OPTIONS = -XX:MaxRAMPercentage=66.0<br/>
-KAFKA_HOST = `http://kafka-r2`<br/>
+KAFKA_HOST = `http://kafka-prod`<br/>
 KAFKA_PORT = 9092<br/>
 OKAPI_URL = `http://okapi:9130`<br/>
 SYSTEM_USER_NAME = pub-sub<br/>
@@ -402,12 +402,12 @@ SYSTEM_USER_PASSWORD = password
 
 ELASTICSEARCH_PASSWORD = <br/>
 ELASTICSEARCH_USERNAME = <br/>
-ELASTICSEARCH_URL = `http://elasticsearch-r2-es-conn:9200`<br/>
+ELASTICSEARCH_URL = `http://elasticsearch-prod-es-conn:9200`<br/>
 ENV = folio-prod<br/>
 INITIAL_LANGUAGES = eng,spa,fre,ger<br/>
 JAVA_OPTIONS = -XX:MaxRAMPercentage=66.0<br/>
 KAFKA_EVENTS_CONSUMER_PATTERN = `(folio-prod\.)(.*\.)inventory\.(instance|holdings-record|item)`<br/>
-KAFKA_HOST = `http://kafka-r2`<br/>
+KAFKA_HOST = `http://kafka-prod`<br/>
 KAFKA_PORT = 9092<br/>
 KAFKA_SECURITY_PROTOCOL = PLAINTEXT<br/>
 KAFKA_SSL_KEYSTORE_LOCATION = <br/>
