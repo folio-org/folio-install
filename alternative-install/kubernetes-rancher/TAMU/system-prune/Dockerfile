@@ -1,4 +1,4 @@
-FROM docker:17.03.2-ce
+FROM docker:24.0.9
 RUN apk update
 RUN apk add bash
 ENV DELAY_TIME=**None**
