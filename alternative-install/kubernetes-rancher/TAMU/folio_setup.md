@@ -216,7 +216,7 @@ plugins = analysis-icu,analysis-kuromoji,analysis-smartcn,analysis-nori,analysis
     storageClass: "vsphere-csi-datastore"
   ingress: 
     annotations: 
-      nginx.ingress.rnetes.io/proxy-body-size: 2048M
+      nginx.ingress.kubernetes.io/proxy-body-size: 2048M
     enabled: "true"
     hosts: 
       - 
@@ -846,16 +846,16 @@ X_OKAPI_TOKEN = `<OKAPI_TOKEN>`
 ### Okapi Notes:
 
 -Running in *clustered* mode.<br/>
--Hazelcast in rnetes requires editing the hazelcast.xml file included with the Okapi repo before you build the Docker container, and setting your FOLIO namespace and service-name under:
+-Hazelcast in Kubernetes requires editing the hazelcast.xml file included with the Okapi repo before you build the Docker container, and setting your FOLIO namespace and service-name under:
 ```
-<rnetes enabled="true">
+<kubernetes enabled="true">
                 <namespace>folio-prod</namespace>
                 <service-name>okapi</service-name>
                 <!--
                 <service-label-name>MY-SERVICE-LABEL-NAME</service-label-name>
                 <service-label-value>MY-SERVICE-LABEL-VALUE</service-label-value>
                 -->
-            </rnetes>
+            </kubernetes>
 ```
 -After a single Okapi pod has been initialized, edit and set Okapi's Workload environment variable for InitDB to false, and it will respin up for future pod scalability with data persistence.<br/>
 -After initially spinning up one Okapi pod, then doing the InitDB variable switch above, execute the deployment K8s Jobs to deploy the FOLIO tenants and modules.<br/>
@@ -888,12 +888,12 @@ HAZELCAST_PORT = 5701<br/>
 HAZELCAST_IP = $(OKAPI_SERVICE_HOST)<br/>
 HAZELCAST_FILE = /hazelcast/hazelcast.xml<br/>
 
-### Crunchy-Postgres in rnetes/Rancher Notes:
+### Crunchy-Postgres in Kubernetes/Rancher Notes:
 
--Currently using crunchy-postgres rnetes solution in Dev/Test.<br/>
--Running as a rnetes *Stateful Set*, with one primary and two replica pods. Replica pods are read-only.<br/>
+-Currently using crunchy-postgres Kubernetes solution in Dev/Test.<br/>
+-Running as a Kubernetes *Stateful Set*, with one primary and two replica pods. Replica pods are read-only.<br/>
 -Using *Persistent Volume Claims* for Rancher FOLIO Project, provisioned with vSphere Storage Class.<br/>
--Not sure if we would run like this in Production yet, as we haven't load tested it. It is a possibility for those looking for a complete Rancher/rnetes/Container solution, and being actively developed.<br/>
+-Not sure if we would run like this in Production yet, as we haven't load tested it. It is a possibility for those looking for a complete Rancher/Kubernetes/Container solution, and being actively developed.<br/>
 -Volumes for persistent data as well as SQL execution need to be added to the pg-folio and pg-okapi *statefulset* Workloads:<br/>
 
 Volume Name: pgdata<br/>
