@@ -1,12 +1,12 @@
-FROM alpine/git:2.36.3
+FROM alpine/git:latest
 
 #Okapi git clone
 RUN mkdir -p /usr/local/bin/folio
 WORKDIR /usr/local/bin/folio
-RUN git clone -b "v5.0.1" --recursive https://github.com/folio-org/okapi.git
+RUN git clone -b "v6.0.3" --recursive https://github.com/folio-org/okapi.git
 
 #Maven build
-FROM maven:3.8.7-eclipse-temurin-11
+FROM maven:3-eclipse-temurin-17-alpine
 RUN mkdir -p /usr/local/bin/folio
 
 #Copy in files at this build layer
@@ -17,8 +17,8 @@ WORKDIR /usr/local/bin/folio/okapi
 RUN mvn clean install -DskipTests
 
 #OpenJDK Alpine
-FROM alpine:3.17.1
-RUN apk add --no-cache curl openjdk11
+FROM alpine:3
+RUN apk add --no-cache curl openjdk17
 
 #Copy in files at this build layer
 RUN mkdir -p /usr/local/bin/folio
