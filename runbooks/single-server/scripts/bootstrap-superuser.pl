@@ -35,7 +35,7 @@ GetOptions( 'tenant|t=s' => \$tenant,
             'st_token=s' => \$st_token,
             'perms_users_assign' => \$perms_users_assign );
 
-my $ua = LWP::UserAgent->new();
+my $ua = LWP::UserAgent->new(cookie_jar => {});
 
 unless ($only_perms) {
   print "Finding module ID for authtoken...";
@@ -152,15 +152,21 @@ unless ($only_perms) {
 }
 
 unless ($no_perms) {
-  print "Logging in superuser $user...";
+  print "Logging in superuser $user at $okapi/bl-users/login-with-expiry...";
   my $credentials = { username => $user, password => $password };
   my $header = [
                 'Content-Type' => 'application/json',
                 'Accept' => 'application/json, text/plain',
                 'X-Okapi-Tenant' => $tenant
                ];
-  my $req = HTTP::Request->new('POST',"$okapi/bl-users/login",$header,encode_json($credentials));
+  my $req = HTTP::Request->new('POST',"$okapi/bl-users/login-with-expiry",$header,encode_json($credentials));
   my $resp = $ua->request($req);
+  if ($resp->code == 404) {
+    print "404\n";
+    print "Logging in superuser $user at $okapi/bl-users/login...";
+    $req = HTTP::Request->new('POST',"$okapi/bl-users/login",$header,encode_json($credentials));
+    $resp = $ua->request($req);
+  }
   die $resp->status_line . "\n" unless $resp->is_success;
   my $login = decode_json($resp->content);
   my $perms_id = $$login{permissions}{id};
