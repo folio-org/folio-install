@@ -16,6 +16,9 @@ A collection of runbooks for FOLIO installation.
 * [Kubernetes deployment](alternative-install)
 * [Migrating a FOLIO database](runbooks/database-migration)
 
+`alternative-install/kubernetes-rancher/TAMU` for the Orchid (R1-2023) release has been removed because it was outdated.
+It is still in the [git history](https://github.com/folio-org/folio-install/tree/1f6d529dccfedbea7cb71242621fbb53a290233a).
+
 ## Additional information
 
 ### Issue tracker
