@@ -51,19 +51,31 @@ def main():
     enable_module(mod_authtoken_id, okapi_url)
 
     #Log in and print x-okapi-token
-    print("Successfully secured Okapi, logging in...")
+    print("Successfully secured Okapi, logging in at /authn/login-with-expiry")
     payload = json.dumps({
         'username': args.user_name,
         'password': args.password
     }).encode('UTF-8')
 
-    login_headers = okapi_post(okapi_url + '/authn/login', payload, return_headers=True)
+    # Uncomment if supertenant is configured as legacy token tenant in mod-authtoken, use /auth/login endpoint
+    # login_headers = okapi_post(okapi_url + '/authn/login', payload, return_headers=True)
+    # print(json.dumps({
+    #     'username': args.user_name,
+    #     'password': args.password,
+    #     'x-okapi-token': login_headers['x-okapi-token']
+    # }, indent=4))
+    # End uncomment
+
+    # Otherwise, supertenant uses /authn/login-with-expiry endpoint
+    # Comment out if tenant is legacy token tenant
+    login_headers = okapi_post(okapi_url + '/authn/login-with-expiry', payload, return_headers=True)
 
     print(json.dumps({
         'username': args.user_name,
         'password': args.password,
-        'x-okapi-token': login_headers['x-okapi-token']
+        'set-cookie': login_headers['set-cookie']
     }, indent=4))
+    # End comment out
 
 # functions used in main() are defined here
 def parse_command_line_args():
